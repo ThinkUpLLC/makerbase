@@ -1,0 +1,3 @@
+[submodule "webapp/extlibs/isosceles"]
+	path = webapp/extlibs/isosceles
+	url = https://github.com/ginatrapani/isosceles
