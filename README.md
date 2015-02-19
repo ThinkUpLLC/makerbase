@@ -2,6 +2,62 @@
 
 A directory of people who make things
 
+## Requirements
+
+* [Vagrant](https://vagrantup.com)
+* [VirtualBox](https://www.virtualbox.org/)
+* ```vagrant plugin install vagrant-bindfs```
+
+## Install
+
+$ git clone git@github.com:ThinkUpLLC/makerbase.git
+
+$ cd makerbase
+
+$ git submodule init
+
+$ git pull --recurse-submodules
+
+$ git submodule update --recursive
+
+## Usage
+
+Spin up virtual machine: (Note: first run takes awhile)
+
+    $ vagrant up
+
+See Makerbase in your browser:
+
+* http://makerbase.dev/
+
+Note: If makerbase.dev doesn't resolve, make sure the following line is in your host computer's /etc/hosts file:
+
+    192.168.56.101 default makerbase.dev www.makerbase.dev
+
+Adminer database admin:
+
+* http://192.168.56.101/adminer/
+* makerbase / nice2bnice
+
+MailCatcher
+
+* http://192.168.56.101:1080/
+
+SSH in:
+
+    $ vagrant ssh
+
+Destroy virtual machine:
+
+    $ vagrant destroy
+
+Note:  This does not delete setup files or the contents of the default directory.
+
+## Modify
+
+This Vagrant virtual machine was built with [PuPHPet](http://puphpet.com). To modify it for your own purposes, drag and drop puphpet/config.yaml onto (http://puphpet.com) and regenerate.
+
+
 ## Elasticsearch Cheatsheet
 
 Restart node:
