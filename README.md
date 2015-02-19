@@ -10,15 +10,13 @@ A directory of people who make things
 
 ## Install
 
-$ git clone git@github.com:ThinkUpLLC/makerbase.git
+    $ git clone git@github.com:ThinkUpLLC/makerbase.git
 
-$ cd makerbase
+    $ cd makerbase
 
-$ git submodule init
+    $ git submodule init
 
-$ git pull --recurse-submodules
-
-$ git submodule update --recursive
+    $ git submodule update --recursive
 
 ## Usage
 
