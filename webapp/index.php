@@ -3,9 +3,9 @@ require_once 'extlibs/isosceles/libs/model/class.Loader.php';
 Loader::register(array(
 // dirname(__FILE__).'/libs/',
 'libs/model/',
-'libs/controller/'
-// dirname(__FILE__).'/libs/dao/',
-// dirname(__FILE__).'/libs/exceptions/'
+'libs/controller/',
+'libs/dao/',
+'libs/exceptions/'
 ));
 
 $router = new Router();
