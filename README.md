@@ -18,24 +18,7 @@ JDBC plugin for Elasticsearch https://github.com/jprante/elasticsearch-river-jdb
 
 Elasticsearch Library for PHP (included) https://github.com/elasticsearch/elasticsearch-php
 
-### Install JDBC plugin for Elasticsearch
-
-cd /usr/share/elasticsearch
-
-sudo ./bin/plugin --install jdbc --url http://xbib.org/repository/org/xbib/elasticsearch/plugin/elasticsearch-river-jdbc/1.4.0.9/elasticsearch-river-jdbc-1.4.0.9-plugin.zip
-
-sudo curl -o mysql-connector-java-5.1.33.zip -L 'http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.33.zip/from/http://cdn.mysql.com/'
-
-sudo unzip mysql-connector-java-5.1.33.zip
-
-sudo cp mysql-connector-java-5.1.33/mysql-connector-java-5.1.33-bin.jar plugins/jdbc/
-
-sudo chmod 664 plugins/jdbc/*
-
-sudo /etc/init.d/elasticsearch restart
-
-
-#### Test JDBC plugin for Elasticsearch
+#### Create maker and product indices for Elasticsearch
 
 curl -XPUT 'localhost:9200/_river/my_jdbc_river_makers/_meta' -d '{
     "type" : "jdbc",
@@ -61,10 +44,14 @@ curl -XPUT 'localhost:9200/_river/my_jdbc_river_products/_meta' -d '{
     }
 }'
 
+### Test indices
+
 curl 'localhost:9200/maker_index/_search?pretty'
 
 curl 'localhost:9200/product_index/_search?pretty'
 
 curl 'localhost:9200/_cat/indices?v'
+
+### Delete JDBC river
 
 curl -XDELETE 'localhost:9200/_river/my_jdbc_river/'
