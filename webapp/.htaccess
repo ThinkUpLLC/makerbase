@@ -1,0 +1,14 @@
+RewriteEngine On
+
+# Enable URL routing
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L]
+
+# Test rewriting
+# RewriteRule ^test\.html http://www.google.com/? [R=301,L]
+
+# AuthType Basic
+# AuthUserFile /var/www/.htpasswd
+# AuthName "Oh hello"
+# require valid-user

@@ -1,4 +1,3 @@
-
 .vagrant/*
 
 default/adminer/index.php
@@ -17,3 +16,4 @@ puphpet/files/dot/ssh/root_id_rsa.ppk
 
 puphpet/files/dot/ssh/root_id_rsa.pub
 
+data/
