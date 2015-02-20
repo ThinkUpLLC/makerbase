@@ -1,14 +1,3 @@
-# Copy Isosceles config file
-cp /var/www/puphpet/files/makerbase-setup/configs/config.inc.php /var/www/webapp/extlibs/isosceles/libs/config.inc.php
-
-# Make data dir and set perms
-mkdir /home/vagrant/data
-
-chown -R www-data /home/vagrant/data/
-
-# Load sample data
-mysql -u makerbase -pnice2bnice -D makerbase_web < /var/www/sql/sample-data/sample-data.sql
-
 # Set up Elasticsearch
 # Switch to home dir
 cd /usr/share/elasticsearch
@@ -28,8 +17,19 @@ chmod 664 plugins/jdbc/*
 # Restart Elasticsearch
 /etc/init.d/elasticsearch restart
 
-# Give Elasticsearch 5 seconds to start up
-sleep 5
+# Give Elasticsearch 10 seconds to start up
+sleep 10
+
+# Copy Isosceles config file
+cp /var/www/puphpet/files/makerbase-setup/configs/config.inc.php /var/www/webapp/extlibs/isosceles/libs/config.inc.php
+
+# Make data dir and set perms
+mkdir /home/vagrant/data
+
+chown -R www-data /home/vagrant/data/
+
+# Load sample data
+mysql -u makerbase -pnice2bnice -D makerbase_web < /var/www/sql/sample-data/sample-data.sql
 
 # Create makers index in Elasticsearch
 curl -XPUT 'localhost:9200/_river/my_jdbc_river_makers/_meta' -d '{
