@@ -81,29 +81,29 @@ Elasticsearch Library for PHP (included) https://github.com/elasticsearch/elasti
 
 #### Create maker and product indices for Elasticsearch
 
-curl -XPUT 'localhost:9200/_river/my_jdbc_river_makers/_meta' -d '{
-    "type" : "jdbc",
-    "jdbc" : {
-        "url" : "jdbc:mysql://localhost:3306/makerbase_web",
-        "user" : "makerbase",
-        "password" : "nice2bnice",
-        "sql" : "select * from makers",
-        "index" : "maker_index",
-        "type" : "maker_type"
-    }
-}'
+    curl -XPUT 'localhost:9200/_river/my_jdbc_river_makers/_meta' -d '{
+        "type" : "jdbc",
+        "jdbc" : {
+            "url" : "jdbc:mysql://localhost:3306/makerbase_web",
+            "user" : "makerbase",
+            "password" : "nice2bnice",
+            "sql" : "select * from makers",
+            "index" : "maker_index",
+            "type" : "maker_type"
+        }
+    }'
 
-curl -XPUT 'localhost:9200/_river/my_jdbc_river_products/_meta' -d '{
-    "type" : "jdbc",
-    "jdbc" : {
-        "url" : "jdbc:mysql://localhost:3306/makerbase_web",
-        "user" : "makerbase",
-        "password" : "nice2bnice",
-        "sql" : "select * from products",
-        "index" : "product_index",
-        "type" : "product_type"
-    }
-}'
+    curl -XPUT 'localhost:9200/_river/my_jdbc_river_products/_meta' -d '{
+        "type" : "jdbc",
+        "jdbc" : {
+            "url" : "jdbc:mysql://localhost:3306/makerbase_web",
+            "user" : "makerbase",
+            "password" : "nice2bnice",
+            "sql" : "select * from products",
+            "index" : "product_index",
+            "type" : "product_type"
+        }
+    }'
 
 ### Test indices
 
@@ -116,3 +116,8 @@ curl 'localhost:9200/_cat/indices?v'
 ### Delete JDBC river
 
 curl -XDELETE 'localhost:9200/_river/my_jdbc_river/'
+
+## Update Isosceles
+
+    $ cd isosceles; git pull origin master; cd ..
+    $ git add isosceles; git commit -m "Isosceles submodule updated"
