@@ -32,6 +32,7 @@ class Role {
             if (isset($this->end)) {
                 $this->years = date_format(date_create($this->end), 'Y')
                     - date_format(date_create($this->start), 'Y');
+                $this->end_MY = date_format(date_create($this->end), 'M Y');
             }
         }
     }

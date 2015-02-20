@@ -13,7 +13,7 @@
 		<li class="list-group-item">
 			<span class="badge">{if isset($role->years) && $role->years > 0}{$role->years} year{if $role->years neq 1}s{/if}{else}{$role->start_MY}{/if}</span>
   			<div class="media-left">
-				<img class="media-object" src="{$role->maker->avatar_url}" alt="maker">
+				<img class="media-object" src="{$role->maker->avatar_url}" alt="maker" width="100">
 			</div>
 			<div class="media-body">
 				<h3>{$role->maker->name}</h3>
