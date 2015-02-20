@@ -27,7 +27,12 @@ class Role {
             $this->maker_id = $row['maker_id'];
             $this->role = $row['role'];
             $this->start = $row['start'];
+            $this->start_MY = date_format(date_create($this->start), 'M Y');
             $this->end = $row['end'];
+            if (isset($this->end)) {
+                $this->years = date_format(date_create($this->end), 'Y')
+                    - date_format(date_create($this->start), 'Y');
+            }
         }
     }
 }
