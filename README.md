@@ -10,19 +10,23 @@ A directory of people who make things
 
 ## Install
 
+Clone the repository:
+
     $ git clone git@github.com:ThinkUpLLC/makerbase.git
 
-    $ cd makerbase
+Get required submodules:
 
-    $ git submodule init
+    $ cd makerbase; git submodule init; git submodule update --recursive
 
-    $ git submodule update --recursive
+## Run
 
-## Usage
-
-Spin up virtual machine: (Note: first run takes awhile)
+Spin up virtual machine: (first run takes awhile)
 
     $ vagrant up
+
+All done? Congratulations!
+
+## Use
 
 See Makerbase in your browser:
 
@@ -31,6 +35,10 @@ See Makerbase in your browser:
 Note: If makerbase.dev doesn't resolve, make sure the following line is in your host computer's /etc/hosts file:
 
     192.168.56.101 default makerbase.dev www.makerbase.dev
+
+Use the code editor and git client of your choice on your host machine. Edit files in the makerbase directory.
+
+## Tools
 
 Adminer database admin:
 
@@ -54,7 +62,6 @@ Note:  This does not delete setup files or the contents of the default directory
 ## Modify
 
 This Vagrant virtual machine was built with [PuPHPet](http://puphpet.com). To modify it for your own purposes, drag and drop puphpet/config.yaml onto (http://puphpet.com) and regenerate.
-
 
 ## Elasticsearch Cheatsheet
 
