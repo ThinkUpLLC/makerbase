@@ -4,18 +4,41 @@
 
 <form action="search.php"><input type='text' name='q'> <input type='Submit' value='Search'></form>
 
-<h2>Makers</h2>
-<ul>
-{foreach $makers as $maker}
-    <li><a href="/m/{$maker->slug}">{$maker->slug}</a></li>
-{/foreach}
-</ul>
 
-<h2>Products</h2>
-<ul>
-{foreach $products as $product}
-    <li><a href="/p/{$product->slug}">{$product->slug}</a></li>
-{/foreach}
-</ul>
+<div class="row">
+
+  <div class="col-xs-6">
+	<h2>Makers</h2>
+	<ul class="list-group">
+	{foreach $makers as $maker}
+	    <li class="list-group-item">
+  			<div class="media-left">
+				<img class="media-object" src="{$maker->avatar_url}" alt="{$maker->slug}" width="30">
+			</div>
+			<div class="media-body">
+	    		<a href="/m/{$maker->slug}">{$maker->slug}</a>
+	    	</div>
+	    </li>
+	{/foreach}
+	</ul>
+  </div>
+
+  <div class="col-xs-6">
+	<h2>Projects</h2>
+	<ul class="list-group">
+	{foreach $products as $product}
+	    <li class="list-group-item">
+	    	<div class="media-left">
+	    		<img class="media-object" src="{$product->avatar_url}" alt="{$product->slug}" width="30">
+	    	</div>
+	    	<div class="media-body">
+	    		<a href="/p/{$product->slug}">{$product->slug}</a>
+	    	</div>
+	    </li>
+	{/foreach}
+	</ul>
+  </div>
+
+</div>
 
 {include file="_footer.tpl"}
