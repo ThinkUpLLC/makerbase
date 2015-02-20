@@ -1,6 +1,6 @@
 {include file="_head.tpl"}
 
-<h1>{$maker->slug} is a maker <button type="button" class="btn btn-success pull-right">Hey, I'm {$maker->slug}!</button>
+<h1>{$maker->name} is a maker <button type="button" class="btn btn-success pull-right">Hey, I'm {$maker->name}!</button>
 </h1>
 
 <div class="row">
@@ -17,7 +17,7 @@
 				<img class="media-object" src="{$role->product->avatar_url}" alt="{$role->product->name} logo" width="100">
 			</div>
 			<div class="media-body">
-				<h3>{$role->product->name}</h3>
+				<h3><a href="/p/{$role->product->slug}">{$role->product->name}</a></h3>
 				{$role->role}
 			</div>
 		</li>

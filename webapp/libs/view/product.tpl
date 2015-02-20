@@ -1,6 +1,6 @@
 {include file="_head.tpl"}
 
-<h1>we made {$product->slug} <button type="button" class="btn btn-success pull-right">Hey, I helped make {$product->slug}!</button></h1>
+<h1>we made {$product->name} <button type="button" class="btn btn-success pull-right">Hey, I helped make {$product->name}!</button></h1>
 
 <div class="row">
   <div class="col-xs-2">
@@ -16,7 +16,7 @@
 				<img class="media-object" src="{$role->maker->avatar_url}" alt="maker" width="100">
 			</div>
 			<div class="media-body">
-				<h3>{$role->maker->name}</h3>
+				<h3><a href="/m/{$role->maker->slug}">{$role->maker->name}</a></h3>
 				{$role->role}
 			</div>
 		</li>

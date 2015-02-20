@@ -4,7 +4,6 @@
 
 <form action="search.php"><input type='text' name='q'> <input type='Submit' value='Search'></form>
 
-
 <div class="row">
 
   <div class="col-xs-6">
@@ -13,10 +12,10 @@
 	{foreach $makers as $maker}
 	    <li class="list-group-item">
   			<div class="media-left">
-				<img class="media-object" src="{$maker->avatar_url}" alt="{$maker->slug}" width="30">
+				<img class="media-object" src="{$maker->avatar_url}" alt="{$maker->name}" width="30">
 			</div>
 			<div class="media-body">
-	    		<a href="/m/{$maker->slug}">{$maker->slug}</a>
+	    		<a href="/m/{$maker->slug}">{$maker->name}</a>
 	    	</div>
 	    </li>
 	{/foreach}
@@ -29,10 +28,10 @@
 	{foreach $products as $product}
 	    <li class="list-group-item">
 	    	<div class="media-left">
-	    		<img class="media-object" src="{$product->avatar_url}" alt="{$product->slug}" width="30">
+	    		<img class="media-object" src="{$product->avatar_url}" alt="{$product->name}" width="30">
 	    	</div>
 	    	<div class="media-body">
-	    		<a href="/p/{$product->slug}">{$product->slug}</a>
+	    		<a href="/p/{$product->slug}">{$product->name}</a>
 	    	</div>
 	    </li>
 	{/foreach}
