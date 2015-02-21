@@ -1,9 +1,5 @@
 {include file="_head.tpl"}
 
-<h1>Welcome</h1>
-
-<form action="search.php"><input type='text' name='q'> <input type='Submit' value='Search'></form>
-
 <div class="row">
 
   <div class="col-xs-6">
