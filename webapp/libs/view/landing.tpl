@@ -12,7 +12,7 @@
 	{foreach $makers as $maker}
 	    <li class="list-group-item">
   			<div class="media-left">
-				<img class="media-object" src="{$maker->avatar_url}" alt="{$maker->name}" width="30">
+				<img class="media-object" src="{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='maker'}" alt="{$maker->name}" width="30">
 			</div>
 			<div class="media-body">
 	    		<a href="/m/{$maker->slug}">{$maker->name}</a>
@@ -28,7 +28,7 @@
 	{foreach $products as $product}
 	    <li class="list-group-item">
 	    	<div class="media-left">
-	    		<img class="media-object" src="{$product->avatar_url}" alt="{$product->name}" width="30">
+				<img class="media-object" src="{insert name='user_image' image_url=$product->avatar_url image_proxy_sig=$image_proxy_sig type='product'}" alt="{$product->name}" width="30">
 	    	</div>
 	    	<div class="media-body">
 	    		<a href="/p/{$product->slug}">{$product->name}</a>

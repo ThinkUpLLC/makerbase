@@ -12,6 +12,9 @@ class ProductController extends Controller {
         $roles = $role_dao->getByProduct($product->id);
         $this->addToView('roles', $roles);
 
+        $image_proxy_sig = Config::getInstance()->getValue('image_proxy_sig');
+        $this->addToView('image_proxy_sig', $image_proxy_sig);
+
         return $this->generateView();
     }
 }

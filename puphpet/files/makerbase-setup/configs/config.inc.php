@@ -90,3 +90,8 @@ if (isset($_SESSION["RD_MODE"]) || getenv("RD_MODE")=="1") {
     $ISOSCELES_CFG['db_password']               = 'your_ram_disk_test_database_password';
     $ISOSCELES_CFG['db_name']                   = $ISOSCELES_CFG['db_name'] . '_rd';
 }
+
+// Custom vars
+$ISOSCELES_CFG['image_proxy_passphrase']           = 'nice2bmakerbase';
+$ISOSCELES_CFG['image_proxy_sig']           = md5($ISOSCELES_CFG['image_proxy_passphrase']);
+

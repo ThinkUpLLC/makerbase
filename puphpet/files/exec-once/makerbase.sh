@@ -26,6 +26,14 @@ cp /var/www/puphpet/files/makerbase-setup/configs/config.inc.php /var/www/webapp
 # Make data dir and set perms
 mkdir /home/vagrant/data
 
+# Make image-cache
+mkdir /home/vagrant/data/image-cache/
+
+# Copy over blank avatars
+cp /var/www/webapp/assets/img/blank-maker.png /home/vagrant/data/image-cache/.
+cp /var/www/webapp/assets/img/blank-product.png /home/vagrant/data/image-cache/.
+
+# Set web-accessible perms
 chown -R www-data /home/vagrant/data/
 
 # Load sample data
