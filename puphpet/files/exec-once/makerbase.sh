@@ -66,3 +66,16 @@ curl -XPUT 'localhost:9200/_river/my_jdbc_river_products/_meta' -d '{
     }
 }'
 
+# Create makers AND products index in Elasticsearch
+curl -XPUT 'localhost:9200/_river/my_jdbc_river_makers_and_products/_meta' -d '{
+    "type" : "jdbc",
+    "jdbc" : {
+        "url" : "jdbc:mysql://localhost:3306/makerbase_web",
+        "user" : "makerbase",
+        "password" : "nice2bnice",
+        "sql" : "SELECT slug, name, \"\" as description, url, avatar_url, \"maker\" AS type FROM makers UNION SELECT slug, name, description, url, avatar_url, \"product\" AS type FROM products",
+        "index" : "maker_product_index",
+        "type" : "maker_product_type"
+    }
+}'
+
