@@ -1,8 +1,9 @@
 <?php
 
-class LandingController extends Controller {
+class LandingController extends MakerbaseController {
 
     public function control() {
+        parent::control();
         $this->setViewTemplate('landing.tpl');
 
         $maker_dao = new MakerMySQLDAO();

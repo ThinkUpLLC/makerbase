@@ -1,8 +1,9 @@
 <?php
 
-class SearchController extends Controller {
+class SearchController extends MakerbaseController {
 
     public function control() {
+        parent::control();
         $this->setViewTemplate('search.tpl');
 
         if (isset($_GET['q'])) {

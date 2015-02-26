@@ -1,8 +1,9 @@
 <?php
 
-class ProductController extends Controller {
+class ProductController extends MakerbaseController {
 
     public function control() {
+        parent::control();
         $this->setViewTemplate('product.tpl');
         $product_dao = new ProductMySQLDAO();
         $product = $product_dao->get($_GET['slug']);

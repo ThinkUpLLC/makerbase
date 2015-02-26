@@ -39,12 +39,30 @@
             <li class="active"><a href="/">Home</a></li>
             <li><a href="https://github.com/ThinkUpLLC/makerbase">Source</a></li>
           </ul>
-          <form class="navbar-form navbar-left" role="search" action="/search.php">
+          {if isset($logged_in_user)}
+          <!-- Single button -->
+          <form class="navbar-form navbar-right" role="signout">
+          <div class="btn-group navbar-nav">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+              Signed in as {$logged_in_user} <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="/signout/">Sign out</a></li>
+            </ul>
+          </div>
+          </form>
+          {/if}
+          <form class="navbar-form navbar-right" role="signin">
+          {if isset($sign_in_with_twttr_link)}<a href="{$sign_in_with_twttr_link}"><img src="/assets/img/sign-in-with-twitter-gray.png"></a>{/if}
+          </form>
+
+          <form class="navbar-form navbar-right" role="search" action="/search.php">
             <div class="form-group">
               <input type="text" class="form-control" placeholder="Search" name="q">
             </div>
             <button type="submit" class="btn btn-default">Go</button>
           </form>
+
         </div><!--/.nav-collapse -->
       </div>
     </nav>

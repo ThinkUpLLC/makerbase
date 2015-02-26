@@ -1,8 +1,9 @@
 <?php
 
-class MakerController extends Controller {
+class MakerController extends MakerbaseController {
 
     public function control() {
+        parent::control();
         $this->setViewTemplate('maker.tpl');
 
         $maker_dao = new MakerMySQLDAO();

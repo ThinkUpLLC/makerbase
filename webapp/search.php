@@ -1,12 +1,14 @@
 <?php
 require_once 'extlibs/isosceles/libs/class.Loader.php';
 Loader::register(array(
-// dirname(__FILE__).'/libs/',
+'libs/',
 'libs/model/',
 'libs/controller/',
 'libs/dao/',
-'libs/exceptions/'
+'libs/exceptions/',
 ));
+Loader::addSpecialClass('TwitterOAuth', Config::getInstance()->getValue('source_root_path').
+    'webapp/extlibs/twitteroauth/twitteroauth.php');
 
 require 'vendor/autoload.php';
 

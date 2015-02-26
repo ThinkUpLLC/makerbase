@@ -1,5 +1,7 @@
 {include file="_head.tpl"}
 
+{include file="_isosceles.usermessage.tpl"}
+
 <div class="row">
 
   <div class="col-xs-6">
