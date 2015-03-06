@@ -31,7 +31,7 @@ chdir('..');
 chdir('..');
 chdir('..');
 chdir('webapp');
-require_once 'extlibs/isosceles/libs/model/class.Loader.php';
+require_once 'extlibs/isosceles/libs/class.Loader.php';
 // require_once 'init.php';
 chdir('..');
 
