@@ -13,4 +13,4 @@ Loader::addSpecialClass('TwitterOAuth', Config::getInstance()->getValue('source_
 require 'vendor/autoload.php';
 
 $controller = new SearchController();
-echo $controller->control();
+echo $controller->go();

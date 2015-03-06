@@ -5,8 +5,10 @@ class SearchController extends MakerbaseController {
     public function control() {
         parent::control();
         $this->setViewTemplate('search.tpl');
+        $this->disableCaching();
 
         if (isset($_GET['q'])) {
+            $start_time = microtime(true);
             $client = new Elasticsearch\Client();
 
             $search_params = array();
@@ -20,6 +22,14 @@ class SearchController extends MakerbaseController {
 
             $this->addToView('return_document', $return_document);
             $this->addToView('query', $_GET['q']);
+
+            $end_time = microtime(true);
+
+            if (Profiler::isEnabled()) {
+                $total_time = $end_time - $start_time;
+                $profiler = Profiler::getInstance();
+                $profiler->add($total_time, "Elasticsearch", false);
+            }
         }
         return $this->generateView();
     }
