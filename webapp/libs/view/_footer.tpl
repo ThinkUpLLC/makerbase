@@ -1,4 +1,8 @@
 
+<hr />
+<div>
+<p>&copy; 2015 <a href="/p/thinkup">ThinkUp</a>. Now go make something.</p>
+</div>
     </div><!-- /.container -->
 
 
