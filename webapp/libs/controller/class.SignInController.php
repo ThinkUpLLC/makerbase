@@ -63,7 +63,7 @@ class SignInController extends Controller {
                         $new_user_id = $user_dao->insert($user);
                         $user->id = $new_user_id;
                     }
-                    Session::completeLogin($authed_twitter_user['user_name']);
+                    Session::completeLogin($authed_twitter_user['user_id']);
                     $controller->addSuccessMessage('You have signed in.');
                 }
             } else {

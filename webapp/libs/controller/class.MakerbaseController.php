@@ -5,7 +5,9 @@ class MakerbaseController extends Controller {
     public function control() {
         if (Session::isLoggedIn()) {
             $logged_in_user = Session::getLoggedInUser();
-            $this->addToView('logged_in_user', $logged_in_user);
+            $user_dao = new UserMySQLDAO();
+            $user = $user_dao->get($logged_in_user);
+            $this->addToView('logged_in_user', $user);
         } else {
             $start_time = microtime(true);
 

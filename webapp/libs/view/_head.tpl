@@ -41,10 +41,13 @@
           </ul>
           {if isset($logged_in_user)}
           <!-- Single button -->
+          <div class="nav navbar-right">
+            <img src="{$logged_in_user->avatar_url}">
+          </div>
           <form class="navbar-form navbar-right" role="signout">
           <div class="btn-group navbar-nav">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-              Signed in as {$logged_in_user} <span class="caret"></span>
+              Signed in as {$logged_in_user->twitter_username} <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" role="menu">
               <li><a href="/signout/">Sign out</a></li>
