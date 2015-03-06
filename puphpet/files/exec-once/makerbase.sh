@@ -17,17 +17,17 @@ chmod 664 plugins/jdbc/*
 # Restart Elasticsearch
 /etc/init.d/elasticsearch restart
 
-# Give Elasticsearch 10 seconds to start up
-# sleep 10
-
 # Install PHPUnit
 apt-get -q -y install phpunit
+
+# Give Elasticsearch 10 seconds to start up
+sleep 10
 
 # Copy Isosceles config file
 cp /var/www/puphpet/files/makerbase-setup/configs/isosceles.config.inc.php /var/www/webapp/extlibs/isosceles/libs/config.inc.php
 
 # Copy Makerbase config file
-cp /var/www/webapp/config.sample.inc.php cp /var/www/webapp/config.inc.php
+cp /var/www/webapp/config.sample.inc.php /var/www/webapp/config.inc.php
 
 # Make data dir and set perms
 mkdir /home/vagrant/data
