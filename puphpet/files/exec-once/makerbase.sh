@@ -18,7 +18,10 @@ chmod 664 plugins/jdbc/*
 /etc/init.d/elasticsearch restart
 
 # Give Elasticsearch 10 seconds to start up
-sleep 10
+# sleep 10
+
+# Install PHPUnit
+apt-get -q -y install phpunit
 
 # Copy Isosceles config file
 cp /var/www/puphpet/files/makerbase-setup/configs/isosceles.config.inc.php /var/www/webapp/extlibs/isosceles/libs/config.inc.php
