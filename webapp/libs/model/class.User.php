@@ -27,7 +27,7 @@ class User {
     /**
      * @var str Last login time.
      */
-    var $last_login;
+    var $last_login_time;
     /**
      * @var str Twitter OAuth token.
      */
@@ -48,7 +48,7 @@ class User {
             $this->avatar_url = $row['avatar_url'];
             $this->twitter_user_id = $row['twitter_user_id'];
             $this->twitter_username = $row['twitter_username'];
-            $this->last_login = $row['last_login'];
+            $this->last_login_time = $row['last_login_time'];
             $this->twitter_oauth_access_token = $row['twitter_oauth_access_token'];
             $this->twitter_oauth_access_token_secret = $row['twitter_oauth_access_token_secret'];
             $this->maker_id = $row['maker_id'];

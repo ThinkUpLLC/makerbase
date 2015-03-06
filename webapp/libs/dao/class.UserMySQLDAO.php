@@ -4,10 +4,11 @@ class UserMySQLDAO extends PDODAO {
     public function insert(User $user) {
         $q = <<<EOD
 INSERT INTO users (
-name, url, avatar_url, twitter_user_id, twitter_username, twitter_oauth_access_token, twitter_oauth_access_token_secret
+name, url, avatar_url, twitter_user_id, twitter_username, twitter_oauth_access_token, twitter_oauth_access_token_secret,
+last_login_time
 ) VALUES (
 :name, :url, :avatar_url, :twitter_user_id, :twitter_username, :twitter_oauth_access_token,
-:twitter_oauth_access_token_secret
+:twitter_oauth_access_token_secret, NOW()
 )
 EOD;
         $vars = array (
@@ -48,7 +49,7 @@ EOD;
     }
 
     public function updateLastLogin(User $user) {
-        $q = "UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE twitter_user_id = :twitter_user_id";
+        $q = "UPDATE users SET last_login_time = CURRENT_TIMESTAMP WHERE twitter_user_id = :twitter_user_id";
         $vars = array ( ':twitter_user_id' => $user->twitter_user_id);
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         //echo self::mergeSQLVars($q, $vars);

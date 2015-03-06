@@ -25,6 +25,10 @@ class Maker {
      * @var str Avatar URL.
      */
     var $avatar_url;
+    /**
+     * @var str Creation time.
+     */
+    var $creation_time;
     public function __construct($row = false) {
         if ($row) {
             $this->id = $row['id'];
@@ -33,6 +37,7 @@ class Maker {
             $this->name = $row['name'];
             $this->url = $row['url'];
             $this->avatar_url = $row['avatar_url'];
+            $this->creation_time = $row['creation_time'];
         }
     }
 }

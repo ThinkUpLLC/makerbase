@@ -21,6 +21,10 @@ class Role {
      * @var date End date.
      */
     var $end;
+    /**
+     * @var str Creation time.
+     */
+    var $creation_time;
     public function __construct($row = false) {
         if ($row) {
             $this->product_id = $row['product_id'];
@@ -34,6 +38,8 @@ class Role {
                     - date_format(date_create($this->start), 'Y');
                 $this->end_MY = date_format(date_create($this->end), 'M Y');
             }
+            $this->end = $row['end'];
+            $this->creation_time = $row['creation_time'];
         }
     }
 }
