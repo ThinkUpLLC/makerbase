@@ -18,6 +18,7 @@
 		</div>
 	</form>
   <br><br>
+  	{if sizeof($actions) > 0}
   	<h3>Recent activity</h3>
 	<ul class="list-group">
 	{foreach $actions as $action}
@@ -26,6 +27,7 @@
 	    </li>
 	{/foreach}
 	</ul>
+  	{/if}
   </div>
 {/if}
 
