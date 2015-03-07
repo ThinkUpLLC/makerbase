@@ -5,7 +5,7 @@
 <div class="row">
 
   <div class="col-xs-6">
-	<h2>Makers</h2>
+	<h2>Makers - <a href="/add/maker">Add one</a></h2>
 	<ul class="list-group">
 	{foreach $makers as $maker}
 	    <li class="list-group-item">

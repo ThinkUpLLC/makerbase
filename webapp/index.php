@@ -19,4 +19,5 @@ $router->addRoute('m', 'MakerController', array('slug'));
 $router->addRoute('p', 'ProductController', array('slug'));
 $router->addRoute('signin', 'SignInController');
 $router->addRoute('signout', 'SignOutController');
+$router->addRoute('add', 'AddController', array('object', 'method'));
 echo $router->route();

@@ -39,6 +39,26 @@ class TwitterAPIAccessor {
         }
     }
     /**
+     * Get Twitter user by username.
+     * @param  str       $twitter_username
+     * @param  TwitterOAuth $toa
+     * @return array
+     */
+    public function getUser($twitter_username, TwitterOAuth $toa) {
+        $endpoint = 'users/show/'.$twitter_username;
+        $payload = $toa->OAuthRequest($endpoint, 'GET', null);
+        $http_status = $toa->lastStatusCode();
+        // echo '<pre>';
+        // print_r($payload);
+        // echo '</pre>';
+        if ($http_status == 200) {
+            $user = $this->parseJSONUser($payload);
+            return $user;
+        } else {
+            throw new APIErrorException(self::translateErrorCode($http_status, true));
+        }
+    }
+    /**
      * Parse user JSON.
      * @param str $data JSON user info.
      * @return array user data
@@ -64,7 +84,7 @@ class TwitterAPIAccessor {
             'avatar'          => (string)$json_user->profile_image_url,
             'location'        => (string)$json_user->location,
             'description'     => (string)$json_user->description,
-            'url'             => (string)$json_user->url,
+            'url'             => (string)$json_user->entities->url->urls[0]->expanded_url,
             'is_verified'     => (integer)self::boolToInt($json_user->verified),
             'is_protected'    => (integer)self::boolToInt($json_user->protected),
             'follower_count'  => (integer)$json_user->followers_count,

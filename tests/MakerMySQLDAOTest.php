@@ -33,4 +33,17 @@ class MakerMySQLDAOTest extends MakerbaseUnitTestCase {
         $this->assertNotNull($maker);
         $this->assertEquals('giantairnap', $maker->slug);
     }
+
+    public function testInsert() {
+        $maker = new Maker();
+        $maker->name = 'David Carr';
+        $maker->slug = 'carr2n';
+        $maker->username = 'carr2n';
+        $maker->url = 'http://nytimes.com';
+        $maker->avatar_url = 'http://example.com/avatar.jpg';
+
+        $maker_dao = new MakerMySQLDAO();
+        $result = $maker_dao->insert($maker);
+        $this->assertEquals(1, $result);
+    }
 }

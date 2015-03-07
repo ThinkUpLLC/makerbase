@@ -4,12 +4,13 @@ class ActionMySQLDAO extends PDODAO {
     public function insert(Action $action) {
         $q = <<<EOD
 INSERT INTO actions (
-ip_address, action_type, severity, object_id, object_type
+user_id, ip_address, action_type, severity, object_id, object_type
 ) VALUES (
-:ip_address, :action_type, :severity, :object_id, :object_type
+:user_id, :ip_address, :action_type, :severity, :object_id, :object_type
 )
 EOD;
         $vars = array (
+            ':user_id' => $action->user_id,
             ':ip_address' => $action->ip_address,
             ':action_type' => $action->action_type,
             ':severity' => $action->severity,

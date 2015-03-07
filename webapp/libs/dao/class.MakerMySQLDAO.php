@@ -22,4 +22,35 @@ class MakerMySQLDAO extends PDODAO {
         $ps = $this->execute($q, $vars);
         return $this->getDataRowsAsObjects($ps, "Maker");
     }
+
+    public function insert(Maker $maker) {
+        $q = <<<EOD
+INSERT INTO makers (
+slug, username, name, url, avatar_url
+) VALUES (
+:slug, :username, :name, :url, :avatar_url
+)
+EOD;
+        $vars = array (
+            ':slug' => $maker->slug,
+            ':username' => $maker->username,
+            ':name' => $maker->name,
+            ':url' => $maker->url,
+            ':avatar_url' => $maker->avatar_url
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        try {
+            $ps = $this->execute($q, $vars);
+            return $this->getInsertId($ps);
+        } catch (PDOException $e) {
+            $message = $e->getMessage();
+            if (strpos($message,'Duplicate entry') !== false && strpos($message,'slug') !== false) {
+                $maker = $this->get($maker->slug);
+                return $maker->id;
+            } else {
+                throw new PDOException($message);
+            }
+        }
+    }
 }
