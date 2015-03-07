@@ -75,7 +75,6 @@ curl -XPUT 'localhost:9200/_river/my_jdbc_river_products/_meta' -d '{
 # Create makers AND products index in Elasticsearch
 curl -XPUT 'localhost:9200/_river/my_jdbc_river_makers_and_products/_meta' -d '{
     "type" : "jdbc",
-    "schedule" : "0 0-59 0-23 ? * *",
     "jdbc" : {
         "url" : "jdbc:mysql://localhost:3306/makerbase_web",
         "user" : "makerbase",
