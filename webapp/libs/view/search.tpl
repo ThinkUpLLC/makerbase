@@ -10,7 +10,7 @@
 
 {if isset($return_document) }
     {foreach $return_document.hits.hits as $hit}
-        <li><a href="/{if $hit._source.type eq 'maker'}m{else}p{/if}/{$hit._source.slug}">{$hit._source.name}</a></li>
+        <li><a href="/{if $hit._source.type eq 'maker'}m{else}p{/if}/{$hit._source.slug}">{$hit._source.name}</a>{if $hit._source.description neq ''} - {$hit._source.description}{/if}</li>
     {/foreach}
 {/if}
 

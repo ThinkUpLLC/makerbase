@@ -5,6 +5,7 @@
 <div class="row">
   <div class="col-xs-2">
   	<img src="{insert name='user_image' image_url=$product->avatar_url image_proxy_sig=$image_proxy_sig type='maker'}" class="img-responsive" width="100%" />
+    <p>{$product->description}</p>
 	<p><a href="{$product->url}">{$product->url}</a></p>
   </div>
   {foreach $roles as $role}
