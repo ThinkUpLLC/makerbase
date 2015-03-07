@@ -10,6 +10,18 @@
     <img class="img-responsive" src="{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='maker'}" alt="{$maker->name}" width="100%">
 
 	<p><a href="{$maker->url}">{$maker->url}</a></p>
+
+    {if sizeof($actions) > 0}
+    <h3>History</h3>
+    <ul class="list-group">
+    {foreach $actions as $action}
+        <li class="list-group-item">
+        <a href="/u/{$action->twitter_user_id}/">{$action->name}</a> {if $action->action_type eq 'create'}added{elseif $action->action_type eq 'update'}updated{/if} <a href="/{if $action->object_type eq 'Maker'}m{else}p{/if}/{$action->object_slug}/">{$action->object_name}</a> {$action->time_performed|relative_datetime} ago
+        </li>
+    {/foreach}
+    </ul>
+    {/if}
+
   </div>
   <div class="col-xs-10">
   	<ul class="list-group">
