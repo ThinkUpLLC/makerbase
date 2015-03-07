@@ -35,7 +35,7 @@ class AddController extends AuthController {
                         'name'=>$maker->name,
                         'description'=>'',
                         'url'=>$maker->url,
-                        'avatar_url'=>$maker->url,
+                        'avatar_url'=>$maker->avatar_url,
                         'type'=>'maker'
                     );
                     $params['index'] = 'maker_product_index';
@@ -85,7 +85,7 @@ class AddController extends AuthController {
                             'name'=>$maker->name,
                             'description'=>'',
                             'url'=>$maker->url,
-                            'avatar_url'=>$maker->url,
+                            'avatar_url'=>$maker->avatar_url,
                             'type'=>'maker'
                         );
                         $update_params['index'] = 'maker_product_index';
