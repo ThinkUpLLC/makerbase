@@ -71,6 +71,28 @@ class AddController extends AuthController {
                     $maker = $maker_dao->get($maker->slug);
 
                     if ($has_been_updated) {
+                        //Update maker in ElasticSearch index
+                        $client = new Elasticsearch\Client();
+                        $search_params['index'] = 'maker_product_index';
+                        $search_params['type']  = 'maker_product_type';
+                        $search_params['body']['query']['match']['slug'] = $maker->slug;
+                        $query_response = $client->search($search_params);
+                        $search_id = $query_response['hits']['hits'][0]['_id'];
+
+                        $update_params = array();
+                        $update_params['body']  = array(
+                            'slug'=>$maker->slug,
+                            'name'=>$maker->name,
+                            'description'=>'',
+                            'url'=>$maker->url,
+                            'avatar_url'=>$maker->url,
+                            'type'=>'maker'
+                        );
+                        $update_params['index'] = 'maker_product_index';
+                        $update_params['type']  = 'maker_product_type';
+                        $update_params['id']    = $search_id;
+                        $ret = $client->index($update_params);
+
                         //Create new action if update changed something
                         $action = new Action();
                         $action->user_id = $user->id;
