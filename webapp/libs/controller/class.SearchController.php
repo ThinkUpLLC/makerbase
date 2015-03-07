@@ -30,6 +30,9 @@ class SearchController extends MakerbaseController {
                 $profiler = Profiler::getInstance();
                 $profiler->add($total_time, "Elasticsearch", false);
             }
+
+            $image_proxy_sig = Config::getInstance()->getValue('image_proxy_sig');
+            $this->addToView('image_proxy_sig', $image_proxy_sig);
         }
         return $this->generateView();
     }
