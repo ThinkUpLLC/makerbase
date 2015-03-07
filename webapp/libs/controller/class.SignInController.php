@@ -1,9 +1,9 @@
 <?php
 
-class SignInController extends Controller {
+class SignInController extends MakerbaseController {
 
     public function control(){
-        $controller = new LandingController(true);
+        parent::control();
         if (isset($_GET['oauth_token'])) {
             $this->disableCaching();
 
@@ -49,13 +49,27 @@ class SignInController extends Controller {
                         $user->id = $new_user_id;
                     }
                     Session::completeLogin($authed_twitter_user['user_id']);
-                    $controller->addSuccessMessage('You have signed in.');
+                    //@TODO Redirect user if redir is set
+                    if (isset($_GET['redirect'])) {
+                        if (!$this->redirect($_GET['redirect'])) {
+                            $this->generateView(); //for testing
+                        }
+                    } else {
+                        $controller = new LandingController(true);
+                        $controller->addSuccessMessage('You have signed in.');
+                        return $controller->go();
+                    }
                 }
             } else {
                 $controller->addErrorMessage(
                     "Oops! There was a problem signing in with Twitter. Please try again.");
             }
+        } elseif (isset($_GET['redirect'])) {
+            $this->setViewTemplate('signin.tpl');
+            return $this->generateView();
+        } else {
+            $controller = new LandingController(true);
+            return $controller->go();
         }
-        return $controller->go();
     }
 }
