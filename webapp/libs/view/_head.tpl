@@ -1,18 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" lang="en" prefix="og: http://ogp.me/ns#" itemscope itemtype="http://schema.org/Article">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Makerba.se</title>
+    <title>{$app_title}</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <style type="text/css">
-		body {
-		margin-top: 50px;
-		}
-	</style>
+      body {
+        margin-top: 50px;
+      }
+      .footer {
+        height: 60px;
+        background-color: #f5f5f5;
+        padding: 20px;
+      }
+	   </style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -42,12 +47,13 @@
           {if isset($logged_in_user)}
           <!-- Single button -->
           <div class="nav navbar-right">
-            <img src="{$logged_in_user->avatar_url}">
+
           </div>
           <form class="navbar-form navbar-right" role="signout">
           <div class="btn-group navbar-nav">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-              Signed in as {$logged_in_user->twitter_username} <span class="caret"></span>
+            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+              <img src="{$logged_in_user->avatar_url}" alt="Signed in as {$logged_in_user->twitter_username}" width="20" height="20">
+              <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" role="menu">
               <li><a href="/signout/">Sign out</a></li>
@@ -61,9 +67,9 @@
 
           <form class="navbar-form navbar-right" role="search" action="/search.php">
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Search" name="q">
+              <input type="search" class="form-control input-sm" placeholder="Search" name="q">
             </div>
-            <button type="submit" class="btn btn-default">Go</button>
+            <button type="submit" class="btn btn-default btn-sm">Go</button>
           </form>
 
         </div><!--/.nav-collapse -->

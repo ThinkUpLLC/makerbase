@@ -8,9 +8,9 @@
     <p>{$product->description}</p>
 	<p><a href="{$product->url}">{$product->url}</a></p>
   </div>
-  {foreach $roles as $role}
   <div class="col-xs-10">
   	<ul class="list-group">
+  		{foreach $roles as $role}
 		<li class="list-group-item">
 			<span class="badge">{if isset($role->years) && $role->years > 0}{$role->years} year{if $role->years neq 1}s{/if}{else}{$role->start_MY}{/if}</span>
   			<div class="media-left">
@@ -21,9 +21,9 @@
 				{$role->role}
 			</div>
 		</li>
+  		{/foreach}
 	</ul>
   </div>
-  {/foreach}
 </div>
 
 

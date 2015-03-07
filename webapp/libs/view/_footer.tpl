@@ -1,9 +1,11 @@
 
-<hr />
-<div>
-<p>&copy; 2015 <a href="/p/thinkup">ThinkUp</a>. Now go make something.</p>
-</div>
     </div><!-- /.container -->
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">&copy; 2015 <a href="/p/thinkup">ThinkUp</a>. Now go make something.</p>
+      </div>
+    </footer>
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
