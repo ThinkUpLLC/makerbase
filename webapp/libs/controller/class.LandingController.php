@@ -6,19 +6,14 @@ class LandingController extends MakerbaseController {
         parent::control();
         $this->setViewTemplate('landing.tpl');
 
+        $action_dao = new ActionMySQLDAO();
         if (Session::isLoggedIn()) {
             $user = $this->getLoggedInUser();
-            $action_dao = new ActionMySQLDAO();
             $actions = $action_dao->getUserConnectionsActivities($user->id);
             $this->addToView('actions', $actions);
         } else {
-            $maker_dao = new MakerMySQLDAO();
-            $makers = $maker_dao->listMakers(100);
-            $this->addToView('makers', $makers);
-
-            $product_dao = new ProductMySQLDAO();
-            $products = $product_dao->listProducts(100);
-            $this->addToView('products', $products);
+            $actions = $action_dao->getActivities();
+            $this->addToView('actions', $actions);
         }
 
         $image_proxy_sig = Config::getInstance()->getValue('image_proxy_sig');

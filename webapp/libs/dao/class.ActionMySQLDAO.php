@@ -66,4 +66,15 @@ EOD;
         $ps = $this->execute($q, $vars);
         return $this->getDataRowsAsObjects($ps, 'Action');
     }
+
+    public function getActivities() {
+        $q = <<<EOD
+SELECT a.*, u.name, u.twitter_user_id FROM actions a
+INNER JOIN users u ON a.user_id = u.id
+ORDER BY time_performed DESC LIMIT 100;
+EOD;
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $ps = $this->execute($q);
+        return $this->getDataRowsAsObjects($ps, 'Action');
+    }
 }
