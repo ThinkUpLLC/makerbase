@@ -20,6 +20,8 @@ class AddController extends AuthController {
 
                 $user = $this->getLoggedInUser();
                 $maker_dao = new MakerMySQLDAO();
+                $controller = new MakerController(true);
+
                 try {
                     $maker_id = $maker_dao->insert($maker);
                     $maker->id = $maker_id;
@@ -40,7 +42,7 @@ class AddController extends AuthController {
                     $action_dao = new ActionMySQLDAO();
                     $action_dao->insert($action);
 
-                    $this->addSuccessMessage('You added a maker.');
+                    $controller->addSuccessMessage('You added '.$maker->slug.'.');
                 } catch (DuplicateMakerException $e) {
                     $has_been_updated = $maker_dao->update($maker);
                     $maker = $maker_dao->get($maker->slug);
@@ -58,14 +60,19 @@ class AddController extends AuthController {
 
                         $action_dao = new ActionMySQLDAO();
                         $action_dao->insert($action);
-                        $this->addSuccessMessage('You updated a maker.');
+
+                        $controller->addSuccessMessage('You updated '.$maker->slug.'.');
                     } else {
-                        $this->addSuccessMessage('No changes made to '.$maker->slug);
+                        $controller->addSuccessMessage('No changes made to '.$maker->slug);
                     }
 
                     $connection_dao = new ConnectionMySQLDAO();
                     $connection_dao->insert($user, $maker);
                 }
+
+                $_GET = null;
+                $_GET['slug'] = $maker->slug;
+                return $controller->go();
             }
         } else {
             $this->redirect(Config::getInstance()->getValue('site_root_path'));
