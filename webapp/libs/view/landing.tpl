@@ -4,8 +4,22 @@
 
 <div class="row">
 
+{if isset($actions)}
+<h1><a href="/add/maker">Add a maker</a></h1>
   <div class="col-xs-6">
-	<h2>Makers - <a href="/add/maker">Add one</a></h2>
+	<ul class="list-group">
+	{foreach $actions as $action}
+	    <li class="list-group-item">
+	    {$action->name} created <a href="/{if $action->object_type eq 'Maker'}m{else}p{/if}/{$action->object_slug}/">{$action->object_name}</a> {$action->time_performed|relative_datetime} ago
+	    </li>
+	{/foreach}
+	</ul>
+  </div>
+{/if}
+
+{if isset($makers) && isset($products)}
+  <div class="col-xs-6">
+	<h2>Makers</h2>
 	<ul class="list-group">
 	{foreach $makers as $maker}
 	    <li class="list-group-item">
@@ -35,6 +49,7 @@
 	{/foreach}
 	</ul>
   </div>
+{/if}
 
 </div>
 

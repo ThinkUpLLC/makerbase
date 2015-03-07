@@ -23,4 +23,19 @@ EOD;
         $ps = $this->execute($q, $vars);
         return $this->getInsertId($ps);
     }
+
+    public function getUserConnectionsActivities($user_id) {
+        $q = <<<EOD
+SELECT a.*, u.name FROM actions a INNER JOIN connections c
+ON c.object_type = a.object_type and c.object_id = a.object_id
+INNER JOIN users u ON a.user_id = u.id
+WHERE c.user_id = :user_id ORDER BY time_performed DESC;
+EOD;
+        $vars = array (
+            ':user_id' => $user_id
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $ps = $this->execute($q, $vars);
+        return $this->getDataRowsAsObjects($ps, 'Action');
+    }
 }
