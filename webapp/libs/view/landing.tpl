@@ -23,7 +23,7 @@
 	<ul class="list-group">
 	{foreach $actions as $action}
 	    <li class="list-group-item">
-	    {if $action->twitter_user_id eq $logged_in_user->twitter_user_id}You{else}{$action->name}{/if} {if $action->action_type eq 'create'}added{elseif $action->action_type eq 'update'}updated{/if} <a href="/{if $action->object_type eq 'Maker'}m{else}p{/if}/{$action->object_slug}/">{$action->object_name}</a> <span class="badge">{$action->object_type}</span> {$action->time_performed|relative_datetime} ago
+	    {if $action->twitter_user_id eq $logged_in_user->twitter_user_id}You{else}<a href="/u/{$action->twitter_user_id}/">{$action->name}</a>{/if} {if $action->action_type eq 'create'}added{elseif $action->action_type eq 'update'}updated{/if} <a href="/{if $action->object_type eq 'Maker'}m{else}p{/if}/{$action->object_slug}/">{$action->object_name}</a> <span class="badge">{$action->object_type}</span> {$action->time_performed|relative_datetime} ago
 	    </li>
 	{/foreach}
 	</ul>
