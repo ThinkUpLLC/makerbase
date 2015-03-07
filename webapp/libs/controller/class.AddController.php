@@ -18,28 +18,54 @@ class AddController extends AuthController {
                 $maker->url = $_POST['url'];
                 $maker->avatar_url = $_POST['avatar_url'];
 
-                $maker_dao = new MakerMySQLDAO();
-                $maker_id = $maker_dao->insert($maker);
-                $maker->id = $maker_id;
-
                 $user = $this->getLoggedInUser();
-                $connection_dao = new ConnectionMySQLDAO();
-                $connection_dao->insert($user, $maker);
+                $maker_dao = new MakerMySQLDAO();
+                try {
+                    $maker_id = $maker_dao->insert($maker);
+                    $maker->id = $maker_id;
 
-                $action = new Action();
-                $action->user_id = $user->id;
-                $action->severity = Action::SEVERITY_NORMAL;
-                $action->object_id = $maker->id;
-                $action->object_type = get_class($maker);
-                $action->ip_address = $_SERVER['REMOTE_ADDR'];
-                $action->action_type = 'create';
-                $action->object_slug = $maker->slug;
-                $action->object_name = $maker->name;
+                    $connection_dao = new ConnectionMySQLDAO();
+                    $connection_dao->insert($user, $maker);
 
-                $action_dao = new ActionMySQLDAO();
-                $action_dao->insert($action);
+                    $action = new Action();
+                    $action->user_id = $user->id;
+                    $action->severity = Action::SEVERITY_NORMAL;
+                    $action->object_id = $maker->id;
+                    $action->object_type = get_class($maker);
+                    $action->ip_address = $_SERVER['REMOTE_ADDR'];
+                    $action->action_type = 'create';
+                    $action->object_slug = $maker->slug;
+                    $action->object_name = $maker->name;
 
-                $this->addSuccessMessage('You have added a new maker.');
+                    $action_dao = new ActionMySQLDAO();
+                    $action_dao->insert($action);
+
+                    $this->addSuccessMessage('You added a maker.');
+                } catch (DuplicateMakerException $e) {
+                    $has_been_updated = $maker_dao->update($maker);
+                    $maker = $maker_dao->get($maker->slug);
+
+                    if ($has_been_updated) {
+                        $action = new Action();
+                        $action->user_id = $user->id;
+                        $action->severity = Action::SEVERITY_MINOR;
+                        $action->object_id = $maker->id;
+                        $action->object_type = get_class($maker);
+                        $action->ip_address = $_SERVER['REMOTE_ADDR'];
+                        $action->action_type = 'update';
+                        $action->object_slug = $maker->slug;
+                        $action->object_name = $maker->name;
+
+                        $action_dao = new ActionMySQLDAO();
+                        $action_dao->insert($action);
+                        $this->addSuccessMessage('You updated a maker.');
+                    } else {
+                        $this->addSuccessMessage('No changes made to '.$maker->slug);
+                    }
+
+                    $connection_dao = new ConnectionMySQLDAO();
+                    $connection_dao->insert($user, $maker);
+                }
             }
         } else {
             $this->redirect(Config::getInstance()->getValue('site_root_path'));

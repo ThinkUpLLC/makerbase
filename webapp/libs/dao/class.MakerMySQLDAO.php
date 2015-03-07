@@ -46,11 +46,28 @@ EOD;
         } catch (PDOException $e) {
             $message = $e->getMessage();
             if (strpos($message,'Duplicate entry') !== false && strpos($message,'slug') !== false) {
-                $maker = $this->get($maker->slug);
-                return $maker->id;
+                throw new DuplicateMakerException($message);
             } else {
                 throw new PDOException($message);
             }
         }
+    }
+
+    public function update(Maker $maker) {
+        $q = <<<EOD
+UPDATE makers SET username = :username, name = :name, url = :url, avatar_url = :avatar_url
+WHERE slug = :slug
+EOD;
+        $vars = array (
+            ':slug' => $maker->slug,
+            ':username' => $maker->username,
+            ':name' => $maker->name,
+            ':url' => $maker->url,
+            ':avatar_url' => $maker->avatar_url
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        return ($this->getUpdateCount($ps) > 0);
     }
 }
