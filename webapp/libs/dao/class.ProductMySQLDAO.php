@@ -15,7 +15,7 @@ class ProductMySQLDAO extends PDODAO {
     }
 
     public function listProducts($limit = 50) {
-        $q = "SELECT * FROM products LIMIT :limit;";
+        $q = "SELECT * FROM products ORDER BY creation_time DESC LIMIT :limit;";
         $vars = array ( ':limit' => $limit);
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         //echo self::mergeSQLVars($q, $vars);

@@ -15,7 +15,7 @@ class MakerMySQLDAO extends PDODAO {
     }
 
     public function listMakers($limit = 50) {
-        $q = "SELECT * FROM makers LIMIT :limit;";
+        $q = "SELECT * FROM makers ORDER BY creation_time DESC LIMIT :limit;";
         $vars = array ( ':limit' => $limit);
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         //echo self::mergeSQLVars($q, $vars);
