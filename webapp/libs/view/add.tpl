@@ -21,7 +21,7 @@
 		</div>
 		<div class="input-group">
 			<label>Avatar</label><br>
-			<img src="{$twitter_user_details.avatar}">
+			<img src="{$twitter_user_details.avatar}" width="100">
 			<input type="hidden" name="avatar_url" value="{$twitter_user_details.avatar}">
 		</div>
 		<div class="input-group">

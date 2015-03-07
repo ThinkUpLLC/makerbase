@@ -10,6 +10,8 @@ Loader::register(array(
 Loader::addSpecialClass('TwitterOAuth', Config::getInstance()->getValue('source_root_path').
     'webapp/extlibs/twitteroauth/twitteroauth.php');
 
+//ElasticSearch
+require 'vendor/autoload.php';
 
 $router = new Router();
 //In case of caching issues

@@ -23,12 +23,34 @@ class AddController extends AuthController {
                 $controller = new MakerController(true);
 
                 try {
+                    //Insert maker (this may throw a DuplicateMakerException)
                     $maker_id = $maker_dao->insert($maker);
                     $maker->id = $maker_id;
 
+                    // Add new maker to Elasticsearch
+                    $client = new Elasticsearch\Client();
+                    $params = array();
+                    $params['body']  = array(
+                        'slug'=>$maker->slug,
+                        'name'=>$maker->name,
+                        'description'=>'',
+                        'url'=>$maker->url,
+                        'avatar_url'=>$maker->url,
+                        'type'=>'maker'
+                    );
+                    $params['index'] = 'maker_product_index';
+                    $params['type']  = 'maker_product_type';
+                    //$params['id']    = 'my_id';
+                    $ret = $client->index($params);
+                    if ($ret['created'] != 1) {
+                        $controller->addErrorMessage('Problem adding '.$maker->slug.' to search index.');
+                    }
+
+                    //Add new connection
                     $connection_dao = new ConnectionMySQLDAO();
                     $connection_dao->insert($user, $maker);
 
+                    //Add new action
                     $action = new Action();
                     $action->user_id = $user->id;
                     $action->severity = Action::SEVERITY_NORMAL;
@@ -44,10 +66,12 @@ class AddController extends AuthController {
 
                     $controller->addSuccessMessage('You added '.$maker->slug.'.');
                 } catch (DuplicateMakerException $e) {
+                    //If not inserted, update
                     $has_been_updated = $maker_dao->update($maker);
                     $maker = $maker_dao->get($maker->slug);
 
                     if ($has_been_updated) {
+                        //Create new action if update changed something
                         $action = new Action();
                         $action->user_id = $user->id;
                         $action->severity = Action::SEVERITY_MINOR;
@@ -66,6 +90,7 @@ class AddController extends AuthController {
                         $controller->addSuccessMessage('No changes made to '.$maker->slug);
                     }
 
+                    //Create new connection regardless of whether update changed anything
                     $connection_dao = new ConnectionMySQLDAO();
                     $connection_dao->insert($user, $maker);
                 }
