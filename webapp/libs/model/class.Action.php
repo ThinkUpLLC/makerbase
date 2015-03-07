@@ -45,6 +45,14 @@ class Action {
      * @var str Type of affected object (maker, role, product).
      */
     var $object_type;
+    /**
+     * @var str Slug of affected object.
+     */
+    var $object_slug;
+    /**
+     * @var str Name of affected object.
+     */
+    var $object_name;
     public function __construct($row = false) {
         if ($row) {
             $this->id = $row['id'];
@@ -55,6 +63,8 @@ class Action {
             $this->severity = $row['severity'];
             $this->object_id = $row['object_id'];
             $this->object_type = $row['object_type'];
+            $this->object_slug = $row['object_slug'];
+            $this->object_name = $row['object_name'];
         }
     }
 }

@@ -1,0 +1,1 @@
+ALTER TABLE actions ADD object_slug VARCHAR(255) NOT NULL COMMENT 'Slug of affected object.' , ADD object_name VARCHAR(255) NOT NULL COMMENT 'Name of affected object.' ;

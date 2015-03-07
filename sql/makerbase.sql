@@ -17,6 +17,8 @@ CREATE TABLE actions (
   severity int(11) NOT NULL COMMENT 'Action severity (higher more severe).',
   object_id int(11) NOT NULL COMMENT 'ID of affected object.',
   object_type varchar(20) NOT NULL COMMENT 'Type of affected object (maker, role, product).',
+  object_slug varchar(255) NOT NULL COMMENT 'Slug of affected object.',
+  object_name varchar(255) NOT NULL COMMENT 'Name of affected object.',
   PRIMARY KEY (id),
   UNIQUE KEY id (id),
   KEY time_performed (time_performed,user_id,action_type)
