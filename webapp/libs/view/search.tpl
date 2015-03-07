@@ -9,9 +9,22 @@
 {/if}
 
 {if isset($return_document) }
-    {foreach $return_document.hits.hits as $hit}
-        <li><a href="/{if $hit._source.type eq 'maker'}m{else}p{/if}/{$hit._source.slug}">{$hit._source.name}</a>{if $hit._source.description neq ''} - {$hit._source.description}{/if}</li>
-    {/foreach}
+<div class="row">
+  <div class="col-xs-12">
+  	<div class="list-group">
+	{foreach $return_document.hits.hits as $hit}
+		<a class="list-group-item" href="/{if $hit._source.type eq 'maker'}m{else}p{/if}/{$hit._source.slug}">
+  			<div class="media-left">
+			</div>
+			<div class="media-body">
+				<h3>{$hit._source.name}</h3>
+				{if $hit._source.description neq ''}{$hit._source.description}{/if}
+			</div>
+		</a>
+	{/foreach}
+	</div>
+  </div>
+</div>
 {/if}
 
 
