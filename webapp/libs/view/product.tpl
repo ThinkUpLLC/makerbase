@@ -39,30 +39,40 @@
 	</ul>
 
   {if isset($logged_in_user)}
-    <br>
-    <form method="post" action="/add/role/">
-          <label>Maker:</label>
-          <input type="hidden" name="product_slug" value="{$product->slug}">
-        <div class="input-group">
-          <span class="input-group-addon" id="basic-addon1">@</span>
-          <input type="text" class="form-control" placeholder="Twitter username" name="maker_slug">
-        </div>
-        <div class="input-group">
-          <label>Start date (required):</label>
-          <input type="text" class="form-control" placeholder="YYYY-MM-DD" name="start_date">
-        </div>
-        <div class="input-group">
-          <label>End date (optional):</label>
-          <input type="text" class="form-control" placeholder="YYYY-MM-DD" name="end_date">
-        </div>
-        <div class="input-group">
-          <label>Role:</label>
-          <input type="text" class="form-control" placeholder="Herded unicorns" name="role">
-        </div>
-        <button class="btn btn-default" type="submit">Add role</button>
+    <form method="post" action="/add/role/" class="form-horizontal">
+			<input type="hidden" name="product_slug" value="{$product->slug}">
+			<div class="form-group">
+				<label for="maker_slug" class="col-sm-3 control-label">Maker:</label>
+				<div class="col-sm-9">
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon1">@</span>
+						<input type="text" class="form-control" placeholder="Twitter username" name="maker_slug">
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="start_date" class="col-sm-3 control-label">Start date:</label>
+				<div class="col-sm-9">
+				  <input type="text" class="form-control" id="start_date" name="start_date" placeholder="YYYY-MM-DD">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="end_date" class="col-sm-3 control-label">End date:</label>
+				<div class="col-sm-9">
+				  <input type="text" class="form-control" id="end_date" name="end_date" placeholder="YYYY-MM-DD">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="role" class="col-sm-3 control-label">Role:</label>
+				<div class="col-sm-9">
+				  <input type="text" class="form-control" id="role" name="role" placeholder="Herded unicorns">
+				</div>
+			</div>
+
+      <button class="btn btn-primary col-sm-offset-3" type="submit">Add a maker</button>
     </form>
 {else}
-    <p><a href="{$sign_in_with_twttr_link}">Sign in</a> to add someone here.</p>
+	<button type="button" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-plus"></i> Add a{if $roles}nother{/if} maker</button>
 {/if}
 
   </div>
