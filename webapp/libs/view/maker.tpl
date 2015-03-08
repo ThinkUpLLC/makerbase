@@ -2,7 +2,7 @@
 
 <div class="row">
   <div class="col-xs-12">
-	<h1>{$maker->name} is a maker<button type="button" class="btn btn-sm btn-success pull-right"><i class="glyphicon glyphicon-user"></i> Hey, I'm {$maker->name}!</button>
+	<h1>{$maker->name} is a maker {if !isset($logged_in_user)}<button type="button" class="btn btn-sm btn-success pull-right"><i class="glyphicon glyphicon-user"></i> Hey, I'm {$maker->name}!</button>{/if}
 	</h1>
   </div>
 </div>
@@ -75,7 +75,7 @@
       <button class="btn btn-primary col-sm-offset-3" type="submit">Add a product</button>
     </form>
 {else}
-  <a href="{$sign_in_with_twttr_link}"><button type="button" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-plus"></i> Add a{if $roles}nother{/if} project</button></a>
+  <a href="{$sign_in_with_twttr_link}" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-plus"></i> Add a{if $roles}nother{/if} project</a>
 {/if}
 
   </div>

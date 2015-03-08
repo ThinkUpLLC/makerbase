@@ -1,6 +1,6 @@
 {include file="_head.tpl"}
 
-<h1>we made {$product->name} <button type="button" class="btn btn-success pull-right">Hey, I helped make {$product->name}!</button></h1>
+<h1>we made {$product->name} {if !isset($logged_in_user)}<button type="button" class="btn btn-success pull-right">Hey, I helped make {$product->name}!</button>{/if}</h1>
 
 <div class="row">
   <div class="col-xs-5">
@@ -70,7 +70,7 @@
       <button class="btn btn-primary col-sm-offset-3" type="submit">Add a maker</button>
     </form>
 {else}
-    <a href="{$sign_in_with_twttr_link}"><button type="button" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-plus"></i> Add a{if $roles}nother{/if} maker</button>
+    <a href="{$sign_in_with_twttr_link}" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-plus"></i> Add a{if $roles}nother{/if} maker</a>
 {/if}
 
   </div>

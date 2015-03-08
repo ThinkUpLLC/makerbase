@@ -6,18 +6,21 @@
   {if isset($logged_in_user)}
   <div class="col-xs-5">
   	<h3>Make Makerbase</h3>
-	<form method="post" action="/add/maker/" class="form-inline">
-		<label>Maker:</label>
-		<div class="input-group input-group-sm">
-		  <span class="input-group-addon" id="basic-addon1">@</span>
-		  <input type="text" class="form-control" placeholder="Twitter username" aria-describedby="basic-addon1" name="twitter_username">
-			<span class="input-group-btn">
-		        <button class="btn btn-success" type="submit">Go</button>
-		    </span>
+	<form method="post" action="/add/maker/" class="form-horizontal">
+		<div class="form-group">
+			<label class="col-xs-2">Maker:</label>
+			<div class="input-group input-group-sm">
+			  <span class="input-group-addon" id="basic-addon1">@</span>
+			  <input type="text" class="form-control" placeholder="Twitter username" aria-describedby="basic-addon1" name="twitter_username">
+				<span class="input-group-btn">
+			        <button class="btn btn-success" type="submit">Go</button>
+			    </span>
+			</div>
 		</div>
 	</form>
-    <form method="post" action="/add/product/" class="form-inline">
-        <label>Product:</label>
+    <form method="post" action="/add/product/" class="form-horizontal">
+    	<div class="form-group">
+        <label class="col-xs-2">Product:</label>
         <div class="input-group input-group-sm">
           <span class="input-group-addon" id="basic-addon1">@</span>
           <input type="text" class="form-control" placeholder="Twitter handle" aria-describedby="basic-addon1" name="twitter_username">
@@ -25,6 +28,7 @@
                 <button class="btn btn-primary" type="submit">Go</button>
             </span>
         </div>
+      </div>
     </form>
   </div>
   {/if}

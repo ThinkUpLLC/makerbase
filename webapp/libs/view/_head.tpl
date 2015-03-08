@@ -55,7 +55,8 @@
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="/signout/">Sign out</a></li>
+              <li><a href="{$site_root_path}u/{$logged_in_user->twitter_user_id}">Your activity</a></li>
+              <li><a href="{$site_root_path}signout/">Sign out</a></li>
             </ul>
           </div>
           </form>
@@ -67,7 +68,7 @@
 
           <form class="navbar-form col-xs-offset-2" role="search" action="/search.php">
             <div class="input-group input-group-sm col-xs-6">
-              <input type="search" class="form-control" placeholder="Search" name="q">
+              <input type="search" id="nav-typeahead" class="form-control" placeholder="Search" name="q" autocomplete="off">
               <span class="input-group-btn">
                 <button type="submit" class="btn btn-default">Go</button>
               </span>
