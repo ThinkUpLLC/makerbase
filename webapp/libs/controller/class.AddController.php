@@ -58,8 +58,7 @@ class AddController extends AuthController {
                     $action->object_type = get_class($maker);
                     $action->ip_address = $_SERVER['REMOTE_ADDR'];
                     $action->action_type = 'create';
-                    $action->object_slug = $maker->slug;
-                    $action->object_name = $maker->name;
+                    $action->metadata = json_encode($maker);
 
                     $action_dao = new ActionMySQLDAO();
                     $action_dao->insert($action);
@@ -101,8 +100,7 @@ class AddController extends AuthController {
                         $action->object_type = get_class($maker);
                         $action->ip_address = $_SERVER['REMOTE_ADDR'];
                         $action->action_type = 'update';
-                        $action->object_slug = $maker->slug;
-                        $action->object_name = $maker->name;
+                        $action->metadata = json_encode($maker);
 
                         $action_dao = new ActionMySQLDAO();
                         $action_dao->insert($action);

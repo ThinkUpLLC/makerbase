@@ -16,7 +16,7 @@
     <ul class="list-group">
     {foreach $actions as $action}
         <li class="list-group-item">
-        <a href="/u/{$action->twitter_user_id}/">{$action->name}</a> {if $action->action_type eq 'create'}added{elseif $action->action_type eq 'update'}updated{/if} <a href="/{if $action->object_type eq 'Maker'}m{else}p{/if}/{$action->object_slug}/">{$action->object_name}</a> {$action->time_performed|relative_datetime} ago
+        {include file="_action.tpl"}
         </li>
     {/foreach}
     </ul>

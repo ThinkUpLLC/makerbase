@@ -25,8 +25,6 @@ class ActionMySQLDAOTest extends MakerbaseUnitTestCase {
         $action->object_id = 10;
         $action->object_type = 'product';
         $action->severity = Action::SEVERITY_NORMAL;
-        $action->object_slug = 'lifehacker';
-        $action->object_name = 'Lifehacker';
         $action->user_id = 100;
 
         $result = $action_dao->insert($action);

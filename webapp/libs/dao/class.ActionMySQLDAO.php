@@ -4,9 +4,9 @@ class ActionMySQLDAO extends PDODAO {
     public function insert(Action $action) {
         $q = <<<EOD
 INSERT INTO actions (
-user_id, ip_address, action_type, severity, object_id, object_type, object_slug, object_name
+user_id, ip_address, action_type, severity, object_id, object_type, object2_id, object2_type, metadata
 ) VALUES (
-:user_id, :ip_address, :action_type, :severity, :object_id, :object_type, :object_slug, :object_name
+:user_id, :ip_address, :action_type, :severity, :object_id, :object_type, :object2_id, :object2_type, :metadata
 )
 EOD;
         $vars = array (
@@ -16,8 +16,9 @@ EOD;
             ':severity' => $action->severity,
             ':object_id' => $action->object_id,
             ':object_type' => $action->object_type,
-            ':object_slug' => $action->object_slug,
-            ':object_name' => $action->object_name
+            ':object2_id' => $action->object2_id,
+            ':object2_type' => $action->object2_type,
+            ':metadata' => $action->metadata,
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         $ps = $this->execute($q, $vars);
@@ -36,7 +37,11 @@ EOD;
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         $ps = $this->execute($q, $vars);
-        return $this->getDataRowsAsObjects($ps, 'Action');
+        $actions = $this->getDataRowsAsObjects($ps, 'Action');
+        foreach ($actions as $action) {
+            $action->metadata = JSONDecoder::decode($action->metadata);
+        }
+        return $actions;
     }
 
     public function getUserActivities($user_id) {
@@ -50,7 +55,11 @@ EOD;
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         $ps = $this->execute($q, $vars);
-        return $this->getDataRowsAsObjects($ps, 'Action');
+        $actions = $this->getDataRowsAsObjects($ps, 'Action');
+        foreach ($actions as $action) {
+            $action->metadata = JSONDecoder::decode($action->metadata);
+        }
+        return $actions;
     }
 
     public function getActivitiesPerformedOnMaker(Maker $maker) {
@@ -64,7 +73,11 @@ EOD;
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         $ps = $this->execute($q, $vars);
-        return $this->getDataRowsAsObjects($ps, 'Action');
+        $actions = $this->getDataRowsAsObjects($ps, 'Action');
+        foreach ($actions as $action) {
+            $action->metadata = JSONDecoder::decode($action->metadata);
+        }
+        return $actions;
     }
 
     public function getActivities() {
@@ -75,6 +88,10 @@ ORDER BY time_performed DESC LIMIT 100;
 EOD;
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         $ps = $this->execute($q);
-        return $this->getDataRowsAsObjects($ps, 'Action');
+        $actions = $this->getDataRowsAsObjects($ps, 'Action');
+        foreach ($actions as $action) {
+            $action->metadata = JSONDecoder::decode($action->metadata);
+        }
+        return $actions;
     }
 }
