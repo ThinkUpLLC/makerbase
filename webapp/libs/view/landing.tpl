@@ -19,6 +19,17 @@
 		</div>
 	</form>
   <br><br>
+    <form method="post" action="/add/product/">
+        <label>Add a product:</label>
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">@</span>
+          <input type="text" class="form-control" placeholder="Twitter handle" aria-describedby="basic-addon1" name="twitter_username">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="submit">Go</button>
+            </span>
+        </div>
+    </form>
+  <br><br>
   {/if}
   	{if sizeof($actions) > 0}
   	<h3>Recent activity</h3>

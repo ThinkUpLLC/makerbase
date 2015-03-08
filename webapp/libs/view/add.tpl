@@ -15,6 +15,12 @@
 			<input type="text" class="form-control" name="full_name" value="{$twitter_user_details.full_name}">
 			<input type="hidden" name="username" value="{$twitter_user_details.user_name}">
 		</div>
+		{if $object eq 'product'}
+		<div class="input-group">
+			<label>Description</label>
+			<input type="text" class="form-control" name="description" value="{$twitter_user_details.description}">
+		</div>
+		{/if}
 		<div class="input-group">
 			<label>Web site url</label>
 			<input type="text" class="form-control" name="url" value="{$twitter_user_details.url}">
