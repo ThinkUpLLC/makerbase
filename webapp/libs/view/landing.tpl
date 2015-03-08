@@ -1,11 +1,10 @@
 {include file="_head.tpl"}
 
 <div class="row">
-
-{if isset($actions)}
-  {if isset($logged_in_user)}
   <div class="col-xs-5">
-  	<h3>Make Makerbase</h3>
+    <h3>Make Makerbase</h3>
+
+  {if isset($logged_in_user)}
 	<form method="post" action="/add/maker/" class="form-horizontal">
 		<div class="form-group">
 			<label class="col-xs-2">Maker:</label>
@@ -30,8 +29,12 @@
         </div>
       </div>
     </form>
-  </div>
+  {else}
+    <p><a href="{$sign_in_with_twttr_link}" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-plus"></i> Add a maker</a></p>
+    <p><a href="{$sign_in_with_twttr_link}" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-plus"></i> Add a project</a></p>
   {/if}
+  </div>
+{if isset($actions)}
   {if sizeof($actions) > 0}
   <div class="col-xs-7">
   	<h3>Recent activity</h3>
