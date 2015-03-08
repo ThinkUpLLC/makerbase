@@ -37,13 +37,9 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">Makerba.se</a>
+          <a class="navbar-brand" href="/">{$app_title}</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Home</a></li>
-            <li><a href="https://github.com/ThinkUpLLC/makerbase">Source</a></li>
-          </ul>
           {if isset($logged_in_user)}
           <!-- Single button -->
           <div class="nav navbar-right">
