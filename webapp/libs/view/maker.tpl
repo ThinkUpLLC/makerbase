@@ -1,8 +1,5 @@
 {include file="_head.tpl"}
 
-{include file="_isosceles.usermessage.tpl"}
-
-
 <div class="row">
   <div class="col-xs-12">
 	<h1>{$maker->name} is a maker<button type="button" class="btn btn-sm btn-success pull-right"><i class="glyphicon glyphicon-user"></i> Hey, I'm {$maker->name}!</button>

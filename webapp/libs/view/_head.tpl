@@ -79,3 +79,5 @@
     </nav>
 
     <div class="container">
+
+{include file="_usermessage.tpl"}
