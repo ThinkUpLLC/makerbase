@@ -29,7 +29,7 @@
   	<ul class="list-group">
 	{foreach $roles as $role}
 		<li class="list-group-item">
-			<span class="badge">{$role->start_MY}{if isset($role->end_MY)} &mdash; {$role->end_MY}{/if}</span>
+			<span class="badge">{if isset($role->start_MY)}{$role->start_MY}{if isset($role->end_MY)} &mdash; {$role->end_MY}{/if}{/if}</span>
   			<div class="media-left">
 				<img class="media-object" src="{insert name='user_image' image_url=$role->product->avatar_url image_proxy_sig=$image_proxy_sig type='maker'}" alt="{$role->product->name} logo" width="100">
 			</div>
