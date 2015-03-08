@@ -30,7 +30,7 @@ EOD;
 SELECT a.*, u.name, u.twitter_user_id FROM actions a INNER JOIN connections c
 ON c.object_type = a.object_type and c.object_id = a.object_id
 INNER JOIN users u ON a.user_id = u.id
-WHERE c.user_id = :user_id ORDER BY time_performed DESC;
+WHERE c.user_id = :user_id ORDER BY time_performed DESC LIMIT 7;
 EOD;
         $vars = array (
             ':user_id' => $user_id
@@ -84,7 +84,7 @@ EOD;
         $q = <<<EOD
 SELECT a.*, u.name, u.twitter_user_id FROM actions a
 INNER JOIN users u ON a.user_id = u.id
-ORDER BY time_performed DESC LIMIT 100;
+ORDER BY time_performed DESC LIMIT 7;
 EOD;
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         $ps = $this->execute($q);

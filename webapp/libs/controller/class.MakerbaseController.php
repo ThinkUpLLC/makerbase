@@ -20,6 +20,8 @@ class MakerbaseController extends Controller {
             $callback_url = Utils::getApplicationURL(false, false).'signin/';
             if (isset($_GET['redirect'])) {
                 $callback_url .= '?redirect='.$_GET['redirect'];
+            } else {
+                $callback_url .= '?redirect='.$_SERVER['REQUEST_URI'];
             }
             $token_array = $twitter_oauth->getRequestToken($callback_url);
 

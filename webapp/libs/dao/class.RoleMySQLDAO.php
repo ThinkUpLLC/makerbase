@@ -34,4 +34,25 @@ class RoleMySQLDAO extends PDODAO {
         }
         return $roles;
     }
+
+    public function insert(Role $role) {
+        $q = <<<EOD
+INSERT INTO roles (
+maker_id, product_id, start, end, role
+) VALUES (
+:maker_id, :product_id, :start, :end, :role
+)
+EOD;
+        $vars = array (
+            ':maker_id' => $role->maker_id,
+            ':product_id' => $role->product_id,
+            ':start' => $role->start,
+            ':end' => $role->end,
+            ':role' => $role->role
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        return $this->getInsertId($ps);
+    }
 }

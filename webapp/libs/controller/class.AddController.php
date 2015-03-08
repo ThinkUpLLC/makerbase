@@ -5,7 +5,7 @@ class AddController extends AuthController {
     public function authControl() {
         $this->setViewTemplate('add.tpl');
 
-        if ($_GET['object'] == 'maker' || $_GET['object'] == 'product') {
+        if ($_GET['object'] == 'maker' || $_GET['object'] == 'product' || $_GET['object'] == 'role') {
             $this->addToView('object', $_GET['object']);
 
             if (isset($_POST['twitter_username'])) {
@@ -15,6 +15,9 @@ class AddController extends AuthController {
                 return $controller->go();
             } elseif ($_GET['object'] == 'product' && $this->hasSubmittedProductForm()) {
                 $controller = $this->addOrUpdateProduct();
+                return $controller->go();
+            } elseif ($_GET['object'] == 'role' && $this->hasSubmittedRoleForm()) {
+                $controller = $this->addOrUpdateRole();
                 return $controller->go();
             }
         } else {
@@ -30,6 +33,16 @@ class AddController extends AuthController {
             && isset($_POST['full_name'])
             && isset($_POST['url'])
             && isset($_POST['avatar_url'])
+            );
+    }
+
+    private function hasSubmittedRoleForm() {
+        return (
+            isset($_POST['product_slug'])
+            && isset($_POST['maker_slug'])
+            && isset($_POST['start_date'])
+            && isset($_POST['end_date'])
+            && isset($_POST['role'])
             );
     }
 
@@ -63,6 +76,60 @@ class AddController extends AuthController {
         $user_dao = new UserMySQLDAO();
         $user = $user_dao->get($logged_in_user);
         return $user;
+    }
+
+    private function addOrUpdateRole() {
+        $maker_dao = new MakerMySQLDAO();
+        $product_dao = new ProductMySQLDAO();
+        $user = $this->getLoggedInUser();
+        $controller = new ProductController(true);
+        try {
+            $maker = $maker_dao->get($_POST['maker_slug']);
+            $product = $product_dao->get($_POST['product_slug']);
+
+            $role = new Role();
+            $role->maker_id = $maker->id;
+            $role->product_id = $product->id;
+            $role->start = $_POST['start_date'];
+            $role->end = $_POST['end_date'];
+            $role->role = $_POST['role'];
+
+            $role_dao = new RoleMySQLDAO();
+            $role_dao->insert($role);
+
+            //Add new connection
+            $connection_dao = new ConnectionMySQLDAO();
+            $connection_dao->insert($user, $maker);
+            $connection_dao->insert($user, $product);
+
+            //Add new action
+            $action = new Action();
+            $action->user_id = $user->id;
+            $action->severity = Action::SEVERITY_NORMAL;
+            $action->object_id = $maker->id;
+            $action->object_type = get_class($maker);
+            $action->object2_id = $product->id;
+            $action->object2_type = get_class($product);
+            $action->ip_address = $_SERVER['REMOTE_ADDR'];
+            $action->action_type = 'associate';
+
+            $role->maker = $maker;
+            $role->product = $product;
+
+            $action->metadata = json_encode($role);
+
+            $action_dao = new ActionMySQLDAO();
+            $action_dao->insert($action);
+
+            $controller->addSuccessMessage('You added '.$maker->slug.' to '.$product->slug.'.');
+        } catch (MakerDoesNotExistException $e) {
+
+        } catch (ProductDoesNotExistException $e) {
+
+        }
+        $_GET = null;
+        $_GET['slug'] = $product->slug;
+        return $controller;
     }
 
     private function addOrUpdateMaker() {
