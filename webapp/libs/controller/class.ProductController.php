@@ -13,6 +13,9 @@ class ProductController extends MakerbaseController {
         $roles = $role_dao->getByProduct($product->id);
         $this->addToView('roles', $roles);
 
+        // stub out actions
+        $this->addToView('actions', null);
+
         $image_proxy_sig = Config::getInstance()->getValue('image_proxy_sig');
         $this->addToView('image_proxy_sig', $image_proxy_sig);
 
