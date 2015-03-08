@@ -2,20 +2,25 @@
 
 {include file="_isosceles.usermessage.tpl"}
 
-<h1>{$maker->name} is a maker <button type="button" class="btn btn-success pull-right">Hey, I'm {$maker->name}!</button>
-</h1>
 
 <div class="row">
-  <div class="col-xs-2">
+  <div class="col-xs-12">
+	<h1>{$maker->name} is a maker<button type="button" class="btn btn-sm btn-success pull-right"><i class="glyphicon glyphicon-user"></i> Hey, I'm {$maker->name}!</button>
+	</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-5">
     <img class="img-responsive" src="{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='maker'}" alt="{$maker->name}" width="100%">
 
 	<p><a href="{$maker->url}">{$maker->url}</a></p>
 
     {if sizeof($actions) > 0}
-    <h3>History</h3>
-    <ul class="list-group">
+    <h4>History</h4>
+    <ul class="list-unstyled">
     {foreach $actions as $action}
-        <li class="list-group-item">
+        <li class="">
         {include file="_action.tpl"}
         </li>
     {/foreach}
@@ -23,7 +28,7 @@
     {/if}
 
   </div>
-  <div class="col-xs-10">
+  <div class="col-xs-7">
   	<ul class="list-group">
 	{foreach $roles as $role}
 		<li class="list-group-item">
@@ -38,6 +43,7 @@
 		</li>
 	{/foreach}
 	</ul>
+	<button type="button" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-plus"></i> Add a{if $roles}nother{/if} project</button>
   </div>
 </div>
 

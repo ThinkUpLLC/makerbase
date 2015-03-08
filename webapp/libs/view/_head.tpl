@@ -10,12 +10,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <style type="text/css">
       body {
-        margin-top: 50px;
+      }
+      .form-inline {
+        padding-bottom: 20px;
       }
       .footer {
         height: 60px;
         background-color: #f5f5f5;
         padding: 20px;
+        margin-top: 20px;
       }
 	   </style>
 
@@ -28,7 +31,7 @@
   </head>
   <body>
 
-      <nav class="navbar navbar-inverse navbar-fixed-top">
+      <nav class="navbar navbar-inverse navbar-static-top">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -37,7 +40,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">{$app_title}</a>
+          <a class="navbar-brand" href="{$site_root_path}">{$app_title}</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           {if isset($logged_in_user)}
@@ -56,16 +59,19 @@
             </ul>
           </div>
           </form>
-          {/if}
+          {else}
           <form class="navbar-form navbar-right" role="signin">
-          {if isset($sign_in_with_twttr_link)}<a href="{$sign_in_with_twttr_link}"><img src="/assets/img/sign-in-with-twitter-gray.png"></a>{/if}
+            {if isset($sign_in_with_twttr_link)}<a href="{$sign_in_with_twttr_link}"><img src="/assets/img/sign-in-with-twitter-gray.png"></a>{/if}
           </form>
+          {/if}
 
-          <form class="navbar-form navbar-right" role="search" action="/search.php">
-            <div class="form-group">
-              <input type="search" class="form-control input-sm" placeholder="Search" name="q">
+          <form class="navbar-form col-xs-offset-2" role="search" action="/search.php">
+            <div class="input-group input-group-sm col-xs-6">
+              <input type="search" class="form-control" placeholder="Search" name="q">
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-default">Go</button>
+              </span>
             </div>
-            <button type="submit" class="btn btn-default btn-sm">Go</button>
           </form>
 
         </div><!--/.nav-collapse -->

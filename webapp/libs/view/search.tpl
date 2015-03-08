@@ -5,7 +5,20 @@
 {/if}
 
 {if !isset($return_document) || $return_document.hits.total eq 0}
-<p><form><input type='text' name='q'> <input type='Submit' value='Search again'></form></p>
+
+<div class="row">
+  <div class="col-xs-6">
+          <form class="form" role="search" action="/search.php">
+            <div class="input-group input-group-sm">
+              <input type="search" class="form-control" placeholder="Search" value="{$query}" name="q">
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-default">Search again</button>
+              </span>
+            </div>
+          </form>
+  </div>
+</div>
+
 {/if}
 
 {if isset($return_document) }
