@@ -85,12 +85,14 @@ CREATE TABLE products (
 --
 
 CREATE TABLE roles (
+  id int(11) NOT NULL AUTO_INCREMENT COMMENT 'Internal unique ID.',
   product_id int(11) NOT NULL COMMENT 'Product ID.',
   maker_id int(11) NOT NULL COMMENT 'Maker ID.',
   role varchar(255) NOT NULL COMMENT 'Role of maker in product.',
-  `start` date NOT NULL COMMENT 'Start date.',
+  `start` date DEFAULT NULL COMMENT 'Start date.',
   `end` date DEFAULT NULL COMMENT 'End date.',
   creation_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation time.',
+  PRIMARY KEY (id),
   KEY product_id (product_id,maker_id),
   KEY creation_time (creation_time)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Maker roles in products.';

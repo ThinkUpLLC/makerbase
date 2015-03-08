@@ -2,6 +2,10 @@
 
 class Role {
     /**
+     * @var int Internal unique ID.
+     */
+    var $id;
+    /**
      * @var int Product ID.
      */
     var $product_id;
@@ -27,11 +31,14 @@ class Role {
     var $creation_time;
     public function __construct($row = false) {
         if ($row) {
+            $this->id = $row['id'];
             $this->product_id = $row['product_id'];
             $this->maker_id = $row['maker_id'];
             $this->role = $row['role'];
             $this->start = $row['start'];
-            $this->start_MY = date_format(date_create($this->start), 'M Y');
+            if (isset($this->start)) {
+                $this->start_MY = date_format(date_create($this->start), 'M Y');
+            }
             $this->end = $row['end'];
             if (isset($this->end)) {
                 $this->years = date_format(date_create($this->end), 'Y')

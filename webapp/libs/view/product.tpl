@@ -24,7 +24,7 @@
   	<ul class="list-group">
   		{foreach $roles as $role}
 		<li class="list-group-item">
-			<span class="badge">{if isset($role->years) && $role->years > 0}{$role->years} year{if $role->years neq 1}s{/if}{else}{$role->start_MY}{/if}</span>
+			<span class="badge">{if isset($role->years) && $role->years > 0}{$role->years} year{if $role->years neq 1}s{/if}{else}{if isset($role->start_MY)}{$role->start_MY}{/if}{/if}</span>
   			<div class="media-left">
 				<img class="media-object" src="{insert name='user_image' image_url=$role->maker->avatar_url image_proxy_sig=$image_proxy_sig type='maker'}" alt="maker" width="100">
 			</div>
@@ -48,8 +48,9 @@
 					</div>
 				</div>
 			</div>
-			<div class="form-group">
-				<label for="start_date" class="col-sm-3 control-label">Start date:</label>
+
+            <div class="form-group">
+    			<label for="start_date" class="col-sm-3 control-label">Start date:</label>
 				<div class="col-sm-9">
 				  <input type="text" class="form-control" id="start_date" name="start_date" placeholder="YYYY-MM-DD">
 				</div>
