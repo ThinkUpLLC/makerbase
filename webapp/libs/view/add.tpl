@@ -1,7 +1,5 @@
 {include file="_head.tpl"}
 
-{include file="_isosceles.usermessage.tpl"}
-
 <div class="row">
 
 <h2>Add {$object}</h2>
