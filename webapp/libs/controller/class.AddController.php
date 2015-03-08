@@ -122,13 +122,16 @@ class AddController extends AuthController {
             $action_dao->insert($action);
 
             $controller->addSuccessMessage('You added '.$maker->slug.' to '.$product->slug.'.');
+
+            $_GET = null;
+            $_GET['slug'] = $product->slug;
         } catch (MakerDoesNotExistException $e) {
-
+            $_GET['slug'] = $_POST['product_slug'];
+            $controller->addErrorMessage('That maker does not exist. <a href="/add/maker/">Add them</a>.');
         } catch (ProductDoesNotExistException $e) {
-
+            $_GET['slug'] = $_POST['product_slug'];
+            $controller->addErrorMessage('That product does not exist. <a href="/add/product/">Add it</a>.');
         }
-        $_GET = null;
-        $_GET['slug'] = $product->slug;
         return $controller;
     }
 
