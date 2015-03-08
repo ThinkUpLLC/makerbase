@@ -1,7 +1,5 @@
 {include file="_head.tpl"}
 
-{include file="_isosceles.usermessage.tpl"}
-
 <h1>we made {$product->name} <button type="button" class="btn btn-success pull-right">Hey, I helped make {$product->name}!</button></h1>
 
 <div class="row">
