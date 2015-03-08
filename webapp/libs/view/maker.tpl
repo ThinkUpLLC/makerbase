@@ -43,7 +43,44 @@
 		</li>
 	{/foreach}
 	</ul>
-	<button type="button" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-plus"></i> Add a{if $roles}nother{/if} project</button>
+
+ {if isset($logged_in_user)}
+    <form method="post" action="/add/role/" class="form-horizontal">
+      <input type="hidden" name="maker_slug" value="{$maker->slug}">
+      <div class="form-group">
+        <label for="maker_slug" class="col-sm-3 control-label">Product:</label>
+        <div class="col-sm-9">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">@</span>
+            <input type="text" class="form-control" placeholder="Twitter handle" name="product_slug">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="start_date" class="col-sm-3 control-label">Start date:</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="start_date" name="start_date" placeholder="YYYY-MM-DD">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="end_date" class="col-sm-3 control-label">End date:</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="end_date" name="end_date" placeholder="YYYY-MM-DD">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="role" class="col-sm-3 control-label">Role:</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="role" name="role" placeholder="Herded unicorns">
+        </div>
+      </div>
+
+      <button class="btn btn-primary col-sm-offset-3" type="submit">Add a product</button>
+    </form>
+{else}
+  <a href="{$sign_in_with_twttr_link}"><button type="button" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-plus"></i> Add a{if $roles}nother{/if} project</button></a>
+{/if}
+
   </div>
 </div>
 

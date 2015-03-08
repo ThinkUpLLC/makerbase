@@ -72,7 +72,7 @@
       <button class="btn btn-primary col-sm-offset-3" type="submit">Add a maker</button>
     </form>
 {else}
-	<button type="button" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-plus"></i> Add a{if $roles}nother{/if} maker</button>
+    <a href="{$sign_in_with_twttr_link}"><button type="button" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-plus"></i> Add a{if $roles}nother{/if} maker</button>
 {/if}
 
   </div>
