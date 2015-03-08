@@ -15,7 +15,7 @@
     <ul class="list-unstyled">
     {foreach $actions as $action}
         <li>
-        <a href="/u/{$action->twitter_user_id}/">{$action->name}</a> {if $action->action_type eq 'create'}added{elseif $action->action_type eq 'update'}updated{/if} {$action->object_name} {$action->time_performed|relative_datetime} ago
+        {include file="_action.tpl"}
         </li>
     {/foreach}
     </ul>

@@ -80,6 +80,24 @@ EOD;
         return $actions;
     }
 
+    public function getActivitiesPerformedOnProduct(Product $product) {
+        $q = <<<EOD
+SELECT a.*, u.name, u.twitter_user_id FROM actions a
+INNER JOIN users u ON a.user_id = u.id
+WHERE a.object_type = 'Product' AND a.object_id = :product_id ORDER BY time_performed DESC;
+EOD;
+        $vars = array (
+            ':product_id' => $product->id
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $ps = $this->execute($q, $vars);
+        $actions = $this->getDataRowsAsObjects($ps, 'Action');
+        foreach ($actions as $action) {
+            $action->metadata = JSONDecoder::decode($action->metadata);
+        }
+        return $actions;
+    }
+
     public function getActivities() {
         $q = <<<EOD
 SELECT a.*, u.name, u.twitter_user_id FROM actions a
