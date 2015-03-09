@@ -61,13 +61,14 @@
       </div>
       <div class="form-group">
         <label for="start_date" class="col-sm-3 control-label">From:</label>
-        <div class="col-sm-4">
-          <input type="text" class="form-control" id="start_date" name="start_date" placeholder="YYYY-MM-DD">
+        <div class="col-sm-9">
+          <div class="input-daterange input-group" id="datepicker">
+            <input type="text" class="input-sm form-control" name="start_date" id="start_date" placeholder="YYYY-MM" data-provide="datepicker" autocomplete="off"/>
+            <span class="input-group-addon">to</span>
+            <input type="text" class="input-sm form-control" name="end_date" id="end_date" placeholder="Leave blank if current" autocomplete="off" />
+          </div>
         </div>
-        <label for="end_date" class="col-sm-1 control-label">Until:</label>
-        <div class="col-sm-4">
-          <input type="text" class="form-control" id="end_date" name="end_date" placeholder="YYYY-MM-DD">
-        </div>
+
       </div>
 
       <button class="btn btn-primary col-sm-offset-3" type="submit">Add a product</button>

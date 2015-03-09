@@ -9,6 +9,7 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{$site_root_path}assets/css/makerbase.css">
+    <link rel="stylesheet" href="{$site_root_path}assets/css/vendor/bootstrap-datepicker3.min.css">
     <script src="//use.typekit.net/xzh8ady.js"></script>
     {literal}
     <script>try{Typekit.load();}catch(e){}</script>

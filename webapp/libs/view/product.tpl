@@ -29,7 +29,7 @@
   	<ul class="list-group">
   		{foreach $roles as $role}
 		<li class="list-group-item">
-			{if isset($role->years) && $role->years > 0}<span class="badge">{$role->years} year{if $role->years neq 1}s{/if}{else}{if isset($role->start_MY)}{$role->start_MY}{/if}</span>{/if}
+			<span class="badge">{if isset($role->years) && $role->years > 0}{$role->years} year{if $role->years neq 1}s{/if}{else}{if isset($role->start_MY)}{$role->start_MY}{/if}{/if}</span>
   			<div class="media-left">
 				<img class="media-object" src="{insert name='user_image' image_url=$role->maker->avatar_url image_proxy_sig=$image_proxy_sig type='maker'}" alt="maker" width="100">
 			</div>
@@ -61,14 +61,14 @@
 				</div>
 			</div>
       <div class="form-group">
-    			<label for="start_date" class="col-sm-3 control-label">From:</label>
-				<div class="col-sm-3">
-				  <input type="text" class="form-control" id="start_date" name="start_date" placeholder="YYYY-MM-DD">
-				</div>
-				<label for="end_date" class="col-sm-1 control-label">Until:</label>
-				<div class="col-sm-3">
-				  <input type="text" class="form-control" id="end_date" name="end_date" placeholder="YYYY-MM-DD">
-				</div>
+        <label for="start_date" class="col-sm-3 control-label">From:</label>
+        <div class="col-sm-9">
+          <div class="input-daterange input-group" id="datepicker">
+            <input type="text" class="input-sm form-control" name="start_date" id="start_date" placeholder="YYYY-MM" data-provide="datepicker" autocomplete="off"/>
+            <span class="input-group-addon">to</span>
+            <input type="text" class="input-sm form-control" name="end_date" id="end_date" placeholder="Leave blank if current" autocomplete="off" />
+          </div>
+        </div>
 			</div>
 
       <button class="btn btn-primary col-sm-offset-3" type="submit">Add a maker</button>
