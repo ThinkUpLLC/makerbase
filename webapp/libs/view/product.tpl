@@ -1,9 +1,14 @@
 {include file="_head.tpl"}
 
-<h1>we made {$product->name} {if !isset($logged_in_user)}<button type="button" class="btn btn-success pull-right">Hey, I helped make {$product->name}!</button>{/if}</h1>
+<div class="row">
+  <div class="col-sm-12 col-xs-12">
+	<h1>We made {$product->name} {if !isset($logged_in_user)}<button type="button" class="btn btn-success pull-right">Hey, I helped make {$product->name}!</button>{/if}</h1>
+  </div>
+</div>
+
 
 <div class="row">
-  <div class="col-xs-5">
+  <div class="col-sm-5 col-xs-12">
   	<img src="{insert name='user_image' image_url=$product->avatar_url image_proxy_sig=$image_proxy_sig type='maker'}" class="img-responsive" width="100%" />
     <p>{$product->description}</p>
 	<p><a href="{$product->url}">{$product->url}</a></p>
@@ -20,11 +25,11 @@
     {/if}
 
   </div>
-  <div class="col-xs-7">
+  <div class="col-sm-7 col-xs-12">
   	<ul class="list-group">
   		{foreach $roles as $role}
 		<li class="list-group-item">
-			<span class="badge">{if isset($role->years) && $role->years > 0}{$role->years} year{if $role->years neq 1}s{/if}{else}{if isset($role->start_MY)}{$role->start_MY}{/if}{/if}</span>
+			{if isset($role->years) && $role->years > 0}<span class="badge">{$role->years} year{if $role->years neq 1}s{/if}{else}{if isset($role->start_MY)}{$role->start_MY}{/if}</span>{/if}
   			<div class="media-left">
 				<img class="media-object" src="{insert name='user_image' image_url=$role->maker->avatar_url image_proxy_sig=$image_proxy_sig type='maker'}" alt="maker" width="100">
 			</div>
@@ -49,22 +54,20 @@
 				</div>
 			</div>
 
-            <div class="form-group">
-    			<label for="start_date" class="col-sm-3 control-label">Start date:</label>
-				<div class="col-sm-9">
-				  <input type="text" class="form-control" id="start_date" name="start_date" placeholder="YYYY-MM-DD">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="end_date" class="col-sm-3 control-label">End date:</label>
-				<div class="col-sm-9">
-				  <input type="text" class="form-control" id="end_date" name="end_date" placeholder="YYYY-MM-DD">
-				</div>
-			</div>
 			<div class="form-group">
 				<label for="role" class="col-sm-3 control-label">Role:</label>
 				<div class="col-sm-9">
 				  <input type="text" class="form-control" id="role" name="role" placeholder="Herded unicorns">
+				</div>
+			</div>
+      <div class="form-group">
+    			<label for="start_date" class="col-sm-3 control-label">From:</label>
+				<div class="col-sm-3">
+				  <input type="text" class="form-control" id="start_date" name="start_date" placeholder="YYYY-MM-DD">
+				</div>
+				<label for="end_date" class="col-sm-1 control-label">Until:</label>
+				<div class="col-sm-3">
+				  <input type="text" class="form-control" id="end_date" name="end_date" placeholder="YYYY-MM-DD">
 				</div>
 			</div>
 
