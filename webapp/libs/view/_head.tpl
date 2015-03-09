@@ -63,8 +63,8 @@
           {/if}
 
           <form class="navbar-form col-xs-offset-2" role="search" action="/search.php">
-            <div class="input-group input-group-sm col-xs-6">
-              <input type="search" id="nav-typeahead" class="form-control" placeholder="Search" name="q" autocomplete="off">
+            <div class="input-group input-group-sm col-xs-6" id="remote-search">
+              <input type="search" id="nav-typeahead" class="form-control typeahead" placeholder="Search" name="q" autocomplete="off">
               <span class="input-group-btn">
                 <button type="submit" class="btn btn-default">Go</button>
               </span>

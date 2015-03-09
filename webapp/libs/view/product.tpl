@@ -53,9 +53,9 @@
 			<div class="form-group">
 				<label for="maker_slug" class="col-sm-3 control-label">Maker:</label>
 				<div class="col-sm-9">
-					<div class="input-group">
+					<div class="input-group" id="remote-search-makers">
 						<span class="input-group-addon" id="basic-addon1">@</span>
-						<input type="text" class="form-control" placeholder="Twitter username" name="maker_slug">
+						<input type="text" class="form-control typeahead" placeholder="Twitter username" name="maker_slug">
 					</div>
 				</div>
 			</div>
