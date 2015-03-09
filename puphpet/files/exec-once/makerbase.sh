@@ -43,7 +43,7 @@ cp /var/www/webapp/assets/img/blank-product.png /home/vagrant/data/image-cache/.
 chown -R www-data /home/vagrant/data/
 
 # Load sample data
-mysql -u makerbase -pnice2bnice -D makerbase_web < /var/www/sql/sample-data/sample-data.sql
+mysql -u makerbase -pnice2bnice -D makerbase_web < /var/www/puphpet/files/makerbase-setup/sample-data.sql
 
 # Create makers index in Elasticsearch
 curl -XPUT 'localhost:9200/_river/my_jdbc_river_makers/_meta' -d '{
