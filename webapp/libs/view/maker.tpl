@@ -13,7 +13,18 @@
 
 	<p><a href="{$maker->url}">{$maker->url}</a></p>
 
-  <p><a href="#"><button class="btn btn-primary col-sm-offset-3">Edit {$maker->name}</button></a></p>
+<p>
+<a href="#">
+<button type="button" class="btn btn-default" aria-label="Center Align">
+  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+</button>
+</a>
+<a href="#">
+<button type="button" class="btn btn-default" aria-label="Center Align">
+  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+</button>
+</a>
+</p>
 
     {if sizeof($actions) > 0}
     <h4>History</h4>

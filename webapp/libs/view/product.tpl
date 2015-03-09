@@ -12,7 +12,19 @@
   	<img src="{insert name='user_image' image_url=$product->avatar_url image_proxy_sig=$image_proxy_sig type='maker'}" class="img-responsive" width="100%" />
     <p>{$product->description}</p>
 	<p><a href="{$product->url}">{$product->url}</a></p>
-<a href="#"><button class="btn btn-primary col-sm-offset-3">Edit {$product->name}</button></a>
+
+<p>
+<a href="#">
+<button type="button" class="btn btn-default" aria-label="Center Align">
+  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+</button>
+</a>
+<a href="#">
+<button type="button" class="btn btn-default" aria-label="Center Align">
+  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+</button>
+</a>
+</p>
 
     {if sizeof($actions) > 0}
     <h4>History</h4>
