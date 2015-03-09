@@ -2,9 +2,14 @@
 
 <div class="row">
   <div class="col-sm-5 col-xs-12">
-    <h3>Make Makerbase</h3>
 
+    <h3>Makerbase</h3>
+    <p>A directory of people who make things.</p>
+
+    <h4>Make Makerbase</h4>
   {if isset($logged_in_user)}
+  <strong>Add a maker</strong>
+  <p>A human being who builds things out of bits and bytes.</p>
 	<form method="post" action="/add/maker/" class="form-horizontal">
 		<div class="form-group">
 			<label class="col-xs-3">Maker:</label>
@@ -17,6 +22,12 @@
 			</div>
 		</div>
 	</form>
+    <div>
+      <div class="pull-right"><a href="#">Or enter maker by hand</a></div>
+    </div>
+    <br><br><br>
+  <strong>Add a product</strong>
+    <p>A digital work, like a web site, app, or service.</p>
     <form method="post" action="/add/product/" class="form-horizontal">
     	<div class="form-group">
         <label class="col-xs-3">Product:</label>
@@ -29,9 +40,15 @@
         </div>
       </div>
     </form>
+    <div>
+      <div class="pull-right"><a href="#">Or enter product by hand</a></div>
+    </div>
   {else}
     <p><a href="{$sign_in_with_twttr_link}" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-plus"></i> Add a maker</a></p>
-    <p><a href="{$sign_in_with_twttr_link}" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-plus"></i> Add a project</a></p>
+          <p>A human being who builds things out of bits and bytes.</p>
+
+    <p><a href="{$sign_in_with_twttr_link}" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-plus"></i> Add a product</a></p>
+    <p>A digital work, like an app, web site, or service.</p>
   {/if}
   </div>
 {if isset($actions)}
