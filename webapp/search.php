@@ -12,5 +12,10 @@ Loader::addSpecialClass('TwitterOAuth', Config::getInstance()->getValue('source_
 
 require 'vendor/autoload.php';
 
-$controller = new SearchController();
+if (isset($_GET['auto'])) {
+    $controller = new SearchAutoCompleteController();
+} else {
+    $controller = new SearchController();
+}
+
 echo $controller->go();
