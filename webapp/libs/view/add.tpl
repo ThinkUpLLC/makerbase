@@ -8,13 +8,6 @@
 	{if isset($twitter_user_details)}
 	<form method="post" action="/add/{$object}/" class="form-horizontal">
 
-    <div class="form-group">
-      <label for="role" class="col-xs-3 control-label">Role:</label>
-      <div class="col-xs-9">
-        <input type="text" class="form-control" id="role" name="role" placeholder="Herded unicorns">
-      </div>
-    </div>
-
 		<div class="form-group">
 			<label for="full_name" class="col-xs-3 control-label">Name</label>
 			<div class="col-xs-9">
