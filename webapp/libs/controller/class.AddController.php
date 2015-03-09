@@ -90,8 +90,8 @@ class AddController extends AuthController {
             $role = new Role();
             $role->maker_id = $maker->id;
             $role->product_id = $product->id;
-            $role->start = $_POST['start_date'];
-            $role->end = $_POST['end_date'];
+            $role->start = ($_POST['start_date'] == '')?null:$_POST['start_date'];
+            $role->end = ($_POST['end_date'] == '')?null:$_POST['end_date'];
             $role->role = $_POST['role'];
 
             $role_dao = new RoleMySQLDAO();
