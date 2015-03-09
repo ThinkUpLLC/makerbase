@@ -84,7 +84,9 @@ class TwitterAPIAccessor {
             'avatar'          => (string)$json_user->profile_image_url,
             'location'        => (string)$json_user->location,
             'description'     => (string)$json_user->description,
-            'url'             => (string)$json_user->entities->url->urls[0]->expanded_url,
+            'url'             => (isset($json_user->entities->url->urls[0]->expanded_url))
+                                    ?(string)$json_user->entities->url->urls[0]->expanded_url
+                                    :null,
             'is_verified'     => (integer)self::boolToInt($json_user->verified),
             'is_protected'    => (integer)self::boolToInt($json_user->protected),
             'follower_count'  => (integer)$json_user->followers_count,
