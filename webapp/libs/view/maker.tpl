@@ -13,6 +13,8 @@
 
 	<p><a href="{$maker->url}">{$maker->url}</a></p>
 
+  <p><a href="#"><button class="btn btn-primary col-sm-offset-3">Edit {$maker->name}</button></a></p>
+
     {if sizeof($actions) > 0}
     <h4>History</h4>
     <ul class="list-unstyled">
@@ -29,14 +31,7 @@
   	<ul class="list-group">
 	{foreach $roles as $role}
 		<li class="list-group-item">
-			{if isset($role->start_MY)}<span class="badge">{$role->start_MY}{if isset($role->end_MY)} &mdash; {$role->end_MY}{/if}</span>{/if}
-  			<div class="media-left">
-				<img class="media-object" src="{insert name='user_image' image_url=$role->product->avatar_url image_proxy_sig=$image_proxy_sig type='maker'}" alt="{$role->product->name} logo" width="100">
-			</div>
-			<div class="media-body">
-				<h3><a href="/p/{$role->product->slug}">{$role->product->name}</a></h3>
-				{$role->role}
-			</div>
+        {include file="_role.tpl"}
 		</li>
 	{/foreach}
 	</ul>

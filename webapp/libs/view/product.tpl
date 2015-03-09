@@ -12,6 +12,7 @@
   	<img src="{insert name='user_image' image_url=$product->avatar_url image_proxy_sig=$image_proxy_sig type='maker'}" class="img-responsive" width="100%" />
     <p>{$product->description}</p>
 	<p><a href="{$product->url}">{$product->url}</a></p>
+<a href="#"><button class="btn btn-primary col-sm-offset-3">Edit {$product->name}</button></a>
 
     {if sizeof($actions) > 0}
     <h4>History</h4>
@@ -29,14 +30,7 @@
   	<ul class="list-group">
   		{foreach $roles as $role}
 		<li class="list-group-item">
-			<span class="badge">{if isset($role->years) && $role->years > 0}{$role->years} year{if $role->years neq 1}s{/if}{else}{if isset($role->start_MY)}{$role->start_MY}{/if}{/if}</span>
-  			<div class="media-left">
-				<img class="media-object" src="{insert name='user_image' image_url=$role->maker->avatar_url image_proxy_sig=$image_proxy_sig type='maker'}" alt="maker" width="100">
-			</div>
-			<div class="media-body">
-				<h3><a href="/m/{$role->maker->slug}">{$role->maker->name}</a></h3>
-				{$role->role}
-			</div>
+        {include file="_role.tpl"}
 		</li>
   		{/foreach}
 	</ul>
