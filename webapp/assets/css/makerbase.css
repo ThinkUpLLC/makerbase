@@ -1,0 +1,80 @@
+
+
+body {
+  background-color: #f0f0f0;
+  font-family: "tablet-gothic-wide", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.286;
+  color: #222;
+  text-rendering: optimizeLegibility;
+}
+strong {
+  font-weight: 600;
+}
+a {
+  color: #2785d3;
+}
+a:hover {
+  color: #46bcff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "tablet-gothic-semi-condensed", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 600;
+}
+
+.navbar {
+  background-color: #46bcff;
+  min-height: 40px;
+  border-top: 5px solid #2785d3;
+  border-bottom: 1px solid #2785d3;
+  box-shadow: 0px 3px 0px rgba(23, 135, 189, 0.4);
+  color: white;
+  margin-bottom: 25px;
+}
+
+.navbar-inverse .navbar-brand {
+	color: #fff;
+  background: url(../img/makerbase-logo@2x.png);
+  background-size: 104px 20px;
+  width: 104px;
+  height: 20px;
+  margin: 14px 20px 0 auto;
+  padding: 0;
+  overflow: hidden;
+  font-size: 0;
+  line-height: 0;
+}
+
+.navbar button#user-menu {
+	padding: 4px;
+}
+
+.bg-success,
+.alert-success {
+  color: #417505;
+  background-color: #9DD767;
+  border-color: #5FAC1C;
+}
+.bg-danger,
+.alert-danger {
+  color: #D0374B;
+  background-color: #FC939E;
+  border-color: #DA6070;
+}
+
+.alert a {
+	color: #000;
+}
+
+.form-inline {
+	padding-bottom: 20px;
+}
+
+.footer {
+	height: 60px;
+	border-top: 1px solid #dbdbdb;
+	padding: 20px;
+	margin-top: 20px;
+}

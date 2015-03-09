@@ -1,14 +1,14 @@
 {include file="_head.tpl"}
 
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-sm-12 col-xs-12">
 	<h1>{$maker->name} is a maker {if !isset($logged_in_user)}<button type="button" class="btn btn-sm btn-success pull-right"><i class="glyphicon glyphicon-user"></i> Hey, I'm {$maker->name}!</button>{/if}
 	</h1>
   </div>
 </div>
 
 <div class="row">
-  <div class="col-xs-5">
+  <div class="col-sm-5 col-xs-12">
     <img class="img-responsive" src="{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='maker'}" alt="{$maker->name}" width="100%">
 
 	<p><a href="{$maker->url}">{$maker->url}</a></p>
@@ -25,11 +25,11 @@
     {/if}
 
   </div>
-  <div class="col-xs-7">
+  <div class="col-sm-7 col-xs-12">
   	<ul class="list-group">
 	{foreach $roles as $role}
 		<li class="list-group-item">
-			<span class="badge">{if isset($role->start_MY)}{$role->start_MY}{if isset($role->end_MY)} &mdash; {$role->end_MY}{/if}{/if}</span>
+			{if isset($role->start_MY)}<span class="badge">{$role->start_MY}{if isset($role->end_MY)} &mdash; {$role->end_MY}{/if}</span>{/if}
   			<div class="media-left">
 				<img class="media-object" src="{insert name='user_image' image_url=$role->product->avatar_url image_proxy_sig=$image_proxy_sig type='maker'}" alt="{$role->product->name} logo" width="100">
 			</div>
@@ -54,21 +54,19 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="start_date" class="col-sm-3 control-label">Start date:</label>
-        <div class="col-sm-9">
-          <input type="text" class="form-control" id="start_date" name="start_date" placeholder="YYYY-MM-DD">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="end_date" class="col-sm-3 control-label">End date:</label>
-        <div class="col-sm-9">
-          <input type="text" class="form-control" id="end_date" name="end_date" placeholder="YYYY-MM-DD">
-        </div>
-      </div>
-      <div class="form-group">
         <label for="role" class="col-sm-3 control-label">Role:</label>
         <div class="col-sm-9">
           <input type="text" class="form-control" id="role" name="role" placeholder="Herded unicorns">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="start_date" class="col-sm-3 control-label">From:</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="start_date" name="start_date" placeholder="YYYY-MM-DD">
+        </div>
+        <label for="end_date" class="col-sm-1 control-label">Until:</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="end_date" name="end_date" placeholder="YYYY-MM-DD">
         </div>
       </div>
 

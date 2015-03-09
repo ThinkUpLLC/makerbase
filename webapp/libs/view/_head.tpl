@@ -8,19 +8,14 @@
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{$site_root_path}assets/css/makerbase.css">
+    <script src="//use.typekit.net/xzh8ady.js"></script>
+    {literal}
+    <script>try{Typekit.load();}catch(e){}</script>
+    {/literal}
+
     <style type="text/css">
-      body {
-      }
-      .form-inline {
-        padding-bottom: 20px;
-      }
-      .footer {
-        height: 60px;
-        background-color: #f5f5f5;
-        padding: 20px;
-        margin-top: 20px;
-      }
-	   </style>
+    </style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -50,7 +45,7 @@
           </div>
           <form class="navbar-form navbar-right" role="signout">
           <div class="btn-group navbar-nav">
-            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="user-menu">
               <img src="{$logged_in_user->avatar_url}" alt="Signed in as {$logged_in_user->twitter_username}" width="20" height="20">
               <span class="caret"></span>
             </button>

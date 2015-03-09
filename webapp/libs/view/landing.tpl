@@ -1,14 +1,14 @@
 {include file="_head.tpl"}
 
 <div class="row">
-  <div class="col-xs-5">
+  <div class="col-sm-5 col-xs-12">
     <h3>Make Makerbase</h3>
 
   {if isset($logged_in_user)}
 	<form method="post" action="/add/maker/" class="form-horizontal">
 		<div class="form-group">
-			<label class="col-xs-2">Maker:</label>
-			<div class="input-group input-group-sm">
+			<label class="col-xs-3">Maker:</label>
+			<div class="input-group input-group-sm col-xs-8">
 			  <span class="input-group-addon" id="basic-addon1">@</span>
 			  <input type="text" class="form-control" placeholder="Twitter username" aria-describedby="basic-addon1" name="twitter_username">
 				<span class="input-group-btn">
@@ -19,8 +19,8 @@
 	</form>
     <form method="post" action="/add/product/" class="form-horizontal">
     	<div class="form-group">
-        <label class="col-xs-2">Product:</label>
-        <div class="input-group input-group-sm">
+        <label class="col-xs-3">Product:</label>
+        <div class="input-group input-group-sm col-xs-8">
           <span class="input-group-addon" id="basic-addon1">@</span>
           <input type="text" class="form-control" placeholder="Twitter handle" aria-describedby="basic-addon1" name="twitter_username">
             <span class="input-group-btn">
@@ -36,7 +36,7 @@
   </div>
 {if isset($actions)}
   {if sizeof($actions) > 0}
-  <div class="col-xs-7">
+  <div class="col-sm-7 col-xs-12">
   	<h3>Recent activity</h3>
 	<ul class="list-group">
 	{foreach $actions as $action}
