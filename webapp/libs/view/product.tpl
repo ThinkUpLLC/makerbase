@@ -104,7 +104,10 @@
 				  <input type="text" class="form-control" id="role" name="role" placeholder="Herded unicorns">
 				</div>
 			</div>
-      <div class="form-group">
+      <div class="col-sm-offset-3">
+        <a href="#show-role-dates-{$role->id}" data-toggle="collapse">Dates...</a>
+      </div>
+      <div class="form-group collapse" id="show-role-dates-{$role->id}">
         <label for="start_date" class="col-sm-3 control-label">From:</label>
         <div class="col-sm-9">
           <div class="input-daterange input-group" id="datepicker">
