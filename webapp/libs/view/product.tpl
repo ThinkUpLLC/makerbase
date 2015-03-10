@@ -14,7 +14,7 @@
 	<p><a href="{$product->url}">{$product->url}</a></p>
 
 <p>
-<a {if isset($logged_in_user)}href="#edit-product" data-toggle="collapse"{else}href="{$sign_in_with_twttr_link}"{/if} type="button" class="btn btn-default btn-xs" aria-label="Center Align" id="edit-role-btn">
+<a {if isset($logged_in_user)}href="#edit-product" data-toggle="collapse"{else}href="{$sign_in_with_twttr_link}"{/if} type="button" class="btn btn-default btn-xs" aria-label="Center Align" id="edit-product-btn">
     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 </a>
 
@@ -50,9 +50,9 @@
     <input type="hidden" name="product_slug" value="{$product->slug}">
 
     <div class="form-group">
-        <label for="update-role" class="col-sm-2 control-label"></label>
+        <label for="update-product" class="col-sm-2 control-label"></label>
         <div class="col-sm-9">
-            <button class="btn btn-primary" type="submit" id="update-role">Update product</button>
+            <button class="btn btn-primary" type="submit" id="update-product">Update product</button>
             <button type="button" href="#" class="btn btn-danger pull-right" aria-label="Center Align">
                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete product
             </button>
