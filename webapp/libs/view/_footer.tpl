@@ -31,7 +31,7 @@
       var searchAllMakersProducts = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        remote: '/search.php?auto=1&q=%QUERY'
+        remote: '/autocomplete/?q=%QUERY'
       });
 
       searchAllMakersProducts.initialize();
@@ -60,7 +60,7 @@
       var searchAllMakers = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('slug'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        remote: '/search.php?auto=1&type=maker&q=%QUERY'
+        remote: '/autocomplete/?type=maker&q=%QUERY'
       });
 
       searchAllMakers.initialize();
@@ -89,7 +89,7 @@
       var searchAllProducts = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('slug'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        remote: '/search.php?auto=1&type=product&q=%QUERY'
+        remote: '/autocomplete/?type=product&q=%QUERY'
       });
 
       searchAllProducts.initialize();

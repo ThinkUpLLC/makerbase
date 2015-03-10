@@ -8,7 +8,7 @@
 
 <div class="row">
   <div class="col-xs-6">
-          <form class="form" role="search" action="/search.php">
+          <form class="form" role="search" action="/search/">
             <div class="input-group input-group-sm">
               <input type="search" class="form-control" placeholder="Search" value="{$query}" name="q">
               <span class="input-group-btn">
