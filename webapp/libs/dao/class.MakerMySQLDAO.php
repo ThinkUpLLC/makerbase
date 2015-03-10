@@ -5,7 +5,7 @@ class MakerMySQLDAO extends PDODAO {
         $q = "SELECT * FROM makers WHERE slug = :slug";
         $vars = array ( ':slug' => $slug);
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
-        //echo self::mergeSQLVars($q, $vars);
+        //echo Debugger::mergeSQLVars($q, $vars);
         $ps = $this->execute($q, $vars);
         $maker = $this->getDataRowAsObject($ps, "Maker");
         if (!isset($maker)) {
@@ -30,7 +30,7 @@ EOD;
             ':avatar_url' => $maker->avatar_url
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
-        //echo self::mergeSQLVars($q, $vars);
+        //echo Debugger::mergeSQLVars($q, $vars);
         try {
             $ps = $this->execute($q, $vars);
             return $this->getInsertId($ps);
@@ -57,7 +57,7 @@ EOD;
             ':avatar_url' => $maker->avatar_url
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
-        //echo self::mergeSQLVars($q, $vars);
+        //echo Debugger::mergeSQLVars($q, $vars);
         $ps = $this->execute($q, $vars);
         return ($this->getUpdateCount($ps) > 0);
     }
