@@ -64,7 +64,7 @@
 
           <form class="navbar-form col-xs-offset-2" role="search" action="/search/">
             <div class="" id="remote-search">
-              <div class="input-group">
+              <div class="input-group col-xs-6">
                 <input type="search" class="form-control typeahead" placeholder="Search for..." name="q" autocomplete="off" id="nav-typeahead">
                 <span class="input-group-btn">
                   <button class="btn btn-default" type="submit">Go</button>
