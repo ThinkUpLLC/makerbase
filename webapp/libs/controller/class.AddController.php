@@ -1,8 +1,9 @@
 <?php
 
-class AddController extends AuthController {
+class AddController extends MakerbaseAuthController {
 
     public function authControl() {
+        parent::authControl();
         $this->setViewTemplate('add.tpl');
 
         if ($_GET['object'] == 'maker' || $_GET['object'] == 'product' || $_GET['object'] == 'role') {
@@ -61,9 +62,9 @@ class AddController extends AuthController {
         $oauth_consumer_key = $cfg->getValue('twitter_oauth_consumer_key');
         $oauth_consumer_secret = $cfg->getValue('twitter_oauth_consumer_secret');
 
-        $user = $this->getLoggedInUser();
         $twitter_oauth = new TwitterOAuth($oauth_consumer_key, $oauth_consumer_secret,
-            $user->twitter_oauth_access_token, $user->twitter_oauth_access_token_secret);
+            $this->logged_in_user->twitter_oauth_access_token,
+            $this->logged_in_user->twitter_oauth_access_token_secret);
 
         $api_accessor = new TwitterAPIAccessor();
         $twitter_user_details = $api_accessor->getUser($_POST['twitter_username'], $twitter_oauth);
@@ -71,17 +72,9 @@ class AddController extends AuthController {
         $this->addToView('twitter_user_details', $twitter_user_details);
     }
 
-    private function getLoggedInUser() {
-        $logged_in_user = Session::getLoggedInUser();
-        $user_dao = new UserMySQLDAO();
-        $user = $user_dao->get($logged_in_user);
-        return $user;
-    }
-
     private function addOrUpdateRole() {
         $maker_dao = new MakerMySQLDAO();
         $product_dao = new ProductMySQLDAO();
-        $user = $this->getLoggedInUser();
         $controller = new ProductController(true);
         try {
             $maker = $maker_dao->get($_POST['maker_slug']);
@@ -99,12 +92,12 @@ class AddController extends AuthController {
 
             //Add new connection
             $connection_dao = new ConnectionMySQLDAO();
-            $connection_dao->insert($user, $maker);
-            $connection_dao->insert($user, $product);
+            $connection_dao->insert($this->logged_in_user, $maker);
+            $connection_dao->insert($this->logged_in_user, $product);
 
             //Add new action
             $action = new Action();
-            $action->user_id = $user->id;
+            $action->user_id = $this->logged_in_user->id;
             $action->severity = Action::SEVERITY_NORMAL;
             $action->object_id = $maker->id;
             $action->object_type = get_class($maker);
@@ -143,7 +136,6 @@ class AddController extends AuthController {
         $maker->url = $_POST['url'];
         $maker->avatar_url = $_POST['avatar_url'];
 
-        $user = $this->getLoggedInUser();
         $maker_dao = new MakerMySQLDAO();
         $controller = new MakerController(true);
 
@@ -173,11 +165,11 @@ class AddController extends AuthController {
 
             //Add new connection
             $connection_dao = new ConnectionMySQLDAO();
-            $connection_dao->insert($user, $maker);
+            $connection_dao->insert($this->logged_in_user, $maker);
 
             //Add new action
             $action = new Action();
-            $action->user_id = $user->id;
+            $action->user_id = $this->logged_in_user->id;
             $action->severity = Action::SEVERITY_NORMAL;
             $action->object_id = $maker->id;
             $action->object_type = get_class($maker);
@@ -219,7 +211,7 @@ class AddController extends AuthController {
 
                 //Create new action if update changed something
                 $action = new Action();
-                $action->user_id = $user->id;
+                $action->user_id = $this->logged_in_user->id;
                 $action->severity = Action::SEVERITY_MINOR;
                 $action->object_id = $maker->id;
                 $action->object_type = get_class($maker);
@@ -237,7 +229,7 @@ class AddController extends AuthController {
 
             //Create new connection regardless of whether update changed anything
             $connection_dao = new ConnectionMySQLDAO();
-            $connection_dao->insert($user, $maker);
+            $connection_dao->insert($this->logged_in_user, $maker);
         }
         $_GET = null;
         $_GET['slug'] = $maker->slug;
@@ -252,7 +244,6 @@ class AddController extends AuthController {
         $product->url = $_POST['url'];
         $product->avatar_url = $_POST['avatar_url'];
 
-        $user = $this->getLoggedInUser();
         $product_dao = new ProductMySQLDAO();
         $controller = new ProductController(true);
 
@@ -282,11 +273,11 @@ class AddController extends AuthController {
 
             //Add new connection
             $connection_dao = new ConnectionMySQLDAO();
-            $connection_dao->insert($user, $product);
+            $connection_dao->insert($this->logged_in_user, $product);
 
             //Add new action
             $action = new Action();
-            $action->user_id = $user->id;
+            $action->user_id = $this->logged_in_user->id;
             $action->severity = Action::SEVERITY_NORMAL;
             $action->object_id = $product->id;
             $action->object_type = get_class($product);
@@ -328,7 +319,7 @@ class AddController extends AuthController {
 
                 //Create new action if update changed something
                 $action = new Action();
-                $action->user_id = $user->id;
+                $action->user_id = $this->logged_in_user->id;
                 $action->severity = Action::SEVERITY_MINOR;
                 $action->object_id = $product->id;
                 $action->object_type = get_class($product);
@@ -346,7 +337,7 @@ class AddController extends AuthController {
 
             //Create new connection regardless of whether update changed anything
             $connection_dao = new ConnectionMySQLDAO();
-            $connection_dao->insert($user, $product);
+            $connection_dao->insert($this->logged_in_user, $product);
         }
         $_GET = null;
         $_GET['slug'] = $product->slug;
