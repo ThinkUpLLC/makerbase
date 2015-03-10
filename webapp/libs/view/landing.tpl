@@ -16,7 +16,7 @@
 			<label class="col-xs-3">Add a Maker:</label>
 			<div class="input-group input-group-sm col-xs-8">
 			  <span class="input-group-addon" id="basic-addon1">@</span>
-			  <input type="text" class="form-control" placeholder="Twitter username" aria-describedby="basic-addon1" name="twitter_username">
+			  <input type="text" class="form-control" placeholder="Twitter username" aria-describedby="basic-addon1" name="twitter_username" autocomplete="off">
 				<span class="input-group-btn">
           <button class="btn btn-success" type="submit">Go</button>
         </span>
@@ -29,7 +29,7 @@
         <label class="col-xs-3">Add a Product:</label>
         <div class="input-group input-group-sm col-xs-8">
           <span class="input-group-addon" id="basic-addon1">@</span>
-          <input type="text" class="form-control" placeholder="Twitter handle" aria-describedby="basic-addon1" name="twitter_username">
+          <input type="text" class="form-control" placeholder="Twitter handle" aria-describedby="basic-addon1" name="twitter_username" autocomplete="off">
             <span class="input-group-btn">
               <button class="btn btn-primary" type="submit">Go</button>
             </span>
