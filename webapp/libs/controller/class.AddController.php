@@ -18,7 +18,7 @@ class AddController extends MakerbaseAuthController {
                 $controller = $this->addOrUpdateProduct();
                 return $controller->go();
             } elseif ($_GET['object'] == 'role' && $this->hasSubmittedRoleForm()) {
-                $controller = $this->addOrUpdateRole();
+                $controller = $this->addRole();
                 return $controller->go();
             }
         } else {
@@ -72,7 +72,7 @@ class AddController extends MakerbaseAuthController {
         $this->addToView('twitter_user_details', $twitter_user_details);
     }
 
-    private function addOrUpdateRole() {
+    private function addRole() {
         $maker_dao = new MakerMySQLDAO();
         $product_dao = new ProductMySQLDAO();
         $controller = new ProductController(true);
