@@ -14,16 +14,54 @@
 	<p><a href="{$product->url}">{$product->url}</a></p>
 
 <p>
-<a href="#">
-<button type="button" class="btn btn-default" aria-label="Center Align">
-  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-</button>
+<a {if isset($logged_in_user)}href="#edit-product" data-toggle="collapse"{else}href="{$sign_in_with_twttr_link}"{/if} type="button" class="btn btn-default btn-xs" aria-label="Center Align" id="edit-role-btn">
+    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 </a>
-<a href="#">
-<button type="button" class="btn btn-default" aria-label="Center Align">
-  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-</button>
-</a>
+
+{if isset($logged_in_user)}
+<!-- edit form -->
+<div class="media-footer">
+<form method="post" action="/edit/product/" class="form-horizontal collapse" id="edit-product">
+    <div class="form-group">
+      <label for="full_name" class="col-xs-3 control-label">Name</label>
+      <div class="col-xs-9">
+        <input type="text" class="form-control" name="name" value="{$product->name}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="description" class="col-xs-3 control-label">Description</label>
+      <div class="col-xs-9">
+        <input type="text" class="form-control col-xs-6" name="description" value="{$product->description}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="url" class="col-xs-3 control-label">Web site url</label>
+      <div class="col-xs-9">
+        <input type="text" class="form-control col-xs-6" name="url" value="{$product->url}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="url" class="col-xs-3 control-label">Avatar url</label>
+      <div class="col-xs-9">
+        <input type="text" class="form-control col-xs-6" name="avatar_url" value="{$product->avatar_url}">
+      </div>
+    </div>
+    <input type="hidden" name="product_id" value="{$product->id}">
+    <input type="hidden" name="product_slug" value="{$product->slug}">
+
+    <div class="form-group">
+        <label for="update-role" class="col-sm-2 control-label"></label>
+        <div class="col-sm-9">
+            <button class="btn btn-primary" type="submit" id="update-role">Update product</button>
+            <button type="button" href="#" class="btn btn-danger pull-right" aria-label="Center Align">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete product
+            </button>
+        </div>
+    </div>
+</form>
+</div>
+{/if}
+
 </p>
 
     {if sizeof($actions) > 0}
