@@ -12,10 +12,15 @@
 			<label for="full_name" class="col-xs-3 control-label">Name</label>
 			<div class="col-xs-9">
 				<input type="text" class="form-control" name="name" value="{if isset($name)}{$name}{/if}">
-				<input type="hidden" name="username" value="{if isset($username)}{$username}{/if}">
 			</div>
 		</div>
 		{if $object eq 'product'}
+		<div class="form-group">
+			<label for="description" class="col-xs-3 control-label">Slug</label>
+			<div class="col-xs-9">
+				<input type="text" class="form-control col-xs-6" name="slug" value="{if isset($slug)}{$slug}{/if}">
+			</div>
+		</div>
 		<div class="form-group">
 			<label for="description" class="col-xs-3 control-label">Description</label>
 			<div class="col-xs-9">
@@ -23,6 +28,15 @@
 			</div>
 		</div>
 		{/if}
+		{if $object eq 'maker'}
+		<div class="form-group">
+			<label for="full_name" class="col-xs-3 control-label">Username</label>
+			<div class="col-xs-9">
+				<input type="text" name="username" value="{if isset($username)}{$username}{/if}">
+			</div>
+		</div>
+		{/if}
+
 		<div class="form-group">
 			<label for="url" class="col-xs-3 control-label">Web site url</label>
 			<div class="col-xs-9">

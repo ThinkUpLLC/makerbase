@@ -52,7 +52,7 @@ class AddController extends MakerbaseAuthController {
 
     private function hasSubmittedProductForm() {
         return (
-            isset($_POST['username'])
+            isset($_POST['slug'])
             && isset($_POST['name'])
             && isset($_POST['description'])
             && isset($_POST['url'])
@@ -75,6 +75,7 @@ class AddController extends MakerbaseAuthController {
 
         $this->addToView('name', $twitter_user_details['full_name']);
         $this->addToView('username', $twitter_user_details['user_name']);
+        $this->addToView('slug', $twitter_user_details['user_name']);
         $this->addToView('description', $twitter_user_details['description']);
         $this->addToView('url', $twitter_user_details['url']);
         $this->addToView('avatar_url', $twitter_user_details['avatar']);
@@ -257,7 +258,7 @@ class AddController extends MakerbaseAuthController {
 
     private function addOrUpdateProduct() {
         $product = new Product();
-        $product->slug = $_POST['username'];
+        $product->slug = $_POST['slug'];
         $product->name = $_POST['name'];
         $product->description = $_POST['description'];
         $product->url = $_POST['url'];
