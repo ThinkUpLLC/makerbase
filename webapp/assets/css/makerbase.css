@@ -51,6 +51,66 @@ h1, h2, h3, h4, h5, h6 {
 	padding: 4px;
 }
 
+.tt-dropdown-menu {
+  z-index: 1000;
+  min-width: 300px;
+  padding: 4px 0 4px 4px;
+  margin: 2px 0 0;
+  font-size: 14px;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  color: #000;
+}
+
+.tt-suggestion {
+  padding: 4px 4px 2px 8px;
+  margin: 0 6px 0 0;
+  font-weight: normal;
+  color: #46bcff;
+  border-radius: 4px;
+  white-space: nowrap; // prevent links from randomly breaking onto new lines
+}
+
+.tt-suggestion h4 {
+  color: #666;
+  font-weight: 200;
+}
+
+.tt-suggestion a {
+  color: #666;
+  text-decoration: none;
+}
+
+.tt-suggestion a strong {
+  font-weight: 600;
+  color: #222;
+}
+
+.tt-suggestion.tt-cursor {
+  background-color: #46bcff;
+}
+
+.tt-suggestion.tt-cursor a,
+.tt-suggestion.tt-cursor a h3,
+.tt-suggestion.tt-cursor a h4 {
+  text-decoration: none;
+  color: #fff;
+}
+
+.tt-suggestion.tt-cursor a strong,
+.tt-suggestion.tt-cursor a h3 strong,
+.tt-suggestion.tt-cursor a h4 strong {
+  font-weight: 600;
+}
+
 .bg-success,
 .alert-success {
   color: #417505;
@@ -70,6 +130,17 @@ h1, h2, h3, h4, h5, h6 {
 
 .form-inline {
 	padding-bottom: 20px;
+}
+
+#edit-role-btn {
+  border-color: #fff;
+}
+#edit-role-btn:hover {
+  border-color: #ccc;
+}
+
+.page-header {
+  margin-top: 0;
 }
 
 .footer {

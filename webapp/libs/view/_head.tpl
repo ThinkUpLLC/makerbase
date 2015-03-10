@@ -63,13 +63,16 @@
           {/if}
 
           <form class="navbar-form col-xs-offset-2" role="search" action="/search.php">
-            <div class="input-group input-group-sm col-xs-6" id="remote-search">
-              <input type="search" id="nav-typeahead" class="form-control typeahead" placeholder="Search" name="q" autocomplete="off">
-              <span class="input-group-btn">
-                <button type="submit" class="btn btn-default">Go</button>
-              </span>
+            <div class="" id="remote-search">
+              <div class="input-group">
+                <input type="search" class="form-control typeahead" placeholder="Search for..." name="q" autocomplete="off" id="nav-typeahead">
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="submit">Go</button>
+                </span>
+              </div><!-- /input-group -->
             </div>
-          </form>
+
+           </form>
 
         </div><!--/.nav-collapse -->
       </div>

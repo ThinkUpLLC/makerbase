@@ -7,7 +7,6 @@
       </div>
     </footer>
 
-
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -37,17 +36,23 @@
 
       searchAllMakersProducts.initialize();
 
-      $('#remote-search .typeahead').typeahead(null, {
+      $('#remote-search .typeahead').typeahead({
+        hint: true,
+        highlight: true,
+        minLength: 1,
+        container: 'body'
+      },
+      {
         name: 'all-makers-products',
         displayKey: 'name',
         source: searchAllMakersProducts.ttAdapter(),
         templates: {
           empty: [
-            '<div class="empty-message">',
-            'Oops! No makers or products match',
+            '<div class="media">',
+            '<h4 class="media-heading">Oops! No makers or products match</h4>',
             '</div>'
           ].join('\n'),
-          suggestion: Handlebars.compile('<p style="background-color:white;color:gray"><strong>{{slug}}</strong> – {{name}}</p>')
+          suggestion: Handlebars.compile('<a class="media" href="/{{type}}/{{slug}}"><div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div><div class="media-right"><small>@{{slug}}</small></div></a>')
         }
       });
 
@@ -60,17 +65,23 @@
 
       searchAllMakers.initialize();
 
-      $('#remote-search-makers .typeahead').typeahead(null, {
+      $('#remote-search-makers .typeahead').typeahead({
+        hint: true,
+        highlight: true,
+        minLength: 1,
+        container: 'body'
+      },
+      {
         name: 'all-makers',
         displayKey: 'slug',
         source: searchAllMakers.ttAdapter(),
         templates: {
           empty: [
-            '<div class="empty-message">',
-            'Oops! No makers match',
+            '<div class="media">',
+            '<h4 class="media-heading">Oops! No makers match</h4>',
             '</div>'
           ].join('\n'),
-          suggestion: Handlebars.compile('<p style="background-color:white;color:gray"><strong>{{slug}}</strong> – {{name}}</p>')
+          suggestion: Handlebars.compile('<a class="media" href="/m/{{slug}}"><div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div><div class="media-right"><small>@{{slug}}</small></div></a>')
         }
       });
 
@@ -83,17 +94,23 @@
 
       searchAllProducts.initialize();
 
-      $('#remote-search-products .typeahead').typeahead(null, {
+      $('#remote-search-products .typeahead').typeahead({
+        hint: true,
+        highlight: true,
+        minLength: 1,
+        container: 'body'
+      },
+      {
         name: 'all-products',
         displayKey: 'slug',
         source: searchAllProducts.ttAdapter(),
         templates: {
           empty: [
-            '<div class="empty-message">',
-            'Oops! No products match',
+            '<div class="media">',
+            '<h4 class="media-heading">Oops! No products match</h4>',
             '</div>'
           ].join('\n'),
-          suggestion: Handlebars.compile('<p style="background-color:white;color:gray"><strong>{{slug}}</strong> – {{name}}</p>')
+          suggestion: Handlebars.compile('<a class="media" href="/p/{{slug}}"><div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div><div class="media-right"><small>@{{slug}}</small></div></a>')
         }
       });
     </script>

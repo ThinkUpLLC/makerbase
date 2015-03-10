@@ -3,48 +3,42 @@
 <div class="row">
   <div class="col-sm-5 col-xs-12">
 
-    <h3>Makerbase</h3>
-    <p>A directory of people who make things.</p>
+  <div class="page-header">
+    <h1>
+      Makerbase<br />
+      <small>A directory of people who make things.</small>
+    </h1>
+  </div>
 
-    <h4>Make Makerbase</h4>
   {if isset($logged_in_user)}
-  <strong>Add a maker</strong>
-  <p>A human being who builds things out of bits and bytes.</p>
 	<form method="post" action="/add/maker/" class="form-horizontal">
 		<div class="form-group">
-			<label class="col-xs-3">Maker:</label>
+			<label class="col-xs-3">Add a Maker:</label>
 			<div class="input-group input-group-sm col-xs-8">
 			  <span class="input-group-addon" id="basic-addon1">@</span>
 			  <input type="text" class="form-control" placeholder="Twitter username" aria-describedby="basic-addon1" name="twitter_username">
 				<span class="input-group-btn">
-			        <button class="btn btn-success" type="submit">Go</button>
-			    </span>
+          <button class="btn btn-success" type="submit">Go</button>
+        </span>
 			</div>
+      <span class="help-block col-xs-offset-3">A human being who builds things out of bits and bytes.</span>
 		</div>
 	</form>
-    <div>
-      <div class="pull-right"><a href="#">Or enter maker by hand</a></div>
-    </div>
-    <br><br><br>
-  <strong>Add a product</strong>
-    <p>A digital work, like a web site, app, or service.</p>
     <form method="post" action="/add/product/" class="form-horizontal">
     	<div class="form-group">
-        <label class="col-xs-3">Product:</label>
+        <label class="col-xs-3">Add a Product:</label>
         <div class="input-group input-group-sm col-xs-8">
           <span class="input-group-addon" id="basic-addon1">@</span>
           <input type="text" class="form-control" placeholder="Twitter handle" aria-describedby="basic-addon1" name="twitter_username">
             <span class="input-group-btn">
-                <button class="btn btn-primary" type="submit">Go</button>
+              <button class="btn btn-primary" type="submit">Go</button>
             </span>
         </div>
+        <span class="help-block col-xs-offset-3">A digital work, like a web site, app, or service.</span>
       </div>
     </form>
-    <div>
-      <div class="pull-right"><a href="#">Or enter product by hand</a></div>
-    </div>
   {else}
-    <p><a href="{$sign_in_with_twttr_link}" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-plus"></i> Add a maker</a></p>
+    <p><a href="{$sign_in_with_twttr_link}" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-user"></i> Add a maker</a></p>
           <p>A human being who builds things out of bits and bytes.</p>
 
     <p><a href="{$sign_in_with_twttr_link}" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-plus"></i> Add a product</a></p>
