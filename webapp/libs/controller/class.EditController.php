@@ -111,7 +111,48 @@ class EditController extends MakerbaseAuthController {
                 $controller->addSuccessMessage("Updated product");
             }
             return $controller->go();
+        } elseif ($this->hasSubmittedMakerForm()) {
+            $maker_dao = new MakerMySQLDAO();
+            $maker = new Maker();
+            $maker->id = $_POST['maker_id'];
+            $maker->slug = $_POST['maker_slug'];
+            $maker->name = $_POST['name'];
+            $maker->username = $_POST['maker_username'];
+            $maker->url = $_POST['url'];
+            $maker->avatar_url = $_POST['avatar_url'];
+
+            $has_been_updated = $maker_dao->update($maker);
+
+            //Add new connection
+            $connection_dao = new ConnectionMySQLDAO();
+            $connection_dao->insert($this->logged_in_user, $maker);
+
+            if ($has_been_updated) {
+                //Add new action
+                $action = new Action();
+                $action->user_id = $this->logged_in_user->id;
+                $action->severity = Action::SEVERITY_NORMAL;
+                $action->object_id = $maker->id;
+                $action->object_type = get_class($maker);
+                $action->ip_address = $_SERVER['REMOTE_ADDR'];
+                $action->action_type = 'update';
+
+                $action->metadata = json_encode($maker);
+                $action_dao = new ActionMySQLDAO();
+                $action_dao->insert($action);
+            }
+
+            $controller = new MakerController(true);
+            $_GET = array();
+            $_GET['slug'] = $maker->slug;
+            $_GET['clear_cache'] = 1;
+            $_POST = array();
+            if ($has_been_updated) {
+                $controller->addSuccessMessage("Updated maker");
+            }
+            return $controller->go();
         } else {
+            //print_r($_POST);
             $this->redirect(Config::getInstance()->getValue('site_root_path'));
         }
     }
@@ -135,6 +176,17 @@ class EditController extends MakerbaseAuthController {
             && isset($_POST['product_slug'])
             && isset($_POST['name'])
             && isset($_POST['description'])
+            && isset($_POST['url'])
+            && isset($_POST['avatar_url'])
+        );
+    }
+
+    private function hasSubmittedMakerForm() {
+        return (
+            (isset($_GET['object']) && $_GET['object'] == 'maker')
+            && isset($_POST['maker_id'])
+            && isset($_POST['maker_slug'])
+            && isset($_POST['name'])
             && isset($_POST['url'])
             && isset($_POST['avatar_url'])
         );

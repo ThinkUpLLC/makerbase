@@ -14,16 +14,50 @@
 	<p><a href="{$maker->url}">{$maker->url}</a></p>
 
 <p>
-<a href="#">
-<button type="button" class="btn btn-default" aria-label="Center Align">
-  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-</button>
+<a {if isset($logged_in_user)}href="#edit-maker" data-toggle="collapse"{else}href="{$sign_in_with_twttr_link}"{/if} type="button" class="btn btn-default btn-xs" aria-label="Center Align" id="edit-role-btn">
+    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 </a>
-<a href="#">
-<button type="button" class="btn btn-default" aria-label="Center Align">
-  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-</button>
-</a>
+
+
+{if isset($logged_in_user)}
+<!-- edit form -->
+<div class="media-footer">
+<form method="post" action="/edit/maker/" class="form-horizontal collapse" id="edit-maker">
+    <div class="form-group">
+      <label for="full_name" class="col-xs-3 control-label">Name</label>
+      <div class="col-xs-9">
+        <input type="text" class="form-control" name="name" value="{$maker->name}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="url" class="col-xs-3 control-label">Web site url</label>
+      <div class="col-xs-9">
+        <input type="text" class="form-control col-xs-6" name="url" value="{$maker->url}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="url" class="col-xs-3 control-label">Avatar url</label>
+      <div class="col-xs-9">
+        <input type="text" class="form-control col-xs-6" name="avatar_url" value="{$maker->avatar_url}">
+      </div>
+    </div>
+    <input type="hidden" name="maker_username" value="{$maker->username}">
+    <input type="hidden" name="maker_id" value="{$maker->id}">
+    <input type="hidden" name="maker_slug" value="{$maker->slug}">
+
+    <div class="form-group">
+        <label for="update-maker" class="col-sm-2 control-label"></label>
+        <div class="col-sm-9">
+            <button class="btn btn-primary" type="submit" id="update-maker">Update maker</button>
+            <button type="button" href="#" class="btn btn-danger pull-right" aria-label="Center Align">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete maker
+            </button>
+        </div>
+    </div>
+</form>
+</div>
+{/if}
+
 </p>
 
     {if sizeof($actions) > 0}
