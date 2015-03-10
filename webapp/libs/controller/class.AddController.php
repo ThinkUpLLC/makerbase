@@ -5,6 +5,7 @@ class AddController extends MakerbaseAuthController {
     public function authControl() {
         parent::authControl();
         $this->setViewTemplate('add.tpl');
+        $this->addToView('is_manual', true);
 
         if ($_GET['object'] == 'maker' || $_GET['object'] == 'product' || $_GET['object'] == 'role') {
             $this->addToView('object', $_GET['object']);
@@ -20,6 +21,8 @@ class AddController extends MakerbaseAuthController {
             } elseif ($_GET['object'] == 'role' && $this->hasSubmittedRoleForm()) {
                 $controller = $this->addRole();
                 return $controller->go();
+            } elseif (isset($_GET['method']) && $_GET['method'] == 'manual') {
+                $this->addToView('is_manual', true);
             }
         } else {
             $this->redirect(Config::getInstance()->getValue('site_root_path'));
@@ -31,7 +34,7 @@ class AddController extends MakerbaseAuthController {
     private function hasSubmittedMakerForm() {
         return (
             isset($_POST['username'])
-            && isset($_POST['full_name'])
+            && isset($_POST['name'])
             && isset($_POST['url'])
             && isset($_POST['avatar_url'])
             );
@@ -50,7 +53,7 @@ class AddController extends MakerbaseAuthController {
     private function hasSubmittedProductForm() {
         return (
             isset($_POST['username'])
-            && isset($_POST['full_name'])
+            && isset($_POST['name'])
             && isset($_POST['description'])
             && isset($_POST['url'])
             && isset($_POST['avatar_url'])
@@ -69,7 +72,13 @@ class AddController extends MakerbaseAuthController {
         $api_accessor = new TwitterAPIAccessor();
         $twitter_user_details = $api_accessor->getUser($_POST['twitter_username'], $twitter_oauth);
         $twitter_user_details['avatar'] = str_replace('_normal', '', $twitter_user_details['avatar']);
-        $this->addToView('twitter_user_details', $twitter_user_details);
+
+        $this->addToView('name', $twitter_user_details['full_name']);
+        $this->addToView('username', $twitter_user_details['user_name']);
+        $this->addToView('description', $twitter_user_details['description']);
+        $this->addToView('url', $twitter_user_details['url']);
+        $this->addToView('avatar_url', $twitter_user_details['avatar']);
+        $this->addToView('is_manual', true);
     }
 
     private function addRole() {
@@ -132,7 +141,7 @@ class AddController extends MakerbaseAuthController {
         $maker = new Maker();
         $maker->slug = $_POST['username'];
         $maker->username = $_POST['username'];
-        $maker->name = $_POST['full_name'];
+        $maker->name = $_POST['name'];
         $maker->url = $_POST['url'];
         $maker->avatar_url = $_POST['avatar_url'];
 
@@ -157,7 +166,12 @@ class AddController extends MakerbaseAuthController {
             );
             $params['index'] = 'maker_product_index';
             $params['type']  = 'maker_product_type';
-            //$params['id']    = 'my_id';
+            $ret = $client->index($params);
+            if ($ret['created'] != 1) {
+                $controller->addErrorMessage('Problem adding '.$maker->slug.' to search index.');
+            }
+            $params['index'] = 'maker_index';
+            $params['type']  = 'maker_type';
             $ret = $client->index($params);
             if ($ret['created'] != 1) {
                 $controller->addErrorMessage('Problem adding '.$maker->slug.' to search index.');
@@ -209,6 +223,11 @@ class AddController extends MakerbaseAuthController {
                 $update_params['id']    = $search_id;
                 $ret = $client->index($update_params);
 
+                $update_params['index'] = 'maker_index';
+                $update_params['type']  = 'maker_type';
+                $update_params['id']    = $search_id;
+                $ret = $client->index($update_params);
+
                 //Create new action if update changed something
                 $action = new Action();
                 $action->user_id = $this->logged_in_user->id;
@@ -239,7 +258,7 @@ class AddController extends MakerbaseAuthController {
     private function addOrUpdateProduct() {
         $product = new Product();
         $product->slug = $_POST['username'];
-        $product->name = $_POST['full_name'];
+        $product->name = $_POST['name'];
         $product->description = $_POST['description'];
         $product->url = $_POST['url'];
         $product->avatar_url = $_POST['avatar_url'];
@@ -265,7 +284,12 @@ class AddController extends MakerbaseAuthController {
             );
             $params['index'] = 'maker_product_index';
             $params['type']  = 'maker_product_type';
-            //$params['id']    = 'my_id';
+            $ret = $client->index($params);
+            if ($ret['created'] != 1) {
+                $controller->addErrorMessage('Problem adding '.$product->slug.' to search index.');
+            }
+            $params['index'] = 'product_index';
+            $params['type']  = 'product_type';
             $ret = $client->index($params);
             if ($ret['created'] != 1) {
                 $controller->addErrorMessage('Problem adding '.$product->slug.' to search index.');
@@ -314,6 +338,11 @@ class AddController extends MakerbaseAuthController {
                 );
                 $update_params['index'] = 'maker_product_index';
                 $update_params['type']  = 'maker_product_type';
+                $update_params['id']    = $search_id;
+                $ret = $client->index($update_params);
+
+                $update_params['index'] = 'product_index';
+                $update_params['type']  = 'product_type';
                 $update_params['id']    = $search_id;
                 $ret = $client->index($update_params);
 

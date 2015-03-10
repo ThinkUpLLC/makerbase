@@ -2,38 +2,38 @@
 
 <div class="row">
 
-<h2>Add a {$object}</h2>
+<h2>Add a {$object}<br />
+<small>{if $object eq 'maker'}A human being who builds things out of bits and bytes.{elseif $object eq 'product'}A digital work, like a web site, app, or service.{/if}</small></h2>
 
 <div class="col-xs-6">
-	{if isset($twitter_user_details)}
+	{if $is_manual}
 	<form method="post" action="/add/{$object}/" class="form-horizontal">
-
 		<div class="form-group">
 			<label for="full_name" class="col-xs-3 control-label">Name</label>
 			<div class="col-xs-9">
-				<input type="text" class="form-control" name="full_name" value="{$twitter_user_details.full_name}">
-				<input type="hidden" name="username" value="{$twitter_user_details.user_name}">
+				<input type="text" class="form-control" name="name" value="{if isset($name)}{$name}{/if}">
+				<input type="hidden" name="username" value="{if isset($username)}{$username}{/if}">
 			</div>
 		</div>
 		{if $object eq 'product'}
 		<div class="form-group">
 			<label for="description" class="col-xs-3 control-label">Description</label>
 			<div class="col-xs-9">
-				<input type="text" class="form-control col-xs-6" name="description" value="{$twitter_user_details.description}">
+				<input type="text" class="form-control col-xs-6" name="description" value="{if isset($description)}{$description}{/if}">
 			</div>
 		</div>
 		{/if}
 		<div class="form-group">
 			<label for="url" class="col-xs-3 control-label">Web site url</label>
 			<div class="col-xs-9">
-				<input type="text" class="form-control col-xs-6" name="url" value="{$twitter_user_details.url}">
+				<input type="text" class="form-control col-xs-6" name="url" value="{if isset($url)}{$url}{/if}">
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="avatar_url" class="col-xs-3 control-label">Avatar</label>
+			<label for="avatar_url" class="col-xs-3 control-label">Avatar URL</label>
 			<div class="col-xs-9">
-				<img src="{$twitter_user_details.avatar}" width="100">
-				<input type="hidden" name="avatar_url" value="{$twitter_user_details.avatar}">
+				{if isset($avatar_url)}<img src="{$avatar_url}" width="100">{/if}
+				<input type="text" class="form-control col-xs-6"  name="avatar_url" value="{if isset($avatar_url)}{$avatar_url}{/if}">
 			</div>
 		</div>
 		<div class="form-group">

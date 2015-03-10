@@ -21,7 +21,7 @@
           <button class="btn btn-success" type="submit">Go</button>
         </span>
 			</div>
-      <span class="help-block col-xs-offset-3">A human being who builds things out of bits and bytes.</span>
+      <span class="help-block col-xs-offset-3">A human being who builds things out of bits and bytes. <a href="/add/maker/manual/">No Twitter?</a></span>
 		</div>
 	</form>
     <form method="post" action="/add/product/" class="form-horizontal">
@@ -34,7 +34,7 @@
               <button class="btn btn-primary" type="submit">Go</button>
             </span>
         </div>
-        <span class="help-block col-xs-offset-3">A digital work, like a web site, app, or service.</span>
+        <span class="help-block col-xs-offset-3">A digital work, like a web site, app, or service. <a href="/add/product/manual/">No Twitter?</a></span>
       </div>
     </form>
   {else}
