@@ -52,7 +52,7 @@
             '<h4 class="media-heading">Oops! No makers or products match</h4>',
             '</div>'
           ].join('\n'),
-          suggestion: Handlebars.compile('<a class="media" href="/{{type}}/{{slug}}"><div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div><div class="media-right"><small>@{{slug}}</small></div></a>')
+          suggestion: Handlebars.compile('<a class="media" href="/{{route}}/{{slug}}"><div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div><div class="media-right"><small>@{{slug}}</small></div></a>')
         }
       });
 
@@ -81,7 +81,7 @@
             '<h4 class="media-heading">Oops! No makers match</h4>',
             '</div>'
           ].join('\n'),
-          suggestion: Handlebars.compile('<a class="media" href="/m/{{slug}}"><div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div><div class="media-right"><small>@{{slug}}</small></div></a>')
+          suggestion: Handlebars.compile('<div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div><div class="media-right"><small>@{{slug}}</small></div>')
         }
       });
 
@@ -110,7 +110,7 @@
             '<h4 class="media-heading">Oops! No products match</h4>',
             '</div>'
           ].join('\n'),
-          suggestion: Handlebars.compile('<a class="media" href="/p/{{slug}}"><div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div><div class="media-right"><small>@{{slug}}</small></div></a>')
+          suggestion: Handlebars.compile('<div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div><div class="media-right"><small>@{{slug}}</small></div>')
         }
       });
     </script>

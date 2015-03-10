@@ -11,14 +11,17 @@ class SearchAutoCompleteController extends MakerbaseController {
             $start_time = microtime(true);
             $client = new Elasticsearch\Client();
 
+            $route = null;
             $search_params = array();
             if ( isset($_GET['type'])) {
                 if ($_GET['type'] == 'product') {
                     $search_params['index'] = 'product_index';
                     $search_params['type']  = 'product_type';
+                    $route = 'p';
                 } elseif ($_GET['type'] == 'maker') {
                     $search_params['index'] = 'maker_index';
                     $search_params['type']  = 'maker_type';
+                    $route = 'm';
                 }
             } else {
                 $search_params['index'] = 'maker_product_index';
@@ -39,6 +42,10 @@ class SearchAutoCompleteController extends MakerbaseController {
             }
             if (isset($return_document['hits']['hits'])) {
                 foreach ($return_document['hits']['hits'] as $hit) {
+                    if (!isset($route)) {
+                        $route = ($hit['_source']['type'] == 'product')?'p':'m';
+                    }
+                    $hit['_source']['route'] = $route;
                     $results[] = $hit['_source'];
                 }
             }
