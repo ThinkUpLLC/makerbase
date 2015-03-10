@@ -84,7 +84,8 @@ EOD;
         $q = <<<EOD
 SELECT a.*, u.name, u.twitter_user_id FROM actions a
 INNER JOIN users u ON a.user_id = u.id
-WHERE a.object_type = 'Product' AND a.object_id = :product_id ORDER BY time_performed DESC;
+WHERE (a.object_type = 'Product' AND a.object_id = :product_id)
+OR (a.object2_type = 'Product' AND a.object2_id = :product_id) ORDER BY time_performed DESC;
 EOD;
         $vars = array (
             ':product_id' => $product->id

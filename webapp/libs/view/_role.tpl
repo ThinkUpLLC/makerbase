@@ -16,16 +16,18 @@
 
 {if isset($role->start_MY)}<span class="badge">{$role->start_MY}{if isset($role->end_MY)} &mdash; {$role->end_MY}{/if}</span>{/if}
 
-<a href="#">
-<button type="button" class="btn btn-default" aria-label="Center Align">
+{if !isset($logged_in_user)}<a href="{$sign_in_with_twttr_link}">{/if}
+<button {if isset($logged_in_user)}href="#edit-role-{$role->id}" data-toggle="collapse"{/if} type="button" class="btn btn-default" aria-label="Center Align">
   <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 </button>
-</a>
-<a href="#">
-<button type="button" class="btn btn-default" aria-label="Center Align">
+{if !isset($logged_in_user)}</a>{/if}
+
+{if !isset($logged_in_user)}<a href="{$sign_in_with_twttr_link}">{/if}
+<button type="button" href="#" class="btn btn-default" aria-label="Center Align">
   <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 </button>
-</a>
+{if !isset($logged_in_user)}</a>{/if}
+
 <div class="media-left">
     <img class="media-object" src="{insert name='user_image' image_url=$display_object->avatar_url image_proxy_sig=$image_proxy_sig type=$object_type}" alt="{$display_object->name} logo" width="100">
 </div>
@@ -33,3 +35,28 @@
     <h3><a href="/{$object_route}/{$display_object->slug}">{$display_object->name}</a></h3>
     {$role->role}
 </div>
+
+{if isset($logged_in_user)}
+<!-- edit form -->
+<form method="post" action="/edit/role/" class="form-horizontal collapse" id="edit-role-{$role->id}">
+    <div class="form-group">
+        <label for="role" class="col-sm-3 control-label">Role:</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="role" name="role" value="{$role->role}">
+        </div>
+    </div>
+    <div class="form-group">
+    <label for="start_date" class="col-sm-3 control-label">From:</label>
+    <div class="col-sm-9">
+      <div class="input-daterange input-group" id="datepicker">
+        <input type="text" class="input-sm form-control" name="start_date" id="start_date" {if !isset($role->start)}placeholder="YYYY-MM"{else}value="{$role->start_YM}"{/if} data-provide="datepicker" autocomplete="off"/>
+        <span class="input-group-addon">to</span>
+        <input type="text" class="input-sm form-control" name="end_date" id="end_date" {if !isset($role->end)}placeholder="Leave blank if current"{else}value="{$role->end_YM}"{/if} autocomplete="off" />
+      </div>
+    </div>
+    <input type="hidden" name="id" value="{$role->id}">
+    <input type="hidden" name="originate_slug" value="{if isset($product->slug)}{$product->slug}{elseif isset($maker->slug)}{$maker->slug}{/if}">
+    <input type="hidden" name="originate" value="{if isset($product->slug)}product{elseif isset($maker->slug)}maker{/if}">
+  <button class="btn btn-primary col-sm-offset-9" type="submit">Update role</button>
+</form>
+{/if}

@@ -14,6 +14,19 @@ class ProductMySQLDAO extends PDODAO {
         return $product;
     }
 
+    public function getByID($id) {
+        $q = "SELECT * FROM products WHERE id = :id";
+        $vars = array ( ':id' => $id);
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo Debugger::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        $product = $this->getDataRowAsObject($ps, "Product");
+        if (!isset($product)) {
+            throw new ProductDoesNotExistException('Product does not exist.');
+        }
+        return $product;
+    }
+
     public function insert(Product $product) {
         $q = <<<EOD
 INSERT INTO products (

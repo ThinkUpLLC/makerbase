@@ -14,6 +14,19 @@ class MakerMySQLDAO extends PDODAO {
         return $maker;
     }
 
+    public function getByID($id) {
+        $q = "SELECT * FROM makers WHERE id = :id";
+        $vars = array ( ':id' => $id);
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo Debugger::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        $maker = $this->getDataRowAsObject($ps, "Maker");
+        if (!isset($maker)) {
+            throw new MakerDoesNotExistException('Maker does not exist.');
+        }
+        return $maker;
+    }
+
     public function insert(Maker $maker) {
         $q = <<<EOD
 INSERT INTO makers (

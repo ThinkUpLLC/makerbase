@@ -20,7 +20,7 @@
 	</div>
 
 	<div class="col-xs-8">
-		{if isset($logged_in_user) && $action->twitter_user_id eq $logged_in_user->twitter_user_id}You{else}<a href="/u/{$action->twitter_user_id}/">{$action->name}</a>{/if} {if $action->action_type neq 'associate'}{if $action->action_type eq 'create'}added{elseif $action->action_type eq 'update'}updated{/if} <a href="/{if $action->object_type eq 'Maker'}m{else}p{/if}/{$action->metadata->slug}/">{$action->metadata->name}</a>{else}added <a href="/m/{$action->metadata->maker->slug}/">{$action->metadata->maker->name}</a> to <a href="/p/{$action->metadata->product->slug}/">{$action->metadata->product->name}</a>{/if}
+		{if isset($logged_in_user) && $action->twitter_user_id eq $logged_in_user->twitter_user_id}You{else}<a href="/u/{$action->twitter_user_id}/">{$action->name}</a>{/if} {if isset($action->metadata->slug)}{if $action->action_type eq 'create'}added{elseif $action->action_type eq 'update'}updated{/if} <a href="/{if $action->object_type eq 'Maker'}m{else}p{/if}/{$action->metadata->slug}/">{$action->metadata->name}</a>{else}{$action->action_type}d <a href="/m/{$action->metadata->maker->slug}/">{$action->metadata->maker->name}</a> {if $action->action_type eq 'associate'}with{else}on{/if} <a href="/p/{$action->metadata->product->slug}/">{$action->metadata->product->name}</a>{/if}
 		<br />
 		<span><small class="text-muted">{$action->time_performed|relative_datetime} ago</small></span>
 	</div>

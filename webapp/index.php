@@ -23,4 +23,5 @@ $router->addRoute('u', 'UserController', array('twitter_user_id'));
 $router->addRoute('signin', 'SignInController');
 $router->addRoute('signout', 'SignOutController');
 $router->addRoute('add', 'AddController', array('object', 'method'));
+$router->addRoute('edit', 'EditController', array('object'));
 echo $router->route();

@@ -6,21 +6,30 @@ class ProductController extends MakerbaseController {
         parent::control();
         $this->setViewTemplate('product.tpl');
         $product_dao = new ProductMySQLDAO();
-        $product = $product_dao->get($_GET['slug']);
-        $this->addToView('product', $product);
 
-        $role_dao = new RoleMySQLDAO();
-        $roles = $role_dao->getByProduct($product->id);
-        $this->addToView('roles', $roles);
+        if (isset($_GET['clear_cache'])) {
+            $this->view_mgr->clearCache('product.tpl');
+        }
 
-        // Get actions
-        $action_dao = new ActionMySQLDAO();
-        $actions = $action_dao->getActivitiesPerformedOnProduct($product);
-        $this->addToView('actions', $actions);
+        try {
+            $product = $product_dao->get($_GET['slug']);
 
-        $image_proxy_sig = Config::getInstance()->getValue('image_proxy_sig');
-        $this->addToView('image_proxy_sig', $image_proxy_sig);
+            $this->addToView('product', $product);
 
+            $role_dao = new RoleMySQLDAO();
+            $roles = $role_dao->getByProduct($product->id);
+            $this->addToView('roles', $roles);
+
+            // Get actions
+            $action_dao = new ActionMySQLDAO();
+            $actions = $action_dao->getActivitiesPerformedOnProduct($product);
+            $this->addToView('actions', $actions);
+
+            $image_proxy_sig = Config::getInstance()->getValue('image_proxy_sig');
+            $this->addToView('image_proxy_sig', $image_proxy_sig);
+        } catch (ProductDoesNotExistException $e) {
+            $this->addErrorMessage("Product ".$_GET['slug']." does not exist");
+        }
         return $this->generateView();
     }
 }
