@@ -23,7 +23,7 @@ CREATE TABLE actions (
   PRIMARY KEY (id),
   UNIQUE KEY id (id),
   KEY time_performed (time_performed,user_id,action_type)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Actions performed by users on objects.';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Actions performed by users on objects.';
 
 -- --------------------------------------------------------
 
@@ -38,7 +38,7 @@ CREATE TABLE connections (
   creation_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Creation time of the connection.',
   UNIQUE KEY user_object (user_id,object_id,object_type),
   KEY user_id (user_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='User connections to makers, products, roles.';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='User connections to makers, products, roles.';
 
 -- --------------------------------------------------------
 
@@ -48,7 +48,7 @@ CREATE TABLE connections (
 
 CREATE TABLE makers (
   id int(11) NOT NULL AUTO_INCREMENT COMMENT 'Internal unique ID.',
-  slug varchar(255) NOT NULL COMMENT 'URL slug.',
+  slug varchar(191) NOT NULL COMMENT 'URL slug.',
   username varchar(255) NOT NULL COMMENT 'Username.',
   `name` varchar(255) NOT NULL COMMENT 'Full name.',
   url varchar(255) NOT NULL COMMENT 'Web site URL.',
@@ -57,7 +57,7 @@ CREATE TABLE makers (
   PRIMARY KEY (id),
   UNIQUE KEY slug (slug),
   KEY creation_time (creation_time)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='People who make products.';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='People who make products.';
 
 -- --------------------------------------------------------
 
@@ -67,7 +67,7 @@ CREATE TABLE makers (
 
 CREATE TABLE products (
   id int(11) NOT NULL AUTO_INCREMENT COMMENT 'Internal unique ID.',
-  slug varchar(255) NOT NULL COMMENT 'URL slug.',
+  slug varchar(191) NOT NULL COMMENT 'URL slug.',
   `name` varchar(255) NOT NULL COMMENT 'Product name.',
   description text NOT NULL COMMENT 'Product description.',
   url varchar(255) NOT NULL COMMENT 'Product web site url.',
@@ -76,7 +76,7 @@ CREATE TABLE products (
   PRIMARY KEY (id),
   UNIQUE KEY slug (slug),
   KEY creation_time (creation_time)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Products made by people.';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Products made by people.';
 
 -- --------------------------------------------------------
 
@@ -95,7 +95,7 @@ CREATE TABLE roles (
   PRIMARY KEY (id),
   KEY product_id (product_id,maker_id),
   KEY creation_time (creation_time)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Maker roles in products.';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Maker roles in products.';
 
 -- --------------------------------------------------------
 
@@ -108,7 +108,7 @@ CREATE TABLE users (
   `name` varchar(255) NOT NULL COMMENT 'Full name.',
   url varchar(255) NOT NULL COMMENT 'Web site URL.',
   avatar_url varchar(255) NOT NULL COMMENT 'Avatar URL.',
-  twitter_user_id varchar(255) NOT NULL COMMENT 'Twitter user ID.',
+  twitter_user_id varchar(191) NOT NULL COMMENT 'Twitter user ID.',
   twitter_username varchar(255) NOT NULL COMMENT 'Twitter username.',
   creation_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation time.',
   last_login_time timestamp COMMENT 'Last login time.',
@@ -118,5 +118,5 @@ CREATE TABLE users (
   PRIMARY KEY (id),
   UNIQUE KEY twitter_user_id (twitter_user_id),
   KEY creation_time (creation_time)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Makerbase users.';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Makerbase users.';
 
