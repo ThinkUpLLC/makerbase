@@ -47,6 +47,8 @@ class AddController extends MakerbaseAuthController {
             && isset($_POST['start_date'])
             && isset($_POST['end_date'])
             && isset($_POST['role'])
+            && isset($_POST['originate'])
+            && isset($_POST['originate_slug'])
             );
     }
 
@@ -85,7 +87,11 @@ class AddController extends MakerbaseAuthController {
     private function addRole() {
         $maker_dao = new MakerMySQLDAO();
         $product_dao = new ProductMySQLDAO();
-        $controller = new ProductController(true);
+        if ($_POST['originate'] == 'maker') {
+            $controller = new MakerController(true);
+        } else {
+            $controller = new ProductController(true);
+        }
         try {
             $maker = $maker_dao->get($_POST['maker_slug']);
             $product = $product_dao->get($_POST['product_slug']);
@@ -127,13 +133,13 @@ class AddController extends MakerbaseAuthController {
             $controller->addSuccessMessage('You added '.$maker->slug.' to '.$product->slug.'.');
 
             $_GET = null;
-            $_GET['slug'] = $product->slug;
+            $_GET['slug'] = $_POST['originate_slug'];
         } catch (MakerDoesNotExistException $e) {
-            $_GET['slug'] = $_POST['product_slug'];
-            $controller->addErrorMessage('That maker does not exist. <a href="/add/maker/">Add them</a>.');
+            $_GET['slug'] = $_POST['originate_slug'];
+            $controller->addErrorMessage('That maker does not exist.');
         } catch (ProductDoesNotExistException $e) {
-            $_GET['slug'] = $_POST['product_slug'];
-            $controller->addErrorMessage('That product does not exist. <a href="/add/product/">Add it</a>.');
+            $_GET['slug'] = $_POST['originate_slug'];
+            $controller->addErrorMessage('That product does not exist.');
         }
         return $controller;
     }

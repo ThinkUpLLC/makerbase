@@ -84,6 +84,8 @@
  {if isset($logged_in_user)}
     <form method="post" action="/add/role/" class="form-horizontal">
       <input type="hidden" name="maker_slug" value="{$maker->slug}">
+      <input type="hidden" name="originate_slug" value="{$maker->slug}">
+      <input type="hidden" name="originate" value="maker">
       <div class="form-group">
         <label for="maker_slug" class="col-sm-3 control-label">Product:</label>
         <div class="col-sm-9">
