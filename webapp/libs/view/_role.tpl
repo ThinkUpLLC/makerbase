@@ -16,8 +16,10 @@
 
 {if isset($role->start_MY)}<span class="badge">{$role->start_MY}{if isset($role->end_MY)} &mdash; {$role->end_MY}{/if}</span>{/if}
 
-<div class="media-left">
-    <img class="media-object" src="{insert name='user_image' image_url=$display_object->avatar_url image_proxy_sig=$image_proxy_sig type=$object_type}" alt="{$display_object->name} logo" width="100">
+<div class="media-left media-middle">
+    <a href="/{$object_route}/{$display_object->slug}">
+    <img class="media-object" src="{insert name='user_image' image_url=$display_object->avatar_url image_proxy_sig=$image_proxy_sig type=$object_type}" alt="{$display_object->name} logo" width="40" height="40">
+    </a>
 </div>
 <div class="media-body">
     <h3>
@@ -34,13 +36,13 @@
 <div class="media-footer">
 <form method="post" action="/edit/role/" class="form-horizontal collapse" id="edit-role-{$role->id}">
     <div class="form-group">
-        <label for="role" class="col-sm-2 control-label">Role:</label>
+        <label for="role" class="col-sm-1 control-label">Role:</label>
         <div class="col-sm-9">
           <input type="text" class="form-control" id="role" name="role" value="{$role->role}">
         </div>
     </div>
     <div class="form-group">
-        <label for="start_date" class="col-sm-2 control-label">From:</label>
+        <label for="start_date" class="col-sm-1 control-label">From:</label>
         <div class="col-sm-9">
           <div class="input-daterange input-group" id="datepicker">
             <input type="text" class="input-sm form-control" name="start_date" id="start_date" {if !isset($role->start)}placeholder="YYYY-MM"{else}value="{$role->start_YM}"{/if} data-provide="datepicker" autocomplete="off"/>
@@ -54,7 +56,7 @@
     <input type="hidden" name="originate" value="{if isset($product->slug)}product{elseif isset($maker->slug)}maker{/if}">
 
     <div class="form-group">
-        <label for="update-role" class="col-sm-2 control-label"></label>
+        <label for="update-role" class="col-sm-1 control-label"></label>
         <div class="col-sm-9">
             <button class="btn btn-primary" type="submit" id="update-role">Update role</button>
             <button type="button" href="#" class="btn btn-danger pull-right" aria-label="Center Align">
