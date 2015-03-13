@@ -6,6 +6,10 @@ class EditController extends MakerbaseAuthController {
         parent::authControl();
         if ($this->hasSubmittedRoleForm()) {
             $role_dao = new RoleMySQLDAO();
+
+            //This will throw an exception if the role doesn't exist
+            $original_role = $role_dao->get($_POST['id']);
+
             $role = new Role();
             $role->id = $_POST['id'];
             $role->start = ($_POST['start_date'] == '')?null:$_POST['start_date']."-01";
@@ -40,10 +44,13 @@ class EditController extends MakerbaseAuthController {
                 $action->ip_address = $_SERVER['REMOTE_ADDR'];
                 $action->action_type = 'update';
 
+                $original_role->maker = $maker;
+                $original_role->product = $product;
                 $updated_role->maker = $maker;
                 $updated_role->product = $product;
 
-                $action->metadata = json_encode($updated_role);
+                $versions = array('before'=>$original_role, 'after'=>$updated_role);
+                $action->metadata = json_encode($versions);
                 $action_dao = new ActionMySQLDAO();
                 $action_dao->insert($action);
             }
@@ -73,6 +80,10 @@ class EditController extends MakerbaseAuthController {
             }
         } elseif ($this->hasSubmittedProductForm()) {
             $product_dao = new ProductMySQLDAO();
+
+            //This will throw an exception if the product doesn't exist
+            $original_product = $product_dao->getByID($_POST['product_id']);
+
             $product = new Product();
             $product->id = $_POST['product_id'];
             $product->slug = $_POST['product_slug'];
@@ -97,7 +108,9 @@ class EditController extends MakerbaseAuthController {
                 $action->ip_address = $_SERVER['REMOTE_ADDR'];
                 $action->action_type = 'update';
 
-                $action->metadata = json_encode($product);
+                $versions = array('before'=>$original_product, 'after'=>$product);
+
+                $action->metadata = json_encode($versions);
                 $action_dao = new ActionMySQLDAO();
                 $action_dao->insert($action);
             }
@@ -113,6 +126,10 @@ class EditController extends MakerbaseAuthController {
             return $controller->go();
         } elseif ($this->hasSubmittedMakerForm()) {
             $maker_dao = new MakerMySQLDAO();
+
+            //This will throw an exception if the maker doesn't exist
+            $original_maker = $maker_dao->getByID($_POST['maker_id']);
+
             $maker = new Maker();
             $maker->id = $_POST['maker_id'];
             $maker->slug = $_POST['maker_slug'];
@@ -137,7 +154,9 @@ class EditController extends MakerbaseAuthController {
                 $action->ip_address = $_SERVER['REMOTE_ADDR'];
                 $action->action_type = 'update';
 
-                $action->metadata = json_encode($maker);
+                $versions = array('before'=>$original_maker, 'after'=>$maker);
+
+                $action->metadata = json_encode($versions);
                 $action_dao = new ActionMySQLDAO();
                 $action_dao->insert($action);
             }
