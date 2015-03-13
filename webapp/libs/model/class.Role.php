@@ -29,6 +29,10 @@ class Role {
      * @var str Creation time.
      */
     var $creation_time;
+    /**
+     * @var bool Has role been archived
+     */
+    var $is_archived;
     public function __construct($row = false) {
         if ($row) {
             $this->id = $row['id'];
@@ -49,6 +53,7 @@ class Role {
             }
             $this->end = $row['end'];
             $this->creation_time = $row['creation_time'];
+            $this->is_archived = PDODAO::convertDBToBool($row['is_archived']);
         }
     }
 }

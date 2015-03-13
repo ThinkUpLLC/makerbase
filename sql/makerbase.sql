@@ -54,9 +54,11 @@ CREATE TABLE makers (
   url varchar(255) NOT NULL COMMENT 'Web site URL.',
   avatar_url varchar(255) NOT NULL COMMENT 'Avatar URL.',
   creation_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation time.',
+  is_archived int(1) NOT NULL DEFAULT 0 COMMENT 'Has maker been archived, 1 yes, 0 no.',
   PRIMARY KEY (id),
   UNIQUE KEY slug (slug),
-  KEY creation_time (creation_time)
+  KEY creation_time (creation_time),
+  KEY is_archived (is_archived)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='People who make products.';
 
 -- --------------------------------------------------------
@@ -73,9 +75,11 @@ CREATE TABLE products (
   url varchar(255) NOT NULL COMMENT 'Product web site url.',
   avatar_url varchar(255) NOT NULL COMMENT 'Product avatar url.',
   creation_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation time.',
+  is_archived int(1) NOT NULL DEFAULT 0 COMMENT 'Has product been archived, 1 yes, 0 no.',
   PRIMARY KEY (id),
   UNIQUE KEY slug (slug),
-  KEY creation_time (creation_time)
+  KEY creation_time (creation_time),
+  KEY is_archived (is_archived)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Products made by people.';
 
 -- --------------------------------------------------------
@@ -92,9 +96,11 @@ CREATE TABLE roles (
   `start` date DEFAULT NULL COMMENT 'Start date.',
   `end` date DEFAULT NULL COMMENT 'End date.',
   creation_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation time.',
+  is_archived int(1) NOT NULL DEFAULT 0 COMMENT 'Has role been archived, 1 yes, 0 no.',
   PRIMARY KEY (id),
   KEY product_id (product_id,maker_id),
-  KEY creation_time (creation_time)
+  KEY creation_time (creation_time),
+  KEY is_archived (is_archived)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Maker roles in products.';
 
 -- --------------------------------------------------------
@@ -119,4 +125,3 @@ CREATE TABLE users (
   UNIQUE KEY twitter_user_id (twitter_user_id),
   KEY creation_time (creation_time)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Makerbase users.';
-

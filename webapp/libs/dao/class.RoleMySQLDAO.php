@@ -1,6 +1,28 @@
 <?php
 class RoleMySQLDAO extends PDODAO {
 
+    public function archive($slug) {
+        return $this->setIsArchived($slug, true);
+    }
+
+    public function unarchive($slug) {
+        return $this->setIsArchived($slug, false);
+    }
+
+    private function setIsArchived($slug, $is_archived) {
+        $q = <<<EOD
+UPDATE roles SET is_archived = :is_archived WHERE slug = :slug
+EOD;
+        $vars = array (
+            ':slug' => $slug,
+            ':is_archived' => ($is_archived)?1:0
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo Debugger::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        return ($this->getUpdateCount($ps) > 0);
+    }
+
     public function getByMaker($maker_id) {
         $q = <<<EOD
 SELECT r.*, r.id AS role_id, p.*, p.id AS product_id FROM roles r

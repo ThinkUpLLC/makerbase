@@ -170,6 +170,150 @@ class EditController extends MakerbaseAuthController {
                 $controller->addSuccessMessage("Updated maker");
             }
             return $controller->go();
+        } elseif ($this->hasArchivedMaker()) {
+            $controller = new MakerController(true);
+            $maker_dao = new MakerMySQLDAO();
+            $maker = $maker_dao->get($_POST['slug']);
+
+            $has_changed_archive_status = false;
+            if ($_POST['archive'] == 1) {
+                if ($maker->is_archived) {
+                    $controller->addInfoMessage("Already archived");
+                } else {
+                    $has_changed_archive_status = $maker_dao->archive($_POST['slug']);
+                    if ($has_changed_archive_status) {
+                        $maker->is_archived = true;
+                        $controller->addSuccessMessage('Archived maker');
+
+                        //@TODO Remove maker from Elasticsearch
+                        // $client = new Elasticsearch\Client();
+                        // $params = array();
+                        // $params['index'] = 'maker_product_index';
+                        // $params['type']  = 'maker_product_type';
+                        // $params['id'] = $maker->id;
+                        // $ret = $client->delete($params);
+                        // print_r($ret);
+                        // if ($ret['created'] != 1) {
+                        //     $controller->addErrorMessage('Problem adding '.$maker->slug.' to search index.');
+                        // }
+                        // $params['index'] = 'maker_index';
+                        // $params['type']  = 'maker_type';
+                        // $ret = $client->delete($params);
+                        // print_r($ret);
+                        // if ($ret['created'] != 1) {
+                        //     $controller->addErrorMessage('Problem adding '.$maker->slug.' to search index.');
+                        // }
+                    }
+                }
+            } else {
+                if (!$maker->is_archived) {
+                    $controller->addInfoMessage("Already unarchived");
+                } else {
+                    $has_changed_archive_status = $maker_dao->unarchive($_POST['slug']);
+                    if ($has_changed_archive_status) {
+                        $maker->is_archived = false;
+                        $controller->addSuccessMessage('Unarchived maker');
+                        //@TODO Add maker back to Elasticsearch
+                    }
+                }
+            }
+
+            //Add new connection
+            $connection_dao = new ConnectionMySQLDAO();
+            $connection_dao->insert($this->logged_in_user, $maker);
+
+            if ($has_changed_archive_status) {
+                //Add new action
+                $action = new Action();
+                $action->user_id = $this->logged_in_user->id;
+                $action->severity = Action::SEVERITY_MAJOR;
+                $action->object_id = $maker->id;
+                $action->object_type = get_class($maker);
+                $action->ip_address = $_SERVER['REMOTE_ADDR'];
+                $action->action_type = 'archive';
+
+                $action->metadata = json_encode($maker);
+                $action_dao = new ActionMySQLDAO();
+                $action_dao->insert($action);
+            }
+            $_GET = array();
+            $_GET['slug'] = $maker->slug;
+            $_GET['clear_cache'] = 1;
+            $_POST = array();
+            return $controller->go();
+        } elseif ($this->hasArchivedProduct()) {
+            $controller = new ProductController(true);
+            $product_dao = new ProductMySQLDAO();
+            $product = $product_dao->get($_POST['slug']);
+
+            $has_changed_archive_status = false;
+            if ($_POST['archive'] == 1) {
+                if ($product->is_archived) {
+                    $controller->addInfoMessage("Already archived");
+                } else {
+                    $has_changed_archive_status = $product_dao->archive($_POST['slug']);
+                    if ($has_changed_archive_status) {
+                        $product->is_archived = true;
+                        $controller->addSuccessMessage('Archived product');
+                        $action_type = 'archive';
+
+                        //@TODO Remove product from Elasticsearch
+                        // $client = new Elasticsearch\Client();
+                        // $params = array();
+                        // $params['index'] = 'maker_product_index';
+                        // $params['type']  = 'maker_product_type';
+                        // $params['id'] = $product->id;
+                        // $ret = $client->delete($params);
+                        // print_r($ret);
+                        // if ($ret['created'] != 1) {
+                        //     $controller->addErrorMessage('Problem adding '.$product->slug.' to search index.');
+                        // }
+                        // $params['index'] = 'maker_index';
+                        // $params['type']  = 'maker_type';
+                        // $ret = $client->delete($params);
+                        // print_r($ret);
+                        // if ($ret['created'] != 1) {
+                        //     $controller->addErrorMessage('Problem adding '.$product->slug.' to search index.');
+                        // }
+                    }
+                }
+            } else {
+                if (!$product->is_archived) {
+                    $controller->addInfoMessage("Already unarchived");
+                } else {
+                    $has_changed_archive_status = $product_dao->unarchive($_POST['slug']);
+                    if ($has_changed_archive_status) {
+                        $product->is_archived = false;
+                        $controller->addSuccessMessage('Unarchived product');
+                        $action_type = 'unarchive';
+                        //@TODO Add product back to Elasticsearch
+                    }
+                }
+            }
+
+            //Add new connection
+            $connection_dao = new ConnectionMySQLDAO();
+            $connection_dao->insert($this->logged_in_user, $product);
+
+            if ($has_changed_archive_status) {
+                //Add new action
+                $action = new Action();
+                $action->user_id = $this->logged_in_user->id;
+                $action->severity = Action::SEVERITY_MAJOR;
+                $action->object_id = $product->id;
+                $action->object_type = get_class($product);
+                $action->ip_address = $_SERVER['REMOTE_ADDR'];
+                $action->action_type = $action_type;
+
+                $action->metadata = json_encode($product);
+                $action_dao = new ActionMySQLDAO();
+                $action_dao->insert($action);
+            }
+            $_GET = array();
+            $_GET['slug'] = $product->slug;
+            $_GET['clear_cache'] = 1;
+            $_POST = array();
+            return $controller->go();
         } else {
             //print_r($_POST);
             $this->redirect(Config::getInstance()->getValue('site_root_path'));
@@ -185,6 +329,22 @@ class EditController extends MakerbaseAuthController {
             && isset($_POST['role'])
             && isset($_POST['originate'])
             && isset($_POST['originate_slug'])
+        );
+    }
+
+    private function hasArchivedMaker() {
+        return (
+            (isset($_GET['object']) && $_GET['object'] == 'maker')
+            && isset($_POST['slug'])
+            && isset($_POST['archive']) && ($_POST['archive'] == 1 || $_POST['archive'] == 0)
+        );
+    }
+
+    private function hasArchivedProduct() {
+        return (
+            (isset($_GET['object']) && $_GET['object'] == 'product')
+            && isset($_POST['slug'])
+            && isset($_POST['archive']) && ($_POST['archive'] == 1 || $_POST['archive'] == 0)
         );
     }
 

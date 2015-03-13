@@ -29,6 +29,10 @@ class Product {
      * @var str Creation time.
      */
     var $creation_time;
+    /**
+     * @var bool Has product been archived
+     */
+    var $is_archived;
     public function __construct($row = false) {
         if ($row) {
             $this->id = $row['id'];
@@ -38,6 +42,7 @@ class Product {
             $this->url = $row['url'];
             $this->avatar_url = $row['avatar_url'];
             $this->creation_time = $row['creation_time'];
+            $this->is_archived = PDODAO::convertDBToBool($row['is_archived']);
         }
     }
 }

@@ -21,8 +21,8 @@
 
 {if isset($logged_in_user)}
 <!-- edit form -->
-<div class="media-footer">
-<form method="post" action="/edit/maker/" class="form-horizontal collapse" id="edit-maker">
+<div class="media-footer" class="form-horizontal collapse" id="edit-maker">
+<form method="post" action="/edit/maker/">
     <div class="form-group">
       <label for="full_name" class="col-xs-3 control-label">Name</label>
       <div class="col-xs-9">
@@ -49,12 +49,25 @@
         <label for="update-maker" class="col-sm-2 control-label"></label>
         <div class="col-sm-9">
             <button class="btn btn-primary" type="submit" id="update-maker">Update maker</button>
-            <button type="button" href="#" class="btn btn-danger pull-right" aria-label="Center Align">
-                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete maker
-            </button>
         </div>
     </div>
 </form>
+
+<!-- archive form (PLEASE DON'T HATE ME)-->
+<div>
+  <form method="post" action="/edit/maker/">
+      <div class="form-group">
+      <input type="hidden" name="slug" value="{$maker->slug}" />
+      <input type="hidden" name="archive" value="{if $maker->is_archived}0{else}1{/if}"/>
+      <!-- Why oh why won't this button submit
+      <button type="button" type="submit" class="btn btn-danger pull-right" aria-label="Center Align">
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete maker
+      </button>-->
+      <input type="submit" value="{if $maker->is_archived}Unarchive{else}Archive{/if} maker" />
+    </div>
+  </form>
+</div>
+
 </div>
 {/if}
 

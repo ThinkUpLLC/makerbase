@@ -53,12 +53,29 @@
         <label for="update-product" class="col-sm-2 control-label"></label>
         <div class="col-sm-9">
             <button class="btn btn-primary" type="submit" id="update-product">Update product</button>
-            <button type="button" href="#" class="btn btn-danger pull-right" aria-label="Center Align">
-                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete product
-            </button>
         </div>
     </div>
 </form>
+
+
+<!-- archive form (PLEASE DON'T HATE ME)-->
+<div>
+  <form method="post" action="/edit/product/">
+      <div class="form-group">
+      <input type="hidden" name="slug" value="{$product->slug}" />
+      <input type="hidden" name="archive" value="{if $product->is_archived}0{else}1{/if}"/>
+      <!-- Why oh why won't this button submit
+      <button type="button" href="#" class="btn btn-danger pull-right" aria-label="Center Align">
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete product
+      </button> -->
+      <input type="submit" value="{if $product->is_archived}Unarchive{else}Archive{/if} product" />
+    </div>
+  </form>
+</div>
+
+
+
+
 </div>
 {/if}
 
