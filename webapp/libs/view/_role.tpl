@@ -62,11 +62,28 @@
         <label for="update-role" class="col-sm-1 control-label"></label>
         <div class="col-sm-9">
             <button class="btn btn-primary" type="submit" id="update-role">Update role</button>
-            <button type="button" href="#" class="btn btn-danger pull-right" aria-label="Center Align">
-                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete role
-            </button>
         </div>
     </div>
 </form>
+
+<!-- archive form (PLEASE DON'T HATE ME)-->
+<div>
+  <form method="post" action="/edit/role/">
+      <div class="form-group">
+      <input type="hidden" name="uid" value="{$role->uid}" />
+      <input type="hidden" name="archive" value="{if $role->is_archived}0{else}1{/if}"/>
+        <input type="hidden" name="originate_slug" value="{if isset($product->slug)}{$product->slug}{elseif isset($maker->slug)}{$maker->slug}{/if}">
+        <input type="hidden" name="originate_uid" value="{if isset($product->uid)}{$product->uid}{elseif isset($maker->uid)}{$maker->uid}{/if}">
+        <input type="hidden" name="originate" value="{if isset($product->slug)}product{elseif isset($maker->slug)}maker{/if}">
+      <!-- Why oh why won't this button submit
+        <button type="button" href="#" class="btn btn-danger pull-right" aria-label="Center Align">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete role
+        </button>
+-->
+      <input type="submit" value="{if $role->is_archived}Unarchive{else}Archive{/if} role" />
+    </div>
+  </form>
+</div>
+
 </div>
 {/if}

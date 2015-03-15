@@ -69,7 +69,7 @@
 	</div>
 
 	<div class="col-xs-8">
-		{if $actor neq 'You'}<a href="/u/{$action->twitter_user_id}/">{$action->name}</a>{else}{$actor}{/if} {$action->action_type}d <a href="/{if $action->object_type eq 'Maker'}m/{$maker_uid}/{$maker_slug}">{$maker_name}{else}p/{$product_uid}/{$product_slug}">{$product_name}{/if}</a>{if isset($action->object2_id)} {if $action->action_type eq 'associate'}with{elseif $action->action_type eq 'update'}on{/if} <a href="/p/{$product_uid}/{$product_slug}">{$product_name}</a>{/if}
+		{if $actor neq 'You'}<a href="/u/{$action->twitter_user_id}/">{$action->name}</a>{else}{$actor}{/if} {$action->action_type}d <a href="/{if $action->object_type eq 'Maker'}m/{$maker_uid}/{$maker_slug}">{$maker_name}{else}p/{$product_uid}/{$product_slug}">{$product_name}{/if}</a>{if isset($action->object2_id)} {if $action->action_type eq 'associate'}with{else}on{/if} <a href="/p/{$product_uid}/{$product_slug}">{$product_name}</a>{/if}
 
 		<br />
 		<span><small class="text-muted">{$action->time_performed|relative_datetime} ago</small></span>

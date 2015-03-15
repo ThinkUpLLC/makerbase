@@ -197,18 +197,19 @@ class EditController extends MakerbaseAuthController {
                         // $params = array();
                         // $params['index'] = 'maker_product_index';
                         // $params['type']  = 'maker_product_type';
-                        // $params['id'] = $maker->id;
+                        // $params['id'] = 'm/'.$maker->uid;
                         // $ret = $client->delete($params);
                         // print_r($ret);
-                        // if ($ret['created'] != 1) {
-                        //     $controller->addErrorMessage('Problem adding '.$maker->slug.' to search index.');
+                        // if (!$ret['found']) {
+                        //     $controller->addErrorMessage('Problem removing '.$maker->uid.' from search index.');
                         // }
+                        // $params['id'] = $maker->uid;
                         // $params['index'] = 'maker_index';
                         // $params['type']  = 'maker_type';
                         // $ret = $client->delete($params);
                         // print_r($ret);
-                        // if ($ret['created'] != 1) {
-                        //     $controller->addErrorMessage('Problem adding '.$maker->slug.' to search index.');
+                        // if (!$ret['found']) {
+                        //     $controller->addErrorMessage('Problem removing '.$maker->uid.' from maker index.');
                         // }
                     }
                 }
@@ -324,6 +325,83 @@ class EditController extends MakerbaseAuthController {
             $_GET['clear_cache'] = 1;
             $_POST = array();
             return $controller->go();
+        } elseif ($this->hasArchivedRole()) {
+            $role_dao = new RoleMySQLDAO();
+            $role = $role_dao->get($_POST['uid']);
+
+            //Set up controller
+            if ($_POST['originate'] == 'product') {
+                $controller = new ProductController(true);
+            } elseif ($_POST['originate'] == 'maker') {
+                $controller = new MakerController(true);
+            } else {
+                $this->redirect(Config::getInstance()->getValue('site_root_path'));
+            }
+
+            $has_changed_archive_status = false;
+            if ($_POST['archive'] == 1) {
+                if ($role->is_archived) {
+                    $controller->addInfoMessage("Already archived");
+                } else {
+                    $has_changed_archive_status = $role_dao->archive($_POST['uid']);
+                    if ($has_changed_archive_status) {
+                        $role->is_archived = true;
+                        $controller->addSuccessMessage('Archived role');
+                        $action_type = 'archive';
+                    }
+                }
+            } else {
+                if (!$role->is_archived) {
+                    $controller->addInfoMessage("Already unarchived");
+                } else {
+                    $has_changed_archive_status = $role_dao->unarchive($_POST['uid']);
+                    if ($has_changed_archive_status) {
+                        $role->is_archived = false;
+                        $controller->addSuccessMessage('Unarchived role');
+                        $action_type = 'unarchive';
+                    }
+                }
+            }
+
+            //Get maker
+            $maker_dao = new MakerMySQLDAO();
+            $maker = $maker_dao->getByID($role->maker_id);
+
+            //Get product
+            $product_dao = new ProductMySQLDAO();
+            $product = $product_dao->getByID($role->product_id);
+
+            //Add new connection
+            $connection_dao = new ConnectionMySQLDAO();
+            $connection_dao->insert($this->logged_in_user, $maker);
+            $connection_dao->insert($this->logged_in_user, $product);
+
+            if ($has_changed_archive_status) {
+                //Add new action
+                $action = new Action();
+                $action->user_id = $this->logged_in_user->id;
+                $action->severity = Action::SEVERITY_MAJOR;
+                $action->object_id = $maker->id;
+                $action->object_type = get_class($maker);
+                $action->object2_id = $product->id;
+                $action->object2_type = get_class($product);
+                $action->ip_address = $_SERVER['REMOTE_ADDR'];
+                $action->action_type = $action_type;
+
+                $role->maker = $maker;
+                $role->product = $product;
+                $action->metadata = json_encode($role);
+                $action_dao = new ActionMySQLDAO();
+                $action_dao->insert($action);
+            }
+
+            $_GET = array();
+            $_GET['slug'] = $_POST['originate_slug'];
+            $_GET['uid'] = $_POST['originate_uid'];
+            $_GET['clear_cache'] = 1;
+            $_POST = array();
+
+            return $controller->go();
         } else {
             //print_r($_POST);
             $this->redirect(Config::getInstance()->getValue('site_root_path'));
@@ -339,6 +417,7 @@ class EditController extends MakerbaseAuthController {
             && isset($_POST['role'])
             && isset($_POST['originate'])
             && isset($_POST['originate_slug'])
+            && isset($_POST['originate_uid'])
         );
     }
 
@@ -347,6 +426,17 @@ class EditController extends MakerbaseAuthController {
             (isset($_GET['object']) && $_GET['object'] == 'maker')
             && isset($_POST['uid'])
             && isset($_POST['archive']) && ($_POST['archive'] == 1 || $_POST['archive'] == 0)
+        );
+    }
+
+    private function hasArchivedRole() {
+        return (
+            (isset($_GET['object']) && $_GET['object'] == 'role')
+            && isset($_POST['uid'])
+            && isset($_POST['archive']) && ($_POST['archive'] == 1 || $_POST['archive'] == 0)
+            && isset($_POST['originate'])
+            && isset($_POST['originate_slug'])
+            && isset($_POST['originate_uid'])
         );
     }
 
