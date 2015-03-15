@@ -1,15 +1,36 @@
 <?php
-class ActionMySQLDAO extends PDODAO {
+class ActionMySQLDAO extends MakerbasePDODAO {
+
+    public function get($uid) {
+        $q = <<<EOD
+SELECT a.*, u.name, u.twitter_user_id FROM actions a
+INNER JOIN users u ON a.user_id = u.id
+WHERE a.uid = :uid ;
+EOD;
+        $vars = array ( ':uid' => $uid);
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        $action = $this->getDataRowAsObject($ps, "Action");
+        if (!isset($action)) {
+            throw new ActionDoesNotExistException('Action '.$uid.' does not exist.');
+        } else {
+            $action->metadata = JSONDecoder::decode($action->metadata);
+        }
+        return $action;
+    }
 
     public function insert(Action $action) {
+        $action->uid = self::generateRandomString(6);
         $q = <<<EOD
 INSERT INTO actions (
-user_id, ip_address, action_type, severity, object_id, object_type, object2_id, object2_type, metadata
+uid, user_id, ip_address, action_type, severity, object_id, object_type, object2_id, object2_type, metadata
 ) VALUES (
-:user_id, :ip_address, :action_type, :severity, :object_id, :object_type, :object2_id, :object2_type, :metadata
+:uid, :user_id, :ip_address, :action_type, :severity, :object_id, :object_type, :object2_id, :object2_type, :metadata
 )
 EOD;
         $vars = array (
+            ':uid' => $action->uid,
             ':user_id' => $action->user_id,
             ':ip_address' => $action->ip_address,
             ':action_type' => $action->action_type,
@@ -21,8 +42,22 @@ EOD;
             ':metadata' => $action->metadata,
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
-        $ps = $this->execute($q, $vars);
-        return $this->getInsertId($ps);
+        $try_insert = true;
+        while ($try_insert) {
+            try {
+                $ps = $this->execute($q, $vars);
+                $try_insert = false;
+                $action->id = $this->getInsertId($ps);
+                return $action;
+            } catch (PDOException $e) {
+                $message = $e->getMessage();
+                if (strpos($message,'Duplicate entry') !== false && strpos($message,'uid') !== false) {
+                    $try_insert = true;
+                } else {
+                    throw new PDOException($message);
+                }
+            }
+        }
     }
 
     public function getUserConnectionsActivities($user_id) {

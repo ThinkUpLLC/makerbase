@@ -10,6 +10,7 @@
 
 CREATE TABLE actions (
   id int(11) NOT NULL AUTO_INCREMENT COMMENT 'Internal unique ID.',
+  uid varchar(8) NOT NULL COMMENT 'External unique ID.',
   time_performed timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Time action was performed.',
   user_id int(11) NOT NULL COMMENT 'ID of user who performed action.',
   ip_address varchar(255) NOT NULL COMMENT 'IP address of client where action was performed.',
@@ -22,6 +23,7 @@ CREATE TABLE actions (
   metadata text COMMENT 'Object metadata.',
   PRIMARY KEY (id),
   UNIQUE KEY id (id),
+  UNIQUE KEY uid (uid),
   KEY time_performed (time_performed,user_id,action_type)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Actions performed by users on objects.';
 

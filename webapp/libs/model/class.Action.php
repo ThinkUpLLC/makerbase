@@ -18,6 +18,10 @@ class Action {
      */
     var $id;
     /**
+     * @var str External unique ID.
+     */
+    var $uid;
+    /**
      * @var str Time action was performed.
      */
     var $time_performed;
@@ -60,6 +64,7 @@ class Action {
     public function __construct($row = false) {
         if ($row) {
             $this->id = $row['id'];
+            $this->uid = $row['uid'];
             $this->time_performed = $row['time_performed'];
             $this->user_id = $row['user_id'];
             $this->ip_address = $row['ip_address'];
