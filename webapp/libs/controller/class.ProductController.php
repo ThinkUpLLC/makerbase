@@ -12,7 +12,7 @@ class ProductController extends MakerbaseController {
         }
 
         try {
-            $product = $product_dao->get($_GET['slug']);
+            $product = $product_dao->get($_GET['uid']);
 
             $this->addToView('product', $product);
 
@@ -28,7 +28,7 @@ class ProductController extends MakerbaseController {
             $image_proxy_sig = Config::getInstance()->getValue('image_proxy_sig');
             $this->addToView('image_proxy_sig', $image_proxy_sig);
         } catch (ProductDoesNotExistException $e) {
-            $this->addErrorMessage("Product ".$_GET['slug']." does not exist");
+            $this->addErrorMessage("Product ".$_GET['uid']." does not exist");
         }
         return $this->generateView();
     }

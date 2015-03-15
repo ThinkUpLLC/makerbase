@@ -12,7 +12,7 @@ class MakerController extends MakerbaseController {
         }
 
         try {
-            $maker = $maker_dao->get($_GET['slug']);
+            $maker = $maker_dao->get($_GET['uid']);
             $this->addToView('maker', $maker);
 
             $role_dao = new RoleMySQLDAO();
@@ -27,7 +27,7 @@ class MakerController extends MakerbaseController {
             $image_proxy_sig = Config::getInstance()->getValue('image_proxy_sig');
             $this->addToView('image_proxy_sig', $image_proxy_sig);
         } catch (MakerDoesNotExistException $e) {
-            $this->addErrorMessage("Maker ".$_GET['slug']." does not exist");
+            $this->addErrorMessage("Maker ".$_GET['uid']." does not exist");
         }
         return $this->generateView();
     }

@@ -42,10 +42,6 @@ class SearchAutoCompleteController extends MakerbaseController {
             }
             if (isset($return_document['hits']['hits'])) {
                 foreach ($return_document['hits']['hits'] as $hit) {
-                    if (!isset($route)) {
-                        $route = ($hit['_source']['type'] == 'product')?'p':'m';
-                    }
-                    $hit['_source']['route'] = $route;
                     $results[] = $hit['_source'];
                 }
             }

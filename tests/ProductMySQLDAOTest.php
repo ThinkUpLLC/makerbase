@@ -17,9 +17,6 @@ class ProductMySQLDAOTest extends MakerbaseUnitTestCase {
         $this->assertInstanceOf('ProductMySQLDAO', $product_dao);
     }
 
-    /**
-     * @expectedException DuplicateProductException
-     */
     public function testInsert() {
         $product = new Product();
         $product->name = 'Basecamp';
@@ -31,9 +28,7 @@ class ProductMySQLDAOTest extends MakerbaseUnitTestCase {
 
         $product_dao = new ProductMySQLDAO();
         $result = $product_dao->insert($product);
-        $this->assertEquals(1, $result);
-
-        $result = $product_dao->insert($product);
-        $this->assertEquals(1, $result);
+        $this->assertInstanceOf('Product', $result);
+        $this->assertEquals(1, $result->id);
     }
 }

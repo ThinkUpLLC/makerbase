@@ -1,0 +1,6 @@
+TRUNCATE TABLE actions;
+TRUNCATE TABLE connections;
+TRUNCATE TABLE makers;
+TRUNCATE TABLE products;
+TRUNCATE TABLE roles;
+TRUNCATE TABLE users;

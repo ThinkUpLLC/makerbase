@@ -21,7 +21,7 @@ EOD;
             ':twitter_oauth_access_token_secret' => $user->twitter_oauth_access_token_secret
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
-        //echo Debugger::mergeSQLVars($q, $vars);
+        //echo self::mergeSQLVars($q, $vars);
         try {
             $ps = $this->execute($q, $vars);
             return $this->getInsertId($ps);
@@ -39,7 +39,7 @@ EOD;
         $q = "SELECT * FROM users WHERE twitter_user_id = :twitter_user_id";
         $vars = array ( ':twitter_user_id' => $twitter_user_id);
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
-        //echo Debugger::mergeSQLVars($q, $vars);
+        //echo self::mergeSQLVars($q, $vars);
         $ps = $this->execute($q, $vars);
         $user = $this->getDataRowAsObject($ps, "User");
         if (!isset($user)) {
@@ -52,7 +52,7 @@ EOD;
         $q = "UPDATE users SET last_login_time = CURRENT_TIMESTAMP WHERE twitter_user_id = :twitter_user_id";
         $vars = array ( ':twitter_user_id' => $user->twitter_user_id);
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
-        //echo Debugger::mergeSQLVars($q, $vars);
+        //echo self::mergeSQLVars($q, $vars);
         $ps = $this->execute($q, $vars);
         $update_count = $this->getUpdateCount($ps);
         if ($update_count == 0) {

@@ -48,15 +48,15 @@ CREATE TABLE connections (
 
 CREATE TABLE makers (
   id int(11) NOT NULL AUTO_INCREMENT COMMENT 'Internal unique ID.',
+  uid varchar(8) NOT NULL COMMENT 'External unique ID.',
   slug varchar(191) NOT NULL COMMENT 'URL slug.',
-  username varchar(255) NOT NULL COMMENT 'Username.',
   `name` varchar(255) NOT NULL COMMENT 'Full name.',
   url varchar(255) NOT NULL COMMENT 'Web site URL.',
   avatar_url varchar(255) NOT NULL COMMENT 'Avatar URL.',
   creation_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation time.',
-  is_archived int(1) NOT NULL DEFAULT 0 COMMENT 'Has maker been archived, 1 yes, 0 no.',
+  is_archived int(1) NOT NULL DEFAULT '0' COMMENT 'Has maker been archived, 1 yes, 0 no.',
   PRIMARY KEY (id),
-  UNIQUE KEY slug (slug),
+  UNIQUE KEY uid (uid),
   KEY creation_time (creation_time),
   KEY is_archived (is_archived)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='People who make products.';
@@ -69,15 +69,16 @@ CREATE TABLE makers (
 
 CREATE TABLE products (
   id int(11) NOT NULL AUTO_INCREMENT COMMENT 'Internal unique ID.',
+  uid varchar(8) NOT NULL COMMENT 'External unique ID.',
   slug varchar(191) NOT NULL COMMENT 'URL slug.',
   `name` varchar(255) NOT NULL COMMENT 'Product name.',
   description text NOT NULL COMMENT 'Product description.',
   url varchar(255) NOT NULL COMMENT 'Product web site url.',
   avatar_url varchar(255) NOT NULL COMMENT 'Product avatar url.',
   creation_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation time.',
-  is_archived int(1) NOT NULL DEFAULT 0 COMMENT 'Has product been archived, 1 yes, 0 no.',
+  is_archived int(1) NOT NULL DEFAULT '0' COMMENT 'Has product been archived, 1 yes, 0 no.',
   PRIMARY KEY (id),
-  UNIQUE KEY slug (slug),
+  UNIQUE KEY uid (uid),
   KEY creation_time (creation_time),
   KEY is_archived (is_archived)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Products made by people.';
@@ -90,14 +91,16 @@ CREATE TABLE products (
 
 CREATE TABLE roles (
   id int(11) NOT NULL AUTO_INCREMENT COMMENT 'Internal unique ID.',
+  uid varchar(8) NOT NULL COMMENT 'External unique ID.',
   product_id int(11) NOT NULL COMMENT 'Product ID.',
   maker_id int(11) NOT NULL COMMENT 'Maker ID.',
   role varchar(255) NOT NULL COMMENT 'Role of maker in product.',
   `start` date DEFAULT NULL COMMENT 'Start date.',
   `end` date DEFAULT NULL COMMENT 'End date.',
   creation_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation time.',
-  is_archived int(1) NOT NULL DEFAULT 0 COMMENT 'Has role been archived, 1 yes, 0 no.',
+  is_archived int(1) NOT NULL DEFAULT '0' COMMENT 'Has role been archived, 1 yes, 0 no.',
   PRIMARY KEY (id),
+  UNIQUE KEY uid (uid),
   KEY product_id (product_id,maker_id),
   KEY creation_time (creation_time),
   KEY is_archived (is_archived)

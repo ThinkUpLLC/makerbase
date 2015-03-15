@@ -7,11 +7,13 @@
 {if isset($role->product)}
     {assign var="display_object" value=$role->product}
     {assign var="object_route" value='p'}
+    {assign var="object_uid" value=$role->product->uid}
     {assign var="object_type" value='product'}
 {elseif isset($role->maker)}
     {assign var="display_object" value=$role->maker}
     {assign var="object_route" value='m'}
     {assign var="object_type" value='maker'}
+    {assign var="object_uid" value=$role->maker->uid}
 {/if}
 
 {if isset($role->start_MY)}<span class="badge">{$role->start_MY}{if isset($role->end_MY)} &mdash; {$role->end_MY}{/if}</span>{/if}
@@ -23,8 +25,8 @@
 </div>
 <div class="media-body">
     <h3>
-        <a href="/{$object_route}/{$display_object->slug}">{$display_object->name}</a>
-        <a {if isset($logged_in_user)}href="#edit-role-{$role->id}" data-toggle="collapse"{else}href="{$sign_in_with_twttr_link}"{/if} type="button" class="btn btn-default btn-xs" aria-label="Center Align" id="edit-role-btn">
+        <a href="/{$object_route}/{$object_uid}/{$display_object->slug}">{$display_object->name}</a>
+        <a {if isset($logged_in_user)}href="#edit-role-{$role->uid}" data-toggle="collapse"{else}href="{$sign_in_with_twttr_link}"{/if} type="button" class="btn btn-default btn-xs" aria-label="Center Align" id="edit-role-btn">
             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
         </a>
     </h3>
@@ -34,7 +36,7 @@
 {if isset($logged_in_user)}
 <!-- edit form -->
 <div class="media-footer">
-<form method="post" action="/edit/role/" class="form-horizontal collapse" id="edit-role-{$role->id}">
+<form method="post" action="/edit/role/" class="form-horizontal collapse" id="edit-role-{$role->uid}">
     <div class="form-group">
         <label for="role" class="col-sm-1 control-label">Role:</label>
         <div class="col-sm-9">
@@ -51,8 +53,9 @@
           </div>
         </div>
     </div>
-    <input type="hidden" name="id" value="{$role->id}">
+    <input type="hidden" name="role_uid" value="{$role->uid}">
     <input type="hidden" name="originate_slug" value="{if isset($product->slug)}{$product->slug}{elseif isset($maker->slug)}{$maker->slug}{/if}">
+    <input type="hidden" name="originate_uid" value="{if isset($product->uid)}{$product->uid}{elseif isset($maker->uid)}{$maker->uid}{/if}">
     <input type="hidden" name="originate" value="{if isset($product->slug)}product{elseif isset($maker->slug)}maker{/if}">
 
     <div class="form-group">

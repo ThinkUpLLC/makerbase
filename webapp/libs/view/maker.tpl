@@ -41,10 +41,7 @@
         <input type="text" class="form-control col-xs-6" name="avatar_url" value="{$maker->avatar_url}">
       </div>
     </div>
-    <input type="hidden" name="maker_username" value="{$maker->username}">
-    <input type="hidden" name="maker_id" value="{$maker->id}">
-    <input type="hidden" name="maker_slug" value="{$maker->slug}">
-
+    <input type="hidden" name="maker_uid" value="{$maker->uid}">
     <div class="form-group">
         <label for="update-maker" class="col-sm-2 control-label"></label>
         <div class="col-sm-9">
@@ -57,7 +54,7 @@
 <div>
   <form method="post" action="/edit/maker/">
       <div class="form-group">
-      <input type="hidden" name="slug" value="{$maker->slug}" />
+      <input type="hidden" name="uid" value="{$maker->uid}" />
       <input type="hidden" name="archive" value="{if $maker->is_archived}0{else}1{/if}"/>
       <!-- Why oh why won't this button submit
       <button type="button" type="submit" class="btn btn-danger pull-right" aria-label="Center Align">
@@ -96,15 +93,16 @@
 
  {if isset($logged_in_user)}
     <form method="post" action="/add/role/" class="form-horizontal">
-      <input type="hidden" name="maker_slug" value="{$maker->slug}">
+      <input type="hidden" name="maker_uid" value="{$maker->uid}">
       <input type="hidden" name="originate_slug" value="{$maker->slug}">
+      <input type="hidden" name="originate_uid" value="{$maker->uid}">
       <input type="hidden" name="originate" value="maker">
       <div class="form-group">
         <label for="maker_slug" class="col-sm-3 control-label">Product:</label>
         <div class="col-sm-9">
           <div class="input-group" id="remote-search-products">
             <span class="input-group-addon" id="basic-addon1">@</span>
-            <input type="text" class="form-control typeahead" placeholder="Twitter handle" name="product_slug">
+            <input type="text" class="form-control typeahead" placeholder="" name="product_uid">
           </div>
         </div>
       </div>

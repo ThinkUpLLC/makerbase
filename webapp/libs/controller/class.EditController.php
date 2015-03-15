@@ -8,16 +8,17 @@ class EditController extends MakerbaseAuthController {
             $role_dao = new RoleMySQLDAO();
 
             //This will throw an exception if the role doesn't exist
-            $original_role = $role_dao->get($_POST['id']);
+            $original_role = $role_dao->get($_POST['role_uid']);
 
             $role = new Role();
-            $role->id = $_POST['id'];
+            $role->id = $original_role->id;
+            $role->uid = $_POST['role_uid'];
             $role->start = ($_POST['start_date'] == '')?null:$_POST['start_date']."-01";
             $role->end = ($_POST['end_date'] == '')?null:$_POST['end_date']."-01";
             $role->role = $_POST['role'];
             $has_been_updated = $role_dao->update($role);
 
-            $updated_role = $role_dao->get($role->id);
+            $updated_role = $role_dao->get($role->uid);
 
             //Get maker
             $maker_dao = new MakerMySQLDAO();
@@ -59,6 +60,7 @@ class EditController extends MakerbaseAuthController {
                 $controller = new ProductController(true);
                 $_GET = array();
                 $_GET['slug'] = $_POST['originate_slug'];
+                $_GET['uid'] = $_POST['originate_uid'];
                 $_GET['clear_cache'] = 1;
                 $_POST = array();
                 if ($has_been_updated) {
@@ -69,6 +71,7 @@ class EditController extends MakerbaseAuthController {
                 $controller = new MakerController(true);
                 $_GET = array();
                 $_GET['slug'] = $_POST['originate_slug'];
+                $_GET['uid'] = $_POST['originate_uid'];
                 $_GET['clear_cache'] = 1;
                 $_POST = array();
                 if ($has_been_updated) {
@@ -82,10 +85,11 @@ class EditController extends MakerbaseAuthController {
             $product_dao = new ProductMySQLDAO();
 
             //This will throw an exception if the product doesn't exist
-            $original_product = $product_dao->getByID($_POST['product_id']);
+            $original_product = $product_dao->get($_POST['product_uid']);
 
             $product = new Product();
-            $product->id = $_POST['product_id'];
+            $product->id = $original_product->id;
+            $product->uid = $_POST['product_uid'];
             $product->slug = $_POST['product_slug'];
             $product->name = $_POST['name'];
             $product->description = $_POST['description'];
@@ -118,6 +122,7 @@ class EditController extends MakerbaseAuthController {
             $controller = new ProductController(true);
             $_GET = array();
             $_GET['slug'] = $product->slug;
+            $_GET['uid'] = $product->uid;
             $_GET['clear_cache'] = 1;
             $_POST = array();
             if ($has_been_updated) {
@@ -128,13 +133,13 @@ class EditController extends MakerbaseAuthController {
             $maker_dao = new MakerMySQLDAO();
 
             //This will throw an exception if the maker doesn't exist
-            $original_maker = $maker_dao->getByID($_POST['maker_id']);
+            $original_maker = $maker_dao->get($_POST['maker_uid']);
 
             $maker = new Maker();
-            $maker->id = $_POST['maker_id'];
-            $maker->slug = $_POST['maker_slug'];
+            $maker->id = $original_maker->id;
+            $maker->uid = $_POST['maker_uid'];
+            $maker->slug = $original_maker->slug;
             $maker->name = $_POST['name'];
-            $maker->username = $_POST['maker_username'];
             $maker->url = $_POST['url'];
             $maker->avatar_url = $_POST['avatar_url'];
 
@@ -164,6 +169,7 @@ class EditController extends MakerbaseAuthController {
             $controller = new MakerController(true);
             $_GET = array();
             $_GET['slug'] = $maker->slug;
+            $_GET['uid'] = $maker->uid;
             $_GET['clear_cache'] = 1;
             $_POST = array();
             if ($has_been_updated) {
@@ -173,17 +179,18 @@ class EditController extends MakerbaseAuthController {
         } elseif ($this->hasArchivedMaker()) {
             $controller = new MakerController(true);
             $maker_dao = new MakerMySQLDAO();
-            $maker = $maker_dao->get($_POST['slug']);
+            $maker = $maker_dao->get($_POST['uid']);
 
             $has_changed_archive_status = false;
             if ($_POST['archive'] == 1) {
                 if ($maker->is_archived) {
                     $controller->addInfoMessage("Already archived");
                 } else {
-                    $has_changed_archive_status = $maker_dao->archive($_POST['slug']);
+                    $has_changed_archive_status = $maker_dao->archive($_POST['uid']);
                     if ($has_changed_archive_status) {
                         $maker->is_archived = true;
                         $controller->addSuccessMessage('Archived maker');
+                        $action_type = 'archive';
 
                         //@TODO Remove maker from Elasticsearch
                         // $client = new Elasticsearch\Client();
@@ -209,10 +216,11 @@ class EditController extends MakerbaseAuthController {
                 if (!$maker->is_archived) {
                     $controller->addInfoMessage("Already unarchived");
                 } else {
-                    $has_changed_archive_status = $maker_dao->unarchive($_POST['slug']);
+                    $has_changed_archive_status = $maker_dao->unarchive($_POST['uid']);
                     if ($has_changed_archive_status) {
                         $maker->is_archived = false;
                         $controller->addSuccessMessage('Unarchived maker');
+                        $action_type = 'unarchive';
                         //@TODO Add maker back to Elasticsearch
                     }
                 }
@@ -230,7 +238,7 @@ class EditController extends MakerbaseAuthController {
                 $action->object_id = $maker->id;
                 $action->object_type = get_class($maker);
                 $action->ip_address = $_SERVER['REMOTE_ADDR'];
-                $action->action_type = 'archive';
+                $action->action_type = $action_type;
 
                 $action->metadata = json_encode($maker);
                 $action_dao = new ActionMySQLDAO();
@@ -238,20 +246,21 @@ class EditController extends MakerbaseAuthController {
             }
             $_GET = array();
             $_GET['slug'] = $maker->slug;
+            $_GET['uid'] = $maker->uid;
             $_GET['clear_cache'] = 1;
             $_POST = array();
             return $controller->go();
         } elseif ($this->hasArchivedProduct()) {
             $controller = new ProductController(true);
             $product_dao = new ProductMySQLDAO();
-            $product = $product_dao->get($_POST['slug']);
+            $product = $product_dao->get($_POST['uid']);
 
             $has_changed_archive_status = false;
             if ($_POST['archive'] == 1) {
                 if ($product->is_archived) {
                     $controller->addInfoMessage("Already archived");
                 } else {
-                    $has_changed_archive_status = $product_dao->archive($_POST['slug']);
+                    $has_changed_archive_status = $product_dao->archive($_POST['uid']);
                     if ($has_changed_archive_status) {
                         $product->is_archived = true;
                         $controller->addSuccessMessage('Archived product');
@@ -281,7 +290,7 @@ class EditController extends MakerbaseAuthController {
                 if (!$product->is_archived) {
                     $controller->addInfoMessage("Already unarchived");
                 } else {
-                    $has_changed_archive_status = $product_dao->unarchive($_POST['slug']);
+                    $has_changed_archive_status = $product_dao->unarchive($_POST['uid']);
                     if ($has_changed_archive_status) {
                         $product->is_archived = false;
                         $controller->addSuccessMessage('Unarchived product');
@@ -311,6 +320,7 @@ class EditController extends MakerbaseAuthController {
             }
             $_GET = array();
             $_GET['slug'] = $product->slug;
+            $_GET['uid'] = $product->uid;
             $_GET['clear_cache'] = 1;
             $_POST = array();
             return $controller->go();
@@ -323,7 +333,7 @@ class EditController extends MakerbaseAuthController {
     private function hasSubmittedRoleForm() {
         return (
             (isset($_GET['object']) && $_GET['object'] == 'role')
-            && isset($_POST['id'])
+            && isset($_POST['role_uid'])
             && isset($_POST['start_date'])
             && isset($_POST['end_date'])
             && isset($_POST['role'])
@@ -335,7 +345,7 @@ class EditController extends MakerbaseAuthController {
     private function hasArchivedMaker() {
         return (
             (isset($_GET['object']) && $_GET['object'] == 'maker')
-            && isset($_POST['slug'])
+            && isset($_POST['uid'])
             && isset($_POST['archive']) && ($_POST['archive'] == 1 || $_POST['archive'] == 0)
         );
     }
@@ -343,7 +353,7 @@ class EditController extends MakerbaseAuthController {
     private function hasArchivedProduct() {
         return (
             (isset($_GET['object']) && $_GET['object'] == 'product')
-            && isset($_POST['slug'])
+            && isset($_POST['uid'])
             && isset($_POST['archive']) && ($_POST['archive'] == 1 || $_POST['archive'] == 0)
         );
     }
@@ -351,8 +361,7 @@ class EditController extends MakerbaseAuthController {
     private function hasSubmittedProductForm() {
         return (
             (isset($_GET['object']) && $_GET['object'] == 'product')
-            && isset($_POST['product_id'])
-            && isset($_POST['product_slug'])
+            && isset($_POST['product_uid'])
             && isset($_POST['name'])
             && isset($_POST['description'])
             && isset($_POST['url'])
@@ -363,8 +372,7 @@ class EditController extends MakerbaseAuthController {
     private function hasSubmittedMakerForm() {
         return (
             (isset($_GET['object']) && $_GET['object'] == 'maker')
-            && isset($_POST['maker_id'])
-            && isset($_POST['maker_slug'])
+            && isset($_POST['maker_uid'])
             && isset($_POST['name'])
             && isset($_POST['url'])
             && isset($_POST['avatar_url'])

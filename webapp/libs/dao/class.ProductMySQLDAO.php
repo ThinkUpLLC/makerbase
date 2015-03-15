@@ -1,37 +1,37 @@
 <?php
-class ProductMySQLDAO extends PDODAO {
+class ProductMySQLDAO extends MakerbasePDODAO {
 
-    public function archive($slug) {
-        return $this->setIsArchived($slug, true);
+    public function archive($uid) {
+        return $this->setIsArchived($uid, true);
     }
 
-    public function unarchive($slug) {
-        return $this->setIsArchived($slug, false);
+    public function unarchive($uid) {
+        return $this->setIsArchived($uid, false);
     }
 
-    private function setIsArchived($slug, $is_archived) {
+    private function setIsArchived($uid, $is_archived) {
         $q = <<<EOD
-UPDATE products SET is_archived = :is_archived WHERE slug = :slug
+UPDATE products SET is_archived = :is_archived WHERE uid = :uid
 EOD;
         $vars = array (
-            ':slug' => $slug,
+            ':uid' => $uid,
             ':is_archived' => ($is_archived)?1:0
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
-        //echo Debugger::mergeSQLVars($q, $vars);
+        //echo self::mergeSQLVars($q, $vars);
         $ps = $this->execute($q, $vars);
         return ($this->getUpdateCount($ps) > 0);
     }
 
-    public function get($slug) {
-        $q = "SELECT * FROM products WHERE slug = :slug";
-        $vars = array ( ':slug' => $slug);
+    public function get($uid) {
+        $q = "SELECT * FROM products WHERE uid = :uid";
+        $vars = array ( ':uid' => $uid);
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
-        //echo Debugger::mergeSQLVars($q, $vars);
+        //echo self::mergeSQLVars($q, $vars);
         $ps = $this->execute($q, $vars);
         $product = $this->getDataRowAsObject($ps, "Product");
         if (!isset($product)) {
-            throw new ProductDoesNotExistException('Product '.$slug.' does not exist.');
+            throw new ProductDoesNotExistException('Product '.$uid.' does not exist.');
         }
         return $product;
     }
@@ -40,7 +40,7 @@ EOD;
         $q = "SELECT * FROM products WHERE id = :id";
         $vars = array ( ':id' => $id);
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
-        //echo Debugger::mergeSQLVars($q, $vars);
+        //echo self::mergeSQLVars($q, $vars);
         $ps = $this->execute($q, $vars);
         $product = $this->getDataRowAsObject($ps, "Product");
         if (!isset($product)) {
@@ -50,14 +50,16 @@ EOD;
     }
 
     public function insert(Product $product) {
+        $product->uid = self::generateRandomString(6);
         $q = <<<EOD
 INSERT INTO products (
-slug, name, description, url, avatar_url
+uid, slug, name, description, url, avatar_url
 ) VALUES (
-:slug, :name, :description, :url, :avatar_url
+:uid, :slug, :name, :description, :url, :avatar_url
 )
 EOD;
         $vars = array (
+            ':uid' => $product->uid,
             ':slug' => $product->slug,
             ':name' => $product->name,
             ':description' => $product->description,
@@ -65,26 +67,32 @@ EOD;
             ':avatar_url' => $product->avatar_url
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
-        //echo Debugger::mergeSQLVars($q, $vars);
-        try {
-            $ps = $this->execute($q, $vars);
-            return $this->getInsertId($ps);
-        } catch (PDOException $e) {
-            $message = $e->getMessage();
-            if (strpos($message,'Duplicate entry') !== false && strpos($message,'slug') !== false) {
-                throw new DuplicateProductException($message);
-            } else {
-                throw new PDOException($message);
+        //echo self::mergeSQLVars($q, $vars);
+        $try_insert = true;
+        while ($try_insert) {
+            try {
+                $ps = $this->execute($q, $vars);
+                $try_insert = false;
+                $product->id = $this->getInsertId($ps);
+                return $product;
+            } catch (PDOException $e) {
+                $message = $e->getMessage();
+                if (strpos($message,'Duplicate entry') !== false && strpos($message,'uid') !== false) {
+                    $try_insert = true;
+                } else {
+                    throw new PDOException($message);
+                }
             }
         }
     }
 
     public function update(Product $product) {
         $q = <<<EOD
-UPDATE products SET name = :name, description = :description, url = :url, avatar_url = :avatar_url
-WHERE slug = :slug
+UPDATE products SET slug = :slug, name = :name, description = :description, url = :url, avatar_url = :avatar_url
+WHERE uid = :uid
 EOD;
         $vars = array (
+            ':uid' => $product->uid,
             ':slug' => $product->slug,
             ':description' => $product->description,
             ':name' => $product->name,
@@ -92,7 +100,7 @@ EOD;
             ':avatar_url' => $product->avatar_url
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
-        //echo Debugger::mergeSQLVars($q, $vars);
+        //echo self::mergeSQLVars($q, $vars);
         $ps = $this->execute($q, $vars);
         return ($this->getUpdateCount($ps) > 0);
     }

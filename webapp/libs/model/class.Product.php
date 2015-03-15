@@ -6,6 +6,10 @@ class Product {
      */
     var $id;
     /**
+     * @var str External unique ID.
+     */
+    var $uid;
+    /**
      * @var str URL slug.
      */
     var $slug;
@@ -30,12 +34,13 @@ class Product {
      */
     var $creation_time;
     /**
-     * @var bool Has product been archived
+     * @var bool Has product been archived, 1 yes, 0 no.
      */
-    var $is_archived;
+    var $is_archived = false;
     public function __construct($row = false) {
         if ($row) {
             $this->id = $row['id'];
+            $this->uid = $row['uid'];
             $this->slug = $row['slug'];
             $this->name = $row['name'];
             $this->description = $row['description'];

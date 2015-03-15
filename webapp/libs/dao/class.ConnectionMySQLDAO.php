@@ -16,7 +16,7 @@ EOD;
             ':object_type' => $type
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
-        //echo Debugger::mergeSQLVars($q, $vars);
+        //echo self::mergeSQLVars($q, $vars);
         try {
             $ps = $this->execute($q, $vars);
             return true;

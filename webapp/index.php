@@ -17,8 +17,8 @@ $router = new Router();
 //In case of caching issues
 //Router::$routes = null;
 $router->addRoute('index', 'LandingController');
-$router->addRoute('m', 'MakerController', array('slug'));
-$router->addRoute('p', 'ProductController', array('slug'));
+$router->addRoute('m', 'MakerController', array('uid', 'slug'));
+$router->addRoute('p', 'ProductController', array('uid', 'slug'));
 $router->addRoute('u', 'UserController', array('twitter_user_id'));
 $router->addRoute('signin', 'SignInController');
 $router->addRoute('signout', 'SignOutController');

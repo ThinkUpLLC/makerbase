@@ -12,9 +12,9 @@ class MakerMySQLDAOTest extends MakerbaseUnitTestCase {
     }
 
     protected function buildData() {
-        $builders[] = FixtureBuilder::build('makers', array('slug'=>'giantairnap', 'user_name'=>'mary',
+        $builders[] = FixtureBuilder::build('makers', array('uid'=>'asdf', 'slug'=>'giantairnap',
             'name'=>'Mary Jane'));
-        $builders[] = FixtureBuilder::build('makers', array('slug'=>'anildash', 'user_name'=>'sweetmary',
+        $builders[] = FixtureBuilder::build('makers', array('uid'=>'asdf1', 'slug'=>'anildash',
             'name'=>'Sweet Mary Jane'));
         return $builders;
     }
@@ -29,7 +29,7 @@ class MakerMySQLDAOTest extends MakerbaseUnitTestCase {
         $builders = $this->buildData();
         //sleep(1000);
         $maker_dao = new MakerMySQLDAO();
-        $maker = $maker_dao->get('giantairnap');
+        $maker = $maker_dao->get('asdf');
         $this->assertNotNull($maker);
         $this->assertEquals('giantairnap', $maker->slug);
     }
@@ -38,12 +38,12 @@ class MakerMySQLDAOTest extends MakerbaseUnitTestCase {
         $maker = new Maker();
         $maker->name = 'David Carr';
         $maker->slug = 'carr2n';
-        $maker->username = 'carr2n';
         $maker->url = 'http://nytimes.com';
         $maker->avatar_url = 'http://example.com/avatar.jpg';
 
         $maker_dao = new MakerMySQLDAO();
         $result = $maker_dao->insert($maker);
-        $this->assertEquals(1, $result);
+        $this->assertInstanceOf('Maker', $result);
+        $this->assertEquals($result->id, 1);
     }
 }

@@ -6,13 +6,13 @@ class Maker {
      */
     var $id;
     /**
+     * @var str External unique ID.
+     */
+    var $uid;
+    /**
      * @var str URL slug.
      */
     var $slug;
-    /**
-     * @var str Username.
-     */
-    var $username;
     /**
      * @var str Full name.
      */
@@ -30,14 +30,14 @@ class Maker {
      */
     var $creation_time;
     /**
-     * @var bool Has maker been archived
+     * @var bool Has maker been archived, 1 yes, 0 no.
      */
-    var $is_archived;
+    var $is_archived = false;
     public function __construct($row = false) {
         if ($row) {
             $this->id = $row['id'];
+            $this->uid = $row['uid'];
             $this->slug = $row['slug'];
-            $this->username = $row['username'];
             $this->name = $row['name'];
             $this->url = $row['url'];
             $this->avatar_url = $row['avatar_url'];

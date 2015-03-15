@@ -6,6 +6,10 @@ class Role {
      */
     var $id;
     /**
+     * @var str External unique ID.
+     */
+    var $uid;
+    /**
      * @var int Product ID.
      */
     var $product_id;
@@ -30,12 +34,13 @@ class Role {
      */
     var $creation_time;
     /**
-     * @var bool Has role been archived
+     * @var bool Has role been archived, 1 yes, 0 no.
      */
-    var $is_archived;
+    var $is_archived = false;
     public function __construct($row = false) {
         if ($row) {
             $this->id = $row['id'];
+            $this->uid = $row['uid'];
             $this->product_id = $row['product_id'];
             $this->maker_id = $row['maker_id'];
             $this->role = $row['role'];
