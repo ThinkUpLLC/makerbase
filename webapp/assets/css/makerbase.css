@@ -180,3 +180,13 @@ h1, h2, h3, h4, h5, h6 {
 	padding: 20px;
 	margin-top: 20px;
 }
+
+ins {
+  background: #e4f9e8;
+  text-decoration: none;
+}
+
+del {
+  background: #f8d9dd;
+  color: #dc4154;
+}

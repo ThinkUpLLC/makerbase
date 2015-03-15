@@ -13,6 +13,9 @@ Loader::addSpecialClass('TwitterOAuth', Config::getInstance()->getValue('source_
 //ElasticSearch
 require 'vendor/autoload.php';
 
+//FineDiff
+require 'extlibs/FineDiff/finediff.php';
+
 $router = new Router();
 //In case of caching issues
 //Router::$routes = null;
