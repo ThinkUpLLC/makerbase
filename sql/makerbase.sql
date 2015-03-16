@@ -116,6 +116,7 @@ CREATE TABLE roles (
 
 CREATE TABLE users (
   id int(11) NOT NULL AUTO_INCREMENT COMMENT 'Internal unique ID.',
+  uid varchar(8) NOT NULL COMMENT 'External unique ID.',
   `name` varchar(255) NOT NULL COMMENT 'Full name.',
   url varchar(255) NOT NULL COMMENT 'Web site URL.',
   avatar_url varchar(255) NOT NULL COMMENT 'Avatar URL.',
@@ -127,6 +128,7 @@ CREATE TABLE users (
   twitter_oauth_access_token_secret varchar(255) NOT NULL COMMENT 'Twitter OAuth secret.',
   maker_id int(11) DEFAULT NULL COMMENT 'Maker ID if claimed.',
   PRIMARY KEY (id),
+  UNIQUE KEY uid (uid),
   UNIQUE KEY twitter_user_id (twitter_user_id),
   KEY creation_time (creation_time)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Makerbase users.';

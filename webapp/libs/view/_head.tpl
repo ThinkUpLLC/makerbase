@@ -51,7 +51,7 @@
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="{$site_root_path}u/{$logged_in_user->twitter_user_id}">Your activity</a></li>
+              <li><a href="{$site_root_path}u/{$logged_in_user->uid}">Your activity</a></li>
               <li><a href="{$site_root_path}signout/">Sign out</a></li>
             </ul>
           </div>

@@ -5,6 +5,10 @@ class User {
      */
     var $id;
     /**
+     * @var str External unique ID.
+     */
+    var $uid;
+    /**
      * @var str Full name.
      */
     var $name;
@@ -43,6 +47,7 @@ class User {
     public function __construct($row = false) {
         if ($row) {
             $this->id = $row['id'];
+            $this->uid = $row['uid'];
             $this->name = $row['name'];
             $this->url = $row['url'];
             $this->avatar_url = $row['avatar_url'];

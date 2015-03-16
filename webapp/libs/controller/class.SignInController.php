@@ -34,7 +34,7 @@ class SignInController extends MakerbaseController {
                     //print_r($authed_twitter_user);
                     $user_dao = new UserMySQLDAO();
                     try {
-                        $user = $user_dao->get($authed_twitter_user['user_id']);
+                        $user = $user_dao->getByTwitterUserId($authed_twitter_user['user_id']);
                         $user_dao->updateLastLogin($user);
                     } catch (UserDoesNotExistException $e) {
                         $user = new User();
@@ -45,10 +45,11 @@ class SignInController extends MakerbaseController {
                         $user->twitter_username = $authed_twitter_user['user_name'];
                         $user->twitter_oauth_access_token = $token_array['oauth_token'];
                         $user->twitter_oauth_access_token_secret = $token_array['oauth_token_secret'];
-                        $new_user_id = $user_dao->insert($user);
-                        $user->id = $new_user_id;
+                        $new_user = $user_dao->insert($user);
+                        $user->id = $new_user->id;
+                        $user->uid = $new_user->uid;
                     }
-                    Session::completeLogin($authed_twitter_user['user_id']);
+                    Session::completeLogin($user->uid);
                     //@TODO Redirect user if redir is set
                     if (isset($_GET['redirect'])) {
                         if (!$this->redirect($_GET['redirect'])) {
