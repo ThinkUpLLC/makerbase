@@ -26,17 +26,19 @@
 <div class="media-body">
     <h3>
         <a href="/{$object_route}/{$object_uid}/{$display_object->slug}">{$display_object->name}</a>
-        <a {if isset($logged_in_user)}href="#edit-role-{$role->uid}" data-toggle="collapse"{else}href="{$sign_in_with_twttr_link}"{/if} type="button" class="btn btn-default btn-xs" aria-label="Center Align" id="edit-role-btn">
+    </h3>
+    <h4>
+        {$role->role}
+        <a {if isset($logged_in_user)}href="#edit-role-{$role->uid}" data-toggle="collapse"{else}href="{$sign_in_with_twttr_link}"{/if} type="button" class="btn btn-default btn-xs" id="edit-role-btn">
             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
         </a>
-    </h3>
-    <h4>{$role->role}</h4>
+    </h4>
 </div>
 
 {if isset($logged_in_user)}
 <!-- edit form -->
-<div class="media-footer">
-<form method="post" action="/edit/role/" class="form-horizontal collapse" id="edit-role-{$role->uid}">
+<div class="media-footer collapse" id="edit-role-{$role->uid}">
+<form method="post" action="/edit/role/" class="form-horizontal edit-role-form">
     <div class="form-group">
         <label for="role" class="col-sm-1 control-label">Role:</label>
         <div class="col-sm-9">
@@ -66,24 +68,20 @@
     </div>
 </form>
 
-<!-- archive form (PLEASE DON'T HATE ME)-->
-<div>
-  <form method="post" action="/edit/role/">
-      <div class="form-group">
-      <input type="hidden" name="uid" value="{$role->uid}" />
-      <input type="hidden" name="archive" value="{if $role->is_archived}0{else}1{/if}"/>
-        <input type="hidden" name="originate_slug" value="{if isset($product->slug)}{$product->slug}{elseif isset($maker->slug)}{$maker->slug}{/if}">
-        <input type="hidden" name="originate_uid" value="{if isset($product->uid)}{$product->uid}{elseif isset($maker->uid)}{$maker->uid}{/if}">
-        <input type="hidden" name="originate" value="{if isset($product->slug)}product{elseif isset($maker->slug)}maker{/if}">
-      <!-- Why oh why won't this button submit
-        <button type="button" href="#" class="btn btn-danger pull-right" aria-label="Center Align">
-            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete role
-        </button>
--->
-      <input type="submit" value="{if $role->is_archived}Unarchive{else}Archive{/if} role" />
+    <div >
+      <form method="post" action="/edit/role/" class=" edit-role-form clearfix">
+        <div class="form-group col-xs-12">
+          <input type="hidden" name="uid" value="{$role->uid}" />
+          <input type="hidden" name="archive" value="{if $role->is_archived}0{else}1{/if}"/>
+            <input type="hidden" name="originate_slug" value="{if isset($product->slug)}{$product->slug}{elseif isset($maker->slug)}{$maker->slug}{/if}">
+            <input type="hidden" name="originate_uid" value="{if isset($product->uid)}{$product->uid}{elseif isset($maker->uid)}{$maker->uid}{/if}">
+            <input type="hidden" name="originate" value="{if isset($product->slug)}product{elseif isset($maker->slug)}maker{/if}">
+            <button type="submit" class="btn btn-danger btn-xs pull-right" aria-label="Center Align">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {if $role->is_archived}Unarchive{else}Archive{/if}
+            </button>
+        </div>
+      </form>
     </div>
-  </form>
-</div>
 
 </div>
 {/if}
