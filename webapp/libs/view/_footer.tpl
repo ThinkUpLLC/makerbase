@@ -77,7 +77,7 @@
       },
       {
         name: 'all-makers',
-        displayKey: 'uid',
+        displayKey: 'id',
         source: searchAllMakers.ttAdapter(),
         templates: {
           empty: [
@@ -107,7 +107,7 @@
       },
       {
         name: 'all-products',
-        displayKey: 'uid',
+        displayKey: 'id',
         source: searchAllProducts.ttAdapter(),
         templates: {
           empty: [

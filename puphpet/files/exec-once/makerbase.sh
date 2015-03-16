@@ -52,7 +52,7 @@ curl -XPUT 'localhost:9200/_river/my_jdbc_river_makers/_meta' -d '{
         "url" : "jdbc:mysql://localhost:3306/makerbase_web",
         "user" : "makerbase",
         "password" : "nice2bnice",
-        "sql" : "SELECT uid AS id, slug name, url, avatar_url FROM makers",
+        "sql" : "SELECT uid AS id, slug, name, url, avatar_url FROM makers",
         "index" : "maker_index",
         "type" : "maker_type"
     }
