@@ -12,7 +12,7 @@ Loader::register(array(
  * Image proxy and cache
  *
  * Accepts 3 $_GET parameters:
- * t (type) = either 'product' or 'maker'
+ * t (type) = either 'p' or 'm' (product or maker)
  * url = valid URL
  * s (signature) = a token proving the loader is legit
  *
@@ -59,9 +59,9 @@ class ImageProxyCacheController extends Controller {
                 header('Content-Length: ' . filesize($this->local_filename));
                 readfile($this->local_filename);
             } else {
-                if ($_GET['t'] == 'maker') {
+                if ($_GET['t'] == 'm') {
                     $blank_image = (FileDataManager::getDataPath()).'image-cache/blank-maker.png';
-                } else {
+                } elseif ($_GET['t'] == 'p') {
                     $blank_image = (FileDataManager::getDataPath()).'image-cache/blank-product.png';
                 }
                 $this->cacheAndDisplayImage($this->url, $this->local_filename, $blank_image, $extension);
@@ -81,7 +81,7 @@ class ImageProxyCacheController extends Controller {
         return (
             isset($_GET['url'])
             //image type
-            && (isset($_GET['t']) && ($_GET['t'] == 'product' || $_GET['t'] == 'maker'))
+            && (isset($_GET['t']) && ($_GET['t'] == 'p' || $_GET['t'] == 'm'))
             //request signature is a simple MD5 hash of a passphrase
             && (isset($_GET['s']) && $_GET['s'] == md5($passphrase))
         );

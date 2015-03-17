@@ -52,7 +52,7 @@ curl -XPUT 'localhost:9200/_river/my_jdbc_river_makers/_meta' -d '{
         "url" : "jdbc:mysql://localhost:3306/makerbase_web",
         "user" : "makerbase",
         "password" : "nice2bnice",
-        "sql" : "SELECT uid AS id, slug, name, url, avatar_url FROM makers",
+        "sql" : "SELECT uid AS _id, uid, slug, name, url, avatar_url FROM makers",
         "index" : "maker_index",
         "type" : "maker_type"
     }
@@ -66,14 +66,14 @@ curl -XPUT 'localhost:9200/_river/my_jdbc_river_products/_meta' -d '{
         "url" : "jdbc:mysql://localhost:3306/makerbase_web",
         "user" : "makerbase",
         "password" : "nice2bnice",
-        "sql" : "SELECT uid AS id, slug, name, description, url, avatar_url FROM products",
+        "sql" : "SELECT uid AS _id, uid, slug, name, description, url, avatar_url FROM products",
         "index" : "product_index",
         "type" : "product_type"
     }
 }'
 
 # Create tmp table
-mysql -u makerbase -pnice2bnice -D makerbase_web -e "CREATE TABLE tmp SELECT CONCAT('m/', uid) as id, uid, slug, name, '' as description, url, avatar_url, 'maker' AS type FROM makers UNION SELECT CONCAT('p/', uid) as id, uid, slug, name, description, url, avatar_url, 'product' AS type FROM products;"
+mysql -u makerbase -pnice2bnice -D makerbase_web -e "CREATE TABLE tmp SELECT CONCAT('m/', uid) as _id, uid, slug, name, '' as description, url, avatar_url, 'm' AS type FROM makers UNION SELECT CONCAT('p/', uid) as _id, uid, slug, name, description, url, avatar_url, 'p' AS type FROM products;"
 
 # Create makers AND products index in Elasticsearch
 curl -XPUT 'localhost:9200/_river/my_jdbc_river_makers_and_products/_meta' -d '{

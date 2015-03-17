@@ -20,7 +20,7 @@
 
 <div class="media-left media-middle">
     <a href="/{$object_route}/{$display_object->slug}">
-    <img class="media-object" src="{insert name='user_image' image_url=$display_object->avatar_url image_proxy_sig=$image_proxy_sig type=$object_type}" alt="{$display_object->name} logo" width="40" height="40">
+    <img class="media-object" src="{insert name='user_image' image_url=$display_object->avatar_url image_proxy_sig=$image_proxy_sig type=$object_route}" alt="{$display_object->name} logo" width="40" height="40">
     </a>
 </div>
 <div class="media-body">

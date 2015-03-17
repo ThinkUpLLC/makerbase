@@ -26,7 +26,7 @@
   <div class="col-xs-12">
   	<div class="list-group">
 	{foreach $return_document.hits.hits as $hit}
-		<a class="list-group-item" href="/{$hit._source.id}/{$hit._source.slug}">
+		<a class="list-group-item" href="/{$hit._source.type}/{$hit._source.uid}/{$hit._source.slug}">
   			<div class="media-left">
             <img class="media-object" src="{insert name='user_image' image_url=$hit._source.avatar_url image_proxy_sig=$image_proxy_sig type=$hit._source.type}" alt="{$hit._source.name}" width="100">
 			</div>

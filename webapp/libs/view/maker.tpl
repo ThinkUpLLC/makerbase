@@ -9,7 +9,7 @@
 
 <div class="row">
   <div class="col-sm-4 col-xs-12">
-    <img class="img-responsive" src="{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='maker'}" alt="{$maker->name}" width="100%">
+    <img class="img-responsive" src="{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" alt="{$maker->name}" width="100%">
 
 	<p><a href="{$maker->url}">{$maker->url}</a></p>
 

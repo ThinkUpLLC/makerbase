@@ -158,35 +158,10 @@ class AddController extends MakerbaseAuthController {
         $maker_dao = new MakerMySQLDAO();
         $controller = new MakerController(true);
 
-        //Insert maker (this may throw a DuplicateMakerException)
         $maker = $maker_dao->insert($maker);
 
         // Add new maker to Elasticsearch
-        $client = new Elasticsearch\Client();
-        $params = array();
-        $params['body']  = array(
-            'id'=>'m/'.$maker->uid,
-            'uid'=>$maker->uid,
-            'slug'=>$maker->slug,
-            'name'=>$maker->name,
-            'description'=>'',
-            'url'=>$maker->url,
-            'avatar_url'=>$maker->avatar_url,
-            'type'=>'maker'
-        );
-        $params['index'] = 'maker_product_index';
-        $params['type']  = 'maker_product_type';
-        $ret = $client->index($params);
-        if ($ret['created'] != 1) {
-            $controller->addErrorMessage('Problem adding '.$maker->slug.' to search index.');
-        }
-        $params['body']['id'] = $maker->uid;
-        $params['index'] = 'maker_index';
-        $params['type']  = 'maker_type';
-        $ret = $client->index($params);
-        if ($ret['created'] != 1) {
-            $controller->addErrorMessage('Problem adding '.$maker->slug.' to search index.');
-        }
+        SearchHelper::indexMaker($maker);
 
         //Add new connection
         $connection_dao = new ConnectionMySQLDAO();
@@ -227,32 +202,8 @@ class AddController extends MakerbaseAuthController {
         //Insert maker (this may throw a DuplicateMakerException)
         $product = $product_dao->insert($product);
 
-        // Add new maker to Elasticsearch
-        $client = new Elasticsearch\Client();
-        $params = array();
-        $params['body']  = array(
-            'id'=>'p/'.$product->uid,
-            'uid'=>$product->uid,
-            'slug'=>$product->slug,
-            'name'=>$product->name,
-            'description'=>$product->description,
-            'url'=>$product->url,
-            'avatar_url'=>$product->avatar_url,
-            'type'=>'product'
-        );
-        $params['index'] = 'maker_product_index';
-        $params['type']  = 'maker_product_type';
-        $ret = $client->index($params);
-        if ($ret['created'] != 1) {
-            $controller->addErrorMessage('Problem adding '.$product->slug.' to search index.');
-        }
-        $params['body']['id'] = $product->uid;
-        $params['index'] = 'product_index';
-        $params['type']  = 'product_type';
-        $ret = $client->index($params);
-        if ($ret['created'] != 1) {
-            $controller->addErrorMessage('Problem adding '.$product->slug.' to search index.');
-        }
+        // Add new product to Elasticsearch
+        SearchHelper::indexProduct($product);
 
         //Add new connection
         $connection_dao = new ConnectionMySQLDAO();

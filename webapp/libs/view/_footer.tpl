@@ -56,7 +56,7 @@
             '</div>',
             '</div>'
           ].join('\n'),
-          suggestion: Handlebars.compile('<a class="media" href="/{{id}}/{{slug}}"><div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div><div class="media-right"><small>@{{slug}}</small></div></a>')
+          suggestion: Handlebars.compile('<a class="media" href="/{{type}}/{{uid}}/{{slug}}"><div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div><div class="media-right"><small>@{{slug}}</small></div></a>')
         }
       });
 
@@ -77,7 +77,7 @@
       },
       {
         name: 'all-makers',
-        displayKey: 'id',
+        displayKey: 'uid',
         source: searchAllMakers.ttAdapter(),
         templates: {
           empty: [
@@ -107,7 +107,7 @@
       },
       {
         name: 'all-products',
-        displayKey: 'id',
+        displayKey: 'uid',
         source: searchAllProducts.ttAdapter(),
         templates: {
           empty: [

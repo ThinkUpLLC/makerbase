@@ -181,24 +181,8 @@ class EditController extends MakerbaseAuthController {
                     $controller->addSuccessMessage('Archived product');
                     $action_type = 'archive';
 
-                    //@TODO Remove product from Elasticsearch
-                    // $client = new Elasticsearch\Client();
-                    // $params = array();
-                    // $params['index'] = 'maker_product_index';
-                    // $params['type']  = 'maker_product_type';
-                    // $params['id'] = $product->id;
-                    // $ret = $client->delete($params);
-                    // print_r($ret);
-                    // if ($ret['created'] != 1) {
-                    //     $controller->addErrorMessage('Problem adding '.$product->slug.' to search index.');
-                    // }
-                    // $params['index'] = 'maker_index';
-                    // $params['type']  = 'maker_type';
-                    // $ret = $client->delete($params);
-                    // print_r($ret);
-                    // if ($ret['created'] != 1) {
-                    //     $controller->addErrorMessage('Problem adding '.$product->slug.' to search index.');
-                    // }
+                    //Remove product from Elasticsearch
+                    SearchHelper::deindexProduct($product);
                 }
             }
         } else {
@@ -210,7 +194,9 @@ class EditController extends MakerbaseAuthController {
                     $product->is_archived = false;
                     $controller->addSuccessMessage('Unarchived product');
                     $action_type = 'unarchive';
-                    //@TODO Add product back to Elasticsearch
+
+                    // Add product back to Elasticsearch
+                    SearchHelper::indexProduct($product);
                 }
             }
         }
@@ -257,25 +243,8 @@ class EditController extends MakerbaseAuthController {
                     $controller->addSuccessMessage('Archived maker');
                     $action_type = 'archive';
 
-                    //@TODO Remove maker from Elasticsearch
-                    // $client = new Elasticsearch\Client();
-                    // $params = array();
-                    // $params['index'] = 'maker_product_index';
-                    // $params['type']  = 'maker_product_type';
-                    // $params['id'] = 'm/'.$maker->uid;
-                    // $ret = $client->delete($params);
-                    // print_r($ret);
-                    // if (!$ret['found']) {
-                    //     $controller->addErrorMessage('Problem removing '.$maker->uid.' from search index.');
-                    // }
-                    // $params['id'] = $maker->uid;
-                    // $params['index'] = 'maker_index';
-                    // $params['type']  = 'maker_type';
-                    // $ret = $client->delete($params);
-                    // print_r($ret);
-                    // if (!$ret['found']) {
-                    //     $controller->addErrorMessage('Problem removing '.$maker->uid.' from maker index.');
-                    // }
+                    // Remove maker from Elasticsearch
+                    SearchHelper::deindexMaker($maker);
                 }
             }
         } else {
@@ -287,7 +256,8 @@ class EditController extends MakerbaseAuthController {
                     $maker->is_archived = false;
                     $controller->addSuccessMessage('Unarchived maker');
                     $action_type = 'unarchive';
-                    //@TODO Add maker back to Elasticsearch
+                    // Add maker back to Elasticsearch
+                    SearchHelper::indexMaker($maker);
                 }
             }
         }
@@ -353,6 +323,9 @@ class EditController extends MakerbaseAuthController {
             $action->metadata = json_encode($versions);
             $action_dao = new ActionMySQLDAO();
             $action_dao->insert($action);
+
+            //Update search index
+            SearchHelper::updateIndexMaker($maker);
         }
 
         $controller = new MakerController(true);
@@ -403,6 +376,9 @@ class EditController extends MakerbaseAuthController {
             $action->metadata = json_encode($versions);
             $action_dao = new ActionMySQLDAO();
             $action_dao->insert($action);
+
+            //Update search index
+            SearchHelper::updateIndexProduct($product);
         }
 
         $controller = new ProductController(true);
