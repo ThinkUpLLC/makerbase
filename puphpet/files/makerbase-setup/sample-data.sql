@@ -34,7 +34,7 @@ INSERT INTO `roles` (`id`, `uid`, `product_id`, `maker_id`, `role`, `start`, `en
 (1, 'ytb6bo', 1,  1,  '', NULL, NULL, '2015-03-15 04:23:38',  0),
 (2, '2v3703', 2,  2,  'Founder and creator and visionary',  '2010-01-01', NULL, '2015-03-15 04:30:55',  0);
 
-INSERT INTO `users` (`id`, `name`, `url`, `avatar_url`, `twitter_user_id`, `twitter_username`, `creation_time`, `last_login_time`, `twitter_oauth_access_token`, `twitter_oauth_access_token_secret`, `maker_id`) VALUES
-(1, 'Gina Trapani', 'http://ginatrapani.org', 'http://pbs.twimg.com/profile_images/550825678673682432/YRqb4FJE_normal.png', '930061', 'ginatrapani',  '2015-03-15 04:23:05',  '2015-03-15 04:23:05',  '930061-celUhQfokswjgpKHriRGJvKVPOp8cDnHaFUnxfsL8h3', 'OzllrOqWoj4bzsvbZjWzF9iAkkbOIwNZMQx5mu1QkFXqA',  NULL);
+INSERT INTO `users` (`id`, `uid`, `name`, `url`, `avatar_url`, `twitter_user_id`, `twitter_username`, `creation_time`, `last_login_time`, `twitter_oauth_access_token`, `twitter_oauth_access_token_secret`, `maker_id`) VALUES
+(1, 'asdf8x', 'Gina Trapani', 'http://ginatrapani.org', 'http://pbs.twimg.com/profile_images/550825678673682432/YRqb4FJE_normal.png', '930061', 'ginatrapani',  '2015-03-15 04:23:05',  '2015-03-15 04:23:05',  '930061-celUhQfokswjgpKHriRGJvKVPOp8cDnHaFUnxfsL8h3', 'OzllrOqWoj4bzsvbZjWzF9iAkkbOIwNZMQx5mu1QkFXqA',  NULL);
 
 -- 2015-03-15 04:32:28

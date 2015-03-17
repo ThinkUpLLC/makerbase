@@ -6,7 +6,7 @@ class UserController extends MakerbaseController {
         parent::control();
         $this->setViewTemplate('user.tpl');
         $user_dao = new UserMySQLDAO();
-        $user = $user_dao->get($_GET['twitter_user_id']);
+        $user = $user_dao->get($_GET['uid']);
         $this->addToView('user', $user);
 
         // Get actions
