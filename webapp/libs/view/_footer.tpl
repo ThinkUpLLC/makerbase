@@ -3,7 +3,7 @@
 
     <footer class="footer">
       <div class="container">
-        <p class="text-muted">&copy; 2015 <a href="/p/thinkup">ThinkUp</a>. Now go make something.</p>
+        <p class="text-muted">&copy; 2015 <a href="/p/38523i/thinkup">ThinkUp</a>. Now go make something.</p>
       </div>
     </footer>
 
