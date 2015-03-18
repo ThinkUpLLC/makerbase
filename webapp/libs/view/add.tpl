@@ -45,8 +45,10 @@
 		</div>
 		<div class="form-group">
 			<label for="avatar_url" class="col-xs-3 control-label">Avatar URL</label>
-			<div class="col-xs-9">
+			<div class="col-xs-3">
 				<img src="{if isset($avatar_url)}{$avatar_url}{/if}" id="avatar-img" width="100">
+			</div>
+			<div class="col-xs-6">
 				<input type="text" class="form-control col-xs-6"  name="avatar_url" id="avatar-url" value="{if isset($avatar_url)}{$avatar_url}{/if}" onkeyup="document.getElementById('avatar-img').src = this.value">
 			</div>
 		</div>
