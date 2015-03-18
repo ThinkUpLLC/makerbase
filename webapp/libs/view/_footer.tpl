@@ -83,7 +83,7 @@
           empty: [
             '<div class="media">',
             '<h4 class="media-heading">Oops! No makers match</h4>',
-            '<div class="media-body"><a href="/add/maker" class="btn btn-success btn-sm">Add them</a></div>',
+            '<div class="media-body"><a onclick="location.href=\'/add/maker/?q=\'+ $(\'#maker-uid\').val();" class="btn btn-success btn-sm">Add them</a></div>',
             '</div>'
           ].join('\n'),
           suggestion: Handlebars.compile('<div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div>')
@@ -113,7 +113,7 @@
           empty: [
             '<div class="media">',
             '<h4 class="media-heading">Oops! No products match</h4>',
-            '<div class="media-body"><a href="/add/product" class="btn btn-success btn-sm">Add it</a></div>',
+            '<div class="media-body"><a onclick="location.href=\'/add/product/?q=\'+ $(\'#product-uid\').val();" class="btn btn-success btn-sm">Add it</a></div>',
             '</div>'
           ].join('\n'),
           suggestion: Handlebars.compile('<div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div></div>')

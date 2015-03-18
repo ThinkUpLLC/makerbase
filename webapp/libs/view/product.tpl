@@ -113,7 +113,7 @@
 				<label for="maker_slug" class="col-sm-3 control-label">Maker:</label>
 				<div class="col-sm-9">
 					<div class="input-group" id="remote-search-makers">
-						<input type="text" class="form-control typeahead" placeholder="" name="maker_uid">
+						<input type="text" class="form-control typeahead" placeholder="" name="maker_uid" id="maker-uid">
 					</div>
 				</div>
 			</div>

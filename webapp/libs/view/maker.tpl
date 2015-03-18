@@ -105,7 +105,7 @@
         <label for="maker_slug" class="col-sm-3 control-label">Product:</label>
         <div class="col-sm-9">
           <div class="input-group" id="remote-search-products">
-            <input type="text" class="form-control typeahead" placeholder="" name="product_uid">
+            <input type="text" class="form-control typeahead" placeholder="" name="product_uid" id="product-uid">
           </div>
         </div>
       </div>
