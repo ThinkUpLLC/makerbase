@@ -56,7 +56,7 @@
             '</div>',
             '</div>'
           ].join('\n'),
-          suggestion: Handlebars.compile('<a class="media" href="/{{type}}/{{uid}}/{{slug}}"><div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div><div class="media-right"><small>@{{slug}}</small></div></a>')
+          suggestion: Handlebars.compile('<a class="media" href="/{{type}}/{{uid}}/{{slug}}"><div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div></a>')
         }
       });
 
@@ -86,7 +86,7 @@
             '<div class="media-body"><a href="/add/maker" class="btn btn-success btn-sm">Add them</a></div>',
             '</div>'
           ].join('\n'),
-          suggestion: Handlebars.compile('<div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div><div class="media-right"><small>@{{slug}}</small></div>')
+          suggestion: Handlebars.compile('<div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div>')
         }
       });
 
@@ -116,7 +116,7 @@
             '<div class="media-body"><a href="/add/product" class="btn btn-success btn-sm">Add it</a></div>',
             '</div>'
           ].join('\n'),
-          suggestion: Handlebars.compile('<div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div><div class="media-right"><small>@{{slug}}</small></div>')
+          suggestion: Handlebars.compile('<div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div></div>')
         }
       });
     </script>
