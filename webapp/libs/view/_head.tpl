@@ -66,10 +66,11 @@
             <div class="" id="remote-search">
               <div class="input-group col-xs-6">
                 <input type="search" class="form-control typeahead" placeholder="Search for..." name="q" autocomplete="off" id="nav-typeahead">
+<!--
                 <span class="input-group-btn">
                   <button class="btn btn-default" type="submit">Go</button>
                 </span>
-              </div><!-- /input-group -->
+              </div>--><!-- /input-group -->
             </div>
 
            </form>
