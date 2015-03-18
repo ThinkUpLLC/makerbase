@@ -1,5 +1,12 @@
 {include file="_head.tpl"}
 
+{* Don't collapse any fields if they're filled in *}
+{if isset($slug) || isset($avatar_url) || isset($description)}
+	{assign var="collapsed" value=false}
+{else}
+	{assign var="collapsed" value=true}
+{/if}
+
 <div class="row">
 
 <h2>Add a {$object}<br />
@@ -14,13 +21,15 @@
 				<input type="text" class="form-control" name="name" value="{if isset($name)}{$name}{/if}">
 			</div>
 		</div>
-		{if $object eq 'product'}
 		<div class="form-group">
-			<label for="description" class="col-xs-3 control-label">Slug</label>
+			<label for="url" class="col-xs-3 control-label">Web site</label>
 			<div class="col-xs-9">
-				<input type="text" class="form-control col-xs-6" name="slug" value="{if isset($slug)}{$slug}{/if}">
+				<input type="text" class="form-control col-xs-6" name="url" value="{if isset($url)}{$url}{/if}">
 			</div>
 		</div>
+		{if $collapsed}<a href="#all-the-fields" data-toggle="collapse">More...</a>{/if}
+		<div{if $collapsed} class="collapse" id="all-the-fields"{/if}>
+		{if $object eq 'product'}
 		<div class="form-group">
 			<label for="description" class="col-xs-3 control-label">Description</label>
 			<div class="col-xs-9">
@@ -28,19 +37,10 @@
 			</div>
 		</div>
 		{/if}
-		{if $object eq 'maker'}
 		<div class="form-group">
-			<label for="full_name" class="col-xs-3 control-label">Username</label>
+			<label for="description" class="col-xs-3 control-label">Slug</label>
 			<div class="col-xs-9">
-				<input type="text" name="username" value="{if isset($username)}{$username}{/if}">
-			</div>
-		</div>
-		{/if}
-
-		<div class="form-group">
-			<label for="url" class="col-xs-3 control-label">Web site url</label>
-			<div class="col-xs-9">
-				<input type="text" class="form-control col-xs-6" name="url" value="{if isset($url)}{$url}{/if}">
+				<input type="text" class="form-control col-xs-6" name="slug" value="{if isset($slug)}{$slug}{/if}">
 			</div>
 		</div>
 		<div class="form-group">
@@ -50,6 +50,7 @@
 				<input type="text" class="form-control col-xs-6"  name="avatar_url" value="{if isset($avatar_url)}{$avatar_url}{/if}">
 			</div>
 		</div>
+    	</div>
 		<div class="form-group">
 			<button class="btn btn-primary col-xs-offset-4" type="submit">Make it!</button>
     </div>

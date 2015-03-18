@@ -51,8 +51,8 @@
             '<div class="media">',
             '<h4 class="media-heading">Oops! No makers or products match</h4>',
             '<div class="media-body">',
-            '<a href="/add/maker" class="btn btn-success btn-sm">Add a Maker</a> ',
-            '<a href="/add/product" class="btn btn-success btn-sm">Add a Product</a>',
+            '<a onclick="location.href=\'/add/maker/?q=\'+ $(\'#nav-typeahead\').val();" class="btn btn-success btn-sm">Add a Maker</a> ',
+            '<a onclick="location.href=\'/add/product/?q=\'+ $(\'#nav-typeahead\').val();" class="btn btn-success btn-sm">Add a Product</a>',
             '</div>',
             '</div>'
           ].join('\n'),
