@@ -85,6 +85,13 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: -2px;
 }
 
+#homepage-search,
+#homepage-search input,
+#homepage-search .form-control {
+  font-size: 40px;
+  height: auto;
+}
+
 .tt-suggestion {
   padding: 4px 4px 2px 8px;
   margin: 0 6px 0 0;
