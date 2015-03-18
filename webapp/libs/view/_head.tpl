@@ -1,3 +1,7 @@
+{if !isset($suppress_search)}
+  {assign var='suppress_search' value=false}
+{/if}
+
 <!DOCTYPE html>
 <html lang="en" lang="en" prefix="og: http://ogp.me/ns#" itemscope itemtype="http://schema.org/Article">
   <head>
@@ -62,18 +66,15 @@
           </form>
           {/if}
 
+          {if $suppress_search neq true}
           <form class="navbar-form col-xs-offset-2" role="search" action="/search/">
             <div class="" id="remote-search">
               <div class="input-group col-xs-6">
                 <input type="search" class="form-control typeahead" placeholder="Search for..." name="q" autocomplete="off" id="nav-typeahead">
-<!--
-                <span class="input-group-btn">
-                  <button class="btn btn-default" type="submit">Go</button>
-                </span>
-              </div>--><!-- /input-group -->
             </div>
-
+            </div>
            </form>
+           {/if}
 
         </div><!--/.nav-collapse -->
       </div>
