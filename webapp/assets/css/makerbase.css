@@ -186,6 +186,30 @@ h1, h2, h3, h4, h5, h6 {
   background-color: transparent;
 }
 
+.add-panels a {
+  color: #444;
+}
+
+.add-panels a.list-group-item:hover {
+  border-color: #46BCFF;
+  color: #000;
+  background-color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.add-panels a.list-group-item:hover h3.media-heading {
+  color: #2785D3;
+}
+
+.add-panels a.list-group-item p {
+  margin: 6px 0 0 0;
+}
+
+.add-panels .media {
+  margin-top: 1px;
+}
+
 .page-header {
   margin-top: 0;
 }

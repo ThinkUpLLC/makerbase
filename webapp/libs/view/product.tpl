@@ -16,7 +16,7 @@
 <div>
 
   <a {if isset($logged_in_user)}href="#edit-product"{else}href="{$sign_in_with_twttr_link}"{/if} data-toggle="collapse" type="button" class="btn btn-default btn-xs" id="edit-product-btn">
-    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
+    <span class="fa fa-pencil" aria-hidden="true"></span> Edit
   </a>
 
 </div>
@@ -32,7 +32,7 @@
       <input type="hidden" name="archive" value="{if $product->is_archived}0{else}1{/if}"/>
       <div class="col-xs-12">
         <button type="submit" class="btn btn-danger btn-xs pull-right">
-            <span class="glyphicon glyphicon-remove"></span> {if $product->is_archived}Unarchive{else}Archive{/if}
+            <span class="fa fa-remove"></span> {if $product->is_archived}Unarchive{else}Archive{/if}
         </button>
       </div>
 
@@ -128,7 +128,7 @@
       <div class="form-group">
         <label for="role" class="col-sm-3 control-label"></label>
         <div class="col-sm-9">
-          <a href="#show-role-dates" data-toggle="collapse" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-calendar"></i> <i class="caret"></i></a>
+          <a href="#show-role-dates" data-toggle="collapse" class="btn btn-default btn-sm"><i class="fa fa-calendar"></i> <i class="caret"></i></a>
         </div>
       </div>
 
@@ -146,7 +146,7 @@
       <button class="btn btn-primary col-sm-offset-3" type="submit">Add a maker</button>
     </form>
 {else}
-    <a href="{$sign_in_with_twttr_link}" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-plus"></i> Add a{if $roles}nother{/if} maker</a>
+    <a href="{$sign_in_with_twttr_link}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add a{if $roles}nother{/if} maker</a>
 {/if}
 
   </div>

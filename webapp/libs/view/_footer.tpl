@@ -24,6 +24,16 @@
           startView: 1,
           minViewMode: 1
       });
+
+      $('.add-autofill').click(function(){
+          $('#name').val($(this).data('name'));
+          $('#avatar-url').val($(this).data('avatar'));
+          $('#avatar-img').attr('src', $(this).data('avatar'));
+          $('#url').val($(this).data('url'));
+          $('#description').val($(this).data('description'));
+          $('#slug').val($(this).data('slug'));
+      });
+
     </script>
 
     <script type="text/javascript">

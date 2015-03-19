@@ -30,7 +30,7 @@
     <h4>
         {$role->role}
         <a {if isset($logged_in_user)}href="#edit-role-{$role->uid}" data-toggle="collapse"{else}href="{$sign_in_with_twttr_link}"{/if} type="button" class="btn btn-default btn-xs" id="edit-role-btn">
-            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+            <span class="fa fa-pencil" aria-hidden="true"></span>
         </a>
     </h4>
 </div>
@@ -77,7 +77,7 @@
             <input type="hidden" name="originate_uid" value="{if isset($product->uid)}{$product->uid}{elseif isset($maker->uid)}{$maker->uid}{/if}">
             <input type="hidden" name="originate" value="{if isset($product->slug)}product{elseif isset($maker->slug)}maker{/if}">
             <button type="submit" class="btn btn-danger btn-xs pull-right" aria-label="Center Align">
-                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {if $role->is_archived}Unarchive{else}Archive{/if}
+                <span class="fa fa-remove" aria-hidden="true"></span> {if $role->is_archived}Unarchive{else}Archive{/if}
             </button>
         </div>
       </form>

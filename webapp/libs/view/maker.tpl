@@ -2,7 +2,7 @@
 
 <div class="row">
   <div class="col-sm-12 col-xs-12">
-	<h1{if $maker->is_archived} class="archived"{/if}>{$maker->name} is a maker {if !isset($logged_in_user)}<button type="button" class="btn btn-sm btn-success pull-right"><i class="glyphicon glyphicon-user"></i> Hey, I'm {$maker->name}!</button>{/if}
+	<h1{if $maker->is_archived} class="archived"{/if}>{$maker->name} is a maker {if !isset($logged_in_user)}<button type="button" class="btn btn-sm btn-success pull-right"><i class="fa fa-user"></i> Hey, I'm {$maker->name}!</button>{/if}
 	</h1>
   </div>
 </div>
@@ -16,7 +16,7 @@
 <div>
 
   <a {if isset($logged_in_user)}href="#edit-maker"{else}href="{$sign_in_with_twttr_link}"{/if} data-toggle="collapse" type="button" class="btn btn-default btn-xs" aria-label="Center Align">
-    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
+    <span class="fa fa-pencil" aria-hidden="true"></span> Edit
   </a>
 
 </div>
@@ -34,7 +34,7 @@
       <input type="hidden" name="archive" value="{if $maker->is_archived}0{else}1{/if}"/>
       <div class="col-xs-12">
         <button type="submit" class="btn btn-danger btn-xs pull-right">
-            <span class="glyphicon glyphicon-remove"></span> {if $maker->is_archived}Unarchive{else}Archive{/if}
+            <span class="fa fa-remove"></span> {if $maker->is_archived}Unarchive{else}Archive{/if}
         </button>
       </div>
 
@@ -119,7 +119,7 @@
       <div class="form-group">
         <label for="role" class="col-sm-3 control-label"></label>
         <div class="col-sm-9">
-          <a href="#show-role-dates" data-toggle="collapse" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-calendar"></i> <i class="caret"></i></a>
+          <a href="#show-role-dates" data-toggle="collapse" class="btn btn-default btn-sm"><i class="fa fa-calendar"></i> <i class="caret"></i></a>
         </div>
       </div>
 
@@ -138,7 +138,7 @@
       <button class="btn btn-primary col-sm-offset-3" type="submit">Add a product</button>
     </form>
 {else}
-  <a href="{$sign_in_with_twttr_link}" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-plus"></i> Add a{if $roles}nother{/if} project</a>
+  <a href="{$sign_in_with_twttr_link}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add a{if $roles}nother{/if} project</a>
 {/if}
 
   </div>
