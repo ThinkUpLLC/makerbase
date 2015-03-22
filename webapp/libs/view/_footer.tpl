@@ -93,12 +93,18 @@
           empty: [
             '<div class="media">',
             '<h4 class="media-heading">Oops! No makers match.</h4>',
-            '<div class="media-body"><a onclick="location.href=\'/add/maker/?q=\'+ $(\'#maker-uid\').val();" class="btn btn-success btn-md">Add maker</a></div>',
+            '<div class="media-body"><a onclick="location.href=\'/add/maker/?q=\'+ $(\'#maker-name\').val();" class="btn btn-success btn-md">Add maker</a></div>',
             '</div>'
           ].join('\n'),
           suggestion: Handlebars.compile('<div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div>')
         }
       });
+
+
+      $('#maker-name').bind('typeahead:selected', function(obj, datum, name) {
+              $('#maker-uid').val(datum.uid);
+              $('#maker-name').val(datum.name);
+      }).off('blur');
 
       //Autocomplete products
       var searchAllProducts = new Bloodhound({
@@ -123,12 +129,18 @@
           empty: [
             '<div class="media">',
             '<h4 class="media-heading">Oops! No products match</h4>',
-            '<div class="media-body"><a onclick="location.href=\'/add/product/?q=\'+ $(\'#product-uid\').val();" class="btn btn-success btn-md">Add it</a></div>',
+            '<div class="media-body"><a onclick="location.href=\'/add/product/?q=\'+ $(\'#product-name\').val();" class="btn btn-success btn-md">Add it</a></div>',
             '</div>'
           ].join('\n'),
           suggestion: Handlebars.compile('<div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div></div>')
         }
       });
+
+      $('#product-name').bind('typeahead:selected', function(obj, datum, name) {
+              $('#product-uid').val(datum.uid);
+              $('#product-name').val(datum.name);
+      }).off('blur');
+
     </script>
     {/literal}
   </body>
