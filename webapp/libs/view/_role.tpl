@@ -28,7 +28,7 @@
         <a href="/{$object_route}/{$object_uid}/{$display_object->slug}">{$display_object->name}</a>
     </h3>
     <h4>
-        {$role->role}
+        {$role->role|atnames:'/search/?q='}
         <a {if isset($logged_in_user)}href="#edit-role-{$role->uid}" data-toggle="collapse"{else}href="{$sign_in_with_twttr_link}"{/if} type="button" class="btn btn-default btn-xs" id="edit-role-btn">
             <span class="fa fa-pencil" aria-hidden="true"></span>
         </a>
