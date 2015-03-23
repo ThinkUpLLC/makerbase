@@ -99,7 +99,7 @@
 		<div class="list-group">
 		<!-- begin auto-fill loop here -->
 		{foreach $twitter_users as $twitter_user}
-			<a class="list-group-item media add-autofill" data-name="{if isset($twitter_user.fullname)}{$twitter_user.fullname}{/if}" data-avatar="{if isset($twitter_user.avatar)}{$twitter_user.avatar}{/if}" data-url="{if isset($twitter_user.url)}{$twitter_user.url}{/if}" data-description="{if isset($twitter_user.description)}{$twitter_user.description}{/if}" data-slug="{if isset($slug)}{$slug}{/if}">
+			<a class="list-group-item media add-autofill" data-name="{if isset($twitter_user.full_name)}{$twitter_user.full_name}{/if}" data-avatar="{if isset($twitter_user.avatar)}{$twitter_user.avatar}{/if}" data-url="{if isset($twitter_user.url)}{$twitter_user.url}{/if}" data-description="{if isset($twitter_user.description)}{$twitter_user.description}{/if}" data-slug="{if isset($twitter_user.user_name)}{$twitter_user.user_name}{/if}">
 				<div class="media-left media-middle">
 					{if isset($twitter_user.avatar)}<img src="{$twitter_user.avatar}" id="avatar-img" width="30">{/if}
 				</div>
