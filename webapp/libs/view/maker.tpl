@@ -101,11 +101,12 @@
       <input type="hidden" name="originate_slug" value="{$maker->slug}">
       <input type="hidden" name="originate_uid" value="{$maker->uid}">
       <input type="hidden" name="originate" value="maker">
+      <input type="hidden" name="product_uid" id="product-uid">
       <div class="form-group">
         <label for="maker_slug" class="col-sm-3 control-label">Product:</label>
         <div class="col-sm-9">
           <div class="input-group" id="remote-search-products">
-            <input type="text" class="form-control typeahead" placeholder="" name="product_uid" id="product-uid">
+            <input type="text" class="typeahead form-control" placeholder="" name="product_name" id="product-name">
           </div>
         </div>
       </div>
