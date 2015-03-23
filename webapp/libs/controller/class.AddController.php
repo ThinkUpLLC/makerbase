@@ -11,9 +11,9 @@ class AddController extends MakerbaseAuthController {
             $this->addToView('object', $_GET['object']);
 
             if (isset($_POST['twitter_username'])) {
-                $this->addTwitterUserToView($_POST['twitter_username']);
+                $this->addTwitterUsersToView($_POST['twitter_username']);
             } elseif (isset($_GET['q'])) {
-                $this->addTwitterUserToView($_GET['q']);
+                $this->addTwitterUsersToView($_GET['q']);
             } elseif ($_GET['object'] == 'maker' && $this->hasSubmittedMakerForm()) {
                 $controller = $this->addMaker();
                 return $controller->go();
@@ -65,7 +65,7 @@ class AddController extends MakerbaseAuthController {
             );
     }
 
-    private function addTwitterUserToView($twitter_username) {
+    private function addTwitterUsersToView($twitter_username) {
         $cfg = Config::getInstance();
         $oauth_consumer_key = $cfg->getValue('twitter_oauth_consumer_key');
         $oauth_consumer_secret = $cfg->getValue('twitter_oauth_consumer_secret');
@@ -75,21 +75,8 @@ class AddController extends MakerbaseAuthController {
             $this->logged_in_user->twitter_oauth_access_token_secret);
 
         $api_accessor = new TwitterAPIAccessor();
-        try {
-            $twitter_user_details = $api_accessor->getUser($twitter_username, $twitter_oauth);
-            $twitter_user_details['avatar'] = str_replace('_normal', '', $twitter_user_details['avatar']);
-
-            $this->addToView('name', $twitter_user_details['full_name']);
-            $this->addToView('slug', $twitter_user_details['user_name']);
-            $this->addToView('slug', $twitter_user_details['user_name']);
-            $this->addToView('description', $twitter_user_details['description']);
-            $this->addToView('url', $twitter_user_details['url']);
-            $this->addToView('avatar_url', $twitter_user_details['avatar']);
-            $this->addToView('is_manual', true);
-        } catch (Exception $e) {
-            //There's no Twitter user here, so just pre-fill the name field
-            $this->addToView('name', $twitter_username);
-        }
+        $twitter_users = $api_accessor->searchUsers($twitter_username, $twitter_oauth);
+        $this->addToView('twitter_users', $twitter_users);
     }
 
     private function addRole() {

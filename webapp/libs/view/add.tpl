@@ -95,74 +95,30 @@
 		<h2>&nbsp;<br />
 		<small>Choose an auto-fill&nbsp;</small></h2>
 
+	{if isset($twitter_users) && count($twitter_users) > 0}
 		<div class="list-group">
 		<!-- begin auto-fill loop here -->
-
-			<a class="list-group-item media add-autofill" data-name="{if isset($name)}{$name}{/if}" data-avatar="{if isset($avatar_url)}{$avatar_url}{/if}" data-url="{if isset($url)}{$url}{/if}" data-description="{if isset($description)}{$description}{/if}" data-slug="{if isset($slug)}{$slug}{/if}">
+		{foreach $twitter_users as $twitter_user}
+			<a class="list-group-item media add-autofill" data-name="{if isset($twitter_user.fullname)}{$twitter_user.fullname}{/if}" data-avatar="{if isset($twitter_user.avatar)}{$twitter_user.avatar}{/if}" data-url="{if isset($twitter_user.url)}{$twitter_user.url}{/if}" data-description="{if isset($twitter_user.description)}{$twitter_user.description}{/if}" data-slug="{if isset($slug)}{$slug}{/if}">
 				<div class="media-left media-middle">
-					{if isset($avatar_url)}<img src="{$avatar_url}" id="avatar-img" width="30">{/if}
+					{if isset($twitter_user.avatar)}<img src="{$twitter_user.avatar}" id="avatar-img" width="30">{/if}
 				</div>
 
 			  <div class="media-body">
 			    <h3 class="media-heading">
 			    	<i class="fa fa-twitter pull-right"></i>
-			    	{if isset($name)}@{$name}{/if}
-			    	{if isset($url)}&nbsp;<small>{$url}</small>{/if}
+			    	{if isset($twitter_user.user_name)}@{$twitter_user.user_name}{/if}
+			    	{if isset($twitter_user.url)}&nbsp;<small>{$twitter_user.url}</small>{/if}
 			    </h3>
-			    <p>{if isset($description)}{$description}{/if}</p>
+			    <p>{if isset($twitter_user.description)}{$twitter_user.description}{/if}</p>
 			  </div>
 			</a>
-
-
-			<a class="list-group-item media add-autofill" data-name="{if isset($name)}{$name}{/if} 2" data-avatar="{if isset($avatar_url)}{$avatar_url}{/if}#2" data-url="{if isset($url)}{$url}{/if}#2" data-description="2 {if isset($description)}{$description}{/if}" data-slug="{if isset($slug)}{$slug}{/if} 2">
-				<div class="media-left media-middle">
-					{if isset($avatar_url)}<img src="{$avatar_url}" id="avatar-img" width="30">{/if}
-				</div>
-
-			  <div class="media-body">
-			    <h3 class="media-heading">
-			    	<i class="fa fa-facebook-official pull-right"></i>
-			    	{if isset($name)}@{$name}{/if} 2
-			    	{if isset($url)}&nbsp;<small>{$url}</small>{/if}
-			    </h3>
-			    <p>{if isset($description)}{$description}{/if}</p>
-			  </div>
-			</a>
-
-
-
-			<a class="list-group-item media add-autofill" data-name="{if isset($name)}{$name}{/if} 3" data-avatar="{if isset($avatar_url)}{$avatar_url}{/if}#3" data-url="{if isset($url)}{$url}{/if}#3" data-description="3 {if isset($description)}{$description}{/if}" data-slug="{if isset($slug)}{$slug}{/if} 3">
-				<div class="media-left media-middle">
-					{if isset($avatar_url)}<img src="{$avatar_url}" id="avatar-img" width="30">{/if}
-				</div>
-
-			  <div class="media-body">
-			    <h3 class="media-heading">
-			    	<i class="fa fa-angellist pull-right"></i>
-			    	{if isset($name)}@{$name}{/if} 3
-			    	{if isset($url)}&nbsp;<small>{$url}</small>{/if}
-			    </h3>
-			    <p>{if isset($description)}{$description}{/if}</p>
-			  </div>
-			</a>
-
-			<a class="list-group-item media add-autofill" data-name="Fourth Result" data-avatar="http://placehold.it/100/46bcff/ffffff&text=avatar" data-url="https://example.com" data-description="We'll need to add better handling for longer descriptions being displayed here, since not everything in the world is constrained to being simply one hundred and forty characters or less." data-slug="SLUGGO!">
-				<div class="media-left media-middle">
-					<img src="http://placehold.it/30/46bcff/ffffff&text=avatar" id="avatar-img" width="30">
-				</div>
-
-			  <div class="media-body">
-			    <h3 class="media-heading">
-			    	<i class="fa fa-github pull-right"></i>
-			    	Fourth Result
-			    	&nbsp;<small>https://example.com</small>
-			    </h3>
-			    <p>We'll need to add better handling for longer descriptions being displayed here, since not everything in the world is constrained to being simply one hundred and forty characters or less.</p>
-			  </div>
-			</a>
+		{/foreach}
 
 		</div><!-- end list group -->
-
+	{else}
+		No Twitter users named {$smarty.get.q} found
+	{/if}
 	</div>
 
 </div>

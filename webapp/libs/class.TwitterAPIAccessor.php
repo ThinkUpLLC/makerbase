@@ -59,6 +59,51 @@ class TwitterAPIAccessor {
         }
     }
     /**
+     * Get Twitter user by username.
+     * @param  str       $search_term
+     * @param  TwitterOAuth $toa
+     * @return array
+     */
+    public function searchUsers($search_term, TwitterOAuth $toa) {
+        $endpoint = 'users/search';
+        $payload = $toa->OAuthRequest($endpoint, 'GET', array('q'=>$search_term, 'count'=>5));
+        $http_status = $toa->lastStatusCode();
+        // echo '<pre>';
+        // print_r($payload);
+        // echo '</pre>';
+        if ($http_status == 200) {
+            $users = $this->parseJSONUsers($payload);
+            return $users;
+        } else {
+            throw new APIErrorException(self::translateErrorCode($http_status, true));
+        }
+    }
+    /**
+     * Parse JSON list of users
+     * @param str $data JSON user info.
+     * @return array user data
+     */
+    public function parseJSONUsers($data) {
+        $json = JSONDecoder::decode($data);
+        $parsed_payload = array();
+        //print_r($json);
+
+        //If it's a list of users, set the cursor
+        if (isset($json->users)) {
+            if (isset($json->next_cursor)) {
+                $this->next_cursor =  $json->next_cursor_str;
+            }
+            foreach ($json->users as $user) {
+                $parsed_payload[] = self::convertJSONtoUserArray($user);
+            }
+        } else {
+            foreach ($json as $user) {
+                $parsed_payload[] = self::convertJSONtoUserArray($user);
+            }
+        }
+        return $parsed_payload;
+    }
+    /**
      * Parse user JSON.
      * @param str $data JSON user info.
      * @return array user data
@@ -81,7 +126,7 @@ class TwitterAPIAccessor {
             'user_id'         => (string)$json_user->id_str,
             'user_name'       => (string)$json_user->screen_name,
             'full_name'       => (string)$json_user->name,
-            'avatar'          => (string)$json_user->profile_image_url,
+            'avatar'          => str_replace('_normal', '', (string)$json_user->profile_image_url),
             'location'        => (string)$json_user->location,
             'description'     => (string)$json_user->description,
             'url'             => (isset($json_user->entities->url->urls[0]->expanded_url))
