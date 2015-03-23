@@ -168,6 +168,10 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1.8rem;
 }
 
+.media-body h4 a {
+  color: #666;
+}
+
 #edit-maker form,
 #edit-product form,
 .edit-role-form {
