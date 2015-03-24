@@ -22,7 +22,6 @@ $router = new Router();
 $router->addRoute('index', 'LandingController');
 $router->addRoute('m', 'MakerController', array('uid', 'slug'));
 $router->addRoute('p', 'ProductController', array('uid', 'slug'));
-$router->addRoute('a', 'ActionController', array('uid'));
 $router->addRoute('u', 'UserController', array('uid'));
 $router->addRoute('signin', 'SignInController');
 $router->addRoute('signout', 'SignOutController');
