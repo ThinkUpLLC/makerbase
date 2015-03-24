@@ -42,7 +42,7 @@
     <div class="form-group">
         <label for="role" class="col-sm-1 control-label">Role:</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control" id="role" name="role" value="{$role->role}">
+          <input type="text" class="form-control" autocomplete="off" id="role" name="role" value="{$role->role}">
         </div>
     </div>
     <div class="form-group">

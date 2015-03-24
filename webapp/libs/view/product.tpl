@@ -122,7 +122,7 @@
       <div class="form-group">
         <label for="role" class="col-sm-3 control-label">Role:</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control" id="role" name="role" placeholder="Herded unicorns">
+          <input type="text" class="form-control" id="role" autocomplete="off" name="role" placeholder="Herded unicorns">
         </div>
       </div>
 
