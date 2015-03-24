@@ -129,76 +129,84 @@ class AddController extends MakerbaseAuthController {
     }
 
     private function addMaker() {
-        $maker = new Maker();
-        $maker->slug = $_POST['slug'];
-        $maker->name = $_POST['name'];
-        $maker->url = $_POST['url'];
-        $maker->avatar_url = $_POST['avatar_url'];
+        if (empty($_POST['name'])) {
+            $this->addErrorMessage('Name is required');
+        } else {
+            $maker = new Maker();
+            $maker->slug = $_POST['slug'];
+            $maker->name = $_POST['name'];
+            $maker->url = $_POST['url'];
+            $maker->avatar_url = $_POST['avatar_url'];
 
-        $maker_dao = new MakerMySQLDAO();
-        $controller = new MakerController(true);
+            $maker_dao = new MakerMySQLDAO();
+            $controller = new MakerController(true);
 
-        $maker = $maker_dao->insert($maker);
+            $maker = $maker_dao->insert($maker);
 
-        // Add new maker to Elasticsearch
-        SearchHelper::indexMaker($maker);
+            // Add new maker to Elasticsearch
+            SearchHelper::indexMaker($maker);
 
-        //Add new connection
-        $connection_dao = new ConnectionMySQLDAO();
-        $connection_dao->insert($this->logged_in_user, $maker);
+            //Add new connection
+            $connection_dao = new ConnectionMySQLDAO();
+            $connection_dao->insert($this->logged_in_user, $maker);
 
-        //Add new action
-        $action = new Action();
-        $action->user_id = $this->logged_in_user->id;
-        $action->severity = Action::SEVERITY_NORMAL;
-        $action->object_id = $maker->id;
-        $action->object_type = get_class($maker);
-        $action->ip_address = $_SERVER['REMOTE_ADDR'];
-        $action->action_type = 'create';
-        $action->metadata = json_encode($maker);
+            //Add new action
+            $action = new Action();
+            $action->user_id = $this->logged_in_user->id;
+            $action->severity = Action::SEVERITY_NORMAL;
+            $action->object_id = $maker->id;
+            $action->object_type = get_class($maker);
+            $action->ip_address = $_SERVER['REMOTE_ADDR'];
+            $action->action_type = 'create';
+            $action->metadata = json_encode($maker);
 
-        $action_dao = new ActionMySQLDAO();
-        $action_dao->insert($action);
+            $action_dao = new ActionMySQLDAO();
+            $action_dao->insert($action);
 
-        SessionCache::put('success_message', 'You added '.$maker->name.'.');
-        $this->redirect('/m/'.$maker->uid.'/'.$maker->slug);
+            SessionCache::put('success_message', 'You added '.$maker->name.'.');
+            $this->redirect('/m/'.$maker->uid.'/'.$maker->slug);
+        }
     }
 
     private function addProduct() {
-        $product = new Product();
-        $product->slug = $_POST['slug'];
-        $product->name = $_POST['name'];
-        $product->description = $_POST['description'];
-        $product->url = $_POST['url'];
-        $product->avatar_url = $_POST['avatar_url'];
+        if (empty($_POST['name'])) {
+            $this->addErrorMessage('Name is required');
+        } else {
+            $product = new Product();
+            $product->slug = $_POST['slug'];
+            $product->name = $_POST['name'];
+            $product->description = $_POST['description'];
+            $product->url = $_POST['url'];
+            $product->avatar_url = $_POST['avatar_url'];
 
-        $product_dao = new ProductMySQLDAO();
-        $controller = new ProductController(true);
+            $product_dao = new ProductMySQLDAO();
+            $controller = new ProductController(true);
 
-        //Insert maker (this may throw a DuplicateMakerException)
-        $product = $product_dao->insert($product);
+            //Insert maker (this may throw a DuplicateMakerException)
+            $product = $product_dao->insert($product);
 
-        // Add new product to Elasticsearch
-        SearchHelper::indexProduct($product);
+            // Add new product to Elasticsearch
+            SearchHelper::indexProduct($product);
 
-        //Add new connection
-        $connection_dao = new ConnectionMySQLDAO();
-        $connection_dao->insert($this->logged_in_user, $product);
+            //Add new connection
+            $connection_dao = new ConnectionMySQLDAO();
+            $connection_dao->insert($this->logged_in_user, $product);
 
-        //Add new action
-        $action = new Action();
-        $action->user_id = $this->logged_in_user->id;
-        $action->severity = Action::SEVERITY_NORMAL;
-        $action->object_id = $product->id;
-        $action->object_type = get_class($product);
-        $action->ip_address = $_SERVER['REMOTE_ADDR'];
-        $action->action_type = 'create';
-        $action->metadata = json_encode($product);
+            //Add new action
+            $action = new Action();
+            $action->user_id = $this->logged_in_user->id;
+            $action->severity = Action::SEVERITY_NORMAL;
+            $action->object_id = $product->id;
+            $action->object_type = get_class($product);
+            $action->ip_address = $_SERVER['REMOTE_ADDR'];
+            $action->action_type = 'create';
+            $action->metadata = json_encode($product);
 
-        $action_dao = new ActionMySQLDAO();
-        $action_dao->insert($action);
+            $action_dao = new ActionMySQLDAO();
+            $action_dao->insert($action);
 
-        SessionCache::put('success_message', 'You added '.$product->name.'.');
-        $this->redirect('/p/'.$product->uid.'/'.$product->slug);
+            SessionCache::put('success_message', 'You added '.$product->name.'.');
+            $this->redirect('/p/'.$product->uid.'/'.$product->slug);
+        }
     }
 }

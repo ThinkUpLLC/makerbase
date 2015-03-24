@@ -92,6 +92,7 @@
 
 	<div class="col-sm-6 col-xs-12 add-panels">
 
+{if isset($smarty.get.q)}
 		<h2>&nbsp;<br />
 		<small>Choose an auto-fill&nbsp;</small></h2>
 
@@ -119,8 +120,8 @@
 	{else}
 		No Twitter users named {$smarty.get.q} found
 	{/if}
+{/if}
 	</div>
-
 </div>
 
 
