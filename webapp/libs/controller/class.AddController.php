@@ -133,7 +133,7 @@ class AddController extends MakerbaseAuthController {
             $this->addErrorMessage('Name is required');
         } else {
             $maker = new Maker();
-            $maker->slug = $_POST['slug'];
+            $maker->slug = $this->getSlug($_POST['slug'], $_POST['name']);
             $maker->name = $_POST['name'];
             $maker->url = $_POST['url'];
             $maker->avatar_url = $_POST['avatar_url'];
