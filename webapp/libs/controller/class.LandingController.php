@@ -7,6 +7,8 @@ class LandingController extends MakerbaseController {
         parent::control();
         $this->setViewTemplate('landing.tpl');
 
+        //Only cache the activity stream for a minute
+        $this->view_mgr->cache_lifetime = 60;
         if ($this->shouldRefreshCache() ) {
             $action_dao = new ActionMySQLDAO();
             if (Session::isLoggedIn()) {
