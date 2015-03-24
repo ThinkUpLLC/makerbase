@@ -10,7 +10,7 @@
     <form class="navbar-form" role="search" action="/search/" id="homepage-search">
       <div class="" id="remote-search">
         <div class="">
-          <input type="search" class="form-control typeahead" placeholder="We made..." name="q" autocomplete="off" id="nav-typeahead">
+          <input type="search" class="form-control typeahead" placeholder="Search..." name="q" autocomplete="off" id="nav-typeahead">
       </div>
       </div>
      </form>
