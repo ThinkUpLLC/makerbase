@@ -10,6 +10,9 @@ class LandingController extends MakerbaseController {
         if (Session::isLoggedIn()) {
             $user = $this->getLoggedInUser();
             $actions = $action_dao->getUserConnectionsActivities($user->id);
+            if (sizeof($actions) == 0) {
+                $actions = $action_dao->getActivities();
+            }
             $this->addToView('actions', $actions);
         } else {
             $actions = $action_dao->getActivities();
