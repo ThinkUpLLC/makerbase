@@ -60,13 +60,15 @@
           empty: [
             '<div class="media">',
             '<h4 class="media-heading">Oops! No makers or products match.</h4>',
+            '</div>'
+          ].join('\n'),
+          suggestion: Handlebars.compile('<a class="media" href="/{{type}}/{{uid}}/{{slug}}"><div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div></a>'),
+          footer: [
             '<div class="media-body">',
             '<a onclick="location.href=\'/add/maker/?q=\'+ $(\'#nav-typeahead\').val();" class="btn btn-success btn-md">Add a Maker</a> ',
             '<a onclick="location.href=\'/add/product/?q=\'+ $(\'#nav-typeahead\').val();" class="btn btn-success btn-md">Add a Product</a>',
             '</div>',
-            '</div>'
-          ].join('\n'),
-          suggestion: Handlebars.compile('<a class="media" href="/{{type}}/{{uid}}/{{slug}}"><div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div></a>')
+          ].join('\n')
         }
       });
 
@@ -93,10 +95,12 @@
           empty: [
             '<div class="media">',
             '<h4 class="media-heading">Oops! No makers match.</h4>',
-            '<div class="media-body"><a onclick="location.href=\'/add/maker/?q=\'+ $(\'#maker-name\').val();" class="btn btn-success btn-md">Add Maker</a></div>',
             '</div>'
           ].join('\n'),
-          suggestion: Handlebars.compile('<div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div>')
+          suggestion: Handlebars.compile('<div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div>'),
+          footer: [
+            '<div class="media-body"><a onclick="location.href=\'/add/maker/?q=\'+ $(\'#maker-name\').val();" class="btn btn-success btn-md">Add Maker</a></div>'
+          ].join('\n')
         }
       });
 
@@ -129,10 +133,12 @@
           empty: [
             '<div class="media">',
             '<h4 class="media-heading">Oops! No products match.</h4>',
-            '<div class="media-body"><a onclick="location.href=\'/add/product/?q=\'+ $(\'#product-name\').val();" class="btn btn-success btn-md">Add Product</a></div>',
             '</div>'
           ].join('\n'),
-          suggestion: Handlebars.compile('<div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div></div>')
+          suggestion: Handlebars.compile('<div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div></div>'),
+          footer: [
+            '<div class="media-body"><a onclick="location.href=\'/add/product/?q=\'+ $(\'#product-name\').val();" class="btn btn-success btn-md">Add Product</a></div>'
+          ].join('\n')
         }
       });
 
