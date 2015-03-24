@@ -49,4 +49,22 @@ class MakerbaseController extends Controller {
             }
         }
     }
+
+    protected function setUserMessages() {
+        $success_message = SessionCache::get('success_message');
+        if (isset($success_message)) {
+            SessionCache::put('success_message', null);
+            $this->addSuccessMessage($success_message);
+        }
+        $error_message = SessionCache::get('error_message');
+        if (isset($error_message)) {
+            SessionCache::put('error_message', null);
+            $this->addErrorMessage($error_message);
+        }
+        $info_message = SessionCache::get('info_message');
+        if (isset($info_message)) {
+            SessionCache::put('info_message', null);
+            $this->addInfoMessage($info_message);
+        }
+    }
 }

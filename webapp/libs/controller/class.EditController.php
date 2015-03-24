@@ -5,23 +5,17 @@ class EditController extends MakerbaseAuthController {
     public function authControl() {
         parent::authControl();
         if ($this->hasSubmittedRoleForm()) {
-            $controller = $this->editRole();
-            return $controller->go();
+            $this->editRole();
         } elseif ($this->hasSubmittedProductForm()) {
-            $controller = $this->editProduct();
-            return $controller->go();
+            $this->editProduct();
         } elseif ($this->hasSubmittedMakerForm()) {
-            $controller = $this->editMaker();
-            return $controller->go();
+            $this->editMaker();
         } elseif ($this->hasArchivedMaker()) {
-            $controller = $this->archiveMaker();
-            return $controller->go();
+            $this->archiveMaker();
         } elseif ($this->hasArchivedProduct()) {
-            $controller = $this->archiveProduct();
-            return $controller->go();
+            $this->archiveProduct();
         } elseif ($this->hasArchivedRole()) {
-            $controller = $this->archiveRole();
-            return $controller->go();
+            $this->archiveRole();
         } else {
             //print_r($_POST);
             $this->redirect(Config::getInstance()->getValue('site_root_path'));
@@ -93,33 +87,26 @@ class EditController extends MakerbaseAuthController {
         $role_dao = new RoleMySQLDAO();
         $role = $role_dao->get($_POST['uid']);
 
-        //Set up controller
-        if ($_POST['originate'] == 'product') {
-            $controller = new ProductController(true);
-        } elseif ($_POST['originate'] == 'maker') {
-            $controller = new MakerController(true);
-        }
-
         $has_changed_archive_status = false;
         if ($_POST['archive'] == 1) {
             if ($role->is_archived) {
-                $controller->addInfoMessage("Already archived");
+                SessionCache::put('info_message', "Already archived");
             } else {
                 $has_changed_archive_status = $role_dao->archive($_POST['uid']);
                 if ($has_changed_archive_status) {
                     $role->is_archived = true;
-                    $controller->addSuccessMessage('Archived role');
+                    SessionCache::put('success_message', 'Archived role');
                     $action_type = 'archive';
                 }
             }
         } else {
             if (!$role->is_archived) {
-                $controller->addInfoMessage("Already unarchived");
+                SessionCache::put('info_message', "Already unarchived");
             } else {
                 $has_changed_archive_status = $role_dao->unarchive($_POST['uid']);
                 if ($has_changed_archive_status) {
                     $role->is_archived = false;
-                    $controller->addSuccessMessage('Unarchived role');
+                    SessionCache::put('success_message', 'Unarchived role');
                     $action_type = 'unarchive';
                 }
             }
@@ -157,28 +144,26 @@ class EditController extends MakerbaseAuthController {
             $action_dao->insert($action);
         }
 
-        $_GET = array();
-        $_GET['slug'] = $_POST['originate_slug'];
-        $_GET['uid'] = $_POST['originate_uid'];
-        $_GET['clear_cache'] = 1;
-        $_POST = array();
-        return $controller;
+        if ($_POST['originate'] == 'product') {
+            $this->redirect('/p/'.$_POST['originate_uid'].'/'.$_POST['originate_slug']);
+        } elseif ($_POST['originate'] == 'maker') {
+            $this->redirect('/m/'.$_POST['originate_uid'].'/'.$_POST['originate_slug']);
+        }
     }
 
     private function archiveProduct() {
-        $controller = new ProductController(true);
         $product_dao = new ProductMySQLDAO();
         $product = $product_dao->get($_POST['uid']);
 
         $has_changed_archive_status = false;
         if ($_POST['archive'] == 1) {
             if ($product->is_archived) {
-                $controller->addInfoMessage("Already archived");
+                SessionCache::put('info_message', 'Already archived');
             } else {
                 $has_changed_archive_status = $product_dao->archive($_POST['uid']);
                 if ($has_changed_archive_status) {
                     $product->is_archived = true;
-                    $controller->addSuccessMessage('Archived product');
+                    SessionCache::put('success_message', 'Archived product');
                     $action_type = 'archive';
 
                     //Remove product from Elasticsearch
@@ -187,12 +172,12 @@ class EditController extends MakerbaseAuthController {
             }
         } else {
             if (!$product->is_archived) {
-                $controller->addInfoMessage("Already unarchived");
+                SessionCache::put('info_message', 'Already unarchived');
             } else {
                 $has_changed_archive_status = $product_dao->unarchive($_POST['uid']);
                 if ($has_changed_archive_status) {
                     $product->is_archived = false;
-                    $controller->addSuccessMessage('Unarchived product');
+                    SessionCache::put('success_message', 'Unarchived product');
                     $action_type = 'unarchive';
 
                     // Add product back to Elasticsearch
@@ -219,28 +204,22 @@ class EditController extends MakerbaseAuthController {
             $action_dao = new ActionMySQLDAO();
             $action_dao->insert($action);
         }
-        $_GET = array();
-        $_GET['slug'] = $product->slug;
-        $_GET['uid'] = $product->uid;
-        $_GET['clear_cache'] = 1;
-        $_POST = array();
-        return $controller;
+        $this->redirect('/p/'.$product->uid.'/'.$product->slug);
     }
 
     private function archiveMaker() {
-        $controller = new MakerController(true);
         $maker_dao = new MakerMySQLDAO();
         $maker = $maker_dao->get($_POST['uid']);
 
         $has_changed_archive_status = false;
         if ($_POST['archive'] == 1) {
             if ($maker->is_archived) {
-                $controller->addInfoMessage("Already archived");
+                SessionCache::put('info_message', "Already archived");
             } else {
                 $has_changed_archive_status = $maker_dao->archive($_POST['uid']);
                 if ($has_changed_archive_status) {
                     $maker->is_archived = true;
-                    $controller->addSuccessMessage('Archived maker');
+                    SessionCache::put('success_message', 'Archived maker');
                     $action_type = 'archive';
 
                     // Remove maker from Elasticsearch
@@ -249,12 +228,12 @@ class EditController extends MakerbaseAuthController {
             }
         } else {
             if (!$maker->is_archived) {
-                $controller->addInfoMessage("Already unarchived");
+                SessionCache::put('info_message', "Already unarchived");
             } else {
                 $has_changed_archive_status = $maker_dao->unarchive($_POST['uid']);
                 if ($has_changed_archive_status) {
                     $maker->is_archived = false;
-                    $controller->addSuccessMessage('Unarchived maker');
+                    SessionCache::put('success_message', 'Unarchived maker');
                     $action_type = 'unarchive';
                     // Add maker back to Elasticsearch
                     SearchHelper::indexMaker($maker);
@@ -280,12 +259,7 @@ class EditController extends MakerbaseAuthController {
             $action_dao = new ActionMySQLDAO();
             $action_dao->insert($action);
         }
-        $_GET = array();
-        $_GET['slug'] = $maker->slug;
-        $_GET['uid'] = $maker->uid;
-        $_GET['clear_cache'] = 1;
-        $_POST = array();
-        return $controller;
+        $this->redirect('/m/'.$maker->uid.'/'.$maker->slug);
     }
 
     private function editMaker() {
@@ -328,16 +302,10 @@ class EditController extends MakerbaseAuthController {
             SearchHelper::updateIndexMaker($maker);
         }
 
-        $controller = new MakerController(true);
-        $_GET = array();
-        $_GET['slug'] = $maker->slug;
-        $_GET['uid'] = $maker->uid;
-        $_GET['clear_cache'] = 1;
-        $_POST = array();
         if ($has_been_updated) {
-            $controller->addSuccessMessage("Updated maker");
+            SessionCache::put('success_message', "Updated ".$maker->name);
         }
-        return $controller;
+        $this->redirect('/m/'.$maker->uid.'/'.$maker->slug);
     }
 
     private function editProduct() {
@@ -381,16 +349,10 @@ class EditController extends MakerbaseAuthController {
             SearchHelper::updateIndexProduct($product);
         }
 
-        $controller = new ProductController(true);
-        $_GET = array();
-        $_GET['slug'] = $product->slug;
-        $_GET['uid'] = $product->uid;
-        $_GET['clear_cache'] = 1;
-        $_POST = array();
         if ($has_been_updated) {
-            $controller->addSuccessMessage("Updated product");
+            SessionCache::put('success_message', "Updated ".$product->name);
         }
-        return $controller;
+        $this->redirect('/p/'.$product->uid.'/'.$product->slug);
     }
 
     private function editRole(){
@@ -445,27 +407,14 @@ class EditController extends MakerbaseAuthController {
             $action_dao->insert($action);
         }
 
-        if ($_POST['originate'] == 'product') {
-            $controller = new ProductController(true);
-            $_GET = array();
-            $_GET['slug'] = $_POST['originate_slug'];
-            $_GET['uid'] = $_POST['originate_uid'];
-            $_GET['clear_cache'] = 1;
-            $_POST = array();
-            if ($has_been_updated) {
-                $controller->addSuccessMessage("Updated role successfully");
-            }
-        } elseif ($_POST['originate'] == 'maker') {
-            $controller = new MakerController(true);
-            $_GET = array();
-            $_GET['slug'] = $_POST['originate_slug'];
-            $_GET['uid'] = $_POST['originate_uid'];
-            $_GET['clear_cache'] = 1;
-            $_POST = array();
-            if ($has_been_updated) {
-                $controller->addSuccessMessage("Updated role successfully");
-            }
+        if ($has_been_updated) {
+            SessionCache::put('success_message', "Updated role successfully");
         }
-        return $controller;
+
+        if ($_POST['originate'] == 'product') {
+            $this->redirect('/p/'.$_POST['originate_uid'].'/'.$_POST['originate_slug']);
+        } elseif ($_POST['originate'] == 'maker') {
+            $this->redirect('/m/'.$_POST['originate_uid'].'/'.$_POST['originate_slug']);
+        }
     }
 }

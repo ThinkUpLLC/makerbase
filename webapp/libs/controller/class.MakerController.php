@@ -24,17 +24,8 @@ class MakerController extends MakerbaseController {
             $actions = $action_dao->getActivitiesPerformedOnMaker($maker);
             $this->addToView('actions', $actions);
 
-            // Show any cached user messages
-            $success_message = SessionCache::get('success_message');
-            if (isset($success_message)) {
-                SessionCache::put('success_message', null);
-                $this->addSuccessMessage($success_message);
-            }
-            $error_message = SessionCache::get('error_message');
-            if (isset($error_message)) {
-                SessionCache::put('error_message', null);
-                $this->addErrorMessage($error_message);
-            }
+            // Transfer cached user messages to the view
+            $this->setUserMessages();
 
             $image_proxy_sig = Config::getInstance()->getValue('image_proxy_sig');
             $this->addToView('image_proxy_sig', $image_proxy_sig);
