@@ -58,7 +58,7 @@
         source: searchAllMakersProducts.ttAdapter(),
         templates: {
           empty: [
-            '<div class="media">',
+            '<div class="media" id="add-buttons">',
             '<h4 class="media-heading">Oops! No makers or products match.</h4>',
             '</div>'
           ].join('\n'),
@@ -93,7 +93,7 @@
         source: searchAllMakers.ttAdapter(),
         templates: {
           empty: [
-            '<div class="media">',
+            '<div class="media" id="add-buttons">',
             '<h4 class="media-heading">Oops! No makers match.</h4>',
             '</div>'
           ].join('\n'),
@@ -131,7 +131,7 @@
         source: searchAllProducts.ttAdapter(),
         templates: {
           empty: [
-            '<div class="media">',
+            '<div class="media" id="add-buttons">',
             '<h4 class="media-heading">Oops! No products match.</h4>',
             '</div>'
           ].join('\n'),

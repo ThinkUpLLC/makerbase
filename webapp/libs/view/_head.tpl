@@ -3,7 +3,7 @@
 {/if}
 
 <!DOCTYPE html>
-<html lang="en" lang="en" prefix="og: http://ogp.me/ns#" itemscope itemtype="http://schema.org/Article">
+<html lang="en" prefix="og: http://ogp.me/ns#" itemscope itemtype="http://schema.org/Article">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -33,7 +33,7 @@
   <body>
 
       <nav class="navbar navbar-inverse navbar-static-top">
-      <div class="container">
+      <div class="container col-xs-12">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
@@ -63,7 +63,7 @@
           </form>
           {else}
           <form class="navbar-form navbar-right" role="signin">
-            {if isset($sign_in_with_twttr_link)}<a href="{$sign_in_with_twttr_link}"><img src="/assets/img/sign-in-with-twitter-gray.png"></a>{/if}
+            {if isset($sign_in_with_twttr_link)}<a href="{$sign_in_with_twttr_link}"><img src="/assets/img/sign-in-with-twitter-gray.png" alt="sign in wtih Twitter"></a>{/if}
           </form>
           {/if}
 

@@ -65,7 +65,7 @@
 
 <div class="action-item row">
 	<div class="col-xs-2">
-		{if isset($maker_avatar_url)}<a href="/m/{$maker_uid}/{$maker_slug}"><img src="{$maker_avatar_url}" class="img-responsive"></a>{else}<img src="{$avatar_url}" class="img-responsive">{/if}
+		{if isset($maker_avatar_url)}<a href="/m/{$maker_uid}/{$maker_slug}"><img src="{$maker_avatar_url}" class="img-responsive" alt="{$maker_name}"></a>{else}<img src="{$avatar_url}" class="img-responsive" alt="">{/if}
 	</div>
 
 	<div class="col-xs-8">

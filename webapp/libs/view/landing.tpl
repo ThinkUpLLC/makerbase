@@ -1,7 +1,7 @@
 {include file="_head.tpl" suppress_search='true'}
 
 <div class="row">
-   <div class="page-header col-xs-8 col-xs-offset-2">
+   <div class="page-header col-sm-8 col-sm-offset-2 col-xs-12">
     <h1>
       Makerbase<br />
       <small>A directory of people who make things.</small>
@@ -21,7 +21,7 @@
 
 {if isset($actions)}
   {if sizeof($actions) > 0}
-  <div class=" col-xs-8 col-xs-offset-2">
+  <div class=" col-sm-8 col-sm-offset-2 col-xs-12">
   	<h3>Recent activity</h3>
 	<ul class="list-group">
 	{foreach $actions as $action}

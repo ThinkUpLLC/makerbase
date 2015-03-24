@@ -34,13 +34,14 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 25px;
 }
 
-.navbar-inverse .navbar-brand {
+.navbar-inverse .navbar-brand,
+.navbar>.container .navbar-brand {
 	color: #fff;
   background: url(../img/makerbase-logo@2x.png);
   background-size: 104px 20px;
   width: 104px;
   height: 20px;
-  margin: 14px 20px 0 auto;
+  margin: 14px 20px 0 15px;
   padding: 0;
   overflow: hidden;
   font-size: 0;
@@ -150,8 +151,16 @@ h1, h2, h3, h4, h5, h6 {
 	color: #000;
 }
 
+.main-avatar {
+  width: 100%;
+}
+
 .form-inline {
 	padding-bottom: 20px;
+}
+
+.control-label {
+  text-align: right;
 }
 
 .media-body h3,
@@ -170,6 +179,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .media-body h4 a {
   color: #666;
+}
+
+#add-buttons {
+  margin-top: 6px;
+  padding-top: 10px;
 }
 
 #edit-maker form,

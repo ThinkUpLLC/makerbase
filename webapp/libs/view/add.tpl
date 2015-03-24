@@ -13,6 +13,7 @@
 
 <div class="row">
 
+
 	<div class="col-sm-6 col-xs-12">
 
 		<h2>Add a {$object}<br />
@@ -21,62 +22,68 @@
 		{if $is_manual}
 		<form method="post" action="/add/{$object}/" class="form-horizontal">
 
-			<div class="form-group">
-				<label for="full_name" class="col-xs-3 control-label">Name</label>
-				<div class="col-xs-9">
-					<input type="text" class="form-control" name="name" id="name" value="{if isset($name)}{$name}{/if}">
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="avatar_url" class="col-xs-3 control-label">Avatar URL</label>
-				<div class="col-xs-2">
+			<div class="col-sm-2 col-xs-2">
 					<img src="{if isset($avatar_url)}{$avatar_url}{/if}" id="avatar-img" width="100">
-				</div>
-				<div class="col-xs-6 col-xs-offset-1">
-					<input type="text" class="form-control col-xs-6"  name="avatar_url" id="avatar-url" value="{if isset($avatar_url)}{$avatar_url}{/if}" onkeyup="document.getElementById('avatar-img').src = this.value">
-				</div>
 			</div>
 
-			{if $collapsed}
-			<div class="form-group">
-				<label class="col-xs-3 control-label"></label>
-				<div class="col-xs-9">
-					<a href="#all-the-fields" data-toggle="collapse" class="btn btn-xs btn-default">More <i class="caret"></i></a>
+			<div class="col-sm-10 col-xs-10">
+				<div class="form-group">
+					<label for="full_name" class="col-xs-3 control-label">Name</label>
+					<div class="col-xs-9">
+						<input type="text" class="form-control" name="name" id="name" value="{if isset($name)}{$name}{/if}">
+					</div>
 				</div>
-			</div>
-			{/if}
 
-			<div{if $collapsed} class="collapse" id="all-the-fields"{/if}>
-
-			{if $object eq 'product'}
-
-			<div class="form-group">
-				<label for="description" class="col-xs-3 control-label">Description</label>
-				<div class="col-xs-9">
-					<input type="text" class="form-control col-xs-6" name="description" id="description" value="{if isset($description)}{$description}{/if}">
+				<div class="form-group">
+					<label for="avatar_url" class="col-xs-3 control-label">Avatar URL</label>
+					<div class="col-xs-9">
+						<input type="text" class="form-control col-xs-6"  name="avatar_url" id="avatar-url" value="{if isset($avatar_url)}{$avatar_url}{/if}" onkeyup="document.getElementById('avatar-img').src = this.value">
+					</div>
 				</div>
-			</div>
 
-			{/if}
-
-			<div class="form-group">
-				<label for="url" class="col-xs-3 control-label">Web site</label>
-				<div class="col-xs-9">
-					<input type="text" class="form-control col-xs-6" name="url" id="url" value="{if isset($url)}{$url}{/if}">
+				{if $collapsed}
+				<div class="form-group">
+					<label class="col-xs-3 control-label"></label>
+					<div class="col-xs-9">
+						<a href="#all-the-fields" data-toggle="collapse" class="btn btn-xs btn-default">More <i class="caret"></i></a>
+					</div>
 				</div>
-			</div>
+				{/if}
 
-			<div class="form-group">
-				<label for="description" class="col-xs-3 control-label">Slug</label>
-				<div class="col-xs-9">
-					<input type="text" class="form-control col-xs-6" name="slug" id="slug" value="{if isset($slug)}{$slug}{/if}">
+				<div{if $collapsed} class="collapse" id="all-the-fields"{/if}>
+
+				{if $object eq 'product'}
+
+				<div class="form-group">
+					<label for="description" class="col-xs-3 control-label">Description</label>
+					<div class="col-xs-9">
+						<input type="text" class="form-control col-xs-6" name="description" id="description" value="{if isset($description)}{$description}{/if}">
+					</div>
 				</div>
-			</div>
 
-    	</div>
-			<div class="form-group">
-				<button class="btn btn-primary col-xs-6 col-xs-offset-4" type="submit">Make it!</button>
+				{/if}
+
+				<div class="form-group">
+					<label for="url" class="col-xs-3 control-label">Web site</label>
+					<div class="col-xs-9">
+						<input type="text" class="form-control col-xs-6" name="url" id="url" value="{if isset($url)}{$url}{/if}">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="description" class="col-xs-3 control-label">Slug</label>
+					<div class="col-xs-9">
+						<input type="text" class="form-control col-xs-6" name="slug" id="slug" value="{if isset($slug)}{$slug}{/if}">
+					</div>
+				</div>
+
+	    	</div>
+				<div class="form-group">
+					<div class="col-xs-12">
+						<button class="btn btn-primary col-xs-4 pull-right" type="submit">Make it!</button>
+					</div>
+		    </div>
+
 	    </div>
 		</form>
 		{else}
@@ -106,7 +113,7 @@
 		{foreach $twitter_users as $twitter_user}
 			<a class="list-group-item media add-autofill" data-name="{if isset($twitter_user.full_name)}{$twitter_user.full_name}{/if}" data-avatar="{if isset($twitter_user.avatar)}{$twitter_user.avatar}{/if}" data-url="{if isset($twitter_user.url)}{$twitter_user.url}{/if}" data-description="{if isset($twitter_user.description)}{$twitter_user.description}{/if}" data-slug="{if isset($twitter_user.user_name)}{$twitter_user.user_name}{/if}">
 				<div class="media-left media-middle">
-					{if isset($twitter_user.avatar)}<img src="{$twitter_user.avatar}" id="avatar-img" width="30">{/if}
+					{if isset($twitter_user.avatar)}<img src="{$twitter_user.avatar}" id="avatar-img" width="50">{/if}
 				</div>
 
 			  <div class="media-body">
