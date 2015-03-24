@@ -147,6 +147,9 @@
               $('#product-name').val(datum.name);
       }).off('blur');
 
+      $(function () {
+        $('[data-toggle="popover"]').popover()
+      })
     </script>
     {/literal}
   </body>

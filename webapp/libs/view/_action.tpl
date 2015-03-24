@@ -69,15 +69,16 @@
 	</div>
 
 	<div class="col-xs-8">
-		{if $actor neq 'You'}<a href="/u/{$action->user_uid}">{$action->name}</a>{else}{$actor}{/if} {$action->action_type}d <a href="/{if $action->object_type eq 'Maker'}m/{$maker_uid}/{$maker_slug}">{$maker_name}{else}p/{$product_uid}/{$product_slug}">{$product_name}{/if}</a>{if isset($action->object2_id)} {if $action->action_type eq 'associate'}with{else}on{/if} <a href="/p/{$product_uid}/{$product_slug}">{$product_name}</a>{/if}
+		{if $actor neq 'You'}<a href="/u/{$action->user_uid}">{$action->name}</a>{else}{$actor}{/if} {if $action->action_type eq 'update'}<a data-toggle="popover" data-html="true" data-content="{include file='_diff.tpl'}" tabindex="0" data-trigger="focus" >{/if}{$action->action_type}d{if $action->action_type eq 'update'}</a>{/if} <a href="/{if $action->object_type eq 'Maker'}m/{$maker_uid}/{$maker_slug}">{$maker_name}{else}p/{$product_uid}/{$product_slug}">{$product_name}{/if}</a>{if isset($action->object2_id)} {if $action->action_type eq 'associate'}with{else}on{/if} <a href="/p/{$product_uid}/{$product_slug}">{$product_name}</a>{/if}
 
 		<br />
-		<span><small class="text-muted"><a href="/a/{$action->uid}">{$action->time_performed|relative_datetime} ago</a></small></span>
+		<span><small class="text-muted">{$action->time_performed|relative_datetime} ago</small></span>
 	</div>
 	<div class="col-xs-2">
 		{if isset($product_avatar_url)}<a href="/p/{$product_uid}/{$product_slug}"><img src="{$product_avatar_url}" class="img-responsive"></a>{/if}
 	</div>
 </div>
+
 
 {assign var="actor" value=null}
 {assign var="product_avatar_url" value=null}
