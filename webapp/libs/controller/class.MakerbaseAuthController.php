@@ -12,5 +12,8 @@ class MakerbaseAuthController extends AuthController {
         $user = $user_dao->get($logged_in_user);
         $this->addToView('logged_in_user', $user);
         $this->logged_in_user = $user;
+
+        $cfg = Config::getInstance();
+        $this->addToView('thinkup_uid', $cfg->getValue('thinkup_uid'));
     }
 }

@@ -3,7 +3,7 @@
 
     <footer class="footer">
       <div class="container">
-        <p class="text-muted">&copy; 2015 <a href="/p/38523i/thinkup">ThinkUp</a>. Now go make something.</p>
+        <p class="text-muted">&copy; 2015 <a href="/p/{$thinkup_uid}/thinkup">ThinkUp</a>. Go make something.</p>
       </div>
     </footer>
 
@@ -59,7 +59,7 @@
         templates: {
           empty: [
             '<div class="media">',
-            '<h4 class="media-heading">Oops! No makers or products match</h4>',
+            '<h4 class="media-heading">Oops! No makers or products match.</h4>',
             '<div class="media-body">',
             '<a onclick="location.href=\'/add/maker/?q=\'+ $(\'#nav-typeahead\').val();" class="btn btn-success btn-md">Add a Maker</a> ',
             '<a onclick="location.href=\'/add/product/?q=\'+ $(\'#nav-typeahead\').val();" class="btn btn-success btn-md">Add a Product</a>',
@@ -93,7 +93,7 @@
           empty: [
             '<div class="media">',
             '<h4 class="media-heading">Oops! No makers match.</h4>',
-            '<div class="media-body"><a onclick="location.href=\'/add/maker/?q=\'+ $(\'#maker-name\').val();" class="btn btn-success btn-md">Add maker</a></div>',
+            '<div class="media-body"><a onclick="location.href=\'/add/maker/?q=\'+ $(\'#maker-name\').val();" class="btn btn-success btn-md">Add Maker</a></div>',
             '</div>'
           ].join('\n'),
           suggestion: Handlebars.compile('<div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div>')
@@ -128,8 +128,8 @@
         templates: {
           empty: [
             '<div class="media">',
-            '<h4 class="media-heading">Oops! No products match</h4>',
-            '<div class="media-body"><a onclick="location.href=\'/add/product/?q=\'+ $(\'#product-name\').val();" class="btn btn-success btn-md">Add it</a></div>',
+            '<h4 class="media-heading">Oops! No products match.</h4>',
+            '<div class="media-body"><a onclick="location.href=\'/add/product/?q=\'+ $(\'#product-name\').val();" class="btn btn-success btn-md">Add Product</a></div>',
             '</div>'
           ].join('\n'),
           suggestion: Handlebars.compile('<div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div></div>')

@@ -7,6 +7,8 @@ class MakerbaseController extends Controller {
     var $logged_in_user;
 
     public function control() {
+        $cfg = Config::getInstance();
+        $this->addToView('thinkup_uid', $cfg->getValue('thinkup_uid'));
         if (Session::isLoggedIn()) {
             $logged_in_user = Session::getLoggedInUser();
             $user_dao = new UserMySQLDAO();
@@ -16,7 +18,6 @@ class MakerbaseController extends Controller {
         } else {
             $start_time = microtime(true);
 
-            $cfg = Config::getInstance();
             $oauth_consumer_key = $cfg->getValue('twitter_oauth_consumer_key');
             $oauth_consumer_secret = $cfg->getValue('twitter_oauth_consumer_secret');
             $twitter_oauth = new TwitterOAuth($oauth_consumer_key, $oauth_consumer_secret);
