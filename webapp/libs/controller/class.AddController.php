@@ -10,19 +10,14 @@ class AddController extends MakerbaseAuthController {
         if ($_GET['object'] == 'maker' || $_GET['object'] == 'product' || $_GET['object'] == 'role') {
             $this->addToView('object', $_GET['object']);
 
-            if (isset($_POST['twitter_username'])) {
-                $this->addTwitterUsersToView($_POST['twitter_username']);
-            } elseif (isset($_GET['q'])) {
+            if (isset($_GET['q'])) {
                 $this->addTwitterUsersToView($_GET['q']);
             } elseif ($_GET['object'] == 'maker' && $this->hasSubmittedMakerForm()) {
-                $controller = $this->addMaker();
-                return $controller->go();
+                $this->addMaker();
             } elseif ($_GET['object'] == 'product' && $this->hasSubmittedProductForm()) {
-                $controller = $this->addProduct();
-                return $controller->go();
+                $this->addProduct();
             } elseif ($_GET['object'] == 'role' && $this->hasSubmittedRoleForm()) {
-                $controller = $this->addRole();
-                return $controller->go();
+                $this->addRole();
             } elseif (isset($_GET['method']) && $_GET['method'] == 'manual') {
                 $this->addToView('is_manual', true);
             }
@@ -82,11 +77,6 @@ class AddController extends MakerbaseAuthController {
     private function addRole() {
         $maker_dao = new MakerMySQLDAO();
         $product_dao = new ProductMySQLDAO();
-        if ($_POST['originate'] == 'maker') {
-            $controller = new MakerController(true);
-        } else {
-            $controller = new ProductController(true);
-        }
         try {
             $maker = $maker_dao->get($_POST['maker_uid']);
             $product = $product_dao->get($_POST['product_uid']);
@@ -125,21 +115,17 @@ class AddController extends MakerbaseAuthController {
             $action_dao = new ActionMySQLDAO();
             $action_dao->insert($action);
 
-            $controller->addSuccessMessage('You added '.$maker->slug.' to '.$product->slug.'.');
-
-            $_GET = null;
-            $_GET['slug'] = $_POST['originate_slug'];
-            $_GET['uid'] = $_POST['originate_uid'];
+            SessionCache::put('success_message', 'You added '.$maker->name.' to '.$product->name.'.');
         } catch (MakerDoesNotExistException $e) {
-            $_GET['slug'] = $_POST['originate_slug'];
-            $_GET['uid'] = $_POST['originate_uid'];
-            $controller->addErrorMessage('That maker does not exist.');
+            SessionCache::put('error_message', 'That maker does not exist.');
         } catch (ProductDoesNotExistException $e) {
-            $_GET['slug'] = $_POST['originate_slug'];
-            $_GET['uid'] = $_POST['originate_uid'];
-            $controller->addErrorMessage('That product does not exist.');
+            SessionCache::put('error_message', 'That product does not exist.');
         }
-        return $controller;
+        if ($_POST['originate'] == 'maker') {
+            $this->redirect('/m/'.$_POST['originate_uid'].'/'.$_POST['originate_slug']);
+        } else {
+            $this->redirect('/p/'.$_POST['originate_uid'].'/'.$_POST['originate_slug']);
+        }
     }
 
     private function addMaker() {
@@ -174,12 +160,8 @@ class AddController extends MakerbaseAuthController {
         $action_dao = new ActionMySQLDAO();
         $action_dao->insert($action);
 
-        $controller->addSuccessMessage('You added '.$maker->slug.'.');
-
-        $_GET = null;
-        $_GET['uid'] = $maker->uid;
-        $_GET['slug'] = $maker->slug;
-        return $controller;
+        SessionCache::put('success_message', 'You added '.$maker->name.'.');
+        $this->redirect('/m/'.$maker->uid.'/'.$maker->slug);
     }
 
     private function addProduct() {
@@ -216,11 +198,7 @@ class AddController extends MakerbaseAuthController {
         $action_dao = new ActionMySQLDAO();
         $action_dao->insert($action);
 
-        $controller->addSuccessMessage('You added '.$product->slug.'.');
-
-        $_GET = null;
-        $_GET['slug'] = $product->slug;
-        $_GET['uid'] = $product->uid;
-        return $controller;
+        SessionCache::put('success_message', 'You added '.$product->name.'.');
+        $this->redirect('/p/'.$product->uid.'/'.$product->slug);
     }
 }
