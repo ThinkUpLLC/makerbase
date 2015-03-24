@@ -115,6 +115,10 @@ class AddController extends MakerbaseAuthController {
             $action_dao = new ActionMySQLDAO();
             $action_dao->insert($action);
 
+            //Force cache refresh
+            CacheHelper::expireCache('product', $product->uid, $product->slug);
+            CacheHelper::expireCache('maker', $maker->uid, $maker->slug);
+
             SessionCache::put('success_message', 'You added '.$maker->name.' to '.$product->name.'.');
         } catch (MakerDoesNotExistException $e) {
             SessionCache::put('error_message', 'That maker does not exist.');

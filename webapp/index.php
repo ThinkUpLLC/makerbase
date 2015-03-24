@@ -29,5 +29,6 @@ $router->addRoute('add', 'AddController', array('object', 'method'));
 $router->addRoute('edit', 'EditController', array('object'));
 $router->addRoute('search', 'SearchController');
 $router->addRoute('autocomplete', 'SearchAutoCompleteController');
+$router->addRoute('twittersignin', 'TwitterSignInController');
 
 echo $router->route();

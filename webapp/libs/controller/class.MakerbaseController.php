@@ -16,38 +16,31 @@ class MakerbaseController extends Controller {
             $this->addToView('logged_in_user', $user);
             $this->logged_in_user = $user;
         } else {
-            $start_time = microtime(true);
-
-            $oauth_consumer_key = $cfg->getValue('twitter_oauth_consumer_key');
-            $oauth_consumer_secret = $cfg->getValue('twitter_oauth_consumer_secret');
-            $twitter_oauth = new TwitterOAuth($oauth_consumer_key, $oauth_consumer_secret);
-
-            /* Request tokens from twitter */
-            $callback_url = Utils::getApplicationURL(false, false).'signin/';
-            if (isset($_GET['redirect'])) {
-                $callback_url .= '?redirect='.$_GET['redirect'];
-            } else {
-                $callback_url .= '?redirect='.$_SERVER['REQUEST_URI'];
-            }
-            $token_array = $twitter_oauth->getRequestToken($callback_url);
-
-            if (isset($token_array['oauth_token']) /*|| Utils::isTest()*/) {
-                $token = $token_array['oauth_token'];
-                SessionCache::put('oauth_request_token_secret', $token_array['oauth_token_secret']);
-
-                /* Build the authorization URL */
-                $sign_in_with_twttr_link = $twitter_oauth->getAuthorizeURL($token);
-                $this->addToView('sign_in_with_twttr_link', $sign_in_with_twttr_link);
-
-                $end_time = microtime(true);
-
-                if (Profiler::isEnabled()) {
-                    $total_time = $end_time - $start_time;
-                    $profiler = Profiler::getInstance();
-                    $profiler->add($total_time, "Sign in with Twitter", false);
-                }
-            }
+            $this->addToView('sign_in_with_twttr_link', '/twittersignin/');
         }
+    }
+    /**
+     * Returns cache key as a string,
+     * Preface every key with .ht to make resulting file "forbidden" by request thanks to Apache's default rule
+     * <FilesMatch "^\.([Hh][Tt])">
+     *    Order allow,deny
+     *    Deny from all
+     *    Satisfy All
+     * </FilesMatch>
+     *
+     * Set to public for the sake of tests only.
+     * @return str cache key
+     */
+    public function getCacheKeyString() {
+        $view_cache_key = array();
+        $keys = array_keys($_GET);
+        foreach ($keys as $key) {
+            array_push($view_cache_key, $_GET[$key]);
+        }
+        if (Session::isLoggedIn()) {
+            array_push($view_cache_key, Session::getLoggedInUser());
+        }
+        return '.ht'.$this->view_template.self::KEY_SEPARATOR.(implode($view_cache_key, self::KEY_SEPARATOR));
     }
 
     protected function setUserMessages() {
