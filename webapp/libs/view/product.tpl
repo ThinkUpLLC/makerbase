@@ -43,25 +43,25 @@
       <div class="form-group">
         <label for="full_name" class="col-xs-3 control-label">Name</label>
         <div class="col-xs-9">
-          <input type="text" class="form-control" name="name" value="{$product->name}">
+          <input type="text" autocomplete="off" class="form-control" name="name" value="{$product->name}">
         </div>
       </div>
       <div class="form-group">
         <label for="description" class="col-xs-3 control-label">Description</label>
         <div class="col-xs-9">
-          <input type="text" class="form-control col-xs-6" name="description" value="{$product->description}">
+          <input type="text" class="form-control col-xs-6" autocomplete="off" name="description" value="{$product->description}">
         </div>
       </div>
       <div class="form-group">
         <label for="url" class="col-xs-3 control-label">Web site url</label>
         <div class="col-xs-9">
-          <input type="text" class="form-control col-xs-6" name="url" value="{$product->url}">
+          <input type="text" class="form-control col-xs-6" name="url" autocomplete="off" value="{$product->url}">
         </div>
       </div>
       <div class="form-group">
         <label for="url" class="col-xs-3 control-label">Avatar url</label>
         <div class="col-xs-9">
-          <input type="text" class="form-control col-xs-6" name="avatar_url" value="{$product->avatar_url}">
+          <input type="text" class="form-control col-xs-6" autocomplete="off" name="avatar_url" value="{$product->avatar_url}">
         </div>
       </div>
       <input type="hidden" name="product_uid" value="{$product->uid}">

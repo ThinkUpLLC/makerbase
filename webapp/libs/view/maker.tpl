@@ -45,19 +45,19 @@
       <div class="form-group">
         <label for="full_name" class="col-xs-3 control-label">Name</label>
         <div class="col-xs-9">
-          <input type="text" class="form-control" name="name" value="{$maker->name}">
+          <input type="text" class="form-control" autocomplete="off" name="name" value="{$maker->name}">
         </div>
       </div>
       <div class="form-group">
         <label for="url" class="col-xs-3 control-label">Web site url</label>
         <div class="col-xs-9">
-          <input type="text" class="form-control col-xs-6" name="url" value="{$maker->url}">
+          <input type="text" class="form-control col-xs-6" autocomplete="off" name="url" value="{$maker->url}">
         </div>
       </div>
       <div class="form-group">
         <label for="url" class="col-xs-3 control-label">Avatar url</label>
         <div class="col-xs-9">
-          <input type="text" class="form-control col-xs-6" name="avatar_url" value="{$maker->avatar_url}">
+          <input type="text" class="form-control col-xs-6" autocomplete="off" name="avatar_url" value="{$maker->avatar_url}">
         </div>
       </div>
       <input type="hidden" name="maker_uid" value="{$maker->uid}">
