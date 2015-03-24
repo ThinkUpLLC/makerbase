@@ -7,6 +7,10 @@
 	{assign var="collapsed" value=true}
 {/if}
 
+{if !isset($name) && isset($smarty.get.q)}
+	{assign var="name" value=$smarty.get.q}
+{/if}
+
 <div class="row">
 
 	<div class="col-sm-6 col-xs-12">

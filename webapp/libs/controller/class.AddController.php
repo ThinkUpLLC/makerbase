@@ -173,7 +173,7 @@ class AddController extends MakerbaseAuthController {
             $this->addErrorMessage('Name is required');
         } else {
             $product = new Product();
-            $product->slug = $_POST['slug'];
+            $product->slug = $this->getSlug($_POST['slug'], $_POST['name']);
             $product->name = $_POST['name'];
             $product->description = $_POST['description'];
             $product->url = $_POST['url'];
@@ -207,6 +207,14 @@ class AddController extends MakerbaseAuthController {
 
             SessionCache::put('success_message', 'You added '.$product->name.'.');
             $this->redirect('/p/'.$product->uid.'/'.$product->slug);
+        }
+    }
+
+    private function getSlug($slug, $name) {
+        if (empty($slug)) {
+            return strtolower(preg_replace("/[^A-Za-z0-9]/", "", $name));
+        } else {
+            return strtolower(preg_replace("/[^A-Za-z0-9]/", "", $slug));
         }
     }
 }
