@@ -33,25 +33,29 @@
   <body>
 
       <nav class="navbar navbar-inverse navbar-static-top">
-      <div class="container col-xs-12">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="{$site_root_path}">{$app_title}</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          {if isset($logged_in_user)}
-          <!-- Single button -->
-          <div class="nav navbar-right">
+      <div class="container col-xs-12 col-sm-12">
 
-          </div>
-          <form class="navbar-form navbar-right" role="signout">
-          <div class="btn-group navbar-nav">
-            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="user-menu">
+
+        <div class="navbar-header col-xs-12">
+
+          <a class="navbar-brand col-xs-5 col-sm-4" href="{$site_root_path}">{$app_title}</a>
+
+          {if $suppress_search neq true}
+          <form class="navbar-form col-xs-6 col-sm-6" role="search" action="/search/">
+            <div class="" id="remote-search">
+              <div class="input-group">
+              <input type="search" class="form-control typeahead col-xs-6" placeholder="Search for..." name="q" autocomplete="off" id="nav-typeahead">
+              </div>
+            </div>
+           </form>
+           {/if}
+
+
+
+        {if isset($logged_in_user)}
+        <div class="col-xs-1 col-sm-1 pull-right" role="signout" id="signout-button">
+          <div class="btn-group">
+            <button type="button" class="btn btn-default btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="user-menu">
               <img src="{$logged_in_user->avatar_url}" alt="Signed in as {$logged_in_user->twitter_username}" width="20" height="20">
               <span class="caret"></span>
             </button>
@@ -60,27 +64,39 @@
               <li><a href="{$site_root_path}signout/">Sign out</a></li>
             </ul>
           </div>
-          </form>
-          {else}
-          <form class="navbar-form navbar-right" role="signin">
-            {if isset($sign_in_with_twttr_link)}<a href="{$sign_in_with_twttr_link}"><img src="/assets/img/sign-in-with-twitter-gray.png" alt="sign in wtih Twitter"></a>{/if}
-          </form>
-          {/if}
+        </div>
+        {else}
+        <div class="col-xs-2 col-sm-1 pull-right" role="signin" id="signin-button">
+          {if isset($sign_in_with_twttr_link)}<a href="{$sign_in_with_twttr_link}" class="btn btn-default btn-sm navbar-btn" id="signin-button"><i class="fa fa-twitter"></i> Sign in</a>{/if}
+        </div>
+        {/if}
 
-          {if $suppress_search neq true}
-          <form class="navbar-form col-xs-offset-2" role="search" action="/search/">
-            <div class="" id="remote-search">
-              <div class="input-group col-xs-6">
-                <input type="search" class="form-control typeahead" placeholder="Search for..." name="q" autocomplete="off" id="nav-typeahead">
-            </div>
-            </div>
-           </form>
-           {/if}
+        </div>
 
-        </div><!--/.nav-collapse -->
+
       </div>
     </nav>
 
     <div class="container">
 
 {include file="_usermessage.tpl"}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
