@@ -138,7 +138,7 @@ EOD;
         $q = <<<EOD
 SELECT a.*, u.name, u.uid AS user_uid FROM actions a
 INNER JOIN users u ON a.user_id = u.id
-ORDER BY time_performed DESC LIMIT 7;
+ORDER BY time_performed DESC LIMIT 20;
 EOD;
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         $ps = $this->execute($q);

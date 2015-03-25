@@ -7,19 +7,31 @@
 <div class="row">
   <div class="col-xs-2 col-sm-4">
     <img src="{insert name='user_image' image_url=$product->avatar_url image_proxy_sig=$image_proxy_sig type='p'}" class="img-responsive main-avatar" alt="{$product->name}" />
+
+    <div class="history hidden-xs">
+      {if sizeof($actions) > 0}
+        <h4>History</h4>
+        <ul class="list-unstyled">
+        {foreach $actions as $action}
+            <li>
+            {include file="_action.tpl"}
+            </li>
+        {/foreach}
+        </ul>
+      {/if}
+    </div>
+
   </div>
 
   <div class="col-xs-10 col-sm-8">
 
-    <p>{$product->description}</p>
+    <h3>{$product->description}</h3>
     <a {if isset($logged_in_user)}href="#edit-product"{else}href="{$sign_in_with_twttr_link}"{/if} data-toggle="collapse" class="btn btn-default btn-xs btn-link pull-right" id="edit-product-btn">
       <span class="fa fa-pencil" aria-hidden="true"></span> Edit
     </a>
     <p><a href="{$product->url}">{$product->url}</a></p>
 
   </div>
-
-
 
   {if isset($logged_in_user)}
 
@@ -83,69 +95,51 @@
   </div>
   {/if}
 
+    <div class="col-sm-8 col-sm-offset-0 col-xs-10 col-xs-offset-2">
+      <ul class="list-group">
+        {foreach $roles as $role}
+        <li class="list-group-item">
+          {include file="_role.tpl"}
+        </li>
+        {/foreach}
+      </ul>
 
-</div>
-
-
-<div class="row">
-
-  <div class="col-sm-4 col-xs-2"></div>
-
-  <div class="col-sm-8 col-xs-10">
-    <ul class="list-group">
-      {foreach $roles as $role}
-      <li class="list-group-item">
-        {include file="_role.tpl"}
-      </li>
-      {/foreach}
-    </ul>
-  </div>
-
-</div>
 
   {if isset($logged_in_user)}
-  <div class="row">
-    <div class="col-sm-4 col-xs-2"></div>
 
-    <div class="col-sm-8 col-xs-10">
-      <h3>Add a maker to {$product->name}</h3>
-    </div>
-  </div>
+      <h4>Add a maker to {$product->name}</h4>
 
-  <div class="row">
-
-    <div class="col-xs-12 col-sm-8 col-sm-offset-2">
       <form method="post" action="/add/role/" class="form-horizontal">
-    			<input type="hidden" name="product_uid" value="{$product->uid}">
+          <input type="hidden" name="product_uid" value="{$product->uid}">
           <input type="hidden" name="originate_slug" value="{$product->slug}">
           <input type="hidden" name="originate_uid" value="{$product->uid}">
           <input type="hidden" name="originate" value="product">
           <input type="hidden" placeholder="" name="maker_uid" id="maker-uid">
-    			<div class="form-group">
-    				<label for="maker_slug" class="col-sm-3 col-xs-2 control-label">Name:</label>
-    				<div class="col-sm-9 col-xs-8">
-    					<div class="input-group" id="remote-search-makers">
+          <div class="form-group">
+            <label for="maker_slug" class="col-sm-2 col-xs-2 control-label">Name:</label>
+            <div class="col-sm-9 col-xs-8">
+              <div class="input-group" id="remote-search-makers">
                 <input type="text" class="form-control typeahead" placeholder="" name="maker_name" id="maker-name">
-    					</div>
-    				</div>
-    			</div>
+              </div>
+            </div>
+          </div>
 
           <div class="form-group">
-            <label for="role" class="col-sm-3 col-xs-2 control-label">Role:</label>
+            <label for="role" class="col-sm-2 col-xs-2 control-label">Role:</label>
             <div class="col-sm-9 col-xs-8">
               <input type="text" class="form-control" id="role" autocomplete="off" name="role" placeholder="Herded unicorns">
             </div>
           </div>
 
           <div class="form-group">
-            <label for="role" class="col-sm-3 col-xs-2 control-label"></label>
+            <label for="role" class="col-sm-2 col-xs-2 control-label"></label>
             <div class="col-sm-9 col-xs-8">
               <a href="#show-role-dates" data-toggle="collapse" class="btn btn-default btn-sm"><i class="fa fa-calendar"></i> <i class="caret"></i></a>
             </div>
           </div>
 
           <div class="form-group collapse" id="show-role-dates">
-            <label for="start_date" class="col-sm-3 col-xs-2 control-label">From:</label>
+            <label for="start_date" class="col-sm-2 col-xs-2 control-label">From:</label>
             <div class="col-sm-9 col-xs-7">
               <div class="input-daterange input-group" id="datepicker">
                 <input type="text" class="input-sm form-control" name="start_date" id="start_date" placeholder="YYYY-MM" data-provide="datepicker" autocomplete="off"/>
@@ -153,40 +147,26 @@
                 <input type="text" class="input-sm form-control" name="end_date" id="end_date" placeholder="Leave blank if current" autocomplete="off" />
               </div>
             </div>
-    			</div>
+          </div>
 
-          <button class="btn btn-primary col-sm-offset-3 col-xs-offset-2" type="submit">Add a maker</button>
+          <button class="btn btn-primary col-sm-offset-2 col-xs-offset-2" type="submit">Add a maker</button>
 
       </form>
-    </div>
 
-  </div>
   {else}
 
-  <div class="row">
-    <div class="col-xs-10 col-xs-offset-2 col-sm-8 col-sm-offset-4">
-      <a href="{$sign_in_with_twttr_link}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add a{if $roles}nother{/if} maker</a>
-    </div>
-  </div>
+      <a href="{$sign_in_with_twttr_link}" class="btn btn-primary btn-sm col-sm-4"><i class="fa fa-plus"></i> Add a{if $roles}nother{/if} maker</a>
 
   {/if}
 
-<div class="row">
+    </div>
 
-  <div class="col-xs-12 col-sm-4">
-    {if sizeof($actions) > 0}
-      <h4>History</h4>
-      <ul class="list-unstyled">
-      {foreach $actions as $action}
-          <li>
-          {include file="_action.tpl"}
-          </li>
-      {/foreach}
-      </ul>
-    {/if}
-
-  </div>
 </div>
 
+
+
+<div class="col-sm-8 col-sm-offset-4 col-xs-10 col-xs-offset-2">
+  <!-- history -->
+</div>
 
 {include file="_footer.tpl"}
