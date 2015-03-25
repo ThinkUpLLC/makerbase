@@ -67,6 +67,11 @@ class SignInController extends MakerbaseController {
             }
         } elseif (isset($_GET['redirect'])) {
             $this->setViewTemplate('signin.tpl');
+            if (Session::isLoggedIn()) {
+                if (!$this->redirect($_GET['redirect'])) {
+                    $this->generateView(); //for testing
+                }
+            }
             return $this->generateView();
         } else {
             $controller = new LandingController(true);
