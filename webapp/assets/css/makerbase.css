@@ -19,9 +19,15 @@ a:hover {
   color: #46bcff;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h5, h6 {
   font-family: "tablet-gothic-semi-condensed", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 600;
+}
+
+h3, h4 {
+  font-family: "tablet-gothic-semi-condensed", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 200;
+  margin-top: 0;
 }
 
 .navbar {
@@ -52,6 +58,27 @@ h1, h2, h3, h4, h5, h6 {
 	padding: 4px;
 }
 
+.navbar-inverse .navbar-form {
+  padding: 0;
+  border: none;
+}
+
+#signout-button {
+  margin-right: 15px;
+}
+
+#signout-button .dropdown-menu {
+  left: -120px;
+  top: 40px;
+}
+
+#signin-button {
+}
+
+.navbar-inverse .navbar-collapse {
+  border: none;
+}
+
 .archived {
   text-decoration: line-through;
 }
@@ -76,7 +103,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .twitter-typeahead, .tt-hint, .tt-input {
-  width: 100% !important;
+  width: 300px !important;
 }
 .tt-hint {
   border: none;
@@ -155,6 +182,27 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
 }
 
+.history {
+  padding-top: 12px;
+}
+
+.history img {
+   -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+
+.history img:hover {
+   -webkit-filter: none;
+  filter: none;
+}
+
+.action-item {
+  padding-top: 10px;
+}
+
+.action-item img {
+}
+
 .form-inline {
 	padding-bottom: 20px;
 }
@@ -202,6 +250,12 @@ h1, h2, h3, h4, h5, h6 {
 #edit-role-btn:hover {
   color: #000;
   background-color: transparent;
+}
+
+.btn-primary {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .add-panels a {
