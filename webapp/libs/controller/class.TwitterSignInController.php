@@ -10,7 +10,11 @@ class TwitterSignInController extends Controller {
 
         /* Request tokens from twitter */
         $callback_url = Utils::getApplicationURL(false, false).'signin/';
-        $callback_url .= '?redirect='.$_SERVER['HTTP_REFERER'];
+        if (isset($_GET['redirect'])) {
+            $callback_url .= '?redirect='.$_GET['redirect'];
+        } else {
+            $callback_url .= '?redirect='.$_SERVER['HTTP_REFERER'];
+        }
 
         $token_array = $twitter_oauth->getRequestToken($callback_url);
 
