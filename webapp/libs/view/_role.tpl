@@ -19,7 +19,7 @@
 {if isset($role->start_MY)}<span class="badge">{$role->start_MY}{if isset($role->end_MY)} &mdash; {$role->end_MY}{/if}</span>{/if}
 
 <div class="media-left media-middle">
-    <a href="/{$object_route}/{$display_object->slug}">
+    <a href="/{$object_route}/{$display_object->uid}/{$display_object->slug}">
     <img class="media-object" src="{insert name='user_image' image_url=$display_object->avatar_url image_proxy_sig=$image_proxy_sig type=$object_route}" alt="{$display_object->name} logo" width="40" height="40">
     </a>
 </div>
