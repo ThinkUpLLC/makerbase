@@ -32,7 +32,7 @@
   <div class="col-sm-8 col-xs-10">
 
 
-    <a {if isset($logged_in_user)}href="#edit-maker"{else}href="{$sign_in_with_twttr_link}"{/if} data-toggle="collapse" type="button" class="btn btn-default btn-xs btn-link pull-right" aria-label="Center Align">
+    <a {if isset($logged_in_user)}href="#edit-maker" data-toggle="collapse"{else}href="{$sign_in_with_twttr_link}"{/if} type="button" class="btn btn-default btn-xs btn-link pull-right" aria-label="Center Align">
     <span class="fa fa-pencil" aria-hidden="true"></span> Edit
     </a>
     <p><a href="{$maker->url}">{$maker->url}</a></p>

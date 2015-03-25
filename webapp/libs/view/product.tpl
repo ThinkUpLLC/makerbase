@@ -26,7 +26,7 @@
   <div class="col-xs-10 col-sm-8">
 
     <h3>{$product->description}</h3>
-    <a {if isset($logged_in_user)}href="#edit-product"{else}href="{$sign_in_with_twttr_link}"{/if} data-toggle="collapse" class="btn btn-default btn-xs btn-link pull-right" id="edit-product-btn">
+    <a {if isset($logged_in_user)}href="#edit-product" data-toggle="collapse"{else}href="{$sign_in_with_twttr_link}"{/if} class="btn btn-default btn-xs btn-link pull-right" id="edit-product-btn">
       <span class="fa fa-pencil" aria-hidden="true"></span> Edit
     </a>
     <p><a href="{$product->url}">{$product->url}</a></p>
