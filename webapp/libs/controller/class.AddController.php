@@ -11,12 +11,16 @@ class AddController extends MakerbaseAuthController {
             $this->addToView('object', $_GET['object']);
 
             if (isset($_GET['q'])) {
+                CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
                 $this->addTwitterUsersToView($_GET['q']);
             } elseif ($_GET['object'] == 'maker' && $this->hasSubmittedMakerForm()) {
+                CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
                 $this->addMaker();
             } elseif ($_GET['object'] == 'product' && $this->hasSubmittedProductForm()) {
+                CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
                 $this->addProduct();
             } elseif ($_GET['object'] == 'role' && $this->hasSubmittedRoleForm()) {
+                CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
                 $this->addRole();
             } elseif (isset($_GET['method']) && $_GET['method'] == 'manual') {
                 $this->addToView('is_manual', true);
@@ -116,8 +120,8 @@ class AddController extends MakerbaseAuthController {
             $action_dao->insert($action);
 
             //Force cache refresh
-            CacheHelper::expireCache('product', $product->uid, $product->slug);
-            CacheHelper::expireCache('maker', $maker->uid, $maker->slug);
+            CacheHelper::expireCache('product.tpl', $product->uid, $product->slug);
+            CacheHelper::expireCache('maker.tpl', $maker->uid, $maker->slug);
 
             SessionCache::put('success_message', 'You added '.$maker->name.' to '.$product->name.'.');
         } catch (MakerDoesNotExistException $e) {

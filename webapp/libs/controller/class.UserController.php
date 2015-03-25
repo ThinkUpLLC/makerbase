@@ -6,8 +6,6 @@ class UserController extends MakerbaseController {
         parent::control();
         $this->setViewTemplate('user.tpl');
 
-        //Only cache the activity stream for a minute
-        $this->view_mgr->cache_lifetime = 60;
         if ($this->shouldRefreshCache() ) {
             $user_dao = new UserMySQLDAO();
             $user = $user_dao->get($_GET['uid']);
