@@ -5,16 +5,22 @@ class EditController extends MakerbaseAuthController {
     public function authControl() {
         parent::authControl();
         if ($this->hasSubmittedRoleForm()) {
+            CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
             $this->editRole();
         } elseif ($this->hasSubmittedProductForm()) {
+            CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
             $this->editProduct();
         } elseif ($this->hasSubmittedMakerForm()) {
+            CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
             $this->editMaker();
         } elseif ($this->hasArchivedMaker()) {
+            CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
             $this->archiveMaker();
         } elseif ($this->hasArchivedProduct()) {
+            CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
             $this->archiveProduct();
         } elseif ($this->hasArchivedRole()) {
+            CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
             $this->archiveRole();
         } else {
             //print_r($_POST);
@@ -145,10 +151,10 @@ class EditController extends MakerbaseAuthController {
         }
 
         if ($_POST['originate'] == 'product') {
-            CacheHelper::expireCache('product', $_POST['originate_uid'], $_POST['originate_slug']);
+            CacheHelper::expireCache('product.tpl', $_POST['originate_uid'], $_POST['originate_slug']);
             $this->redirect('/p/'.$_POST['originate_uid'].'/'.$_POST['originate_slug']);
         } elseif ($_POST['originate'] == 'maker') {
-            CacheHelper::expireCache('maker', $_POST['originate_uid'], $_POST['originate_slug']);
+            CacheHelper::expireCache('maker.tpl', $_POST['originate_uid'], $_POST['originate_slug']);
             $this->redirect('/m/'.$_POST['originate_uid'].'/'.$_POST['originate_slug']);
         }
     }
@@ -206,7 +212,7 @@ class EditController extends MakerbaseAuthController {
             $action_dao = new ActionMySQLDAO();
             $action_dao->insert($action);
         }
-        CacheHelper::expireCache('product', $product->uid, $product->slug);
+        CacheHelper::expireCache('product.tpl', $product->uid, $product->slug);
         $this->redirect('/p/'.$product->uid.'/'.$product->slug);
     }
 
@@ -262,7 +268,7 @@ class EditController extends MakerbaseAuthController {
             $action_dao = new ActionMySQLDAO();
             $action_dao->insert($action);
         }
-        CacheHelper::expireCache('maker', $maker->uid, $maker->slug);
+        CacheHelper::expireCache('maker.tpl', $maker->uid, $maker->slug);
         $this->redirect('/m/'.$maker->uid.'/'.$maker->slug);
     }
 
@@ -309,7 +315,7 @@ class EditController extends MakerbaseAuthController {
         if ($has_been_updated) {
             SessionCache::put('success_message', "Updated ".$maker->name);
         }
-        CacheHelper::expireCache('maker', $maker->uid, $maker->slug);
+        CacheHelper::expireCache('maker.tpl', $maker->uid, $maker->slug);
         $this->redirect('/m/'.$maker->uid.'/'.$maker->slug);
     }
 
@@ -357,7 +363,7 @@ class EditController extends MakerbaseAuthController {
         if ($has_been_updated) {
             SessionCache::put('success_message', "Updated ".$product->name);
         }
-        CacheHelper::expireCache('product', $product->uid, $product->slug);
+        CacheHelper::expireCache('product.tpl', $product->uid, $product->slug);
         $this->redirect('/p/'.$product->uid.'/'.$product->slug);
     }
 
@@ -418,10 +424,10 @@ class EditController extends MakerbaseAuthController {
         }
 
         if ($_POST['originate'] == 'product') {
-            CacheHelper::expireCache('product', $_POST['originate_uid'], $_POST['originate_slug']);
+            CacheHelper::expireCache('product.tpl', $_POST['originate_uid'], $_POST['originate_slug']);
             $this->redirect('/p/'.$_POST['originate_uid'].'/'.$_POST['originate_slug']);
         } elseif ($_POST['originate'] == 'maker') {
-            CacheHelper::expireCache('maker', $_POST['originate_uid'], $_POST['originate_slug']);
+            CacheHelper::expireCache('maker.tpl', $_POST['originate_uid'], $_POST['originate_slug']);
             $this->redirect('/m/'.$_POST['originate_uid'].'/'.$_POST['originate_slug']);
         }
     }
