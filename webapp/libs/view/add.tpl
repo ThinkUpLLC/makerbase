@@ -16,7 +16,7 @@
 
 	<div class="col-sm-6 col-xs-12">
 
-		<h2>Add a {$object}<br />
+		<h2>Add a {if $object eq 'maker'}maker{else}project{/if}<br />
 		<small>{if $object eq 'maker'}A human being who builds things out of bits and bytes.{elseif $object eq 'product'}A digital work, like a web site, app, or service.{/if}</small></h2>
 
 		{if $is_manual}
