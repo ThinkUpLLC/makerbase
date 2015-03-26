@@ -28,6 +28,7 @@ EOD;
 SELECT r.*, r.id AS role_id, r.uid AS role_uid, p.*, p.id AS product_id, p.uid AS product_uid,
 r.is_archived AS role_is_archived FROM roles r
 INNER JOIN products p ON r.product_id = p.id WHERE r.is_archived = 0 AND maker_id = :maker_id
+ORDER BY ISNULL(start), start ASC
 EOD;
         $vars = array ( ':maker_id' => $maker_id);
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
@@ -81,6 +82,7 @@ EOD;
 SELECT r.*, r.id AS role_id, r.uid AS role_uid, m.*, m.id AS maker_id, m.uid AS maker_uid,
 r.is_archived AS role_is_archived FROM roles r
 INNER JOIN makers m ON r.maker_id = m.id WHERE r.is_archived = 0 AND r.product_id = :product_id
+ORDER BY ISNULL(start), start ASC
 EOD;
         $vars = array ( ':product_id' => $product_id);
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
