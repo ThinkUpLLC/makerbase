@@ -1,5 +1,4 @@
 
-
 body {
   background-color: #f0f0f0;
   font-family: "tablet-gothic-wide", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
@@ -103,8 +102,13 @@ h3, h4 {
 }
 
 .twitter-typeahead, .tt-hint, .tt-input {
-  width: 300px !important;
+  width: 170px !important;
 }
+
+#homepage-search .twitter-typeahead, .tt-hint, .tt-input {
+  width: 100% !important;
+}
+
 .tt-hint {
   border: none;
 }
