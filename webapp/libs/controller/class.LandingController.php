@@ -7,6 +7,9 @@ class LandingController extends MakerbaseController {
         parent::control();
         $this->setViewTemplate('landing.tpl');
 
+        // Transfer cached user messages to the view
+        $this->setUserMessages();
+
         if ($this->shouldRefreshCache() ) {
             $action_dao = new ActionMySQLDAO();
             if (Session::isLoggedIn()) {

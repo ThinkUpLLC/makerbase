@@ -30,6 +30,18 @@ CREATE TABLE actions (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table 'autofills'
+--
+
+CREATE TABLE autofills (
+  network_id varchar(100) CHARACTER SET utf8 NOT NULL COMMENT 'ID of the object on source network.',
+  network varchar(25) CHARACTER SET utf8 NOT NULL COMMENT 'Source network of the autofill.',
+  UNIQUE KEY network_id (network_id,network)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Third-party users that autofilled makers and projects.';
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table 'connections'
 --
 
@@ -132,3 +144,23 @@ CREATE TABLE users (
   UNIQUE KEY twitter_user_id (twitter_user_id),
   KEY creation_time (creation_time)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Makerbase users.';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table 'waitlist'
+--
+
+CREATE TABLE waitlist (
+  network_id varchar(100) CHARACTER SET utf8 NOT NULL COMMENT 'User ID on the source network.',
+  network varchar(25) CHARACTER SET utf8 NOT NULL COMMENT 'Network of the user attempting to sign in.',
+  network_username varchar(255) NOT NULL COMMENT 'Username on source network.',
+  UNIQUE KEY network_id (network_id,network)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Waitlisted users.';
+
+
+-- Whitelist Gina and Anil for login
+
+INSERT INTO autofills (network_id, network) VALUES ('930061', 'twitter');
+
+INSERT INTO autofills (network_id, network) VALUES ('36823', 'twitter');

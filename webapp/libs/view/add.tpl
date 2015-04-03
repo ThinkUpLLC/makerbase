@@ -80,10 +80,11 @@
 	    	</div>
 				<div class="form-group">
 					<div class="col-xs-12">
+						<input type="hidden" name="network_id" id="network-id" value="">
+						<input type="hidden" name="network" id="network" value="">
 						<button class="btn btn-primary col-xs-4 pull-right" type="submit">Make it!</button>
 					</div>
 		    </div>
-
 	    </div>
 		</form>
 		{else}
@@ -111,7 +112,7 @@
 		<div class="list-group">
 		<!-- begin auto-fill loop here -->
 		{foreach $twitter_users as $twitter_user}
-			<a class="list-group-item media add-autofill" data-name="{if isset($twitter_user.full_name)}{$twitter_user.full_name}{/if}" data-avatar="{if isset($twitter_user.avatar)}{$twitter_user.avatar}{/if}" data-url="{if isset($twitter_user.url)}{$twitter_user.url}{/if}" data-description="{if isset($twitter_user.description)}{$twitter_user.description}{/if}" data-slug="{if isset($twitter_user.user_name)}{$twitter_user.user_name}{/if}">
+			<a class="list-group-item media add-autofill" data-name="{if isset($twitter_user.full_name)}{$twitter_user.full_name}{/if}" data-avatar="{if isset($twitter_user.avatar)}{$twitter_user.avatar}{/if}" data-url="{if isset($twitter_user.url)}{$twitter_user.url}{/if}" data-description="{if isset($twitter_user.description)}{$twitter_user.description}{/if}" data-slug="{if isset($twitter_user.user_name)}{$twitter_user.user_name}{/if}" data-network-id="{$twitter_user.user_id}" data-network="twitter">
 				<div class="media-left media-middle">
 					{if isset($twitter_user.avatar)}<img src="{$twitter_user.avatar}" id="avatar-img" width="50">{/if}
 				</div>

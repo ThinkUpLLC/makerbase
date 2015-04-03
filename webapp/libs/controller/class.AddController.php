@@ -171,6 +171,13 @@ class AddController extends MakerbaseAuthController {
             $action_dao = new ActionMySQLDAO();
             $action_dao->insert($action);
 
+            //Add autofill
+            if (isset($_POST['network_id']) && isset($_POST['network'])
+                && !empty($_POST['network_id']) && !empty($_POST['network'])) {
+                $autofill_dao = new AutofillMySQLDAO();
+                $autofill_dao->insert($_POST['network_id'], $_POST['network']);
+            }
+
             SessionCache::put('success_message', 'You added '.$maker->name.'.');
             $this->redirect('/m/'.$maker->uid.'/'.$maker->slug);
         }
@@ -212,6 +219,13 @@ class AddController extends MakerbaseAuthController {
 
             $action_dao = new ActionMySQLDAO();
             $action_dao->insert($action);
+
+            //Add autofill
+            if (isset($_POST['network_id']) && isset($_POST['network'])
+                && !empty($_POST['network_id']) && !empty($_POST['network'])) {
+                $autofill_dao = new AutofillMySQLDAO();
+                $autofill_dao->insert($_POST['network_id'], $_POST['network']);
+            }
 
             SessionCache::put('success_message', 'You added '.$product->name.'.');
             $this->redirect('/p/'.$product->uid.'/'.$product->slug);

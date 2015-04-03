@@ -32,6 +32,8 @@
           $('#url').val($(this).data('url'));
           $('#description').val($(this).data('description'));
           $('#slug').val($(this).data('slug'));
+          $('#network-id').val($(this).data('network-id'));
+          $('#network').val($(this).data('network'));
       });
 
     </script>
