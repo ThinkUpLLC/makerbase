@@ -85,7 +85,7 @@
           <div class="form-group">
               <label for="update-product" class="col-xs-2 col-sm-2 control-label"></label>
               <div class="col-xs-10 col-sm-10">
-                  <button class="btn btn-primary" type="submit" id="update-product">Update product</button>
+                  <button class="btn btn-primary" type="submit" id="update-product">Update project</button>
               </div>
           </div>
       </form>

@@ -102,7 +102,7 @@
         <input type="hidden" name="originate" value="maker">
         <input type="hidden" name="product_uid" id="product-uid">
         <div class="form-group">
-          <label for="maker_slug" class="col-sm-3 control-label">Product:</label>
+          <label for="maker_slug" class="col-sm-3 control-label">Project:</label>
           <div class="col-sm-9">
             <div class="input-group" id="remote-search-products">
               <input type="text" class="typeahead form-control" placeholder="" name="product_name" id="product-name">
@@ -135,7 +135,7 @@
 
         </div>
 
-        <button class="btn btn-primary col-sm-offset-3" type="submit">Add a product</button>
+        <button class="btn btn-primary col-sm-offset-3" type="submit">Add a project</button>
       </form>
   {else}
     <a href="{$sign_in_with_twttr_link}" class="btn btn-primary btn-sm col-sm-4"><i class="fa fa-plus"></i> Add a{if $roles}nother{/if} project</a>

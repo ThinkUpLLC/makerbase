@@ -59,14 +59,14 @@
         templates: {
           empty: [
             '<div class="media" id="add-buttons">',
-            '<h4 class="media-heading">Oops! No makers or products match.</h4>',
+            '<h4 class="media-heading">Oops! No makers or projects match.</h4>',
             '</div>'
           ].join('\n'),
           suggestion: Handlebars.compile('<a class="media" href="/{{type}}/{{uid}}/{{slug}}"><div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div></a>'),
           footer: [
             '<br><div class="media-body">',
-            '<a onclick="location.href=\'/add/maker/?q=\'+ encodeURIComponent($(\'#nav-typeahead\').val());" class="btn btn-success btn-md">Add a Maker</a> ',
-            '<a onclick="location.href=\'/add/product/?q=\'+ encodeURIComponent($(\'#nav-typeahead\').val());" class="btn btn-success btn-md">Add a Product</a>',
+            '<a onclick="location.href=\'/add/maker/?q=\'+ encodeURIComponent($(\'#nav-typeahead\').val());" class="btn btn-success btn-md">Create a Maker</a> ',
+            '<a onclick="location.href=\'/add/product/?q=\'+ encodeURIComponent($(\'#nav-typeahead\').val());" class="btn btn-success btn-md">Create a Project</a>',
             '</div>',
           ].join('\n')
         }
@@ -99,7 +99,7 @@
           ].join('\n'),
           suggestion: Handlebars.compile('<div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div>'),
           footer: [
-            '<br><div class="media-body"><a onclick="location.href=\'/add/maker/?q=\'+ encodeURIComponent($(\'#maker-name\').val());" class="btn btn-success btn-md">Add Maker</a></div>'
+            '<br><div class="media-body"><a onclick="location.href=\'/add/maker/?q=\'+ encodeURIComponent($(\'#maker-name\').val());" class="btn btn-success btn-md">Create Maker</a></div>'
           ].join('\n')
         }
       });
@@ -132,12 +132,12 @@
         templates: {
           empty: [
             '<div class="media" id="add-buttons">',
-            '<h4 class="media-heading">Oops! No products match.</h4>',
+            '<h4 class="media-heading">Oops! No projects match.</h4>',
             '</div>'
           ].join('\n'),
           suggestion: Handlebars.compile('<div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div></div>'),
           footer: [
-            '<br><div class="media-body"><a onclick="location.href=\'/add/product/?q=\'+ encodeURIComponent($(\'#product-name\').val());" class="btn btn-success btn-md">Add Product</a></div>'
+            '<br><div class="media-body"><a onclick="location.href=\'/add/product/?q=\'+ encodeURIComponent($(\'#product-name\').val());" class="btn btn-success btn-md">Create Project</a></div>'
           ].join('\n')
         }
       });
