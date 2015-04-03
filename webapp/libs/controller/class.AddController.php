@@ -5,7 +5,6 @@ class AddController extends MakerbaseAuthController {
     public function authControl() {
         parent::authControl();
         $this->setViewTemplate('add.tpl');
-        $this->addToView('is_manual', true);
 
         if ($_GET['object'] == 'maker' || $_GET['object'] == 'product' || $_GET['object'] == 'role') {
             $this->addToView('object', $_GET['object']);
@@ -22,8 +21,6 @@ class AddController extends MakerbaseAuthController {
             } elseif ($_GET['object'] == 'role' && $this->hasSubmittedRoleForm()) {
                 CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
                 $this->addRole();
-            } elseif (isset($_GET['method']) && $_GET['method'] == 'manual') {
-                $this->addToView('is_manual', true);
             }
         } else {
             $this->redirect(Config::getInstance()->getValue('site_root_path'));

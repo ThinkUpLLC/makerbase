@@ -19,7 +19,6 @@
 		<h2>Add a {if $object eq 'maker'}maker{else}project{/if}<br />
 		<small>{if $object eq 'maker'}A human being who builds things out of bits and bytes.{elseif $object eq 'product'}A digital work, like a web site, app, or service.{/if}</small></h2>
 
-		{if $is_manual}
 		<form method="post" action="/add/{$object}/" class="form-horizontal">
 
 			<div class="col-sm-2 col-xs-2">
@@ -87,18 +86,6 @@
 		    </div>
 	    </div>
 		</form>
-		{else}
-		<form method="post" action="/add/{$object}/" class="form-horizontal">
-			<label>Enter a Twitter username:</label>
-			<div class="input-group">
-			  <span class="input-group-addon" id="basic-addon1">@</span>
-			  <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" name="twitter_username">
-				<span class="input-group-btn">
-			        <button class="btn btn-default" type="submit">Go</button>
-			    </span>
-			</div>
-		</form>
-		{/if}
 	</div>
 
 
