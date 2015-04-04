@@ -95,6 +95,31 @@
 		<h2>&nbsp;<br />
 		<small>Choose an auto-fill&nbsp;</small></h2>
 
+	{if isset($ios_apps) && count($ios_apps) > 0}
+		<div class="list-group">
+		<!-- begin auto-fill loop here -->
+		{foreach $ios_apps as $ios_app}
+			<a class="list-group-item media add-autofill" data-name="{if isset($ios_app.full_name)}{$ios_app.full_name}{/if}" data-avatar="{if isset($ios_app.avatar)}{$ios_app.avatar}{/if}" data-url="{if isset($ios_app.url)}{$ios_app.url}{/if}" data-description="{if isset($ios_app.description)}{$ios_app.description}{/if}" data-slug="{if isset($ios_app.user_name)}{$ios_app.user_name}{/if}">
+				<div class="media-left media-middle">
+					{if isset($ios_app.avatar)}<img src="{$ios_app.avatar}" id="avatar-img" width="50">{/if}
+				</div>
+
+			  <div class="media-body">
+			    <h3 class="media-heading">
+			    	<i class="fa fa-apple pull-right"></i>
+			    	{if isset($ios_app.user_name)}@{$ios_app.user_name}{/if}
+			    	{if isset($ios_app.url)}&nbsp;<small>{$ios_app.url}</small>{/if}
+			    </h3>
+			    <p>{if isset($ios_app.description)}{$ios_app.description}{/if}</p>
+			  </div>
+			</a>
+		{/foreach}
+
+		</div><!-- end list group -->
+	{else}
+		No iOS apps named {$smarty.get.q} found
+	{/if}
+
 	{if isset($twitter_users) && count($twitter_users) > 0}
 		<div class="list-group">
 		<!-- begin auto-fill loop here -->

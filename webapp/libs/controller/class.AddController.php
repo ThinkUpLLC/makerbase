@@ -12,6 +12,7 @@ class AddController extends MakerbaseAuthController {
             if (isset($_GET['q'])) {
                 CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
                 $this->addTwitterUsersToView($_GET['q']);
+                $this->addiOSAppsToView($_GET['q']);
             } elseif ($_GET['object'] == 'maker' && $this->hasSubmittedMakerForm()) {
                 CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
                 $this->addMaker();
@@ -73,6 +74,12 @@ class AddController extends MakerbaseAuthController {
         $api_accessor = new TwitterAPIAccessor();
         $twitter_users = $api_accessor->searchUsers($twitter_username, $twitter_oauth);
         $this->addToView('twitter_users', $twitter_users);
+    }
+
+    private function addiOSAppsToView($term) {
+        $ios_api_accessor = new iOSAppStoreAPIAccessor();
+        $ios_apps = $ios_api_accessor->searchApps($term);
+        $this->addToView('ios_apps', $ios_apps);
     }
 
     private function addRole() {

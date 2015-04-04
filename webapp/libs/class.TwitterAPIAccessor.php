@@ -66,7 +66,7 @@ class TwitterAPIAccessor {
      */
     public function searchUsers($search_term, TwitterOAuth $toa) {
         $endpoint = 'users/search';
-        $payload = $toa->OAuthRequest($endpoint, 'GET', array('q'=>$search_term, 'count'=>5));
+        $payload = $toa->OAuthRequest($endpoint, 'GET', array('q'=>$search_term, 'count'=>3));
         $http_status = $toa->lastStatusCode();
         // echo '<pre>';
         // print_r($payload);
