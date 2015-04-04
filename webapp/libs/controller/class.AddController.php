@@ -10,7 +10,7 @@ class AddController extends MakerbaseAuthController {
             $this->addToView('object', $_GET['object']);
 
             if (isset($_GET['q'])) {
-                CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
+                $this->addSearchResultsToView($_GET['q']);
                 $this->addTwitterUsersToView($_GET['q']);
                 $this->addiOSAppsToView($_GET['q']);
             } elseif ($_GET['object'] == 'maker' && $this->hasSubmittedMakerForm()) {
@@ -63,6 +63,7 @@ class AddController extends MakerbaseAuthController {
     }
 
     private function addTwitterUsersToView($twitter_username) {
+        $start_time = microtime(true);
         $cfg = Config::getInstance();
         $oauth_consumer_key = $cfg->getValue('twitter_oauth_consumer_key');
         $oauth_consumer_secret = $cfg->getValue('twitter_oauth_consumer_secret');
@@ -73,12 +74,55 @@ class AddController extends MakerbaseAuthController {
 
         $api_accessor = new TwitterAPIAccessor();
         $twitter_users = $api_accessor->searchUsers($twitter_username, $twitter_oauth);
+        $end_time = microtime(true);
+
+        if (Profiler::isEnabled()) {
+            $total_time = $end_time - $start_time;
+            $profiler = Profiler::getInstance();
+            $profiler->add($total_time, "Twitter search", false);
+        }
         $this->addToView('twitter_users', $twitter_users);
     }
 
+    private function addSearchResultsToView($term) {
+        $start_time = microtime(true);
+        $image_proxy_sig = Config::getInstance()->getValue('image_proxy_sig');
+        $this->addToView('image_proxy_sig', $image_proxy_sig);
+
+        $client = new Elasticsearch\Client();
+
+        $search_params = array();
+        $search_params['index'] = 'maker_product_index';
+        $search_params['type']  = 'maker_product_type';
+        $search_params['body']['query']['multi_match']['fields'] = array('slug', 'name', 'description', 'url');
+        $search_params['body']['query']['multi_match']['query'] = urlencode($term);
+        $search_params['body']['query']['multi_match']['type'] = 'phrase_prefix';
+
+        $return_document = $client->search($search_params);
+        $end_time = microtime(true);
+
+        if (Profiler::isEnabled()) {
+            $total_time = $end_time - $start_time;
+            $profiler = Profiler::getInstance();
+            $profiler->add($total_time, "Elasticsearch", false);
+        }
+
+        if (count($return_document['hits']['hits']) > 0) {
+            $this->addToView('existing_objects', $return_document['hits']['hits']);
+        }
+    }
+
     private function addiOSAppsToView($term) {
+        $start_time = microtime(true);
         $ios_api_accessor = new iOSAppStoreAPIAccessor();
         $ios_apps = $ios_api_accessor->searchApps($term);
+        $end_time = microtime(true);
+
+        if (Profiler::isEnabled()) {
+            $total_time = $end_time - $start_time;
+            $profiler = Profiler::getInstance();
+            $profiler->add($total_time, "App Store search", false);
+        }
         $this->addToView('ios_apps', $ios_apps);
     }
 

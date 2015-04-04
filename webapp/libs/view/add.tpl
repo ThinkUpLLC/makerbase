@@ -11,7 +11,26 @@
 	{assign var="name" value=$smarty.get.q}
 {/if}
 
-<div class="row">
+
+{if isset($existing_objects)}
+<div class="row" id="search-results">
+	<h2>This what you were trying to add? <small><a href="#" onclick="$('#add-form').toggle();$('#search-results').toggle();">No, I've got something else.</a></small></h2>
+
+	{foreach $existing_objects as $hit}
+	<a class="list-group-item" href="/{$hit._source.type}/{$hit._source.uid}/{$hit._source.slug}">
+			<div class="media-left">
+        <img class="media-object" src="{insert name='user_image' image_url=$hit._source.avatar_url image_proxy_sig=$image_proxy_sig type=$hit._source.type}" alt="{$hit._source.name}" width="100">
+		</div>
+		<div class="media-body">
+			<h3>{$hit._source.name}</h3>
+			{if $hit._source.description neq ''}{$hit._source.description}{/if}
+		</div>
+	</a>
+	{/foreach}
+</div>
+{/if}
+
+<div class="row" {if isset($existing_objects)}style="display:none;"{/if} id="add-form">
 
 
 	<div class="col-sm-6 col-xs-12">
@@ -107,7 +126,7 @@
 			  <div class="media-body">
 			    <h3 class="media-heading">
 			    	<i class="fa fa-apple pull-right"></i>
-			    	{if isset($ios_app.user_name)}@{$ios_app.user_name}{/if}
+			    	{if isset($ios_app.user_name)}{$ios_app.user_name}{/if}
 			    	{if isset($ios_app.url)}&nbsp;<small>{$ios_app.url}</small>{/if}
 			    </h3>
 			    <p>{if isset($ios_app.description)}{$ios_app.description}{/if}</p>
@@ -117,7 +136,7 @@
 
 		</div><!-- end list group -->
 	{else}
-		No iOS apps named {$smarty.get.q} found
+		<p>No iOS apps named {$smarty.get.q} found.</p>
 	{/if}
 
 	{if isset($twitter_users) && count($twitter_users) > 0}
@@ -142,7 +161,7 @@
 
 		</div><!-- end list group -->
 	{else}
-		No Twitter users named {$smarty.get.q} found
+		<p>No Twitter users named {$smarty.get.q} found.</p>
 	{/if}
 {/if}
 	</div>
