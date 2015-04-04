@@ -81,7 +81,7 @@ class iOSAppStoreAPIAccessor {
         $result = array(
             'user_name'       => (string)$json_app->trackName,
             'full_name'       => (string)$json_app->trackName,
-            'avatar'          => (string)$json_app->artworkUrl60,
+            'avatar'          => (string)$json_app->artworkUrl512,
             'description'     => substr((string)$json_app->description, 0, 140)."...",
             'url'             => (string)$json_app->trackViewUrl,
             'network'         => 'ios'
