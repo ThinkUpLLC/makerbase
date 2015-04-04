@@ -135,8 +135,6 @@
 		{/foreach}
 
 		</div><!-- end list group -->
-	{else}
-		<p>No iOS apps named {$smarty.get.q} found.</p>
 	{/if}
 
 	{if isset($twitter_users) && count($twitter_users) > 0}
@@ -160,8 +158,6 @@
 		{/foreach}
 
 		</div><!-- end list group -->
-	{else}
-		<p>No Twitter users named {$smarty.get.q} found.</p>
 	{/if}
 {/if}
 	</div>

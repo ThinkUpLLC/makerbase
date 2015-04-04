@@ -12,7 +12,9 @@ class AddController extends MakerbaseAuthController {
             if (isset($_GET['q'])) {
                 $this->addSearchResultsToView($_GET['q']);
                 $this->addTwitterUsersToView($_GET['q']);
-                $this->addiOSAppsToView($_GET['q']);
+                if ($_GET['object'] == 'product') {
+                    $this->addiOSAppsToView($_GET['q']);
+                }
             } elseif ($_GET['object'] == 'maker' && $this->hasSubmittedMakerForm()) {
                 CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
                 $this->addMaker();
