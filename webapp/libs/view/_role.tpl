@@ -16,7 +16,7 @@
     {assign var="object_uid" value=$role->maker->uid}
 {/if}
 
-{if isset($role->start_MY)}<span class="badge">{$role->start_MY}{if isset($role->end_MY)} &mdash; {$role->end_MY}{/if}</span>{/if}
+{if isset($role->start_MY)}<span class="badge {if !isset($role->end_MY)}bg-success{/if}">{$role->start_MY} &mdash; {if isset($role->end_MY)}{$role->end_MY}{else}Present{/if}</span>{/if}
 
 <div class="media-left media-middle">
     <a href="/{$object_route}/{$display_object->uid}/{$display_object->slug}">
