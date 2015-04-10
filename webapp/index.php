@@ -30,5 +30,6 @@ $router->addRoute('edit', 'EditController', array('object'));
 $router->addRoute('search', 'SearchController');
 $router->addRoute('autocomplete', 'SearchAutoCompleteController');
 $router->addRoute('twittersignin', 'TwitterSignInController');
+$router->addRoute('about', 'AboutPageController', array('p'));
 
 echo $router->route();
