@@ -20,6 +20,58 @@
     <script>try{Typekit.load();}catch(e){}</script>
     {/literal}
 
+    <meta property="og:site_name" content="Makerbase" />
+    <meta property="og:type" content="article" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@makerbase" />
+    <meta name="twitter:domain" content="makerba.se" />
+    <meta name="twitter:creator" content="@makerbase" />
+
+    {if isset($maker) || isset($product)}
+      {if isset($maker)}
+        {assign var="url" value="/m/{$maker->uid}/{$maker->slug}"}
+        {assign var="title" value="{$maker->name} on Makerbase"}
+        {assign var="description" value="{$maker->name} is a maker"}
+        {assign var="image" value=$maker->avatar_url}
+      {else}
+        {assign var="url" value="/p/{$product->uid}/{$product->slug}"}
+        {assign var="title" value="{$product->name} on Makerbase"}
+        {assign var="description" value=$product->description}
+        {assign var="image" value=$product->avatar_url}
+      {/if}
+      <meta property="og:url" content="{$url}" />
+      <meta itemprop="name" content="{$title}" />
+      <meta name="twitter:title" content="{$title}" />
+      <meta property="og:title" content="{$title}" />
+
+      <meta itemprop="description" content="{$description}" />
+      <meta name="description" content="{$description}" />
+      <meta name="twitter:description" content="{$description}" />
+
+      <meta itemprop="image" content="{$image}">
+      <meta property="og:image" content="{$image}" />
+      <meta property="og:image:secure" content="{$image}" />
+      <meta name="twitter:image:src" content="{$image}" />
+      <meta name="twitter:image:width" content="540" />
+
+      <meta property="og:image:type" content="image/jpg">
+    {else}
+      <meta property="og:url" content="http://makerba.se" />
+      <meta itemprop="name" content="Makerbase" />
+      <meta name="twitter:title" content="Makerbase" />
+      <meta property="og:title" content="Makerbase" />
+      <meta itemprop="description" content="A directory of people who make things." />
+      <meta name="description" content="A directory of people who make things." />
+      <meta name="twitter:description" content="A directory of people who make things." />
+
+      {assign var="image" value="http://makerba.se/img/makerbase-logo@2x.png"}
+      <meta itemprop="image" content="{$image}">
+      <meta property="og:image" content="{$image}" />
+      <meta property="og:image:secure" content="{$image}" />
+      <meta name="twitter:image:src" content="{$image}" />
+      <meta name="twitter:image:width" content="540" />
+    {/if}
+
     <style type="text/css">
     </style>
 
