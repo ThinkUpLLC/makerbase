@@ -18,39 +18,38 @@ a:hover {
   color: #46bcff;
 }
 
-h1, h2, h5, h6 {
+h1, h2, h5, h6, .alert {
   font-family: "tablet-gothic-semi-condensed", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 600;
 }
 
-h3, h4 {
+h3, h4, input, textarea, .navbar-brand {
   font-family: "tablet-gothic-semi-condensed", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 200;
   margin-top: 0;
 }
 
+@media (max-width: 768px) {
+  h2 {
+    font-size: 18px;
+  }
+}
+
 .navbar {
   background-color: #46bcff;
-  min-height: 40px;
-  border-top: 5px solid #2785d3;
   border-bottom: 1px solid #2785d3;
-  box-shadow: 0px 3px 0px rgba(23, 135, 189, 0.4);
   color: white;
-  margin-bottom: 25px;
+  margin-bottom: 0;
+  min-height: 0;
 }
 
 .navbar-inverse .navbar-brand,
 .navbar>.container .navbar-brand {
 	color: #fff;
-  background: url(../img/makerbase-logo@2x.png);
-  background-size: 104px 20px;
   width: 104px;
   height: 20px;
-  margin: 14px 20px 0 15px;
+  margin: 10px 0 0 0;
   padding: 0;
-  overflow: hidden;
-  font-size: 0;
-  line-height: 0;
 }
 
 .navbar button#user-menu {
@@ -60,10 +59,14 @@ h3, h4 {
 .navbar-inverse .navbar-form {
   padding: 0;
   border: none;
+  margin: 4px 0 0 0;
+}
+
+.navbar-btn.btn-sm {
+  margin: 4px;
 }
 
 #signout-button {
-  margin-right: 15px;
 }
 
 #signout-button .dropdown-menu {
@@ -115,6 +118,14 @@ h3, h4 {
 
 .input-group-btn:last-child>.btn {
   margin-top: -2px;
+}
+
+input#name {
+  font-weight: 800;
+}
+
+input#avatar-url {
+  color: #999;
 }
 
 #homepage-search,
@@ -178,8 +189,19 @@ h3, h4 {
   border-color: #DA6070;
 }
 
+.alert {
+  margin-top: 14px;
+  padding: 4px;
+}
+
 .alert a {
-	color: #000;
+  color: #000;
+}
+
+.alert-dismissible .close {
+  right: 4px;
+  color: #333;
+  font-size: 24px;
 }
 
 .main-avatar {
@@ -257,16 +279,23 @@ h3, h4 {
 }
 
 .btn-primary {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+  background-color: #2785D3;
+  border: 1px solid #46BCFF;
 }
 
-.add-panels a {
+.btn-primary:hover {
+  background-color: #46BCFF;
+  border: 1px solid #2785D3;
+}
+
+#add-panels {
+}
+
+#add-panels a {
   color: #444;
 }
 
-.add-panels a.list-group-item:hover {
+#add-panels a.list-group-item:hover {
   border-color: #46BCFF;
   color: #000;
   background-color: #fff;
@@ -274,16 +303,37 @@ h3, h4 {
   cursor: pointer;
 }
 
-.add-panels a.list-group-item:hover h3.media-heading {
+#add-panels h4 {
+  font-size: 14px;
+  font-weight: 800;
+}
+
+#add-panels h4 small {
+  margin-left: 10px;
+  color: #999;
+}
+
+#add-panels h6 {
+}
+
+#add-panels p {
+  font-size: 12px;
+}
+
+#add-panels a.list-group-item {
+  padding: 6px;
+}
+
+#add-panels a.list-group-item:hover h4.media-heading {
   color: #2785D3;
 }
 
-.add-panels a.list-group-item p {
+#add-panels a.list-group-item p {
   margin: 6px 0 0 0;
 }
 
-.add-panels .media {
-  margin-top: 1px;
+#add-panels .media {
+  margin-top: 0px;
 }
 
 .page-header {
@@ -291,10 +341,9 @@ h3, h4 {
 }
 
 .footer {
-	height: 60px;
 	border-top: 1px solid #dbdbdb;
-	padding: 20px;
-	margin-top: 20px;
+	padding: 10px;
+  font-size: 11px;
 }
 
 ins {

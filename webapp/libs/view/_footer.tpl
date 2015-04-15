@@ -154,6 +154,21 @@
         $('[data-toggle="popover"]').popover()
       })
     </script>
+
+    <script type='text/javascript'>
+      $(window).resize(function() {
+        if ($('#add-panels').length){
+          if (window.matchMedia('(max-width: 767px)').matches) {
+            $('body').height('100%'),
+            $('#add-panels').height($(window).height() - $('#add-form').height() - 110),
+            $('#add-panels').css('overflow-y', 'scroll');
+          }
+        }
+      });
+
+      $(window).trigger('resize');
+    </script>
+
     {/literal}
   </body>
 </html>
