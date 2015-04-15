@@ -85,7 +85,7 @@
 						<input type="hidden" class="form-control col-xs-6" name="slug" id="slug" value="{if isset($slug)}{$slug}{/if}">
 						<input type="hidden" name="network_id" id="network-id" value="">
 						<input type="hidden" name="network" id="network" value="">
-						<button class="btn btn-primary col-xs-4 col-sm-2" type="submit">Make it!</button>
+						<button class="btn btn-primary col-xs-4 col-sm-2 col-sm-offset-3" type="submit">Make it!</button>
 					</div>
 		    </div>
 
