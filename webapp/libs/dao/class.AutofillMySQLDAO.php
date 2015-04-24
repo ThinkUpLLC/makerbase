@@ -40,4 +40,14 @@ EOD;
         $result = $this->getDataRowsAsArrays($ps);
         return (count($result) > 0);
     }
+
+    public function getByMakerID($maker_id) {
+        $q = "SELECT * FROM autofills WHERE maker_id = :maker_id;";
+        $vars = array (
+            ':maker_id' => $maker_id
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $ps = $this->execute($q, $vars);
+        return $this->getDataRowAsArray($ps);
+    }
 }

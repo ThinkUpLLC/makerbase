@@ -25,6 +25,7 @@
       {/foreach}
       </ul>
       {/if}
+      {$tweet_maker_link}
     </div>
 
   </div>
