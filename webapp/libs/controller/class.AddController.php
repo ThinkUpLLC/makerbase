@@ -225,9 +225,14 @@ class AddController extends MakerbaseAuthController {
             if (isset($_POST['network_id']) && isset($_POST['network'])
                 && !empty($_POST['network_id']) && !empty($_POST['network'])) {
                 $autofill_dao = new AutofillMySQLDAO();
-                $autofill_dao->insert($_POST['network_id'], $_POST['network']);
+                $network_username = (isset($_POST['network_username']) && !empty($_POST['network_username']))?
+                    $_POST['network_username']:null;
+                $autofill_dao->insertMakerAutofill($_POST['network_id'], $_POST['network'], $network_username,
+                    $maker->id);
+
+                //Set up tweet link in success message
                 if ($_POST['network'] == 'twitter') {
-                    if (isset($_POST['network_username']) && !empty($_POST['network_username']))  {
+                    if (isset($network_username))  {
                         $twitter_username = '@'.$_POST['network_username'];
                         $tweet_body = $twitter_username
                             .' I just added you to Makerbase. Check out your new maker page ';
@@ -287,7 +292,10 @@ class AddController extends MakerbaseAuthController {
             if (isset($_POST['network_id']) && isset($_POST['network'])
                 && !empty($_POST['network_id']) && !empty($_POST['network'])) {
                 $autofill_dao = new AutofillMySQLDAO();
-                $autofill_dao->insert($_POST['network_id'], $_POST['network']);
+                $network_username = (isset($_POST['network_username']) && !empty($_POST['network_username']))?
+                    $_POST['network_username']:null;
+                $autofill_dao->insertProductAutofill($_POST['network_id'], $_POST['network'], $network_username,
+                    $product->id);
             }
 
             SessionCache::put('success_message', 'You added '.$product->name.'.');

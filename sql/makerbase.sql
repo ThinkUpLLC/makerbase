@@ -36,7 +36,12 @@ CREATE TABLE actions (
 CREATE TABLE autofills (
   network_id varchar(100) CHARACTER SET utf8 NOT NULL COMMENT 'ID of the object on source network.',
   network varchar(25) CHARACTER SET utf8 NOT NULL COMMENT 'Source network of the autofill.',
-  UNIQUE KEY network_id (network_id,network)
+  network_username varchar(255) DEFAULT NULL COMMENT 'Network username.',
+  creation_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Time of autofill.',
+  maker_id int(11) DEFAULT NULL COMMENT 'Maker ID.',
+  product_id int(11) DEFAULT NULL COMMENT 'Product ID.',
+  UNIQUE KEY network_id (network_id,network),
+  KEY maker_id (maker_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Third-party users that autofilled makers and projects.';
 
 -- --------------------------------------------------------
@@ -155,6 +160,7 @@ CREATE TABLE waitlist (
   network_id varchar(100) CHARACTER SET utf8 NOT NULL COMMENT 'User ID on the source network.',
   network varchar(25) CHARACTER SET utf8 NOT NULL COMMENT 'Network of the user attempting to sign in.',
   network_username varchar(255) NOT NULL COMMENT 'Username on source network.',
+  creation_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Time of waitlist addition.',
   UNIQUE KEY network_id (network_id,network)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Waitlisted users.';
 
