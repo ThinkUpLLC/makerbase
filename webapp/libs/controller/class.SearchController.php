@@ -1,6 +1,6 @@
 <?php
 
-class SearchController extends MakerbaseController {
+class SearchController extends MakerbaseAuthController {
 
     public function control() {
         parent::control();

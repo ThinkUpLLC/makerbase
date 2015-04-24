@@ -1,6 +1,6 @@
 <?php
 
-class ProductController extends MakerbaseController {
+class ProductController extends MakerbaseAuthController {
 
     public function control() {
         parent::control();

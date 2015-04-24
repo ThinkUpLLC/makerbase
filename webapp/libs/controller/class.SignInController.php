@@ -58,8 +58,9 @@ class SignInController extends MakerbaseController {
                         $waitlist_dao->insert( $authed_twitter_user['user_id'], 'twitter',
                             $authed_twitter_user['user_name']);
                         SessionCache::put('info_message',
-                            "Edit rights on Makerbase are available by invitation only. You've been added to our ".
-                            "waiting list. Thanks for your interest!");
+                            "Thanks for your interest! You're on the waiting list.");
+                        $controller = new LandingController(true);
+                        return $controller->go();
                     }
 
                     CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);

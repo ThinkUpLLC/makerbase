@@ -1,6 +1,6 @@
 <?php
 
-class SearchAutoCompleteController extends MakerbaseController {
+class SearchAutoCompleteController extends MakerbaseAuthController {
 
     public function control() {
         parent::control();
