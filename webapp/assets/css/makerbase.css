@@ -29,6 +29,10 @@ h3, h4, input, textarea, .navbar-brand {
   margin-top: 0;
 }
 
+h1 {
+  color: #F36400;
+}
+
 @media (max-width: 768px) {
   h2 {
     font-size: 18px;
@@ -36,8 +40,8 @@ h3, h4, input, textarea, .navbar-brand {
 }
 
 .navbar {
-  background-color: #46bcff;
-  border-bottom: 1px solid #2785d3;
+  background-color: #black;
+  border-bottom: 1px solid #black;
   color: white;
   margin-bottom: 0;
   min-height: 0;
@@ -204,6 +208,10 @@ input#avatar-url {
   font-size: 24px;
 }
 
+.jumbotron {
+  background: white;
+}
+
 .main-avatar {
   width: 100%;
 }
@@ -279,13 +287,13 @@ input#avatar-url {
 }
 
 .btn-primary {
-  background-color: #2785D3;
-  border: 1px solid #46BCFF;
+  background-color: #7348B0;
+  border: 1px solid #B690E2;
 }
 
 .btn-primary:hover {
-  background-color: #46BCFF;
-  border: 1px solid #2785D3;
+  background-color: #B690E2;
+  border: 1px solid #8E69C2;
 }
 
 #add-panels {
@@ -343,6 +351,7 @@ input#avatar-url {
 .footer {
 	border-top: 1px solid #dbdbdb;
 	padding: 10px;
+  margin-top: 10px;
   font-size: 11px;
 }
 

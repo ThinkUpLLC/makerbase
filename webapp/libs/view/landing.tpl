@@ -2,10 +2,6 @@
 
 <div class="row">
    <div class="page-header col-sm-8 col-sm-offset-2 col-xs-12">
-    <h1>
-      Makerbase<br />
-      <small>A directory of people who make things.</small>
-    </h1>
 
     <form class="navbar-form" role="search" action="/search/" id="homepage-search">
       <div class="" id="remote-search">
