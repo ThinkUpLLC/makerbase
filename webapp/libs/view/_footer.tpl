@@ -35,6 +35,7 @@
           $('#slug').val($(this).data('slug'));
           $('#network-id').val($(this).data('network-id'));
           $('#network').val($(this).data('network'));
+          $('#network-username').val($(this).data('network-username'));
       });
 
     </script>

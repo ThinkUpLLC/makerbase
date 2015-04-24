@@ -226,9 +226,22 @@ class AddController extends MakerbaseAuthController {
                 && !empty($_POST['network_id']) && !empty($_POST['network'])) {
                 $autofill_dao = new AutofillMySQLDAO();
                 $autofill_dao->insert($_POST['network_id'], $_POST['network']);
+                if ($_POST['network'] == 'twitter') {
+                    if (isset($_POST['network_username']) && !empty($_POST['network_username']))  {
+                        $twitter_username = '@'.$_POST['network_username'];
+                        $tweet_body = $twitter_username
+                            .' I just added you to Makerbase. Check out your new maker page ';
+                        $tweet_link = ' <a href="https://twitter.com/share?text='.urlencode($tweet_body)
+                            .'" onclick="javascript:window.open(this.href,\'\', \'menubar=no,toolbar=no,resizable=yes,'
+                            .'scrollbars=yes,height=600,width=600\');return false;">Let '
+                            .$twitter_username.' know</a>.';
+                    }
+                } else {
+                    $tweet_link = '';
+                }
             }
 
-            SessionCache::put('success_message', 'You added '.$maker->name.'.');
+            SessionCache::put('success_message', 'You added '.$maker->name.'.'.$tweet_link);
             $this->redirect('/m/'.$maker->uid.'/'.$maker->slug);
         }
     }
