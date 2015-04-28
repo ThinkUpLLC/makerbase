@@ -7,13 +7,12 @@ class AboutPageController extends MakerbaseController {
     public function control() {
         parent::control();
 
-        if ($this->shouldRefreshCache() ) {
-            $page = isset($_GET['p'])?$_GET['p']:'about';
-            if (!in_array($page, $this->pages)) {
-                $page = 'about';
-            }
-            $this->setViewTemplate($page.'.tpl');
+        $page = isset($_GET['p'])?$_GET['p']:'about';
+        if (!in_array($page, $this->pages)) {
+            $page = 'about';
         }
+        $this->setViewTemplate($page.'.tpl');
+
         return $this->generateView();
     }
 }
