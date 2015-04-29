@@ -1,0 +1,1 @@
+ALTER TABLE waitlist ADD is_archived INT(1) NOT NULL DEFAULT '0' COMMENT 'Is waitlister archived (signed up).' , ADD INDEX (is_archived) ;

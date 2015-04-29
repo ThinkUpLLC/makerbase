@@ -31,6 +31,7 @@ class SignInController extends MakerbaseController {
 
                     //Twitter sign-in succceeded
                     $autofill_dao  = new AutofillMySQLDAO();
+                    $waitlist_dao = new WaitlistMySQLDAO();
 
                     if ($autofill_dao->doesAutofillExist($authed_twitter_user['user_id'], 'twitter')) {
                         //User is whitelisted, log on in
@@ -38,6 +39,7 @@ class SignInController extends MakerbaseController {
                         try {
                             $user = $user_dao->getByTwitterUserId($authed_twitter_user['user_id']);
                             $user_dao->updateLastLogin($user);
+                            $waitlist_dao->archive($authed_twitter_user['user_id'], 'twitter');
                         } catch (UserDoesNotExistException $e) {
                             $user = new User();
                             $user->name = $authed_twitter_user['full_name'];
@@ -54,7 +56,6 @@ class SignInController extends MakerbaseController {
                         Session::completeLogin($user->uid);
                         SessionCache::put('success_message', 'You have signed in.');
                     } else {
-                        $waitlist_dao = new WaitlistMySQLDAO();
                         $waitlist_dao->insert( $authed_twitter_user['user_id'], 'twitter',
                             $authed_twitter_user['user_name']);
                         SessionCache::put('is_waitlisted', true);
