@@ -12,7 +12,7 @@ class LandingController extends MakerbaseController {
             if ($this->shouldRefreshCache() ) {
                 $action_dao = new ActionMySQLDAO();
                 $user = $this->getLoggedInUser();
-                $actions = $action_dao->getUserConnectionsActivities($user->id);
+                $actions = $action_dao->getActivities();
                 if (sizeof($actions) == 0) {
                     $actions = $action_dao->getActivities();
                 }
