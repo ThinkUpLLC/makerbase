@@ -75,6 +75,7 @@ class SignInController extends MakerbaseController {
                     }
                 }
             } else {
+                $controller = new LandingController(true);
                 $controller->addErrorMessage(
                     "Oops! There was a problem signing in with Twitter. Please try again.");
             }
