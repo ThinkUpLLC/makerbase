@@ -28,6 +28,8 @@ class ProductController extends MakerbaseAuthController {
 
                 $image_proxy_sig = Config::getInstance()->getValue('image_proxy_sig');
                 $this->addToView('image_proxy_sig', $image_proxy_sig);
+
+                $this->addToView('placeholder', Role::getRandoPlaceholder());
             } catch (ProductDoesNotExistException $e) {
                 $this->addErrorMessage("Product ".$_GET['uid']." does not exist");
             }

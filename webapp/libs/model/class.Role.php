@@ -61,4 +61,18 @@ class Role {
             $this->is_archived = PDODAO::convertDBToBool($row['is_archived']);
         }
     }
+
+    public static function getRandoPlaceholder() {
+        $placeholders = array(
+            "Herded cats",
+            "Designed the flux capacitor",
+            "Raised the barn",
+            "Cranked widgets",
+            "Brainstormed concepts",
+            "Reticulated splines",
+            "Suggested the unicorns"
+        );
+
+        return $placeholders[rand()%count($placeholders)];
+    }
 }
