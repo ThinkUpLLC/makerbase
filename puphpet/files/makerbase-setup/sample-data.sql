@@ -1,5 +1,5 @@
 
--- Adminer 4.2.0 MySQL dump
+-- Makerbase sample data
 
 INSERT INTO `actions` (`id`, `uid`, `time_performed`, `user_id`, `ip_address`, `action_type`, `severity`, `object_id`, `object_type`, `object2_id`, `object2_type`, `metadata`) VALUES
 (1, '4ofsdn', '2015-03-15 04:23:13',  1,  '192.168.56.1', 'create', 1,  1,  'Product',  NULL, NULL, '{\"id\":\"1\",\"uid\":\"38523i\",\"slug\":\"thinkup\",\"name\":\"ThinkUp\",\"description\":\"Daily insights about your Twitter and Facebook life. Try it for free! Support: help@thinkup.com (We agree: https:\\/\\/t.co\\/gyk48GPOmz )\",\"url\":\"https:\\/\\/thinkup.com\",\"avatar_url\":\"http:\\/\\/pbs.twimg.com\\/profile_images\\/502058337287282688\\/mXWw3qLL.jpeg\",\"creation_time\":null,\"is_archived\":false}'),
@@ -23,7 +23,7 @@ INSERT INTO `connections` (`user_id`, `object_id`, `object_type`, `creation_time
 
 INSERT INTO `makers` (`id`, `uid`, `slug`, `name`, `url`, `avatar_url`, `creation_time`, `is_archived`) VALUES
 (1, 'iifqry', 'ginatrapani',  'Gina Trapani', 'http://ginatrapani.org', 'http://pbs.twimg.com/profile_images/550825678673682432/YRqb4FJE.png',  '2015-03-15 04:23:28',  0),
-(2, '355oz8', 'Annaleen', 'Annalee Newitz', 'http://techsploitation.com', 'http://pbs.twimg.com/profile_images/2381216127/7lycf0juxowmrx88i90m.jpeg', '2015-03-15 04:30:43',  0);
+(2, '355oz8', 'annaleen', 'Annalee Newitz', 'http://techsploitation.com', 'http://pbs.twimg.com/profile_images/2381216127/7lycf0juxowmrx88i90m.jpeg', '2015-03-15 04:30:43',  0);
 
 INSERT INTO `products` (`id`, `uid`, `slug`, `name`, `description`, `url`, `avatar_url`, `creation_time`, `is_archived`) VALUES
 (1, '38523i', 'thinkup',  'ThinkUp',  'Daily insights about your Twitter and Facebook life. Try it for free! Support: help@thinkup.com (We agree: https://t.co/gyk48GPOmz )', 'https://thinkup.com',  'http://pbs.twimg.com/profile_images/502058337287282688/mXWw3qLL.jpeg', '2015-03-15 04:23:13',  0),
@@ -35,6 +35,10 @@ INSERT INTO `roles` (`id`, `uid`, `product_id`, `maker_id`, `role`, `start`, `en
 (2, '2v3703', 2,  2,  'Founder and creator and visionary',  '2010-01-01', NULL, '2015-03-15 04:30:55',  0);
 
 INSERT INTO `users` (`id`, `uid`, `name`, `url`, `avatar_url`, `twitter_user_id`, `twitter_username`, `creation_time`, `last_login_time`, `twitter_oauth_access_token`, `twitter_oauth_access_token_secret`, `maker_id`) VALUES
-(1, 'asdf8x', 'Gina Trapani', 'http://ginatrapani.org', 'http://pbs.twimg.com/profile_images/550825678673682432/YRqb4FJE_normal.png', '930061', 'ginatrapani',  '2015-03-15 04:23:05',  '2015-03-15 04:23:05',  '930061-celUhQfokswjgpKHriRGJvKVPOp8cDnHaFUnxfsL8h3', 'OzllrOqWoj4bzsvbZjWzF9iAkkbOIwNZMQx5mu1QkFXqA',  NULL);
+(1, 'asdf8x', 'Gina Trapani', 'http://ginatrapani.org', 'http://pbs.twimg.com/profile_images/550825678673682432/YRqb4FJE.png', '930061', 'ginatrapani',  '2015-03-15 04:23:05',  '2015-03-15 04:23:05',  '930061-celUhQfokswjgpKHriRGJvKVPOp8cDnHaFUnxfsL8h3', 'OzllrOqWoj4bzsvbZjWzF9iAkkbOIwNZMQx5mu1QkFXqA',  NULL);
 
--- 2015-03-15 04:32:28
+-- Add an autofill for someone who is a maker but not a user
+
+INSERT INTO `autofills` (`network_id`, `network`, `network_username`, `creation_time`, `maker_id`, `product_id`) VALUES
+('756475',  'twitter',  'Annaleen', NOW(),  2,  NULL);
+

@@ -169,6 +169,9 @@ CREATE TABLE waitlist (
 
 -- Whitelist Gina and Anil for login
 
-INSERT INTO autofills (network_id, network) VALUES ('930061', 'twitter');
+INSERT INTO autofills (network_id, network, network_username, creation_time, maker_id, product_id) VALUES
+('930061',  'twitter',  'ginatrapani', NOW(),  NULL,  NULL);
 
-INSERT INTO autofills (network_id, network) VALUES ('36823', 'twitter');
+INSERT INTO autofills (network_id, network, network_username, creation_time, maker_id, product_id) VALUES
+('36823',  'twitter',  'anildash', NOW(),  NULL,  NULL);
+
