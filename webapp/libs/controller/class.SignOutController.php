@@ -4,8 +4,7 @@ class SignOutController extends AuthController {
 
     public function authControl() {
         Session::logout();
-        $controller = new LandingController(true);
-        $controller->addSuccessMessage("You have signed out.");
-        return $controller->go();
+        SessionCache::put('success_message', "You have signed out.");
+        $this->redirect(Config::getInstance()->getValue('site_root_path'));
     }
 }
