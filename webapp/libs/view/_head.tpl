@@ -1,5 +1,9 @@
 {if !isset($suppress_search)}
-  {assign var='suppress_search' value=false}
+  {if !isset($logged_in_user)}
+    {assign var='suppress_search' value=true}
+  {else}
+    {assign var='suppress_search' value=false}
+  {/if}
 {/if}
 
 <!DOCTYPE html>
