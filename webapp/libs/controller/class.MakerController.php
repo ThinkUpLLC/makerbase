@@ -11,7 +11,6 @@ class MakerController extends MakerbaseAuthController {
 
             try {
                 $maker = $maker_dao->get($_GET['uid']);
-                $this->addToView('maker', $maker);
 
                 $role_dao = new RoleMySQLDAO();
                 $roles = $role_dao->getByMaker($maker->id);
@@ -41,16 +40,12 @@ class MakerController extends MakerbaseAuthController {
                             $user = null;
                         }
                         if (!isset($user)) {
-                            //User doesn't exist, so add Tweet button
-                            $tweet_body = " @".$autofill['network_username']." Is your Makerbase page up to date?";
-                            $tweet_maker_link = ' <a href="https://twitter.com/share?text='.urlencode($tweet_body)
-                                .'" onclick="javascript:window.open(this.href,\'\', \'menubar=no,toolbar=no,'
-                                .'resizable=yes,scrollbars=yes,height=600,width=600\');return false;">Ask @'
-                                .$autofill['network_username'].' to edit this page</a>';
+                            //User doesn't exist, so add Twitter username to maker
+                            $maker->twitter_username = $autofill['network_username'];
                         }
                     }
                 }
-                $this->addToView('tweet_maker_link', $tweet_maker_link);
+                $this->addToView('maker', $maker);
 
                 $image_proxy_sig = Config::getInstance()->getValue('image_proxy_sig');
                 $this->addToView('image_proxy_sig', $image_proxy_sig);

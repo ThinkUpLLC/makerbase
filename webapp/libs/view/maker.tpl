@@ -25,7 +25,10 @@
       {/foreach}
       </ul>
       {/if}
-      {$tweet_maker_link}
+      {if isset($maker->twitter_username)}
+        {assign var="tweet_body" value="@{$maker->twitter_username} Is your Makerbase page up to date?"}
+      <a href="https://twitter.com/share?text={$tweet_body|urlencode}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">Ask @{$maker->twitter_username} to edit this page</a>
+      {/if}
     </div>
 
   </div>
