@@ -3,7 +3,7 @@
 
     <footer class="footer">
       <div class="container">
-        <p class="pull-right text-muted"><!-- <a href="/about/">About</a> &#183; --><a href="/about/terms/">Terms</a> &#183; <a href="/about/privacy/">Privacy</a></p>
+        <p class="pull-right text-muted"><a href="/about/terms/">Terms</a> &#183; <a href="/about/privacy/">Privacy</a></p>
         <p class="text-muted">&copy; 2015 <a href="/p/{$thinkup_uid}/thinkup">ThinkUp</a>. Go make something.</p>
       </div>
     </footer>
