@@ -57,8 +57,7 @@ class SignInController extends MakerbaseController {
                         $waitlist_dao = new WaitlistMySQLDAO();
                         $waitlist_dao->insert( $authed_twitter_user['user_id'], 'twitter',
                             $authed_twitter_user['user_name']);
-                        SessionCache::put('info_message',
-                            "Thanks for your interest! You're now on the waiting list.");
+                        SessionCache::put('is_waitlisted', true);
                         $controller = new LandingController(true);
                         return $controller->go();
                     }
