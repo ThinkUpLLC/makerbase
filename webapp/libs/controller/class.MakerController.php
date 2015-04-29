@@ -18,7 +18,7 @@ class MakerController extends MakerbaseAuthController {
 
                 // Get actions
                 $action_dao = new ActionMySQLDAO();
-                $actions = $action_dao->getActivitiesPerformedOnMaker($maker);
+                $actions = $action_dao->getActivities();
                 $this->addToView('actions', $actions);
 
                 // Transfer cached user messages to the view
