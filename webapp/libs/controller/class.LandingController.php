@@ -22,6 +22,7 @@ class LandingController extends MakerbaseController {
             $is_waitlisted = SessionCache::get('is_waitlisted');
             $is_waitlisted = isset($is_waitlisted);
             SessionCache::unsetKey('is_waitlisted');
+            $this->disableCaching();
             $this->addToView('is_waitlisted', $is_waitlisted);
             $this->setViewTemplate('landing-door.tpl');
         }
