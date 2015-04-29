@@ -13,7 +13,8 @@
 
 <div class="row">
     <div class="col-sm-8 col-sm-offset-2 col-xs-12">
-        <a class="btn btn-primary btn-lg" href="">Tweet at @makerbase</a>
+      {assign var="tweet_body" value="Hey @makerbase I made [add your project here]"}
+      <a class="btn btn-primary btn-lg" href="https://twitter.com/share?text={$tweet_body|urlencode}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">Tweet at @makerbase</a>
     </div>
 </div>
 

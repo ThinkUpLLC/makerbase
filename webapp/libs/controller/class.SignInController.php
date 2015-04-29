@@ -59,8 +59,7 @@ class SignInController extends MakerbaseController {
                         $waitlist_dao->insert( $authed_twitter_user['user_id'], 'twitter',
                             $authed_twitter_user['user_name']);
                         SessionCache::put('is_waitlisted', true);
-                        $controller = new LandingController(true);
-                        return $controller->go();
+                        $this->redirect(Config::getInstance()->getValue('site_root_path'));
                     }
 
                     CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
@@ -70,8 +69,7 @@ class SignInController extends MakerbaseController {
                             $this->generateView(); //for testing
                         }
                     } else {
-                        $controller = new LandingController(true);
-                        return $controller->go();
+                        $this->redirect(Config::getInstance()->getValue('site_root_path'));
                     }
                 }
             } else {
