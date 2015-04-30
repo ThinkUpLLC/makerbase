@@ -105,7 +105,7 @@ EOD;
         $q = <<<EOD
 SELECT a.*, u.name, u.uid AS user_uid FROM actions a
 INNER JOIN users u ON a.user_id = u.id
-WHERE a.object_type = 'Maker' AND a.object_id = :maker_id ORDER BY time_performed DESC;
+WHERE a.object_type = 'Maker' AND a.object_id = :maker_id ORDER BY time_performed DESC LIMIT 10;
 EOD;
         $vars = array (
             ':maker_id' => $maker->id
@@ -124,7 +124,7 @@ EOD;
 SELECT a.*, u.name, u.uid AS user_uid FROM actions a
 INNER JOIN users u ON a.user_id = u.id
 WHERE (a.object_type = 'Product' AND a.object_id = :product_id)
-OR (a.object2_type = 'Product' AND a.object2_id = :product_id) ORDER BY time_performed DESC;
+OR (a.object2_type = 'Product' AND a.object2_id = :product_id) ORDER BY time_performed DESC LIMIT 10;
 EOD;
         $vars = array (
             ':product_id' => $product->id
