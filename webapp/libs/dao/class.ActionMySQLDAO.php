@@ -138,14 +138,20 @@ EOD;
         return $actions;
     }
 
-    public function getActivities() {
+    public function getActivities($page = 1, $limit = 30) {
+        $start = $limit * ($page - 1);
+        $limit++;
         $q = <<<EOD
 SELECT a.*, u.name, u.uid AS user_uid FROM actions a
 INNER JOIN users u ON a.user_id = u.id
-ORDER BY time_performed DESC LIMIT 20;
+ORDER BY time_performed DESC LIMIT :start, :limit;
 EOD;
+        $vars = array (
+            ':start' => $start,
+            ':limit' => $limit
+        );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
-        $ps = $this->execute($q);
+        $ps = $this->execute($q, $vars);
         $actions = $this->getDataRowsAsObjects($ps, 'Action');
         foreach ($actions as $action) {
             $action->metadata = JSONDecoder::decode($action->metadata);

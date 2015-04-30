@@ -10,11 +10,16 @@ class LandingController extends MakerbaseController {
             $this->setViewTemplate('landing.tpl');
 
             if ($this->shouldRefreshCache() ) {
+                $page_number = (isset($_GET['p']))?$_GET['p']:1;
+                $limit = 10;
                 $action_dao = new ActionMySQLDAO();
-                $user = $this->getLoggedInUser();
-                $actions = $action_dao->getActivities();
-                if (sizeof($actions) == 0) {
-                    $actions = $action_dao->getActivities();
+                $actions = $action_dao->getActivities($page_number, $limit);
+                if (count($actions) > $limit) {
+                    array_pop($actions);
+                    $this->addToView('next_page', $page_number+1);
+                }
+                if ($page_number > 1) {
+                    $this->addToView('prev_page', $page_number-1);
                 }
                 $this->addToView('actions', $actions);
             }

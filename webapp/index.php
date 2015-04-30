@@ -20,6 +20,7 @@ $router = new Router();
 //In case of caching issues
 //Router::$routes = null;
 $router->addRoute('index', 'LandingController');
+$router->addRoute('activity', 'LandingController', array('p'));
 $router->addRoute('m', 'MakerController', array('uid', 'slug'));
 $router->addRoute('p', 'ProductController', array('uid', 'slug'));
 $router->addRoute('u', 'UserController', array('uid', 'p'));

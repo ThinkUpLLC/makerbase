@@ -26,6 +26,13 @@
 	    </li>
 	{/foreach}
 	</ul>
+  {if isset($next_page)}
+    <a href="/activity/{$next_page}">Next</a>
+  {/if}
+  {if isset($prev_page)}
+    <a href="/{if $prev_page neq 1}activity/{$prev_page}{/if}">Prev</a>
+  {/if}
+
 	{else}
 		{if isset($sign_in_with_twttr_link)}
 		<h3>Recent activity</h3>
