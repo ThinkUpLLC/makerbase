@@ -15,6 +15,10 @@
 
 
     <div class="history hidden-xs">
+      {if isset($maker->twitter_username)}
+        {assign var="tweet_body" value="@{$maker->twitter_username} Is your Makerbase page up to date?"}
+      <a  class="btn btn-xs btn-info" href="https://twitter.com/share?text={$tweet_body|urlencode}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">Ask @{$maker->twitter_username} to update this page</a><br><br>
+      {/if}
       {if sizeof($actions) > 0}
       <h4>History</h4>
       <ul class="list-unstyled">
@@ -24,10 +28,6 @@
           </li>
       {/foreach}
       </ul>
-      {/if}
-      {if isset($maker->twitter_username)}
-        {assign var="tweet_body" value="@{$maker->twitter_username} Is your Makerbase page up to date?"}
-      <a href="https://twitter.com/share?text={$tweet_body|urlencode}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">Ask @{$maker->twitter_username} to edit this page</a>
       {/if}
     </div>
 
