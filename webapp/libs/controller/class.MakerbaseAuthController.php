@@ -34,5 +34,17 @@ class MakerbaseAuthController extends AuthController {
             $this->addInfoMessage($info_message);
         }
     }
+
+    public function getCacheKeyString() {
+        $view_cache_key = array();
+        $keys = array_keys($_GET);
+        foreach ($keys as $key) {
+            array_push($view_cache_key, $_GET[$key]);
+        }
+        if (Session::isLoggedIn()) {
+            array_push($view_cache_key, Session::getLoggedInUser());
+        }
+        return '.ht'.$this->view_template.self::KEY_SEPARATOR.(implode($view_cache_key, self::KEY_SEPARATOR));
+    }
 }
 
