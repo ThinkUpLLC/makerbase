@@ -135,7 +135,7 @@ CREATE TABLE users (
   id int(11) NOT NULL AUTO_INCREMENT COMMENT 'Internal unique ID.',
   uid varchar(8) NOT NULL COMMENT 'External unique ID.',
   `name` varchar(255) NOT NULL COMMENT 'Full name.',
-  url varchar(255) NOT NULL COMMENT 'Web site URL.',
+  url varchar(255) DEFAULT NULL COMMENT 'Web site URL.',
   avatar_url varchar(255) NOT NULL COMMENT 'Avatar URL.',
   twitter_user_id varchar(191) NOT NULL COMMENT 'Twitter user ID.',
   twitter_username varchar(255) NOT NULL COMMENT 'Twitter username.',
