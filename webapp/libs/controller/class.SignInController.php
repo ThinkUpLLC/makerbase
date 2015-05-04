@@ -39,7 +39,6 @@ class SignInController extends MakerbaseController {
                         try {
                             $user = $user_dao->getByTwitterUserId($authed_twitter_user['user_id']);
                             $user_dao->updateLastLogin($user);
-                            $waitlist_dao->archive($authed_twitter_user['user_id'], 'twitter');
                         } catch (UserDoesNotExistException $e) {
                             $user = new User();
                             $user->name = $authed_twitter_user['full_name'];
@@ -52,6 +51,8 @@ class SignInController extends MakerbaseController {
                             $new_user = $user_dao->insert($user);
                             $user->id = $new_user->id;
                             $user->uid = $new_user->uid;
+
+                            $waitlist_dao->archive($authed_twitter_user['user_id'], 'twitter');
                         }
                         Session::completeLogin($user->uid);
                         SessionCache::put('success_message', 'You have signed in.');
