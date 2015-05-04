@@ -30,4 +30,14 @@ EOD;
         $ps = $this->execute($q, $vars);
         return $this->getUpdateCount($ps);
     }
+
+    public function get() {
+        $q = <<<EOD
+SELECT * FROM waitlist w
+WHERE is_archived = 0 ORDER BY creation_time DESC LIMIT 20;
+EOD;
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $ps = $this->execute($q);
+        return $this->getDataRowsAsArrays($ps);
+    }
 }
