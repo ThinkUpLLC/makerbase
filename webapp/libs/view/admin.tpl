@@ -6,7 +6,7 @@
     <h2>Waitlist</h2>
     <ul>
     {foreach $waitlisters as $waitlister}
-    <li><a href="/add/maker/?q={$waitlister.twitter_username}">{$waitlister.twitter_username}</a> {$waitlister.creation_time}</li>
+    <li><a href="/add/maker/?q={$waitlister.network_username}">{$waitlister.network_username}</a> {$waitlister.creation_time|relative_datetime} ago</li>
     {/foreach}
     </ul>
 {/if}

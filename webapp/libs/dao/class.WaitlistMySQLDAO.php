@@ -34,7 +34,7 @@ EOD;
     public function get() {
         $q = <<<EOD
 SELECT * FROM waitlist w
-WHERE is_archived = 0 ORDER BY creation_time DESC LIMIT 20;
+WHERE is_archived = 0 ORDER BY creation_time DESC LIMIT 100;
 EOD;
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         $ps = $this->execute($q);
