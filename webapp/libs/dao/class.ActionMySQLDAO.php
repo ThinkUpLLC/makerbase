@@ -3,7 +3,7 @@ class ActionMySQLDAO extends MakerbasePDODAO {
 
     public function get($uid) {
         $q = <<<EOD
-SELECT a.*, u.name, u.uid AS user_uid FROM actions a
+SELECT a.*, u.name, u.uid AS user_uid, u.twitter_username as username FROM actions a
 INNER JOIN users u ON a.user_id = u.id
 WHERE a.uid = :uid ;
 EOD;
@@ -62,7 +62,7 @@ EOD;
 
     public function getUserConnectionsActivities($user_id) {
         $q = <<<EOD
-SELECT a.*, u.name, u.uid AS user_uid FROM actions a INNER JOIN connections c
+SELECT a.*, u.name, u.uid AS user_uid, u.twitter_username as username FROM actions a INNER JOIN connections c
 ON c.object_type = a.object_type and c.object_id = a.object_id
 INNER JOIN users u ON a.user_id = u.id
 WHERE c.user_id = :user_id ORDER BY time_performed DESC LIMIT 7;
@@ -83,7 +83,7 @@ EOD;
         $start = $limit * ($page - 1);
         $limit++;
         $q = <<<EOD
-SELECT a.*, u.name, u.uid AS user_uid FROM actions a
+SELECT a.*, u.name, u.uid AS user_uid, u.twitter_username as username FROM actions a
 INNER JOIN users u ON a.user_id = u.id
 WHERE a.user_id = :user_id ORDER BY time_performed DESC LIMIT :start, :limit;
 EOD;
@@ -103,7 +103,7 @@ EOD;
 
     public function getActivitiesPerformedOnMaker(Maker $maker) {
         $q = <<<EOD
-SELECT a.*, u.name, u.uid AS user_uid FROM actions a
+SELECT a.*, u.name, u.uid AS user_uid, u.twitter_username as username FROM actions a
 INNER JOIN users u ON a.user_id = u.id
 WHERE a.object_type = 'Maker' AND a.object_id = :maker_id ORDER BY time_performed DESC LIMIT 10;
 EOD;
@@ -121,7 +121,7 @@ EOD;
 
     public function getActivitiesPerformedOnProduct(Product $product) {
         $q = <<<EOD
-SELECT a.*, u.name, u.uid AS user_uid FROM actions a
+SELECT a.*, u.name, u.uid AS user_uid, u.twitter_username as username FROM actions a
 INNER JOIN users u ON a.user_id = u.id
 WHERE (a.object_type = 'Product' AND a.object_id = :product_id)
 OR (a.object2_type = 'Product' AND a.object2_id = :product_id) ORDER BY time_performed DESC LIMIT 10;
@@ -142,7 +142,7 @@ EOD;
         $start = $limit * ($page - 1);
         $limit++;
         $q = <<<EOD
-SELECT a.*, u.name, u.uid AS user_uid FROM actions a
+SELECT a.*, u.name, u.uid AS user_uid, u.twitter_username as username FROM actions a
 INNER JOIN users u ON a.user_id = u.id
 ORDER BY time_performed DESC LIMIT :start, :limit;
 EOD;

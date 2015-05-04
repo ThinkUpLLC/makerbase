@@ -1,6 +1,6 @@
 {include file="_head.tpl"}
 
-<h1>{$user->name} makes Makerbase</h1>
+<h1>{$user->twitter_username} makes Makerbase</h1>
 
 <div class="row">
   <div class="col-sm-5 col-xs-12">

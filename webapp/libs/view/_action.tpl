@@ -69,7 +69,7 @@
 	</div>
 
 	<div class="col-xs-8 col-sm-8">
-		{if $actor neq 'You'}<a href="/u/{$action->user_uid}">{$action->name}</a>{else}{$actor}{/if} {if $action->action_type eq 'update'}<a data-toggle="popover" data-html="true" data-content="{include file='_diff.tpl'}" tabindex="0" data-trigger="focus" >{/if}{$action->action_type}d{if $action->action_type eq 'update'}</a>{/if} <a href="/{if $action->object_type eq 'Maker'}m/{$maker_uid}/{$maker_slug}">{$maker_name}{else}p/{$product_uid}/{$product_slug}">{$product_name}{/if}</a>{if isset($action->object2_id)} {if $action->action_type eq 'associate'}with{else}on{/if} <a href="/p/{$product_uid}/{$product_slug}">{$product_name}</a>{/if}
+		{if $actor neq 'You'}<a href="/u/{$action->user_uid}">{$action->username}</a>{else}{$actor}{/if} {if $action->action_type eq 'update'}<a data-toggle="popover" data-html="true" data-content="{include file='_diff.tpl'}" tabindex="0" data-trigger="focus" >{/if}{$action->action_type}d{if $action->action_type eq 'update'}</a>{/if} <a href="/{if $action->object_type eq 'Maker'}m/{$maker_uid}/{$maker_slug}">{$maker_name}{else}p/{$product_uid}/{$product_slug}">{$product_name}{/if}</a>{if isset($action->object2_id)} {if $action->action_type eq 'associate'}with{else}on{/if} <a href="/p/{$product_uid}/{$product_slug}">{$product_name}</a>{/if}
 
 		<div><small class="text-muted">{$action->time_performed|relative_datetime} ago</small></div>
 	</div>
