@@ -30,6 +30,11 @@
     <meta name="twitter:site" content="@makerbase" />
     <meta name="twitter:domain" content="makerba.se" />
     <meta name="twitter:creator" content="@makerbase" />
+    <link rel="shortcut icon" type="image/x-icon" href="{$site_root_path}assets/img/favicon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{$site_root_path}assets/img/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{$site_root_path}assets/img/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{$site_root_path}assets/img/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="{$site_root_path}assets/img/apple-touch-icon-57-precomposed.png">
 
     {if isset($maker) || isset($product)}
       {if isset($maker)}
