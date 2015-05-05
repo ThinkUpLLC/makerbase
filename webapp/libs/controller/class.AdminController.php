@@ -8,8 +8,11 @@ class AdminController extends MakerbaseAuthController {
 
         if ($this->logged_in_user->twitter_username == 'makerbase') {
             $waitlist_dao = new WaitlistMySQLDAO();
-            $waitlisters = $waitlist_dao->get();
+            $waitlisters = $waitlist_dao->get(20);
             $this->addToView('waitlisters', $waitlisters);
+
+            $total_waitlisters = $waitlist_dao->getTotal();
+            $this->addToView('total_waitlisters', $total_waitlisters);
             // TODO: Show total users, waitlisters, projects, roles, activity
 
             $image_proxy_sig = Config::getInstance()->getValue('image_proxy_sig');

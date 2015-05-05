@@ -31,13 +31,27 @@ EOD;
         return $this->getUpdateCount($ps);
     }
 
-    public function get() {
+    public function get($limit = 20) {
         $q = <<<EOD
 SELECT * FROM waitlist w
-WHERE is_archived = 0 ORDER BY creation_time DESC LIMIT 100;
+WHERE is_archived = 0 ORDER BY creation_time DESC LIMIT :limit;
+EOD;
+        $vars = array (
+            ':limit' => $limit
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $ps = $this->execute($q, $vars);
+        return $this->getDataRowsAsArrays($ps);
+    }
+
+    public function getTotal() {
+        $q = <<<EOD
+SELECT count(*) AS total FROM waitlist w
+WHERE is_archived = 0;
 EOD;
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         $ps = $this->execute($q);
-        return $this->getDataRowsAsArrays($ps);
+        $result = $this->getDataRowAsArray($ps);
+        return $result['total'];
     }
 }
