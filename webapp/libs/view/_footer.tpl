@@ -15,6 +15,15 @@
     <script src="{$site_root_path}assets/js/vendor/bootstrap-datepicker.min.js"></script>
     <script src="{$site_root_path}assets/js/vendor/typeahead.bundle.min.js"></script>
     <script src="{$site_root_path}assets/js/vendor/handlebars-v3.0.0.js"></script>
+
+    {if isset($logged_in_user)}
+    {literal}
+    <script type='text/javascript'>
+      ga(‘set’, ‘&uid’, </literal>{$logged_in_user->uid}<literal>);
+    </script>
+    {/literal}
+    {/if}
+
     {literal}
     <script type='text/javascript'>
       $('.input-daterange').datepicker({
@@ -168,6 +177,17 @@
       });
 
       $(window).trigger('resize');
+    </script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-62611536-1', 'auto');
+      ga('send', 'pageview');
+
     </script>
 
     {/literal}
