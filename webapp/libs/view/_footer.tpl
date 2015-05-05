@@ -19,7 +19,7 @@
     {if isset($logged_in_user)}
     {literal}
     <script type='text/javascript'>
-      ga(‘set’, ‘&uid’, </literal>{$logged_in_user->uid}<literal>);
+      ga(‘set’, ‘&uid’, {/literal}{$logged_in_user->uid}{literal});
     </script>
     {/literal}
     {/if}
