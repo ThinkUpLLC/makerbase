@@ -28,7 +28,7 @@ EOD;
 SELECT r.*, r.id AS role_id, r.uid AS role_uid, p.*, p.id AS product_id, p.uid AS product_uid,
 r.is_archived AS role_is_archived FROM roles r
 INNER JOIN products p ON r.product_id = p.id WHERE r.is_archived = 0 AND maker_id = :maker_id
-ORDER BY ISNULL(start), start DESC
+ORDER BY ISNULL(start), -ISNULL(end), start DESC
 EOD;
         $vars = array ( ':maker_id' => $maker_id);
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
