@@ -230,6 +230,10 @@ class AddController extends MakerbaseAuthController {
                 $autofill_dao->insertMakerAutofill($_POST['network_id'], $_POST['network'], $network_username,
                     $maker->id);
 
+                //Flip waitlist bit, user can sign in now
+                $waitlist_dao = new WaitlistMySQLDAO();
+                $waitlist_dao->archive($_POST['network_id'], $_POST['network']);
+
                 //Set up tweet link in success message
                 if ($_POST['network'] == 'twitter') {
                     if (isset($network_username))  {
@@ -296,6 +300,10 @@ class AddController extends MakerbaseAuthController {
                     $_POST['network_username']:null;
                 $autofill_dao->insertProductAutofill($_POST['network_id'], $_POST['network'], $network_username,
                     $product->id);
+
+                //Flip waitlist bit, user can sign in now
+                $waitlist_dao = new WaitlistMySQLDAO();
+                $waitlist_dao->archive($_POST['network_id'], $_POST['network']);
             }
 
             SessionCache::put('success_message', 'You added '.$product->name.'.');
