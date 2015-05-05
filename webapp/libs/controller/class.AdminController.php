@@ -7,6 +7,8 @@ class AdminController extends MakerbaseAuthController {
         $this->setViewTemplate('admin.tpl');
 
         if ($this->logged_in_user->twitter_username == 'makerbase') {
+            $this->disableCaching();
+
             $waitlist_dao = new WaitlistMySQLDAO();
             $waitlisters = $waitlist_dao->get(20);
             $this->addToView('waitlisters', $waitlisters);
