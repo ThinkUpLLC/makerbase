@@ -6,7 +6,7 @@
     <form class="navbar-form" role="search" action="/search/" id="homepage-search">
       <div class="" id="remote-search">
         <div class="">
-          <input type="search" class="form-control typeahead" placeholder="Search..." name="q" autocomplete="off" id="nav-typeahead">
+          <input type="search" class="form-control typeahead" placeholder="Search or add..." name="q" autocomplete="off" id="nav-typeahead">
       </div>
       </div>
      </form>
@@ -26,12 +26,17 @@
 	    </li>
 	{/foreach}
 	</ul>
-  {if isset($next_page)}
-    <a href="/activity/{$next_page}">Next</a>
-  {/if}
-  {if isset($prev_page)}
-    <a href="/{if $prev_page neq 1}activity/{$prev_page}{/if}">Prev</a>
-  {/if}
+
+  <nav>
+    <ul class="pager">
+      {if isset($next_page)}
+        <li class="previous"><a href="/activity/{$next_page}"><span aria-hidden="true">&larr;</span> Older</a></li>
+      {/if}
+      {if isset($prev_page)}
+        <li class="next"><a href="/{if $prev_page neq 1}activity/{$prev_page}{/if}">Newer <span aria-hidden="true">&rarr;</a></li>
+      {/if}
+    </ul>
+  </nav>
 
 	{else}
 		{if isset($sign_in_with_twttr_link)}

@@ -3,7 +3,7 @@
 
     <footer class="footer">
       <div class="container">
-        <p class="pull-right text-muted"><a href="/about/terms/">Terms</a> &#183; <a href="/about/privacy/">Privacy</a></p>
+        <p class="pull-right text-muted"><a href="https://twitter.com/makerbase">@makerbase</a> &#183; <a href="/about/terms/">Terms</a> &#183; <a href="/about/privacy/">Privacy</a></p>
         <p class="text-muted">&copy; 2015 <a href="{if isset($logged_in_user)}/p/{$thinkup_uid}/thinkup{else}http://thinkup.com{/if}">ThinkUp</a>. Go make something.</p>
       </div>
     </footer>
@@ -78,8 +78,8 @@
           suggestion: Handlebars.compile('<a class="media" href="/{{type}}/{{uid}}/{{slug}}"><div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div></a>'),
           footer: [
             '<br><div class="media-body">',
-            '<a onclick="location.href=\'/add/maker/?q=\'+ encodeURIComponent($(\'#nav-typeahead\').val());" class="btn btn-success btn-md">Create a Maker</a> ',
-            '<a onclick="location.href=\'/add/product/?q=\'+ encodeURIComponent($(\'#nav-typeahead\').val());" class="btn btn-success btn-md">Create a Project</a>',
+            '<a onclick="location.href=\'/add/maker/?q=\'+ encodeURIComponent($(\'#nav-typeahead\').val());" class="btn btn-success btn-md">Create this Maker</a> ',
+            '<a onclick="location.href=\'/add/product/?q=\'+ encodeURIComponent($(\'#nav-typeahead\').val());" class="btn btn-success btn-md">Create this Project</a>',
             '</div>',
           ].join('\n')
         }
@@ -112,7 +112,7 @@
           ].join('\n'),
           suggestion: Handlebars.compile('<div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div>'),
           footer: [
-            '<br><div class="media-body"><a onclick="location.href=\'/add/maker/?q=\'+ encodeURIComponent($(\'#maker-name\').val());" class="btn btn-success btn-md">Create Maker</a></div>'
+            '<br><div class="media-body"><a onclick="location.href=\'/add/maker/?q=\'+ encodeURIComponent($(\'#maker-name\').val());" class="btn btn-success btn-md">Create this Maker</a></div>'
           ].join('\n')
         }
       });
@@ -150,7 +150,7 @@
           ].join('\n'),
           suggestion: Handlebars.compile('<div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div></div>'),
           footer: [
-            '<br><div class="media-body"><a onclick="location.href=\'/add/product/?q=\'+ encodeURIComponent($(\'#product-name\').val());" class="btn btn-success btn-md">Create Project</a></div>'
+            '<br><div class="media-body"><a onclick="location.href=\'/add/product/?q=\'+ encodeURIComponent($(\'#product-name\').val());" class="btn btn-success btn-md">Create this Project</a></div>'
           ].join('\n')
         }
       });

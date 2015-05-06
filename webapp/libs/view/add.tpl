@@ -86,7 +86,7 @@
 						<input type="hidden" name="network_id" id="network-id" value="">
 						<input type="hidden" name="network" id="network" value="">
 						<input type="hidden" name="network_username" id="network-username" value="">
-						<button class="btn btn-primary col-xs-4 col-sm-2 col-sm-offset-3" type="submit">Make it!</button>
+						<button class="btn btn-primary col-xs-6 col-sm-3 col-sm-offset-3" type="submit">{if $object eq 'product'}Make it!{else}Add them to Makerbase!{/if}</button>
 					</div>
 		    </div>
 
@@ -97,7 +97,7 @@
 	</div>
 
 {if isset($smarty.get.q)}
-	<h4>Is it one of these?</h4>
+	<h4>{if $object eq 'product'}Is it one of these?{else}Looking for one of these?{/if}</h4>
 
 	<div class="col-xs-12" id="add-panels">
 

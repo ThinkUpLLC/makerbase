@@ -116,6 +116,10 @@ h1 {
   width: 100% !important;
 }
 
+.pager li>a, .pager li>span {
+  border-radius: 0;
+}
+
 .tt-hint {
   border: none;
 }
@@ -237,6 +241,10 @@ input#avatar-url {
 .action-item img {
 }
 
+a.user-link {
+  color: black;
+}
+
 .form-inline {
 	padding-bottom: 20px;
 }
@@ -294,6 +302,18 @@ input#avatar-url {
 .btn-primary:hover {
   background-color: #B690E2;
   border: 1px solid #8E69C2;
+  color: black;
+}
+
+.btn-info {
+  background-color: #DBDBDB;
+  border: 1px solid #999;
+  color: black;
+}
+
+.btn-info:hover {
+  background-color: #999;
+  border: 1px solid #666;
 }
 
 #add-panels {
