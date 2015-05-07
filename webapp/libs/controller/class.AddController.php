@@ -239,7 +239,8 @@ class AddController extends MakerbaseAuthController {
                     if (isset($network_username))  {
                         $twitter_username = '@'.$_POST['network_username'];
                         $tweet_body = $twitter_username
-                            .' I just added you to Makerbase. Check out your new maker page ';
+                            .' Hey, I just added you to Makerbase.'
+                            .' Now you can edit your page & list projects/makers who inspire you';
                         $tweet_link = ' <a href="https://twitter.com/share?text='.urlencode($tweet_body)
                             .'" onclick="javascript:window.open(this.href,\'\', \'menubar=no,toolbar=no,resizable=yes,'
                             .'scrollbars=yes,height=600,width=600\');return false;">Let '
