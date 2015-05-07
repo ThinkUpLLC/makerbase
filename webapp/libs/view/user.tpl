@@ -16,12 +16,18 @@
         </li>
     {/foreach}
 	</ul>
-  {if isset($next_page)}
-    <a href="/u/{$user->uid}/{$next_page}">Next</a>
-  {/if}
-  {if isset($prev_page)}
-    <a href="/u/{$user->uid}{if $prev_page neq 1}/{$prev_page}{/if}">Prev</a>
-  {/if}
+
+  <nav>
+    <ul class="pager">
+      {if isset($next_page)}
+        <li class="previous"><a href="/u/{$user->uid}/{$next_page}"><span aria-hidden="true">&larr;</span> Older</a></li>
+      {/if}
+      {if isset($prev_page)}
+        <li class="next"><a href="/u/{$user->uid}{if $prev_page neq 1}/{$prev_page}{/if}">Newer <span aria-hidden="true">&rarr;</a></li>
+      {/if}
+    </ul>
+  </nav>
+
   </div>
 </div>
 
