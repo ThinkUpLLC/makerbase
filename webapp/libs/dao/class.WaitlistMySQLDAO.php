@@ -56,4 +56,31 @@ EOD;
         $result = $this->getDataRowAsArray($ps);
         return $result['total'];
     }
+
+    public function getWaitlistersWithZeroFollowers($limit = 20) {
+        $q = <<<EOD
+SELECT * FROM waitlist w
+WHERE is_archived = 0 AND follower_count = 0 LIMIT :limit;
+EOD;
+        $vars = array (
+            ':limit' => $limit
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $ps = $this->execute($q, $vars);
+        return $this->getDataRowsAsArrays($ps);
+    }
+
+    public function setFollowerCount($network_id, $network, $follower_count) {
+        $q = <<<EOD
+UPDATE  waitlist SET follower_count = :follower_count WHERE network_id = :network_id AND network = :network
+EOD;
+        $vars = array (
+            ':network_id' => $network_id,
+            ':network' => $network,
+            ':follower_count' => $follower_count,
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $ps = $this->execute($q, $vars);
+        return $this->getUpdateCount($ps);
+    }
 }
