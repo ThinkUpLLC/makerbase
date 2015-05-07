@@ -17,17 +17,24 @@
 
 {if isset($actions)}
   {if sizeof($actions) > 0}
-  <div class=" col-sm-8 col-sm-offset-2 col-xs-12">
-  	<h3>Recent activity</h3>
-	<ul class="list-group">
-	{foreach $actions as $action}
-	    <li class="list-group-item">
-	    {include file="_action.tpl"}
-	    </li>
-	{/foreach}
-	</ul>
 
-  <nav>
+
+  <div id="history" class="col-xs-12">
+
+    <h3>Recent activity</h3>
+
+    {if sizeof($actions) > 0}
+    <ul class="list-group">
+    {foreach $actions as $action}
+        <li class="list-group-item col-xs-12">
+        {include file="_action.tpl"}
+        </li>
+    {/foreach}
+    </ul>
+    {/if}
+  </div>
+
+  <nav id="homepage-pager" class="col-xs-12">
     <ul class="pager">
       {if isset($next_page)}
         <li class="previous"><a href="/activity/{$next_page}"><span aria-hidden="true">&larr;</span> Older</a></li>

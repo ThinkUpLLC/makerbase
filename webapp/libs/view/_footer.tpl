@@ -47,9 +47,6 @@
           $('#network-username').val($(this).data('network-username'));
       });
 
-    </script>
-
-    <script type="text/javascript">
       //Search makers and products
       var searchAllMakersProducts = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
@@ -159,6 +156,41 @@
               $('#product-uid').val(datum.uid);
               $('#product-name').val(datum.name);
       }).off('blur');
+
+      //Enable drop-down month/year selection in roles
+
+      $('#from_month').change(function(){
+          if (!$('#from_year').val()) {
+            $("#from_year").val('2015');
+          }
+          var start_date = $('#from_year').val() + '-' + $('#from_month').val();
+          $("input#start_date").val(start_date);
+      });
+      $('#from_year').change(function(){
+          if (!$('#from_month').val()) {
+            $("#from_month").val('01');
+          }
+          var start_date = $('#from_year').val() + '-' + $('#from_month').val();
+          $("input#start_date").val(start_date);
+      });
+      $('#to_month').change(function(){
+          if (!$('#to_year').val()) {
+            $("#to_year").val('2015');
+          }
+          var end_date = $('#to_year').val() + '-' + $('#to_month').val();
+          $("input#end_date").val(end_date);
+      });
+      $('#to_year').change(function(){
+          if (!$('#to_month').val()) {
+            $("#to_month").val('01');
+          }
+          if ($('#to_year').val() < $('#from_year').val()) {
+            $("#to_year").val($('#from_year').val());
+          }
+          var end_date = $('#to_year').val() + '-' + $('#to_month').val();
+          $("input#end_date").val(end_date);
+      });
+
 
       $(function () {
         $('[data-toggle="popover"]').popover()

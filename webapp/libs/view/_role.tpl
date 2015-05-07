@@ -1,3 +1,4 @@
+
 {*
  * Display a role. Show makers on product pages, and products on maker pages.
  *
@@ -16,24 +17,26 @@
     {assign var="object_uid" value=$role->maker->uid}
 {/if}
 
-{if isset($role->start_MY)}<span class="badge {if !isset($role->end_MY)}bg-success{/if}">{$role->start_MY} &mdash; {if isset($role->end_MY)}{$role->end_MY}{else}Present{/if}</span>{/if}
-
-<div class="media-left media-middle">
-    <a href="/{$object_route}/{$display_object->uid}/{$display_object->slug}">
-    <img class="media-object" src="{insert name='user_image' image_url=$display_object->avatar_url image_proxy_sig=$image_proxy_sig type=$object_route}" alt="{$display_object->name} logo" width="40" height="40">
-    </a>
-</div>
-<div class="media-body">
-    <h3>
-        <a href="/{$object_route}/{$object_uid}/{$display_object->slug}">{$display_object->name}</a>
-    </h3>
-    <h4>
-        {$role->role|atnames:'/search/?q='}
-        <a {if isset($logged_in_user)}href="#edit-role-{$role->uid}" data-toggle="collapse"{else}href="{$sign_in_with_twttr_link}"{/if} type="button" class="btn btn-default btn-xs" id="edit-role-btn">
-            <span class="fa fa-pencil" aria-hidden="true"></span>
+<div class="list-group-item col-xs-10">
+    <div class="media-left media-top">
+        <a href="/{$object_route}/{$display_object->uid}/{$display_object->slug}">
+        <img class="media-object" src="{insert name='user_image' image_url=$display_object->avatar_url image_proxy_sig=$image_proxy_sig type=$object_route}" alt="{$display_object->name} logo" width="40" height="40">
         </a>
-    </h4>
+    </div>
+    <div class="media-body">
+        <h3>
+            <a href="/{$object_route}/{$object_uid}/{$display_object->slug}">{$display_object->name}</a>
+        </h3>
+        <h4>
+            {$role->role|atnames:'/search/?q='}
+            <a {if isset($logged_in_user)}href="#edit-role-{$role->uid}" data-toggle="collapse"{else}href="{$sign_in_with_twttr_link}"{/if} type="button" class="btn btn-default btn-xs" id="edit-role-btn">
+                <span class="fa fa-pencil" aria-hidden="true"></span>
+            </a>
+        </h4>
+    </div>
 </div>
+
+<h5 class="col-xs-2 {if !isset($role->end_MY)}text-success{/if}">{if isset($role->start_MY)}{$role->start_MY}&nbsp;&mdash; {if isset($role->end_MY)}{$role->end_MY}{else}Present{/if}{/if}</h5>
 
 {if isset($logged_in_user)}
 <!-- edit form -->
@@ -85,3 +88,4 @@
 
 </div>
 {/if}
+
