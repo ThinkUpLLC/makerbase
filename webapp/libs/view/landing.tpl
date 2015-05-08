@@ -19,7 +19,7 @@
   {if sizeof($actions) > 0}
 
 
-  <div id="history" class="col-xs-10 col-xs-offset-1">
+  <div id="history" class="col-sm-10 col-sm-offset-1 col-xs-12">
 
     <h3>Recent activity</h3>
 
@@ -34,7 +34,7 @@
     {/if}
   </div>
 
-  <nav id="pager" class="col-xs-10 col-xs-offset-1">
+  <nav id="pager" class="col-sm-10 col-sm-offset-1 col-xs-12">
     <ul class="pager">
       {if isset($next_page)}
         <li class="previous"><a href="/activity/{$next_page}"><span aria-hidden="true">&larr;</span> Older</a></li>
