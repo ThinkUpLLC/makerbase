@@ -52,7 +52,7 @@ class MakerController extends MakerbaseAuthController {
 
                 $this->addToView('placeholder', Role::getRandoPlaceholder());
             } catch (MakerDoesNotExistException $e) {
-                $this->addErrorMessage("Maker ".$_GET['uid']." does not exist");
+                $this->redirect('/404');
             }
         }
         return $this->generateView();

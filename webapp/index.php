@@ -16,7 +16,7 @@ require 'vendor/autoload.php';
 //FineDiff
 require 'extlibs/FineDiff/finediff.php';
 
-$router = new Router();
+$router = new Router('PageNotFoundController');
 //In case of caching issues
 //Router::$routes = null;
 $router->addRoute('index', 'LandingController');

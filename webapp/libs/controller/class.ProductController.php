@@ -31,7 +31,7 @@ class ProductController extends MakerbaseAuthController {
 
                 $this->addToView('placeholder', Role::getRandoPlaceholder());
             } catch (ProductDoesNotExistException $e) {
-                $this->addErrorMessage("Product ".$_GET['uid']." does not exist");
+                $this->redirect('/404');
             }
         }
         return $this->generateView();
