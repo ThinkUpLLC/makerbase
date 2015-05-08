@@ -7,7 +7,7 @@
     <h2>Waitlist ({$total_waitlisters})</h2>
     <ul>
     {foreach $waitlisters as $waitlister}
-    <li><a href="/add/maker/?q={$waitlister.network_username}">Add</a> - <a href="https://twitter.com/intent/user?user_id={$waitlister.network_id}">@{$waitlister.network_username}</a> - {$waitlister.follower_count|number_format} - {$waitlister.creation_time|relative_datetime} ago</li>
+    <li><a href="/add/maker/?q={$waitlister.network_username}">Add</a> - <a href="https://twitter.com/intent/user?user_id={$waitlister.network_id}">@{$waitlister.network_username}</a> - {$waitlister.follower_count|number_format} - <a href="/requestinvites/{$waitlister.network_id}/">check followers</a> - {$waitlister.creation_time|relative_datetime} ago</li>
     {/foreach}
     </ul>
 {/if}

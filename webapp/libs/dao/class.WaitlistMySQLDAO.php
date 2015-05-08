@@ -38,7 +38,7 @@ EOD;
         return $this->getUpdateCount($ps);
     }
 
-    public function get($limit = 20) {
+    public function listWaitlisters($limit = 20) {
         $q = <<<EOD
 SELECT * FROM waitlist w
 WHERE is_archived = 0 ORDER BY is_verified, follower_count DESC LIMIT :limit;
@@ -49,6 +49,20 @@ EOD;
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         $ps = $this->execute($q, $vars);
         return $this->getDataRowsAsArrays($ps);
+    }
+
+    public function get($network_id, $network = 'twitter') {
+        $q = <<<EOD
+SELECT * FROM waitlist w
+WHERE network_id = :network_id AND network = :network;
+EOD;
+        $vars = array (
+            ':network_id' => $network_id,
+            ':network' => $network
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $ps = $this->execute($q, $vars);
+        return $this->getDataRowAsArray($ps);
     }
 
     public function getTotal() {

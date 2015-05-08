@@ -72,6 +72,19 @@ EOD;
         return $user;
     }
 
+    public function getFollowersWhoAreUsers($twitter_user_id) {
+        $q = <<<EOD
+SELECT u.twitter_username AS follower_username FROM users u INNER JOIN waitlist_follows f ON u.twitter_user_id = f.follower_id
+WHERE f.user_id = :twitter_user_id
+EOD;
+        $vars = array ( ':twitter_user_id' => $twitter_user_id);
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        $users = $this->getDataRowsAsArrays($ps);
+        return $users;
+    }
+
     public function updateLastLogin(User $user) {
         $q = "UPDATE users SET last_login_time = CURRENT_TIMESTAMP WHERE twitter_user_id = :twitter_user_id";
         $vars = array ( ':twitter_user_id' => $user->twitter_user_id);

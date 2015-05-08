@@ -14,6 +14,7 @@ class TwitterAPIAccessor {
          '404' => 'The URI requested is invalid or the resource requested, such as a user, does not exist.',
          '406' => 'Invalid format specified in the request.',
          '420' => 'You are being rate limited.',
+         '429' => 'Too many requests.',
          '500' => 'Something is broken on Twitter\'s end.',
          '502' => 'Twitter is down or being upgraded.',
          '503' => 'The Twitter servers are up, but overloaded with requests. Try again later.' );
@@ -54,6 +55,28 @@ class TwitterAPIAccessor {
         if ($http_status == 200) {
             $user = $this->parseJSONUser($payload);
             return $user;
+        } else {
+            throw new APIErrorException(self::translateErrorCode($http_status, true));
+        }
+    }
+    /**
+     * Get 5,000 follower IDs for a Twitter user.
+     * @param  str $twitter_user_id
+     * @param  TwitterOAuth $toa
+     * @return array
+     * @throws APIErrorException
+     */
+    public function get5KFollowers($twitter_user_id, TwitterOAuth $toa) {
+        $endpoint = 'followers/ids';
+        $payload = $toa->OAuthRequest($endpoint, 'GET', array('stringify_ids'=>true, 'count'=>5000));
+        $http_status = $toa->lastStatusCode();
+        // echo '<pre>';
+        // print_r($payload);
+        // echo '</pre>';
+
+        if ($http_status == 200) {
+            $follower_ids = JSONDecoder::decode($payload);
+            return $follower_ids;
         } else {
             throw new APIErrorException(self::translateErrorCode($http_status, true));
         }
@@ -167,7 +190,7 @@ class TwitterAPIAccessor {
         }
         // if the $include_code flag is set, append the error code to the explanation
         if ($include_code) {
-            $translation = $error_code . ' ' . $translation;
+            $translation = 'Twitter API response '.$error_code . ': ' . $translation;
         }
         return $translation;
     }
