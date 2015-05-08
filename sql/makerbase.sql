@@ -180,11 +180,3 @@ CREATE TABLE waitlist_follows (
   UNIQUE KEY network_follower_user (network,follower_id,user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Waitlister followers.';
 
--- Whitelist Gina and Anil for login
-
-INSERT INTO autofills (network_id, network, network_username, creation_time, maker_id, product_id) VALUES
-('930061',  'twitter',  'ginatrapani', NOW(),  NULL,  NULL);
-
-INSERT INTO autofills (network_id, network, network_username, creation_time, maker_id, product_id) VALUES
-('36823',  'twitter',  'anildash', NOW(),  NULL,  NULL);
-
