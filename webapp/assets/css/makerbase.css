@@ -38,6 +38,7 @@ h3, h4, input, textarea, .navbar-brand {
 }
 
 h1, .input-lg {
+  margin-top: 0;
   color: #F36400;
 }
 
@@ -45,7 +46,6 @@ h1, .input-lg {
   h1 {
     font-size: 22px;
     font-weight: 200;
-    margin-top: 0;
   }
   h2 {
     font-size: 18px;
@@ -134,8 +134,7 @@ h1, .input-lg {
   width: 100% !important;
 }
 
-#homepage-pager {
-  margin-top: 30px;
+#pager {
 }
 
 .pager li>a, .pager li>span {
@@ -279,7 +278,6 @@ input#avatar-url {
 #history .list-group-item {
   background-color: transparent;
   padding: 4px;
-  border: none;
 }
 
 #history h3, #history h4, #history h5 {
@@ -363,19 +361,16 @@ a.user-link {
 #edit-maker form,
 #edit-product form,
 .edit-role-form {
-  margin-top: 20px;
-  clear: both;
+}
+
+.role-archive-form {
+  display: none;
 }
 
 #edit-role-btn {
-  border: none;
-  padding: 0;
-  font-size: 1.2rem;
 }
 
 #edit-role-btn:hover {
-  color: #000;
-  background-color: transparent;
 }
 
 .btn-primary {

@@ -1,23 +1,33 @@
 {include file="_head.tpl"}
 
-<h1>{$user->twitter_username} makes Makerbase</h1>
+<div class="row" id="maker-profile">
+  <div class="col-xs-2">
+    <img class="img-responsive" src="{insert name='user_image' image_url=$user->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" alt="{$user->name}" width="100%">
+  </div>
+  <div class="col-xs-10">
+    <h1><strong>{$user->twitter_username}</strong> makes Makerbase</h1>
+    <h5><a href="{$user->url}">{$user->url}</a></h5>
+  </div>
+</div>
 
 <div class="row">
-  <div class="col-sm-5 col-xs-12">
-    <img class="img-responsive" src="{insert name='user_image' image_url=$user->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" alt="{$user->name}" width="100%">
 
-	<p><a href="{$user->url}">{$user->url}</a></p>
-  </div>
-  <div class="col-sm-7 col-xs-12">
-  	<ul class="list-group">
+  <div id="history" class="col-xs-10 col-xs-offset-1">
+
+    <h3>Recent activity</h3>
+
+    {if sizeof($actions) > 0}
+    <ul class="list-group">
     {foreach $actions as $action}
-        <li class="list-group-item">
+        <li class="list-group-item col-xs-12">
         {include file="_action.tpl"}
         </li>
     {/foreach}
-	</ul>
+    </ul>
+    {/if}
+  </div>
 
-  <nav>
+  <nav id="pager" class="col-xs-10 col-xs-offset-1">
     <ul class="pager">
       {if isset($next_page)}
         <li class="previous"><a href="/u/{$user->uid}/{$next_page}"><span aria-hidden="true">&larr;</span> Older</a></li>
