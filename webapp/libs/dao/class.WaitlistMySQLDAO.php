@@ -1,11 +1,14 @@
 <?php
 class WaitlistMySQLDAO extends MakerbasePDODAO {
 
-    public function insert($network_id, $network, $network_username, $follower_count, $is_verified) {
+    public function insert($network_id, $network, $network_username, $follower_count, $is_verified,
+        $twitter_oauth_access_token, $twitter_oauth_access_token_secret) {
         $q = <<<EOD
-INSERT IGNORE INTO waitlist ( network_id, network, network_username, follower_count, is_verified
+INSERT IGNORE INTO waitlist ( network_id, network, network_username, follower_count, is_verified,
+    twitter_oauth_access_token, twitter_oauth_access_token_secret
 ) VALUES (
-:network_id, :network, :network_username, :follower_count, :is_verified
+    :network_id, :network, :network_username, :follower_count, :is_verified,
+    :twitter_oauth_access_token, :twitter_oauth_access_token_secret
 )
 EOD;
         $vars = array (
@@ -13,6 +16,8 @@ EOD;
             ':network' => $network,
             ':network_username' => $network_username,
             ':follower_count' => $follower_count,
+            ':twitter_oauth_access_token' => $twitter_oauth_access_token,
+            ':twitter_oauth_access_token_secret' => $twitter_oauth_access_token_secret,
             ':is_verified' => $is_verified
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }

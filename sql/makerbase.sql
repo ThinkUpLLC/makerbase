@@ -162,6 +162,8 @@ CREATE TABLE waitlist (
   network_username varchar(255) NOT NULL COMMENT 'Username on source network.',
   follower_count int(11) NOT NULL DEFAULT '0' COMMENT 'Total followers on network.',
   is_verified int(1) NOT NULL DEFAULT '0' COMMENT 'Whether or not user is verified on network.',
+  twitter_oauth_access_token varchar(255) DEFAULT NULL COMMENT 'Twitter OAuth token.',
+  twitter_oauth_access_token_secret varchar(255) DEFAULT NULL COMMENT 'Twitter OAuth secret.',
   creation_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Time of waitlist addition.',
   is_archived int(1) NOT NULL DEFAULT '0' COMMENT 'Is waitlister archived (signed up).',
   UNIQUE KEY network_id (network_id,network),

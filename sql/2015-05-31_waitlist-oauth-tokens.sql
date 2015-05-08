@@ -1,0 +1,1 @@
+ALTER TABLE waitlist ADD twitter_oauth_access_token VARCHAR(255) NULL DEFAULT NULL COMMENT 'Twitter OAuth token.' AFTER is_verified, ADD twitter_oauth_access_token_secret VARCHAR(255) NULL DEFAULT NULL COMMENT 'Twitter OAuth secret.' AFTER twitter_oauth_access_token;
