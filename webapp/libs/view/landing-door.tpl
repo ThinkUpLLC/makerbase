@@ -6,15 +6,15 @@
    <div class="page-header col-sm-8 col-sm-offset-2 col-xs-12">
     <h1>
       Great! You're on the waitlist.<br />
-      <small>Wanna skip the line? Tell us what you've made.</small>
+      <small>Wanna get in now? Ask a current user to add you as a maker.</small>
     </h1>
   </div>
 </div>
 
 <div class="row">
     <div class="col-sm-8 col-sm-offset-2 col-xs-12">
-      {assign var="tweet_body" value="Hey @makerbase I made [add your project here]"}
-      <a class="btn btn-primary btn-lg" href="https://twitter.com/share?text={$tweet_body|urlencode}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">Tweet at @makerbase</a>
+      {assign var="tweet_body" value="Hey can anybody add me as a maker on @makerbase?"}
+      <a class="btn btn-primary btn-lg" href="https://twitter.com/share?text={$tweet_body|urlencode}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">Ask your friends</a>
     </div>
 </div>
 
@@ -32,7 +32,7 @@
 <div class="row">
 
 	<div class="col-sm-8 col-sm-offset-2 col-xs-12 jumbotron">
-		<p class="lead">Who makes the apps you use? Who made that one really cool feature on your favorite site? With Makerbase, you can find out. List every project you've made, and name all the makers you collaborated with.</p>
+		<p class="lead">Who makes the apps you use? What side project are you really proud of? Who made that one really cool feature on your favorite site? With Makerbase, you can find out. List every project you've made, and name all the makers you collaborated with.</p>
 
 		<a class="btn btn-primary btn-lg" href="/twittersignin/">Are you in?</a>
 	</div>
