@@ -68,7 +68,8 @@ class TwitterAPIAccessor {
      */
     public function get5KFollowers($twitter_user_id, TwitterOAuth $toa) {
         $endpoint = 'followers/ids';
-        $payload = $toa->OAuthRequest($endpoint, 'GET', array('stringify_ids'=>true, 'count'=>5000));
+        $payload = $toa->OAuthRequest($endpoint, 'GET', array('stringify_ids'=>true, 'count'=>5000,
+            'user_id'=>$twitter_user_id));
         $http_status = $toa->lastStatusCode();
         // echo '<pre>';
         // print_r($payload);

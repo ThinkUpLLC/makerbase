@@ -5,6 +5,7 @@ class RequestInvitesController extends MakerbaseController {
     public function control() {
         parent::control();
 
+        $this->disableCaching();
         $waitlister_twitter_id = $_GET['id'];
 
         $waitlist_dao = new WaitlistMySQLDAO();
