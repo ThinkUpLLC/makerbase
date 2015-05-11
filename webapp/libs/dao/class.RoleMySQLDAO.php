@@ -104,6 +104,46 @@ EOD;
         return $roles;
     }
 
+    public function getFrequentCollaborators($maker_id, $limit) {
+        $q = <<<EOD
+SELECT maker_id, total_collaborations, m.name, m.uid, m.avatar_url, m.slug FROM
+(
+    SELECT COUNT(DISTINCT maker_id, product_id) AS total_collaborations, maker_id FROM roles
+    WHERE maker_id != :maker_id AND product_id IN
+    (
+        SELECT product_id FROM roles WHERE maker_id = :maker_id
+    ) GROUP BY maker_id
+) S
+INNER JOIN makers m ON maker_id = m.id
+WHERE total_collaborations > 1
+ORDER BY total_collaborations DESC
+LIMIT :limit ;
+EOD;
+        $vars = array (
+            ':maker_id' => $maker_id,
+            ':limit' => $limit
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $ps = $this->execute($q, $vars);
+        return $this->getDataRowsAsArrays($ps);
+    }
+
+    public function getCommonProjects($maker_id, $collaborator_id) {
+        $q = <<<EOD
+SELECT DISTINCT(p.id), p.* FROM products p INNER JOIN roles r ON r.product_id = p.id WHERE r.maker_id = :maker_id
+AND product_id IN (
+    SELECT product_id FROM roles r WHERE maker_id = :collaborator_id
+)
+EOD;
+        $vars = array (
+            ':maker_id' => $maker_id,
+            ':collaborator_id' => $collaborator_id
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $ps = $this->execute($q, $vars);
+        return $this->getDataRowsAsObjects($ps, 'Product');
+    }
+
     public function insert(Role $role) {
         $role->uid = self::generateRandomString(6);
         $q = <<<EOD

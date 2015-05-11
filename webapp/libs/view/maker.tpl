@@ -2,8 +2,8 @@
 
 <div class="row">
     <div class="col-sm-12 col-xs-12">
-  	<h1{if $maker->is_archived} class="archived"{/if}>{$maker->name} is a maker {if !isset($logged_in_user)}<button type="button" class="btn btn-sm btn-success pull-right"><i class="fa fa-user"></i> Hey, I'm {$maker->name}!</button>{/if}
-  	</h1>
+    <h1{if $maker->is_archived} class="archived"{/if}>{$maker->name} is a maker {if !isset($logged_in_user)}<button type="button" class="btn btn-sm btn-success pull-right"><i class="fa fa-user"></i> Hey, I'm {$maker->name}!</button>{/if}
+    </h1>
   </div>
 </div>
 
@@ -90,13 +90,13 @@
     </div>
     {/if}
 
-  	<ul class="list-group">
-  	{foreach $roles as $role}
-  		<li class="list-group-item">
+    <ul class="list-group">
+    {foreach $roles as $role}
+      <li class="list-group-item">
           {include file="_role.tpl"}
-  		</li>
-  	{/foreach}
-  	</ul>
+      </li>
+    {/foreach}
+    </ul>
 
    {if isset($logged_in_user)}
       <form method="post" action="/add/role/" class="form-horizontal">
@@ -143,6 +143,27 @@
       </form>
   {else}
     <a href="{$sign_in_with_twttr_link}" class="btn btn-primary btn-sm col-sm-4"><i class="fa fa-plus"></i> Add a{if $roles}nother{/if} project</a>
+  {/if}
+
+   {if sizeof($collaborators) > 0}
+    <div id="collaborators">
+        <h4>Collaborators</h4>
+
+        <ul class="list-group list-unstyled col-xs-12" id="collaborator-list">
+        {foreach $collaborators as $collaborator}
+        <li class="list-group-item col-xs-12">
+            <div class="col-xs-2 col-sm-2">
+              <a href="/m/{$collaborator.uid}/{$collaborator.slug}"><img class="img-responsive" src="{insert name='user_image' image_url=$collaborator.avatar_url image_proxy_sig=$image_proxy_sig type='m'}"></a>
+            </div>
+
+            <div class="col-xs-10 col-sm-10">
+            {$maker->name} made {$collaborator.total_collaborations} projects with <a href="/m/{$collaborator.uid}/{$collaborator.slug}">{$collaborator.name}</a>:<br />
+              {foreach $collaborator.projects as $project name="collaborated_projects"}{if !$smarty.foreach.collaborated_projects.first}{if sizeof($collaborator.projects) > 2}, {/if}{/if}{if $smarty.foreach.collaborated_projects.last} and {/if}<a href="/p/{$project->uid}/{$project->slug}">{$project->name}</a>{/foreach}
+            </div>
+        </li>
+        {/foreach}
+      </ul>
+    </div>
   {/if}
 
   </div>

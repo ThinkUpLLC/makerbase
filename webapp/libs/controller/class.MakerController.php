@@ -21,6 +21,15 @@ class MakerController extends MakerbaseAuthController {
                 $actions = $action_dao->getActivitiesPerformedOnMaker($maker);
                 $this->addToView('actions', $actions);
 
+                //Get collaborators
+                $collaborators = $role_dao->getFrequentCollaborators($maker->id, 15);
+                $collaborators_with_projects = array();
+                foreach ($collaborators as $collaborator) {
+                    $collaborator['projects'] = $role_dao->getCommonProjects($maker->id, $collaborator['maker_id']);
+                    $collaborators_with_projects[] = $collaborator;
+                }
+                $this->addToView('collaborators', $collaborators_with_projects);
+
                 // Transfer cached user messages to the view
                 $this->setUserMessages();
 
