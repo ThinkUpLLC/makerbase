@@ -30,7 +30,16 @@
       </ul>
       {/if}
     </div>
-
+  <nav>
+    <ul class="pager">
+      {if isset($next_page)}
+        <li class="previous"><a href="/m/{$maker->uid}/{$maker->slug}/{$next_page}"><span aria-hidden="true">&larr;</span> Older</a></li>
+      {/if}
+      {if isset($prev_page)}
+        <li class="next"><a href="/m/{$maker->uid}/{$maker->slug}{if $prev_page neq 1}/{$prev_page}{/if}">Newer <span aria-hidden="true">&rarr;</a></li>
+      {/if}
+    </ul>
+  </nav>
   </div>
 
   <div class="col-sm-8 col-xs-10">

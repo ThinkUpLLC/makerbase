@@ -101,14 +101,18 @@ EOD;
         return $actions;
     }
 
-    public function getActivitiesPerformedOnMaker(Maker $maker) {
+    public function getActivitiesPerformedOnMaker(Maker $maker, $page=1, $limit=10) {
+        $start = $limit * ($page - 1);
+        $limit++;
         $q = <<<EOD
 SELECT a.*, u.name, u.uid AS user_uid, u.twitter_username as username FROM actions a
 INNER JOIN users u ON a.user_id = u.id
-WHERE a.object_type = 'Maker' AND a.object_id = :maker_id ORDER BY time_performed DESC LIMIT 10;
+WHERE a.object_type = 'Maker' AND a.object_id = :maker_id ORDER BY time_performed DESC LIMIT :start, :limit;
 EOD;
         $vars = array (
-            ':maker_id' => $maker->id
+            ':maker_id' => $maker->id,
+            ':start' => $start,
+            ':limit' => $limit
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         $ps = $this->execute($q, $vars);
@@ -119,15 +123,19 @@ EOD;
         return $actions;
     }
 
-    public function getActivitiesPerformedOnProduct(Product $product) {
+    public function getActivitiesPerformedOnProduct(Product $product, $page=1, $limit=10) {
+        $start = $limit * ($page - 1);
+        $limit++;
         $q = <<<EOD
 SELECT a.*, u.name, u.uid AS user_uid, u.twitter_username as username FROM actions a
 INNER JOIN users u ON a.user_id = u.id
 WHERE (a.object_type = 'Product' AND a.object_id = :product_id)
-OR (a.object2_type = 'Product' AND a.object2_id = :product_id) ORDER BY time_performed DESC LIMIT 10;
+OR (a.object2_type = 'Product' AND a.object2_id = :product_id) ORDER BY time_performed DESC LIMIT :start, :limit;
 EOD;
         $vars = array (
-            ':product_id' => $product->id
+            ':product_id' => $product->id,
+            ':start' => $start,
+            ':limit' => $limit
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         $ps = $this->execute($q, $vars);

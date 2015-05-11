@@ -19,8 +19,19 @@ class ProductController extends MakerbaseAuthController {
                 $this->addToView('roles', $roles);
 
                 // Get actions
+                $page_number = (isset($_GET['p']))?$_GET['p']:1;
+                $limit = 10;
+
                 $action_dao = new ActionMySQLDAO();
-                $actions = $action_dao->getActivitiesPerformedOnProduct($product);
+                $actions = $action_dao->getActivitiesPerformedOnProduct($product, $page_number, $limit);
+
+                if (count($actions) > $limit) {
+                    array_pop($actions);
+                    $this->addToView('next_page', $page_number+1);
+                }
+                if ($page_number > 1) {
+                    $this->addToView('prev_page', $page_number-1);
+                }
                 $this->addToView('actions', $actions);
 
                 // Transfer cached user messages to the view
