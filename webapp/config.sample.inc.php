@@ -18,3 +18,4 @@ $ISOSCELES_CFG['twitter_makerbase_oauth_access_token_secret'] = 'A4CYpcG79wcdmJp
 
 // Rando
 $ISOSCELES_CFG['thinkup_uid']    = '38523i';
+$ISOSCELES_CFG['admins']         = array('makerbase', 'anildash');

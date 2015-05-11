@@ -5,8 +5,9 @@ class AdminController extends MakerbaseAuthController {
     public function authControl() {
         parent::authControl();
         $this->setViewTemplate('admin.tpl');
+        $admins = Config::getInstance()->getValue('admins');
 
-        if ($this->logged_in_user->twitter_username == 'makerbase') {
+        if (in_array($this->logged_in_user->twitter_username, $admins)) {
             $this->disableCaching();
 
             $waitlist_dao = new WaitlistMySQLDAO();
