@@ -57,12 +57,11 @@ class SignInController extends MakerbaseController {
                         Session::completeLogin($user->uid);
                         SessionCache::put('success_message', 'You have signed in.');
                     } else {
-                        print_r($authed_twitter_user);
                         $waitlist_dao->insert( $authed_twitter_user['user_id'], 'twitter',
                             $authed_twitter_user['user_name'], $authed_twitter_user['follower_count'],
                             $authed_twitter_user['is_verified'], $token_array['oauth_token'],
                             $token_array['oauth_token_secret']);
-                        SessionCache::put('is_waitlisted', true);
+                        SessionCache::put('is_waitlisted', $authed_twitter_user);
                         $this->redirect(Config::getInstance()->getValue('site_root_path'));
                     }
 

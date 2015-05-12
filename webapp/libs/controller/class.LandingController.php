@@ -24,11 +24,15 @@ class LandingController extends MakerbaseController {
                 $this->addToView('actions', $actions);
             }
         } else {
-            $is_waitlisted = SessionCache::get('is_waitlisted');
-            $is_waitlisted = isset($is_waitlisted);
+            $waitlisted_user = SessionCache::get('is_waitlisted');
+            $is_waitlisted = isset($waitlisted_user);
+            if ($is_waitlisted) {
+                $this->addToView('waitlisted_username', $waitlisted_user['user_name']);
+                $this->addToView('waitlisted_twitter_id', $waitlisted_user['user_id']);
+            }
+            $this->addToView('is_waitlisted', $is_waitlisted);
             SessionCache::unsetKey('is_waitlisted');
             $this->disableCaching();
-            $this->addToView('is_waitlisted', $is_waitlisted);
             $this->setViewTemplate('landing-door.tpl');
         }
 
