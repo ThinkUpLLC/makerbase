@@ -38,11 +38,18 @@ EOD;
         return $this->getUpdateCount($ps);
     }
 
-    public function listWaitlisters($limit = 20) {
-        $q = <<<EOD
+    public function listWaitlisters($limit = 20, $order_by = 'follower_count') {
+        if ($order_by == 'creation_time') {
+            $q = <<<EOD
 SELECT * FROM waitlist w
-WHERE is_archived = 0 ORDER BY is_verified, follower_count DESC LIMIT :limit;
+WHERE is_archived = 0 ORDER BY creation_time DESC LIMIT :limit;
 EOD;
+        } else { //Default to follower_count if not creation_time
+            $q = <<<EOD
+SELECT * FROM waitlist w
+WHERE is_archived = 0 ORDER BY follower_count DESC LIMIT :limit;
+EOD;
+        }
         $vars = array (
             ':limit' => $limit
         );

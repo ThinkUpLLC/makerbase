@@ -33,6 +33,6 @@ $router->addRoute('autocomplete', 'SearchAutoCompleteController');
 $router->addRoute('twittersignin', 'TwitterSignInController');
 $router->addRoute('about', 'AboutPageController', array('p'));
 $router->addRoute('requestinvites', 'RequestInvitesController', array('id'));
-$router->addRoute('s3cr3t', 'AdminController');
+$router->addRoute('s3cr3t', 'AdminController', array('sort'));
 
 echo $router->route();
