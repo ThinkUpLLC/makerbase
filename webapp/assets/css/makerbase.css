@@ -299,7 +299,7 @@ a.user-link {
   border: 1px solid #B690E2;
 }
 
-.btn-primary:hover {
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
   background-color: #B690E2;
   border: 1px solid #8E69C2;
   color: black;
@@ -311,7 +311,7 @@ a.user-link {
   color: black;
 }
 
-.btn-info:hover {
+.btn-info:hover, .btn-info:active, .btn-info:focus {
   background-color: #999;
   border: 1px solid #666;
 }
