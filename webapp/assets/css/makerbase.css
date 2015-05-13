@@ -301,8 +301,6 @@ ul.list li {
 #history.history-muted img {
    -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
-  width: 40px;
-  height: auto;
 }
 
 #history.history-muted img:hover {
