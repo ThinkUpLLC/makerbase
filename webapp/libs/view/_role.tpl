@@ -59,7 +59,7 @@
             <div class="form-group">
                 <label for="role" class="col-sm-1 control-label hidden-xs">Role:</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control edit-role-name" autocomplete="off" id="role" name="role" value="{$role->role}" placeholder="Like '{$placeholder}', not a job title">
+                  <input type="text" class="form-control edit-role-name" autocomplete="off" id="role" name="role" value="{$role->role}" placeholder="'{$placeholder}'">
                 </div>
             </div>
             <div class="form-group">

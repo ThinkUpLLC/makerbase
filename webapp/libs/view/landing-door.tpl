@@ -42,7 +42,7 @@
 
 <div class="row">
 
-    <div class="col-sm-8 col-sm-offset-2 col-xs-12">
+    <div class="col-sm-8 col-sm-offset-2 col-xs-12" id="history">
 
         <p>Makerbase is in limited preview while we get things ready for everyone to to see. To access Makerbase, someone who's already in has to list you as a maker. If you're not in yet, we'll add you to our waitlist.</p>
     </div>

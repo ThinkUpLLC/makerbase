@@ -37,7 +37,7 @@ h3, h4, input, textarea, .navbar-brand {
   margin-top: 0;
 }
 
-h1, .input-lg {
+h1, .input-lg, .jumbotron h1 {
   margin-top: 0;
   color: #F36400;
 }
@@ -62,6 +62,9 @@ h5 {
   h3, h4, h5, h6 {
     font-weight: 200;
     margin-top: 4px;
+  }
+  .page-header {
+    margin-bottom: 0;
   }
 }
 
@@ -259,6 +262,24 @@ input#avatar-url {
 
 .jumbotron {
   background: white;
+  margin-bottom: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .container .jumbotron {
+    padding: 20px;
+  }
+  .jumbotron h1 {
+    font-size: x-large;
+  }
+}
+
+ul.list {
+  padding-left: 20px;
+}
+
+ul.list li {
+  padding-top: 14px;
 }
 
 .text-success {
@@ -281,7 +302,7 @@ input#avatar-url {
    -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
   width: 40px;
-  height: 40px;
+  height: auto;
 }
 
 #history.history-muted img:hover {
@@ -314,11 +335,15 @@ input#avatar-url {
 }
 
 .action-item blockquote {
-  margin: 8px;
+  margin: 8px 8px 8px 0;
   padding: 8px;
   border: none;
   border-radius: 4px;
   background-color: white;
+}
+
+.action-item .media-right {
+  padding-right: 8px;
 }
 
 #history.history-vivid .action-item blockquote {
@@ -327,6 +352,11 @@ input#avatar-url {
 
 a.user-link {
   color: black;
+}
+
+.form-group label {
+  padding-right: 0;
+  padding-top: 6px;
 }
 
 .form-inline {

@@ -322,6 +322,16 @@
       {/if}
     </div>
 
+    <nav id="pager" class="col-xs-12">
+      <ul class="pager">
+        {if isset($next_page)}
+          <li class="previous"><a href="/p/{$product->uid}/{$product->slug}/{$next_page}#history"><span aria-hidden="true">&larr;</span> Older</a></li>
+        {/if}
+        {if isset($prev_page)}
+          <li class="next"><a href="/p/{$product->uid}/{$product->slug}{if $prev_page neq 1}/{$prev_page}{/if}#history">Newer <span aria-hidden="true">&rarr;</a></li>
+        {/if}
+      </ul>
+    </nav>
   </div>
 </div>
 
