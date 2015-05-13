@@ -64,12 +64,18 @@
 
 
 <div class="action-item">
-	<div class="col-xs-2 col-sm-2">
+	<div class="media-left media-top col-xs-2 col-sm-2">
 		{if isset($maker_avatar_url)}<a href="/m/{$maker_uid}/{$maker_slug}"><img src="{$maker_avatar_url}" class="img-responsive" alt="{$maker_name}"></a>{else}<img src="{$avatar_url}" class="img-responsive" alt="">{/if}
 	</div>
 
-	<div class="col-xs-8 col-sm-8">
-		{if $actor neq 'You'}<a href="/u/{$action->user_uid}" class="user-link">{$action->username}</a>{else}{$actor}{/if} {$action->action_type}d <a href="/{if $action->object_type eq 'Maker'}m/{$maker_uid}/{$maker_slug}">{$maker_name}{else}p/{$product_uid}/{$product_slug}">{$product_name}{/if}</a>{if isset($action->object2_id)} {if $action->action_type eq 'associate'}with{else}on{/if} <a href="/p/{$product_uid}/{$product_slug}">{$product_name}</a>{/if} 
+    <div class=" pull-right media-right col-xs-2 col-sm-2">
+        {if isset($product_avatar_url)}<a href="/p/{$product_uid}/{$product_slug}"><img src="{$product_avatar_url}" class="img-responsive"></a>{/if}
+    </div>
+
+	<div class="media-body">
+		<h5>{if $actor neq 'You'}<a href="/u/{$action->user_uid}" class="user-link">{$action->username}</a>{else}{$actor}{/if} {$action->action_type}d <a href="/{if $action->object_type eq 'Maker'}m/{$maker_uid}/{$maker_slug}">{$maker_name}{else}p/{$product_uid}/{$product_slug}">{$product_name}{/if}</a>{if isset($action->object2_id)} {if $action->action_type eq 'associate'}with{else}on{/if} <a href="/p/{$product_uid}/{$product_slug}">{$product_name}</a>{/if}</h5>
+
+        <div class="datestamp"><small class="text-muted">{$action->time_performed|relative_datetime} ago</small></div>
 
         {if $action->action_type eq 'update'}
         <blockquote>
@@ -77,13 +83,8 @@
         </blockquote>
         {/if}
 
-        <div class="datestamp"><small class="text-muted">{$action->time_performed|relative_datetime} ago</small></div>
-
 	</div>
 
-    <div class="col-xs-2 col-sm-2">
-        {if isset($product_avatar_url)}<a href="/p/{$product_uid}/{$product_slug}"><img src="{$product_avatar_url}" class="img-responsive"></a>{/if}
-    </div>
 
 </div>
 

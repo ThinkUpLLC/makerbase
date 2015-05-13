@@ -85,7 +85,7 @@
           </div>
 
           <div class="form-group">
-            <label for="avatar_url" class="col-sm-2 hidden-xs control-label">maker avatar</label>
+            <label for="avatar_url" class="col-sm-2 hidden-xs control-label">Maker avatar</label>
             <div class="col-xs-12 col-sm-10">
               <input type="text" class="form-control input-sm" autocomplete="off" name="avatar_url" id="avatar_url" value="{$maker->avatar_url}" placeholder="https://www.example.com/image.png">
             </div>
@@ -357,10 +357,10 @@
           <nav id="pager" class="col-xs-12">
             <ul class="pager">
               {if isset($next_page)}
-                <li class="previous"><a href="/m/{$maker->uid}/{$maker->slug}/{$next_page}"><span aria-hidden="true">&larr;</span> Older</a></li>
+                <li class="previous"><a href="/m/{$maker->uid}/{$maker->slug}/{$next_page}#history"><span aria-hidden="true">&larr;</span> Older</a></li>
               {/if}
               {if isset($prev_page)}
-                <li class="next"><a href="/m/{$maker->uid}/{$maker->slug}{if $prev_page neq 1}/{$prev_page}{/if}">Newer <span aria-hidden="true">&rarr;</a></li>
+                <li class="next"><a href="/m/{$maker->uid}/{$maker->slug}{if $prev_page neq 1}/{$prev_page}{/if}#history">Newer <span aria-hidden="true">&rarr;</a></li>
               {/if}
             </ul>
           </nav>
