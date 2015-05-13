@@ -109,9 +109,9 @@ EOD;
 SELECT maker_id, total_collaborations, m.name, m.uid, m.avatar_url, m.slug FROM
 (
     SELECT COUNT(DISTINCT maker_id, product_id) AS total_collaborations, maker_id FROM roles
-    WHERE maker_id != :maker_id AND product_id IN
+    WHERE is_archived = 0 AND maker_id != :maker_id AND product_id IN
     (
-        SELECT product_id FROM roles WHERE maker_id = :maker_id
+        SELECT product_id FROM roles WHERE maker_id = :maker_id AND is_archived = 0
     ) GROUP BY maker_id
 ) S
 INNER JOIN makers m ON maker_id = m.id
@@ -131,8 +131,8 @@ EOD;
     public function getCommonProjects($maker_id, $collaborator_id) {
         $q = <<<EOD
 SELECT DISTINCT(p.id), p.* FROM products p INNER JOIN roles r ON r.product_id = p.id WHERE r.maker_id = :maker_id
-AND product_id IN (
-    SELECT product_id FROM roles r WHERE maker_id = :collaborator_id
+AND p.is_archived = 0 AND product_id IN (
+    SELECT product_id FROM roles r WHERE maker_id = :collaborator_id AND r.is_archived = 0
 )
 EOD;
         $vars = array (
