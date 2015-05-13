@@ -1,7 +1,7 @@
 {include file="_head.tpl" suppress_search='true'}
 
 <div class="row">
-   <div class="page-header col-sm-8 col-sm-offset-2 col-xs-12">
+   <div class="page-header col-sm-10 col-sm-offset-1 col-xs-12">
 
     <form class="navbar-form" role="search" action="/search/" id="homepage-search">
       <div class="" id="remote-search">
@@ -15,7 +15,7 @@
 
 <div class="row">
 
-   <div class="page-header col-sm-8 col-sm-offset-2 col-xs-12">
+   <div class="page-header col-sm-10 col-sm-offset-1 col-xs-12">
       <div class="jumbotron">
         <h1><strong>Makerbase</strong> is:</h1>
         <ul class="list">

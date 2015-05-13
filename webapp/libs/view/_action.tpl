@@ -64,11 +64,11 @@
 
 
 <div class="action-item">
-	<div class="media-left media-top col-xs-2 col-sm-1">
+	<div class="media-left media-top col-xs-2 col-sm-2">
 		{if isset($maker_avatar_url)}<a href="/m/{$maker_uid}/{$maker_slug}"><img src="{$maker_avatar_url}" class="img-responsive" alt="{$maker_name}"></a>{else}<img src="{$avatar_url}" class="img-responsive" alt="">{/if}
 	</div>
 
-    <div class=" pull-right media-right col-xs-2 col-sm-1">
+    <div class=" pull-right media-right col-xs-2 col-sm-2">
         {if isset($product_avatar_url)}<a href="/p/{$product_uid}/{$product_slug}"><img src="{$product_avatar_url}" class="img-responsive"></a>{/if}
     </div>
 
