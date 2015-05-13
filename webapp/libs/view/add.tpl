@@ -40,7 +40,12 @@
 
 	<div class="row" id="add-form">
 
-		<h2 class="col-xs-12">Add a {$addtype}</h2>
+		<h2 class="col-xs-12">
+			Add a {$addtype}<br />
+			{if $object eq 'product'}
+				<small>(Projects are digital works like an app, a website or an art project.)</small>
+			{/if}
+		</h2>
 
 		<form method="post" action="/add/{$object}/" class="form-horizontal">
 
@@ -86,7 +91,7 @@
 						<input type="hidden" name="network_id" id="network-id" value="">
 						<input type="hidden" name="network" id="network" value="">
 						<input type="hidden" name="network_username" id="network-username" value="">
-						<button class="btn btn-primary col-xs-6 col-sm-3 col-sm-offset-3" type="submit">{if $object eq 'product'}Make it!{else}Add them to Makerbase!{/if}</button>
+						<button class="btn btn-primary col-xs-6 col-sm-3 col-sm-offset-3" type="submit">{if $object eq 'product'}Make it!{else}Add this maker!{/if}</button>
 					</div>
 		    </div>
 

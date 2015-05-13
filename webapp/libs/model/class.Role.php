@@ -65,12 +65,13 @@ class Role {
     public static function getRandoPlaceholder() {
         $placeholders = array(
             "Herded cats",
-            "Designed the flux capacitor",
+            "Designed the logo",
             "Raised the barn",
             "Cranked widgets",
-            "Brainstormed concepts",
-            "Reticulated splines",
-            "Suggested the unicorns"
+            "Brainstormed ideas",
+            "Trained interns",
+            "Suggested unicorns",
+            "Managed community"
         );
 
         return $placeholders[rand()%count($placeholders)];
