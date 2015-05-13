@@ -33,7 +33,7 @@
 <div class="row">
 
 	<div class="col-sm-8 col-sm-offset-2 col-xs-12 jumbotron">
-		<p class="lead">Who makes the apps you use? Who made that one really cool feature on your favorite site? With Makerbase, you can find out. List every project you've made, and name all the makers you collaborated with.</p>
+		<p class="lead">Who makes the apps you use? What side project are you really proud of? Who made that one really cool feature on your favorite site? With Makerbase, you can find out. List every project you've made, and name all the makers you collaborated with.</p>
 
 		<a class="btn btn-primary btn-lg" href="/twittersignin/">Are you in?</a>
 	</div>
