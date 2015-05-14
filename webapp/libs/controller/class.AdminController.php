@@ -19,6 +19,8 @@ class AdminController extends MakerbaseAuthController {
             }
             if ($_GET['sort'] == 'follower_count') {
                 $waitlisters = $waitlist_dao->listWaitlisters($limit, 'follower_count', $page_number);
+
+                $this->addToView('sort_view', 'follower_count');
             } else {
                 $waitlisters = $waitlist_dao->listWaitlisters($limit, 'creation_time', $page_number);
             }
