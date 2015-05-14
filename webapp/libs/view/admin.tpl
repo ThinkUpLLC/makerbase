@@ -11,6 +11,18 @@
     {/foreach}
     </ul>
     <p>order by <a href="/s3cr3t/follower_count">follower_count</a> or <a href="/s3cr3t/creation_time">creation_time</a></p>
+
+  <nav id="pager">
+    <ul class="pager">
+      {if isset($next_page)}
+        <li class="previous"><a href="/s3cr3t/{$smarty.get.sort}/{$next_page}"><span aria-hidden="true">&larr;</span> Older</a></li>
+      {/if}
+      {if isset($prev_page)}
+        <li class="next"><a href="/s3cr3t/{$smarty.get.sort}/{$prev_page}">Newer <span aria-hidden="true">&rarr;</a></li>
+      {/if}
+    </ul>
+  </nav>
+
 {/if}
 </div>
 </div>

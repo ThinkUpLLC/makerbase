@@ -38,20 +38,23 @@ EOD;
         return $this->getUpdateCount($ps);
     }
 
-    public function listWaitlisters($limit = 20, $order_by = 'follower_count') {
+    public function listWaitlisters($limit = 20, $order_by = 'follower_count', $page=1) {
+        $start = $limit * ($page - 1);
+        $limit++;
         if ($order_by == 'creation_time') {
             $q = <<<EOD
 SELECT * FROM waitlist w
-WHERE is_archived = 0 ORDER BY creation_time DESC LIMIT :limit;
+WHERE is_archived = 0 ORDER BY creation_time DESC LIMIT :start, :limit;
 EOD;
         } else { //Default to follower_count if not creation_time
             $q = <<<EOD
 SELECT * FROM waitlist w
-WHERE is_archived = 0 ORDER BY follower_count DESC LIMIT :limit;
+WHERE is_archived = 0 ORDER BY follower_count DESC LIMIT :start, :limit;
 EOD;
         }
         $vars = array (
-            ':limit' => $limit
+            ':limit' => $limit,
+            ':start' => $start
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         $ps = $this->execute($q, $vars);

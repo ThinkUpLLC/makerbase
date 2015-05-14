@@ -11,11 +11,22 @@ class AdminController extends MakerbaseAuthController {
             $this->disableCaching();
 
             $waitlist_dao = new WaitlistMySQLDAO();
+            $page_number = (isset($_GET['p']))?$_GET['p']:1;
+            $limit = 20;
+
             if (!isset($_GET['sort']) || $_GET['sort'] == 'follower_count') {
-                $waitlisters = $waitlist_dao->listWaitlisters(20, 'follower_count');
+                $waitlisters = $waitlist_dao->listWaitlisters($limit, 'follower_count', $page_number);
             } else {
-                $waitlisters = $waitlist_dao->listWaitlisters(20, 'creation_time');
+                $waitlisters = $waitlist_dao->listWaitlisters($limit, 'creation_time', $page_number);
             }
+            if (count($waitlisters) > $limit) {
+                array_pop($waitlisters);
+                $this->addToView('next_page', $page_number+1);
+            }
+            if ($page_number > 1) {
+                $this->addToView('prev_page', $page_number-1);
+            }
+
             $this->addToView('waitlisters', $waitlisters);
 
             $total_waitlisters = $waitlist_dao->getTotal();
