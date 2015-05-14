@@ -2,7 +2,7 @@
 
 <div class="row" id="project-profile">
   <div class="col-xs-2">
-    <img class="img-responsive" src="{if isset($product->avatar_url)}{insert name='user_image' image_url=$product->avatar_url image_proxy_sig=$image_proxy_sig type='m'}{else}http://placehold.it/300&text=Image{/if}" alt="{$product->name}" width="100%">
+    <img class="img-responsive" src="{if isset($product->avatar_url)}{insert name='user_image' image_url=$product->avatar_url image_proxy_sig=$image_proxy_sig type='m'}{else}/assets/img/blank-product.png{/if}" alt="{$product->name}" width="100%">
 
   </div>
   <div class="col-xs-10">
@@ -26,7 +26,7 @@
 
 
   <div class="col-xs-2">
-    <img class="img-responsive" src="{if isset($product->avatar_url)}{insert name='user_image' image_url=$product->avatar_url image_proxy_sig=$image_proxy_sig type='m'}{else}http://placehold.it/300&text=Image{/if}" alt="{$product->name}" width="100%">
+    <img class="img-responsive" src="{if isset($product->avatar_url)}{insert name='user_image' image_url=$product->avatar_url image_proxy_sig=$image_proxy_sig type='m'}{else}/assets/img/blank-maker.png{/if}" alt="{$product->name}" width="100%">
 
     <form method="post" action="/edit/product/" id="project-profile-archive" class="">
       <div class="form-group">

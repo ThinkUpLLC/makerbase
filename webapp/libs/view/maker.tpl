@@ -3,7 +3,7 @@
 
 <div class="row" id="maker-profile">
   <div class="col-xs-2">
-    <img class="img-responsive" src="{if isset($maker->avatar_url)}{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}{else}http://placehold.it/300&text=Image{/if}" alt="{$maker->name}" width="100%">
+    <img class="img-responsive" src="{if isset($maker->avatar_url)}{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}{else}/assets/img/blank-maker.png{/if}" alt="{$maker->name}" width="100%">
   </div>
   <div class="col-xs-10">
     <h1 {if $maker->is_archived}class="archived"{/if}><strong>{$maker->name}</strong> is a maker</h1>
@@ -23,30 +23,10 @@
 </div>
 
 
-<!-- obsolete
-<div class="row" id="maker-profile-edit">
-  <form method="post" action="/edit/maker/">
-  <div class="col-xs-2">
-    <img class="img-responsive" src="{if isset($maker->avatar_url)}{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}{else}http://placehold.it/300&text=Image{/if}" alt="{$maker->name}" width="100%">
-  </div>
-  <div class="col-xs-10">
-    <input type="text" class="form-control input-lg" autocomplete="off" name="name" id="name" value="{$maker->name}" placeholder="Name">
-    <input type="text" class="form-control input-sm" autocomplete="off" name="url" value="{$maker->url}" placeholder="URL for personal website">
-    <input type="text" class="form-control input-sm" autocomplete="off" name="avatar_url" value="{$maker->avatar_url}" placeholder="URL for avatar image">
-    <input type="hidden" name="maker_uid" value="{$maker->uid}">
-    <button class="btn btn-primary" type="submit" id="update-maker">Update maker</button>
-
-    <btn type="button" class="btn btn-default btn-link pull-right" onclick="$('#maker-profile').toggle();$('#maker-profile-edit').toggle();" aria-label="Center Align">cancel</a>
-  </div>
-  </form>
-</div>
-
--->
-
 <div class="row" id="maker-profile-edit">
 
   <div class="col-xs-2">
-    <img class="img-responsive" src="{if isset($maker->avatar_url)}{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}{else}http://placehold.it/300&text=Image{/if}" alt="{$maker->name}" width="100%">
+    <img class="img-responsive" src="{if isset($maker->avatar_url)}{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}{else}/assets/img/blank-maker.png{/if}" alt="{$maker->name}" width="100%">
 
     <form method="post" action="/edit/maker/" id="maker-profile-archive" class="">
       <div class="form-group">
