@@ -180,4 +180,15 @@ EOD;
             }
         }
     }
+
+    public function getTotal() {
+        $q = <<<EOD
+SELECT count(*) AS total FROM roles r
+WHERE  is_archived = 0;
+EOD;
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $ps = $this->execute($q);
+        $result = $this->getDataRowAsArray($ps);
+        return $result['total'];
+    }
 }

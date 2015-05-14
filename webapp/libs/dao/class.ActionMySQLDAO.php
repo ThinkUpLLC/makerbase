@@ -166,4 +166,14 @@ EOD;
         }
         return $actions;
     }
+
+    public function getTotal() {
+        $q = <<<EOD
+SELECT count(*) AS total FROM actions a;
+EOD;
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $ps = $this->execute($q);
+        $result = $this->getDataRowAsArray($ps);
+        return $result['total'];
+    }
 }

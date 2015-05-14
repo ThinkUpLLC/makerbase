@@ -3,8 +3,10 @@
 <script src="//platform.twitter.com/widgets.js"></script>
 <div class="row">
 <div class="col-xs-12">
+<h2>{$total_users|number_format} users - {$total_products|number_format} projects - {$total_roles|number_format} roles - {$total_actions|number_format} actions</h2>
+
 {if isset($waitlisters)}
-    <h2>Waitlist ({$total_waitlisters|number_format})</h2>
+    <h3>Waitlist ({$total_waitlisters|number_format})</h3>
     <ul>
     {foreach $waitlisters as $waitlister}
     <li><a href="/add/maker/?q={$waitlister.network_username}">Add</a> - <a href="https://twitter.com/intent/user?user_id={$waitlister.network_id}">@{$waitlister.network_username}</a> - {$waitlister.follower_count|number_format} - <a href="/requestinvites/{$waitlister.network_id}/">check followers</a> - {$waitlister.creation_time|relative_datetime} ago</li>

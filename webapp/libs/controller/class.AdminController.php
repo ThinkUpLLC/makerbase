@@ -34,7 +34,22 @@ class AdminController extends MakerbaseAuthController {
 
             $total_waitlisters = $waitlist_dao->getTotal();
             $this->addToView('total_waitlisters', $total_waitlisters);
-            // TODO: Show total users, waitlisters, projects, roles, activity
+
+            $user_dao = new UserMySQLDAO();
+            $total_users = $user_dao->getTotal();
+            $this->addToView('total_users', $total_users);
+
+            $product_dao = new ProductMySQLDAO();
+            $total_products = $product_dao->getTotal();
+            $this->addToView('total_products', $total_products);
+
+            $role_dao = new RoleMySQLDAO();
+            $total_roles = $role_dao->getTotal();
+            $this->addToView('total_roles', $total_roles);
+
+            $action_dao = new ActionMySQLDAO();
+            $total_actions = $action_dao->getTotal();
+            $this->addToView('total_actions', $total_actions);
 
             $image_proxy_sig = Config::getInstance()->getValue('image_proxy_sig');
             $this->addToView('image_proxy_sig', $image_proxy_sig);
