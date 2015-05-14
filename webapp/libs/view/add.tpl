@@ -102,7 +102,9 @@
 	</div>
 
 {if isset($smarty.get.q)}
+	{if (isset($twitter_users) && count($twitter_users) > 0) || (isset($ios_apps) && count($ios_apps) > 0)}
 	<h4>{if $object eq 'product'}Is it one of these?{else}Looking for one of these?{/if}</h4>
+	{/if}
 
 	<div class="col-xs-12" id="add-panels">
 
