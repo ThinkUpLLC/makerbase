@@ -33,21 +33,25 @@
 <div class="row">
 
 	<div class="col-sm-8 col-sm-offset-2 col-xs-12 jumbotron">
-		<p class="lead">Who makes the apps you use? What side project are you really proud of? Who made that one really cool feature on your favorite site? With Makerbase, you can find out. List every project you've made, and name all the makers you collaborated with.</p>
+    <!--
+		<p class="lead">Who makes the apps you use? What side project are you really proud of? Who made that one really cool feature on your favorite site? Let's find out.</p>
+    -->
 
-		<a class="btn btn-primary btn-lg" href="/twittersignin/">Are you in?</a>
+
+        <h1><strong>Makerbase</strong> is:</h1>
+        <ul class="list">
+          <li>A place to tell the world what you made, and to find out who made the things you love.</li>
+          <li>Edited by <strong>everyone</strong>. You can change and update anything that you see.</li>
+          <li>A way to see <strong>projects</strong>: Stuff like apps and websites and art projects. (Not a list of companies or employers.)</li>
+          <li>A list of <strong>makers</strong>: People who contributed to or created projects, described by what they've <em>done</em>, not just job titles.</li>
+          <li><strong>Limited access</strong>, for now, while we get things ready for everyone. We'll add you to the waitlist if someone hasn't already added you as a maker.</li>
+        </ul>
+
+		<a class="btn btn-primary btn-lg" href="/twittersignin/" id="history">Are you in?</a>
 	</div>
 
 </div>
 
-<div class="row">
-
-    <div class="col-sm-8 col-sm-offset-2 col-xs-12" id="history">
-
-        <p>Makerbase is in limited preview while we get things ready for everyone to to see. To access Makerbase, someone who's already in has to list you as a maker. If you're not in yet, we'll add you to our waitlist.</p>
-    </div>
-
-</div>
 {/if}
 
 {include file="_footer.tpl"}
