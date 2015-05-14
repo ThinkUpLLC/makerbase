@@ -59,7 +59,8 @@
             <div class="form-group">
                 <label for="role" class="col-sm-1 control-label hidden-xs">Role:</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control edit-role-name" autocomplete="off" id="role" name="role" value="{$role->role}" placeholder="'{$placeholder}'">
+                  <input type="text" class="form-control edit-role-name" autocomplete="off" id="role" name="role" value="{$role->role}" placeholder="{$placeholder}">
+                  <small>{$role_guidance}</small>
                 </div>
             </div>
             <div class="form-group">
