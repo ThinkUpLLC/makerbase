@@ -388,6 +388,10 @@ a.user-link {
   color: #666;
 }
 
+.media-footer {
+  display: none;
+}
+
 #maker-profile, #maker-profile-edit, #project-profile, #project-profile-edit {
   padding-top: 10px;
   padding-bottom: 20px;
