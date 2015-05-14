@@ -20,7 +20,7 @@
  */
 function smarty_insert_user_image($params, &$smarty) {
     if (empty($params['image_url'])) {
-        return '/assets/img/blank-maker.png';
+        return 'http://makerba.se/assets/img/blank-maker.png';
     } elseif (empty($params['type'])) {
         trigger_error("Missing 'type' parameter");
         return;

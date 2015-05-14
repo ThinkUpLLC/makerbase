@@ -3,7 +3,7 @@
 
 <div class="row" id="maker-profile">
   <div class="col-xs-2">
-    <img class="img-responsive" src="{if isset($maker->avatar_url)}{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}{else}/assets/img/blank-maker.png{/if}" alt="{$maker->name}" width="100%">
+    <img class="img-responsive" src="{if isset($maker->avatar_url)}{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}{else}http://makerba.se/assets/img/blank-maker.png{/if}" alt="{$maker->name}" width="100%">
   </div>
   <div class="col-xs-10">
     <h1 {if $maker->is_archived}class="archived"{/if}><strong>{$maker->name}</strong> is a maker</h1>
@@ -26,7 +26,7 @@
 <div class="row" id="maker-profile-edit">
 
   <div class="col-xs-2">
-    <img class="img-responsive" src="{if isset($maker->avatar_url)}{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}{else}/assets/img/blank-maker.png{/if}" alt="{$maker->name}" width="100%">
+    <img class="img-responsive" src="{if isset($maker->avatar_url)}{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}{else}http://makerba.se/assets/img/blank-maker.png{/if}" alt="{$maker->name}" width="100%">
 
     <form method="post" action="/edit/maker/" id="maker-profile-archive" class="">
       <div class="form-group">

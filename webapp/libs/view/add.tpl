@@ -50,7 +50,7 @@
 		<form method="post" action="/add/{$object}/" class="form-horizontal">
 
 			<div class="col-xs-2">
-					<img src="{if isset($avatar_url)}{$avatar_url}{else}/assets/img/blank-maker.png{/if}" id="avatar-img" class="img-responsive">
+					<img src="{if isset($avatar_url)}{$avatar_url}{else}http://makerba.se/assets/img/blank-maker.png{/if}" id="avatar-img" class="img-responsive">
 			</div>
 
 			<div class="col-xs-10">
