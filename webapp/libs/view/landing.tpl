@@ -20,9 +20,9 @@
         <h1><strong>Makerbase</strong> is:</h1>
         <ul class="list">
           <li>A place to tell the world what you made, and to find out who made the things you love.</li>
-          <li>Edited by <strong>everyone</strong>. You can change and update anything that you see.</li>
-          <li>A way to see <strong>projects</strong>: Stuff like apps and websites and art projects. (Not a list of companies or employers.)</li>
-          <li>A list of <strong>makers</strong>: People who contributed to or created projects, described by what they've <em>done</em>, not just job titles.</li>
+          <li>Edited by <strong>everyone</strong>. You can change and add to anything that you see.</li>
+          <li>A way to see <strong>projects</strong>: Stuff like apps and web sites and digital works of art. (Not companies or employers.)</li>
+          <li>A list of <strong>makers</strong>: People who create projects, described by what they've <em>done</em>, not their job titles.</li>
           <li><strong>Limited access</strong>, for now. Let your friends in by adding them as makers.</li>
         </ul>
       </div>
