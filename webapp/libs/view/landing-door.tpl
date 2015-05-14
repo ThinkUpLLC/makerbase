@@ -33,10 +33,6 @@
 <div class="row">
 
 	<div class="col-sm-8 col-sm-offset-2 col-xs-12 jumbotron">
-    <!--
-		<p class="lead">Who makes the apps you use? What side project are you really proud of? Who made that one really cool feature on your favorite site? Let's find out.</p>
-    -->
-
 
         <h1><strong>Makerbase</strong> is:</h1>
         <ul class="list">

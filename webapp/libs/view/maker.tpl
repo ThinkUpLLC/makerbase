@@ -107,28 +107,26 @@
 
             <form method="post" action="/add/role/" class="form-horizontal col-xs-12 collapse" id="add-project-form">
 
-            <h2>Add a{if $roles}nother{/if} project</h2>
+            <h2>What {if $roles}else {/if}did {$maker->name} make?</h2>
               <input type="hidden" name="maker_uid" value="{$maker->uid}">
               <input type="hidden" name="originate_slug" value="{$maker->slug}">
               <input type="hidden" name="originate_uid" value="{$maker->uid}">
               <input type="hidden" name="originate" value="maker">
               <input type="hidden" name="product_uid" id="product-uid">
-              <!--
-              <div class="col-xs-1 col-sm-1">
-                <img class="img-responsive" src="" alt="product_name logo">
-              </div>
-              -->
+
               <div class="form-group col-xs-12">
                 <label for="product_name" class="col-sm-1 control-label hidden-xs">Project</label>
                 <div class="col-xs-12 col-sm-10" id="remote-search-products">
                   <input type="text" class="typeahead form-control input-lg" placeholder="Project name" name="product_name" id="product-name">
+                  <small>{$project_guidance}</small>
                 </div>
               </div>
 
               <div class="form-group col-xs-12">
                 <label for="role" class="col-sm-1 control-label hidden-xs">Role</label>
                 <div class="col-xs-12 col-sm-10">
-                  <input type="text" class="form-control" autocomplete="off" id="role" name="role" placeholder="Like '{$placeholder}', not a job title">
+                  <input type="text" class="form-control" autocomplete="off" id="role" name="role" placeholder="{$placeholder}">
+                  <small>{$role_guidance}</small>
                 </div>
               </div>
 

@@ -6,6 +6,8 @@
   {/if}
 {/if}
 
+{include file="_reusablecopy.tpl"}
+
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns#" itemscope itemtype="http://schema.org/Article">
   <head>

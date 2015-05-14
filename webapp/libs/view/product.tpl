@@ -118,28 +118,26 @@
 
             <form method="post" action="/add/role/" class="form-horizontal col-xs-12 collapse" id="add-maker-form">
 
-            <h2>Add a{if $roles}nother{/if} maker</h2>
+            <h2>Who {if $roles}else {/if} made {$product->name}?</h2>
               <input type="hidden" name="product_uid" value="{$product->uid}">
               <input type="hidden" name="originate_slug" value="{$product->slug}">
               <input type="hidden" name="originate_uid" value="{$product->uid}">
               <input type="hidden" name="originate" value="product">
               <input type="hidden" name="maker_uid" id="maker-uid">
-              <!--
-              <div class="col-xs-1 col-sm-1">
-                <img class="img-responsive" src="" alt="maker_name avatar">
-              </div>
-              -->
+
               <div class="form-group col-xs-12">
                 <label for="product_name" class="col-sm-1 control-label hidden-xs">Name</label>
                 <div class="col-xs-12 col-sm-10" id="remote-search-makers">
                   <input type="text" class="typeahead form-control input-lg" placeholder="Maker's name" name="maker_name" id="maker-name">
+                  <small>{$maker_guidance}</small>
                 </div>
               </div>
 
               <div class="form-group col-xs-12">
                 <label for="role" class="col-sm-1 control-label hidden-xs">Role</label>
                 <div class="col-xs-12 col-sm-10">
-                  <input type="text" class="form-control" autocomplete="off" id="role" name="role" placeholder="'{$placeholder}'">
+                  <input type="text" class="form-control" autocomplete="off" id="role" name="role" placeholder="{$placeholder}">
+                  <small>{$role_guidance}</small>
                 </div>
               </div>
 

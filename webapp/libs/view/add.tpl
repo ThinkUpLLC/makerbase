@@ -43,7 +43,7 @@
 		<h2 class="col-xs-12">
 			Add a {$addtype}<br />
 			{if $object eq 'product'}
-				<small>(Projects are digital works like an app, a website or an art project.)</small>
+				<small>{$project_guidance}</small>
 			{/if}
 		</h2>
 

@@ -71,7 +71,11 @@ class Role {
             "Brainstormed ideas",
             "Trained interns",
             "Suggested unicorns",
-            "Managed community"
+            "Managed community",
+            "Brought donuts",
+            "Wrote documentation",
+            "Helped users",
+            "Fixed bugs"
         );
 
         return $placeholders[rand()%count($placeholders)];
