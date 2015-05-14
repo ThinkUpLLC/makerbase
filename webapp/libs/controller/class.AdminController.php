@@ -14,7 +14,10 @@ class AdminController extends MakerbaseAuthController {
             $page_number = (isset($_GET['p']))?$_GET['p']:1;
             $limit = 20;
 
-            if (!isset($_GET['sort']) || $_GET['sort'] == 'follower_count') {
+            if (!isset($_GET['sort']) ) {
+                $_GET['sort'] = 'follower_count';
+            }
+            if ($_GET['sort'] == 'follower_count') {
                 $waitlisters = $waitlist_dao->listWaitlisters($limit, 'follower_count', $page_number);
             } else {
                 $waitlisters = $waitlist_dao->listWaitlisters($limit, 'creation_time', $page_number);
