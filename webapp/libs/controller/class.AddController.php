@@ -84,12 +84,27 @@ class AddController extends MakerbaseAuthController {
             $profiler->add($total_time, "Twitter search", false);
         }
         $this->addToView('twitter_users', $twitter_users);
+
+        //If search term starts with an @ sign, prefill the matching Twitter user in results
+        if (substr($twitter_username, 0, 1) === '@') {
+            $this->addToView('name', $twitter_users[0]['full_name']);
+            $this->addToView('avatar_url', $twitter_users[0]['avatar']);
+            $this->addToView('url', $twitter_users[0]['url']);
+            $this->addToView('network_username', $twitter_users[0]['user_name']);
+            $this->addToView('slug', $twitter_users[0]['user_name']);
+            $this->addToView('network', 'twitter');
+            $this->addToView('network_id', $twitter_users[0]['user_id']);
+        }
     }
 
     private function addSearchResultsToView($term) {
         $start_time = microtime(true);
         $image_proxy_sig = Config::getInstance()->getValue('image_proxy_sig');
         $this->addToView('image_proxy_sig', $image_proxy_sig);
+
+        if (substr($term, 0, 1) === '@') {
+            $term = substr($term, 1, (strlen($term) -1 ));
+        }
 
         $client = new Elasticsearch\Client();
 

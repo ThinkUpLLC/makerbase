@@ -88,9 +88,9 @@
 				<div class="form-group">
 					<div class="col-sm-12">
 						<input type="hidden" class="form-control col-xs-6" name="slug" id="slug" value="{if isset($slug)}{$slug}{/if}">
-						<input type="hidden" name="network_id" id="network-id" value="">
-						<input type="hidden" name="network" id="network" value="">
-						<input type="hidden" name="network_username" id="network-username" value="">
+						<input type="hidden" name="network_id" id="network-id" value="{if isset($network_id)}{$network_id}{/if}">
+						<input type="hidden" name="network" id="network" value="{if isset($network)}{$network}{/if}">
+						<input type="hidden" name="network_username" id="network-username" value="{if isset($network_username)}{$network_username}{/if}">
 						<button class="btn btn-primary col-xs-6 col-sm-3 col-sm-offset-3" type="submit">{if $object eq 'product'}Make it!{else}Add this maker!{/if}</button>
 					</div>
 		    </div>

@@ -13,9 +13,8 @@
   </ul>
 </div>
 
-
 {if isset($waitlisters)}
-    
+
 <h3><small><i class="fa fa-clock-o"></i> Waitlist:</small> {$total_waitlisters|number_format}</h3>
 
     <ul class="nav nav-tabs">
@@ -23,30 +22,27 @@
       <li role="presentation"{if !isset($sort_view)}class="active"{/if}><a href="/s3cr3t/creation_time">Newest</a></li>
     </ul>
 
-
     <ul class=" list-group media-list">
     {foreach $waitlisters as $waitlister}
       <li class=" list-group-item">
         <div class="media-left">
-          <a href="/add/maker/?q={$waitlister.network_username}" class="btn btn-sm btn-default {if $waitlister.follower_count gt 1000} bg-success{/if}"><i class="fa fa-plus"></i> Add</a> 
+          <a href="/add/maker/?q=%40{$waitlister.network_username}" class="btn btn-sm btn-default {if $waitlister.follower_count gt 1000} bg-success{/if}" target="_blank"><i class="fa fa-plus"></i> Add</a>
         </div>
 
         <div class="media-body">
 
           <h5 class="pull-right">
-            <a href="/requestinvites/{$waitlister.network_id}/" class=""><i class="fa fa-file-code-o"></i>&nbsp;</a> 
+            <a href="/requestinvites/{$waitlister.network_id}/" class=""><i class="fa fa-file-code-o"></i>&nbsp;</a>
             {$waitlister.creation_time|relative_datetime} ago
           </h5>
-          
+
           <h3 class="pull-left">
             <a href="https://twitter.com/intent/user?user_id={$waitlister.network_id}">@{$waitlister.network_username}</a>
             <small>{$waitlister.follower_count|number_format}</small>
           </h3>
-          
 
-          
         </div>
-        
+
       </li>
     {/foreach}
     </ul>

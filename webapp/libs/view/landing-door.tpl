@@ -67,7 +67,7 @@
                 "' width='40' height='40'>" +
               "</div><div class='media-body'>" +
                 "<a href='https://twitter.com/share?text=Hey%20@" + val.follower_username +
-                "%20can%20you%20add%20me%20to%20%40makerbase%20so%20I%20can%20add%20my%20projects%3F%20Thanks!&amp;url=http://makerba.se/add/maker/?q={/literal}{$waitlisted_username}{literal}'" +
+                "%20can%20you%20add%20me%20to%20%40makerbase%20so%20I%20can%20add%20my%20projects%3F%20Thanks!&amp;url=http://makerba.se/add/maker/?q=%2540{/literal}{$waitlisted_username}{literal}'" +
                 "class='btn btn-primary btn-lg' onclick=\"javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;\">" +
                 "Ask @" + val.follower_username +
                "</a>" +
