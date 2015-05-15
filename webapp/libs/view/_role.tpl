@@ -42,7 +42,7 @@
 
         <div id="role-description-{$role->uid}">
 
-            <a {if isset($logged_in_user)}href="" onclick="$('#edit-role-{$role->uid}').toggle();$('#role-description-{$role->uid}').toggle();$('#role-archive-{$role->uid}').toggle();"{else}href="{$sign_in_with_twttr_link}"{/if} type="button" class="btn btn-link btn-xs pull-right" id="edit-role-btn">edit</a>
+            <a {if isset($logged_in_user)}href="#" onclick="$('#edit-role-{$role->uid}').toggle();$('#role-description-{$role->uid}').toggle();$('#role-archive-{$role->uid}').toggle();"{else}href="{$sign_in_with_twttr_link}"{/if} type="button" class="btn btn-link btn-xs pull-right" id="edit-role-btn">edit</a>
 
             <h4>
                 {$role->role|atnames:'/search/?q='}
