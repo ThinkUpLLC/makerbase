@@ -102,4 +102,15 @@ EOD;
         $ps = $this->execute($q, $vars);
         return ($this->getUpdateCount($ps) > 0);
     }
+
+    public function getTotal() {
+        $q = <<<EOD
+SELECT count(*) AS total FROM makers m
+WHERE  is_archived = 0;
+EOD;
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $ps = $this->execute($q);
+        $result = $this->getDataRowAsArray($ps);
+        return $result['total'];
+    }
 }

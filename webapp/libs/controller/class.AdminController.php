@@ -45,6 +45,10 @@ class AdminController extends MakerbaseAuthController {
             $total_products = $product_dao->getTotal();
             $this->addToView('total_products', $total_products);
 
+            $maker_dao = new MakerMySQLDAO();
+            $total_makers = $maker_dao->getTotal();
+            $this->addToView('total_makers', $total_makers);
+
             $role_dao = new RoleMySQLDAO();
             $total_roles = $role_dao->getTotal();
             $this->addToView('total_roles', $total_roles);

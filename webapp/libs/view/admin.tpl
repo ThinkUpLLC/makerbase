@@ -6,8 +6,9 @@
 
 <div class="page-header">
   <ul class="nav nav-pills nav-justified">
-    <li><h2><small><i class="fa fa-users"></i> Users:</small> {$total_users|number_format}</h2></li>
-    <li><h2><small><i class="fa fa-gears"></i> Projects:</small> {$total_products|number_format}</h2></li>
+    <li><h2><small><i class="fa fa-child"></i> Users:</small> {$total_users|number_format}</h2></li>
+    <li><h2><small><i class="fa fa-users"></i> Makers:</small> {$total_makers|number_format}</h2></li>
+    <li><h2><small><i class="fa fa-cubes"></i> Projects:</small> {$total_products|number_format}</h2></li>
     <li><h2><small><i class="fa fa-link"></i> Roles:</small> {$total_roles|number_format}</h2></li>
     <li><h2><small><i class="fa fa-edit"></i> Actions:</small> {$total_actions|number_format}</h2></li>
   </ul>
