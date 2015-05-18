@@ -3,7 +3,7 @@
                 <label for="role" class="col-sm-1 control-label hidden-xs">Dates</label>
                 <div class="col-xs-12 col-sm-10">
 
-                  <select name="from_month" id="from_month" class="form-input col-sm-2 col-xs-3 input-sm">
+                  <select name="from_month" id="from_month" class="form-input col-sm-2 col-xs-3 input">
                     <option value="">From</option>
                     <option value="01" {if isset($start_m)}{if $start_m eq '01'}selected="selected"{/if}{/if}>Jan</option>
                     <option value="02" {if isset($start_m)}{if $start_m eq '02'}selected="selected"{/if}{/if}>Feb</option>
@@ -19,7 +19,7 @@
                     <option value="12" {if isset($start_m)}{if $start_m eq '12'}selected="selected"{/if}{/if}>Dec</option>
                   </select>
 
-                  <select name="from_year" id="from_year" class="form-input col-sm-2 col-xs-3 input-sm">
+                  <select name="from_year" id="from_year" class="form-input col-sm-2 col-xs-3 input">
                     <option value="">Year</option>
                     <option value="2015" {if isset($start_Y)}{if $start_Y eq '2015'}selected="selected"{/if}{/if}>2015</option>
                     <option value="2014" {if isset($start_Y)}{if $start_Y eq '2014'}selected="selected"{/if}{/if}>2014</option>
@@ -73,7 +73,7 @@
                     <option value="1970" {if isset($start_Y)}{if $start_Y eq '1970'}selected="selected"{/if}{/if}>1970</option>
                   </select>
 
-                  <select name="to_month" id="to_month" class="form-input col-sm-2 col-sm-offset-1 col-xs-3 input-sm">
+                  <select name="to_month" id="to_month" class="form-input col-sm-2 col-sm-offset-1 col-xs-3 input">
                     <option value="">To</option>
                     <option value="01" {if isset($end_m)}{if $end_m eq '01'}selected="selected"{/if}{/if}>Jan</option>
                     <option value="02" {if isset($end_m)}{if $end_m eq '02'}selected="selected"{/if}{/if}>Feb</option>
@@ -89,7 +89,7 @@
                     <option value="12" {if isset($end_m)}{if $end_m eq '12'}selected="selected"{/if}{/if}>Dec</option>
                   </select>
 
-                  <select name="to_year" id="to_year" class="form-input col-sm-2 col-xs-3 input-sm">
+                  <select name="to_year" id="to_year" class="form-input col-sm-2 col-xs-3 input">
                     <option value="">Present</option>
                     <option value="2015" {if isset($end_Y)}{if $end_Y eq '2015'}selected="selected"{/if}{/if}>2015</option>
                     <option value="2014" {if isset($end_Y)}{if $end_Y eq '2014'}selected="selected"{/if}{/if}>2014</option>
