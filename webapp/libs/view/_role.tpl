@@ -73,11 +73,11 @@
             <input type="hidden" name="originate" value="{if isset($product->slug)}product{elseif isset($maker->slug)}maker{/if}">
 
             <div class="form-group">
-                <label for="update-role" class="col-sm-1 control-label"></label>
-                <div class="col-sm-9">
-                    <button class="btn btn-primary" type="submit" id="update-role">Update role</button>
+                <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                  <button class="btn btn-primary" type="submit" id="update-role">Update role</button>
                 </div>
             </div>
+
         </form>
 
 
