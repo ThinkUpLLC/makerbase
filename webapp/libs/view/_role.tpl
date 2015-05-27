@@ -65,7 +65,7 @@
                 </div>
             </div>
 
-            {include file="_dates.tpl" start_m={$role->start_m} start_Y={$role->start_Y} end_m={$role->end_m} end_Y={$role->end_Y}}
+            {include file="_dates.tpl" start_m={$role->start_m} start_Y={$role->start_Y} end_m={$role->end_m} end_Y={$role->end_Y} dates_id={$role->uid}}
 
             <input type="hidden" name="role_uid" value="{$role->uid}">
             <input type="hidden" name="originate_slug" value="{if isset($product->slug)}{$product->slug}{elseif isset($maker->slug)}{$maker->slug}{/if}">
