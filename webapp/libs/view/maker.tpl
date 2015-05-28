@@ -130,7 +130,7 @@
                 </div>
               </div>
 
-              {include file="_dates.tpl" start_m='' start_Y='' end_m='' end_Y=''}
+              {include file="_dates.tpl" start_m='' start_Y='' end_m='' end_Y='' dates_id='project'}
 
               <div class="form-group col-xs-12">
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1">

@@ -9,9 +9,9 @@
     </footer>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="{$site_root_path}assets/js/vendor/typeahead.bundle.min.js"></script>
     <script src="{$site_root_path}assets/js/vendor/handlebars-v3.0.0.js"></script>
 
@@ -142,28 +142,32 @@
 
       //Enable drop-down month/year selection in roles
 
-      $('#from_month').change(function(){
-          var start_date = $('#from_year').val() + '-' + $('#from_month').val();
-          $("input#start_date").val(start_date);
+      $('.from_month').change(function(){
+          var date_parent = $(this).closest("div").attr("id");
+          var start_date = $('#' + date_parent + ' .from_year').val() + '-' + $('#' + date_parent + ' .from_month').val();
+          $('#' + date_parent + ' input#start_date_' + date_parent).val(start_date);
       });
-      $('#from_year').change(function(){
-          var start_date = $('#from_year').val() + '-' + $('#from_month').val();
-          $("input#start_date").val(start_date);
+      $('.from_year').change(function(){
+          var date_parent = $(this).closest("div").attr("id");
+          var start_date = $('#' + date_parent + ' .from_year').val() + '-' + $('#' + date_parent + ' .from_month').val();
+          $('#' + date_parent + ' input#start_date_' + date_parent).val(start_date);
       });
-      $('#to_month').change(function(){
-          if ($('#to_month').val() && $('#to_year').val()) {
-            var end_date = $('#to_year').val() + '-' + $('#to_month').val();
-            $("input#end_date").val(end_date);
+      $('.to_month').change(function(){
+          var date_parent = $(this).closest("div").attr("id");
+          if ($('#' + date_parent + ' .to_month').val() && $('#' + date_parent + ' .to_year').val()) {
+            var end_date = $('#' + date_parent + ' .to_year').val() + '-' + $('#' + date_parent + ' .to_month').val();
+            $('#' + date_parent + ' input#end_date_' + date_parent).val(end_date);
           } else {
-            $("input#end_date").val('');
+            $('#' + date_parent + ' input#end_date_' + date_parent).val('');
           }
       });
-      $('#to_year').change(function(){
-          if ($('#to_month').val() && $('#to_year').val()) {
-            var end_date = $('#to_year').val() + '-' + $('#to_month').val();
-            $("input#end_date").val(end_date);
+      $('.to_year').change(function(){
+          var date_parent = $(this).closest("div").attr("id");
+          if ($('#' + date_parent + ' .to_month').val() && $('#' + date_parent + ' .to_year').val()) {
+            var end_date = $('#' + date_parent + ' .to_year').val() + '-' + $('#' + date_parent + ' .to_month').val();
+            $('#' + date_parent + ' input#end_date_' + date_parent).val(end_date);
           } else {
-            $("input#end_date").val('');
+            $('#' + date_parent + ' input#end_date_' + date_parent).val('');
           }
       });
 
@@ -192,12 +196,12 @@
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
+    {/literal}{if isset($logged_in_user)}{literal}
+      ga('create', 'UA-62611536-1', { 'userId': '{/literal}{$logged_in_user->uid}{literal}' });
+    {/literal}{else}{literal}
+      ga('create', 'UA-62611536-1');
+    {/literal}{/if}{literal}
 
-      {/literal}{if isset($logged_in_user)}{literal}
-      ga(‘set’, ‘&uid’, '{/literal}{$logged_in_user->uid}{literal}');
-      {/literal}{/if}{literal}
-
-      ga('create', 'UA-62611536-1', 'auto');
       ga('send', 'pageview');
 
     </script>
