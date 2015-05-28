@@ -143,8 +143,8 @@
                     <option value="1970" {if isset($end_Y)}{if $end_Y eq '1970'}selected="selected"{/if}{/if}>1970</option>
                   </select>
 
-                    <input type="text" name="start_date" id="start_date_{$dates_id}" placeholder="YYYY-MM" autocomplete="off" value="{if isset($role->start_YM)}{$role->start_YM}{/if}"/>
-                    <input type="text" name="end_date" id="end_date_{$dates_id}" autocomplete="off"  value="{if isset($role->end_YM)}{$role->end_YM}{/if}" />
+                    <input type="hidden" name="start_date" id="start_date_{$dates_id}" placeholder="YYYY-MM" autocomplete="off" value="{if isset($role->start_YM)}{$role->start_YM}{/if}"/>
+                    <input type="hidden" name="end_date" id="end_date_{$dates_id}" autocomplete="off"  value="{if isset($role->end_YM)}{$role->end_YM}{/if}" />
 
                 </div>
 
