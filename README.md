@@ -38,6 +38,12 @@ Note: If makerbase.dev doesn't resolve, make sure the following line is in your 
 
 Use the code editor and git client of your choice on your host machine. Edit files in the makerbase directory.
 
+### Offline Sign-in
+
+For offline development when you don't have access to Twitter.com, go to makerbase.dev and add fl=<makerbase_user_uid> to the URL to "sign in" as that user.
+
+For example, to fake a login as @makerbase, go to http://makerbase.dev/?fl=48cmyk
+
 ## Tools
 
 Adminer database admin:

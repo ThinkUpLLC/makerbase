@@ -3,6 +3,12 @@
 class LandingController extends MakerbaseController {
 
     public function control() {
+        //Begin terrible, terrible hack to make signing into makerbase.dev when offline possible
+        if (isset($_GET['fl']) && $_SERVER['SERVER_NAME'] == 'makerbase.dev') {
+            Session::completeLogin($_GET['fl']);
+        }
+        //End terrible, terrible hack
+
         parent::control();
 
         if (Session::isLoggedIn()) {
