@@ -44,11 +44,4 @@ class LandingController extends MakerbaseController {
 
         return $this->generateView();
     }
-
-    private function getLoggedInUser() {
-        $logged_in_user = Session::getLoggedInUser();
-        $user_dao = new UserMySQLDAO();
-        $user = $user_dao->get($logged_in_user);
-        return $user;
-    }
 }
