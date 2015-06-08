@@ -44,6 +44,13 @@ For offline development when you don't have access to Twitter.com, go to makerba
 
 For example, to fake a login as @makerbase, go to http://makerbase.dev/?fl=48cmyk
 
+### Run the tests
+
+SSH into the guest machine to run the tests.
+
+    [host]  $ vagrant ssh
+    [guest] $ cd /var/www/; sudo phpunit tests
+
 ## Tools
 
 Adminer database admin:
