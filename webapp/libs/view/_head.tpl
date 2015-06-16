@@ -95,7 +95,8 @@
   </head>
   <body>
 
-      <nav class="navbar navbar-inverse navbar-static-top">
+      <nav class="navbar navbar-inverse navbar-static-top"
+      {if isset($suppress_navbar)}{if $suppress_navbar eq true}style="display: none;"{/if}{/if}>
       <div class="container col-xs-12 col-sm-12">
 
 
