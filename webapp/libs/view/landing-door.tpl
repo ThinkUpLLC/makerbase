@@ -30,10 +30,7 @@
 
 <div class="row landing-row" id="landing-makers">
   <div class="col-sm-8 col-sm-offset-2 col-xs-12">
-    <div class="col-xs-6">
-      <img src="/assets/img/landing-screenshot-maker.jpg" alt="Maker page" id="landing-screenshot-maker" />
-    </div>
-    <div class="col-xs-6">
+    <div class="col-xs-6 col-xs-offset-6">
       <h2>Makers</h2>
       <div class="col-xs-12">
         <ul class="feature-list">
@@ -57,9 +54,6 @@
           <li>Let the world what tools you used to get the job done</li>
         </ul>
       </div>
-    </div>
-    <div class="col-xs-6">
-      <img src="/assets/img/landing-screenshot-project.jpg" alt="Project page" id="landing-screenshot-project" />
     </div>
   </div>
 </div>

@@ -515,9 +515,17 @@ input,
 }
 #landing-makers {
     background-color: #00E4B2;
+    background-image: url('../img/gear-man.png');
+    background-size: auto 90%;
+    background-position: left 80px bottom 0;
+    background-repeat: no-repeat;
 }
 #landing-projects {
     background-color: #FF5400;
+    background-image: url('../img/gear-icons.png');
+    background-size: auto 95%;
+    background-position: right -175px center;
+    background-repeat: no-repeat;
 }
 #landing-promo-quote h3 {
     color: #0C66D2;
@@ -528,21 +536,12 @@ input,
 #landing-screenshot-maker, #landing-screenshot-project {
     margin-top: 30px;
     margin-left: 10px;
-    width: 155px;
+    height: 250px;
+    width: auto;
 }
 #landing-screenshot-maker {
-    -moz-transform: rotate(355deg);
-    -webkit-transform: rotate(355deg);
-    -ms-transform: rotate(355deg); // IE9 only
-    transform: rotate(355deg);
-    height: 240px;
 }
 #landing-screenshot-project {
-    -moz-transform: rotate(5deg);
-    -webkit-transform: rotate(5deg);
-    -ms-transform: rotate(5deg); // IE9 only
-    transform: rotate(5deg);
-    height: 251px;
 }
 #landing-sponsors .list-inline>li {
     padding-left: 0;
