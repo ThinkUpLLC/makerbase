@@ -20,17 +20,32 @@
 <div class="row landing-row" id="landing-header">
    <div class="col-sm-8 col-sm-offset-2 col-xs-12">
     <h3>You make great things. Tell the world what you made.</h3>
-    <h1 class="col-xs-6">Makerbase</h1>
+    <h1 class="col-xs-7">
+      Makerbase
+    </h1>
+    <div class="col-xs-5">
+      <a class="btn btn-primary btn-lg" href="/twittersignin/" id="join-button">Are you in?</a>
+      <h6>(sign in with Twitter)</h6>
+    </div>
+  </div>
+</div>
 
-    <div class="col-xs-6">
-      <a class="btn btn-primary btn-lg" href="/twittersignin/" id="join-button">Are you a maker?</a>
+<div class="row landing-row" id="landing-company">
+  <div class="col-sm-8 col-sm-offset-2 col-xs-12">
+    <div class="col-xs-12">
+      <h2>Coming Soon</h2>
+      <p>Makerbase is in preview, with <strong>limited access</strong> while we get ready.</p>
+      <p>In the meantime, <a href="/twittersignin/">get on the waiting list</a>. (If someone has added you as a maker already, you can get a sneek peak.) We won't spam you.</p>
     </div>
   </div>
 </div>
 
 <div class="row landing-row" id="landing-makers">
   <div class="col-sm-8 col-sm-offset-2 col-xs-12">
-    <div class="col-xs-6 col-xs-offset-6">
+    <div class="col-xs-6" id="landing-makers-illustration">
+      &nbsp;
+    </div>
+    <div class="col-xs-6">
       <h2>Makers</h2>
       <div class="col-xs-12">
         <ul class="feature-list">
@@ -55,6 +70,8 @@
         </ul>
       </div>
     </div>
+    <div class="col-xs-6" id="landing-projects-illustration">
+    </div>
   </div>
 </div>
 
@@ -67,19 +84,6 @@
        <li><strong>It’s not a resume.</strong> We don’t care what your job title was, or even what company you were working at. It’s about what you actually did.</li>
        <li><strong>It’s like “IMDB for apps”.</strong> Movie fans can look at IMDB and see who made their favorite films. Music fans look at liner notes. All of us use apps and websites, and now we'll know who made them!</li>
       </ul>
-    </div>
-  </div>
-</div>
-
-<div class="row landing-row" id="landing-company">
-  <div class="col-sm-8 col-sm-offset-2 col-xs-12">
-    <h3>Made by a different kind of tech company</h3>
-    <div class="col-xs-6">
-      <img src="/assets/img/landing-makerbase-team.jpg" alt="Makerbase team" class="pull-right" id="landing-team-photo">
-    </div>
-    <div class="col-xs-6">
-      <p><strong>Makerbase isn’t like a regular startup in Silicon Valley.</strong> We make products for all people, we care deeply about opening up opportunities for everyone and we live by <a href="">our values</a>.</p>
-      <p>We treat you and your information with respect.</p>
     </div>
   </div>
 </div>

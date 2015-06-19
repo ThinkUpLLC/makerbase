@@ -62,6 +62,9 @@ ins {
     border-bottom: 1px solid #4CD764;
     text-decoration: none;
 }
+p a {
+    text-decoration: underline;
+}
 ul.list {
     padding-left: 20px;
 }
@@ -493,6 +496,7 @@ input,
     margin-top: 6px;
     padding: 8px 12px 4px;
     font-size: 30px;
+    width: 100%;
 }
 #landing-company {
     background-color: #00B9FF;
@@ -510,8 +514,14 @@ input,
 #landing-header h3, #landing-sponsors h3 {
     color: #4A4A4A;
 }
+#landing-header h6 {
+    text-align: center;
+    color: #777;
+    margin-bottom: 0;
+}
 #landing-makerbase-different {
     background-color: #9954C8;
+    color: white;
 }
 #landing-makers {
     background-color: #00E4B2;
@@ -520,12 +530,16 @@ input,
     background-position: left 80px bottom 0;
     background-repeat: no-repeat;
 }
+#landing-makers-illustration {
+}
 #landing-projects {
     background-color: #FF5400;
     background-image: url('../img/gear-icons.png');
     background-size: auto 95%;
     background-position: right -175px center;
     background-repeat: no-repeat;
+}
+#landing-projects-illustration {
 }
 #landing-promo-quote h3 {
     color: #0C66D2;
@@ -568,15 +582,11 @@ input,
         padding: 4px 8px 6px;
         font-size: 20px;
     }
-    #landing-screenshot-maker, #landing-screenshot-project {
-        margin-top: 60px;
-        margin-left: 10px;
-        width: 125px;
-        height: 155px;
+    #landing-makers {
+        background-position: left -60px bottom 0;
     }
-    #landing-team-photo {
-        width: 150px;
-        height: 120px;
+    #landing-projects {
+        background-position: right 250% center;
     }
 }
 
