@@ -35,7 +35,7 @@
     <div class="col-xs-12">
       <h2>Coming Soon</h2>
       <p>Makerbase is in preview, with <strong>limited access</strong> while we get ready.</p>
-      <p>In the meantime, <a href="/twittersignin/">get on the waiting list</a>. (If someone has added you as a maker already, you can get a sneek peak.) We won't spam you.</p>
+      <p>In the meantime, <a href="/twittersignin/">get on the waiting list</a>. (If someone has added you as a maker already, you can get a sneak peek.) We won't spam you.</p>
     </div>
   </div>
 </div>
@@ -66,7 +66,7 @@
         <ul class="feature-list">
           <li>Makerbase is for every project&mdash;even the ones that didn’t work out or that have ended</li>
           <li>List everyone who worked on your project, and describe what they did</li>
-          <li>Let the world what tools you used to get the job done</li>
+          <li>Let the world know what tools you used to get the job done</li>
         </ul>
       </div>
     </div>
