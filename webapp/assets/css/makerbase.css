@@ -20,7 +20,7 @@ del {
 h1,
 .input-lg,
 .jumbotron h1 {
-    color: #8F3963;
+    color: #C73A0A;
     margin-top: 0;
 }
 h1,
@@ -149,7 +149,7 @@ a.user-link {
     color: #417505;
 }
 .btn-info {
-    background-color: #8F3963;
+    background-color: #C73A0A;
     border: 1px solid #3EA5CF;
     color: #000;
 }
@@ -160,14 +160,14 @@ a.user-link {
     border: 1px solid #666;
 }
 .btn-primary {
-    background-color: #8F3963;
-    border: 1px solid #B3487C;
+    background-color: #C73A0A;
+    border: 1px solid #A02C08;
 }
 .btn-primary:hover,
 .btn-primary:active,
 .btn-primary:focus {
-    background-color: #B3487C;
-    border: 1px solid #F576B5;
+    background-color: #A02C08;
+    border: 1px solid #C73A0A;
     color: #000;
 }
 .btn-xs {
@@ -186,6 +186,8 @@ input,
 .pager li>a,
 .pager li>span {
     border-radius: 0;
+}
+.btn {
 }
 .control-label {
     text-align: right;
@@ -368,7 +370,7 @@ input,
 }
 .tt-suggestion {
     border-radius: 0;
-    color: #8F3963;
+    color: #C73A0A;
     font-weight: 400;
     margin: 0 6px 0 0;
     padding: 4px 4px 2px 8px;
@@ -387,7 +389,7 @@ input,
     font-weight: 200;
 }
 .tt-suggestion.tt-cursor {
-    background-color: #8F3963;
+    background-color: #C73A0A;
 }
 .tt-suggestion.tt-cursor a strong,
 .tt-suggestion.tt-cursor a h3 strong,
@@ -482,24 +484,32 @@ input,
     margin-top: 6px;
 }
 #homepage-search input {
-    border: 1px solid #8F3963;
+    border: 1px solid #C73A0A;
 }
 #homepage-search,
 #homepage-search input,
 #homepage-search .form-control {
-    color: #8F3963;
+    color: #C73A0A;
     font-size: 40px;
     height: auto;
 }
 #join-button {
     color: white;
-    margin-top: 6px;
-    padding: 8px 12px 4px;
-    font-size: 30px;
     width: 100%;
+    margin-top: 4px;
+    padding: 4px 8px 6px;
+    font-size: 20px;
 }
+@media (min-width: 768px) {
+    #join-button {
+        margin-top: 6px;
+        padding: 8px 12px 4px;
+        font-size: 30px;
+    }
+}
+
 #landing-company {
-    background-color: #00B9FF;
+    background-color: #44BFCD;
     padding-bottom: 10px;
 }
 #landing-header {
@@ -520,27 +530,36 @@ input,
     margin-bottom: 0;
 }
 #landing-makerbase-different {
-    background-color: #9954C8;
-    color: white;
+    background-color: #AC86D8;
 }
 #landing-makers {
-    background-color: #00E4B2;
+    background-color: #41D0A9;
     background-image: url('../img/gear-man.png');
     background-size: auto 90%;
-    background-position: left 80px bottom 0;
     background-repeat: no-repeat;
+    background-position: right 130pt bottom 0;
 }
 #landing-makers-illustration {
 }
 #landing-projects {
-    background-color: #FF5400;
+    background-color: #FFB14E;
     background-image: url('../img/gear-icons.png');
     background-size: auto 95%;
-    background-position: right -175px center;
     background-repeat: no-repeat;
+    background-position: left 130pt center;
 }
 #landing-projects-illustration {
 }
+
+@media (min-width: 768px) {
+    #landing-makers {
+        background-position: left 40px bottom 0;
+    }
+    #landing-projects {
+        background-position: right -250px center;
+    }
+}
+
 #landing-promo-quote h3 {
     color: #0C66D2;
 }
@@ -575,21 +594,6 @@ input,
 #landing-top-contributors h3 small a {
     overflow: hidden;
 }
-
-@media (max-width: 767px) {
-    #join-button {
-        margin-top: 4px;
-        padding: 4px 8px 6px;
-        font-size: 20px;
-    }
-    #landing-makers {
-        background-position: left -60px bottom 0;
-    }
-    #landing-projects {
-        background-position: right 250% center;
-    }
-}
-
 #maker-profile,
 #maker-profile-edit,
 #project-profile,
