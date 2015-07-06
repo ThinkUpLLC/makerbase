@@ -10,6 +10,11 @@ class MakerbaseAuthController extends AuthController {
         $logged_in_user = Session::getLoggedInUser();
         $user_dao = new UserMySQLDAO();
         $user = $user_dao->get($logged_in_user);
+
+        //Set admin status
+        $admins = Config::getInstance()->getValue('admins');
+        $user->is_admin = in_array($user->twitter_username, $admins);
+
         $this->addToView('logged_in_user', $user);
         $this->logged_in_user = $user;
 

@@ -4,6 +4,8 @@
 <div class="row">
 <div class="col-xs-12">
 
+{if isset($waitlisters)}
+
 <div class="page-header">
   <ul class="nav nav-pills nav-justified">
     <li><h2><small><i class="fa fa-child"></i> Users:</small> {$total_users|number_format}</h2></li>
@@ -13,8 +15,6 @@
     <li><h2><small><i class="fa fa-edit"></i> Actions:</small> {$total_actions|number_format}</h2></li>
   </ul>
 </div>
-
-{if isset($waitlisters)}
 
 <h3><small><i class="fa fa-clock-o"></i> Waitlist:</small> {$total_waitlisters|number_format}</h3>
 
