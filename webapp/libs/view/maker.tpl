@@ -175,6 +175,7 @@
       {/if}
 
 
+      {include file="_reportpage.tpl" object=$maker object_type='maker'}
 
         <div id="history" class="history-muted">
 
