@@ -88,7 +88,7 @@
           </div>
   </form>
 
-    <btn type="button" class="btn btn-default btn-link pull-right" onclick="$('#project-profile').toggle();$('#project-profile-edit').toggle();">cancel</a>
+    <a type="button" class="btn btn-default btn-link pull-right" onclick="$('#project-profile').toggle();$('#project-profile-edit').toggle();">cancel</a>
   </div>
 
 </div>
