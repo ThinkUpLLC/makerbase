@@ -44,6 +44,10 @@ class User {
      * @var int Maker ID if claimed.
      */
     var $maker_id;
+    /**
+     * @var bool Whether or not object is frozen (locked from changes).
+     */
+    var $is_frozen = false;
     public function __construct($row = false) {
         if ($row) {
             $this->id = $row['id'];
@@ -53,10 +57,12 @@ class User {
             $this->avatar_url = $row['avatar_url'];
             $this->twitter_user_id = $row['twitter_user_id'];
             $this->twitter_username = $row['twitter_username'];
+            $this->creation_time = $row['creation_time'];
             $this->last_login_time = $row['last_login_time'];
             $this->twitter_oauth_access_token = $row['twitter_oauth_access_token'];
             $this->twitter_oauth_access_token_secret = $row['twitter_oauth_access_token_secret'];
             $this->maker_id = $row['maker_id'];
+            $this->is_frozen = PDODAO::convertDBToBool($row['is_frozen']);
         }
     }
 }

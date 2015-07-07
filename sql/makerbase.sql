@@ -21,10 +21,12 @@ CREATE TABLE actions (
   object2_id int(11) DEFAULT NULL COMMENT 'ID of second affected object.',
   object2_type varchar(20) DEFAULT NULL COMMENT 'Type of second affected object.',
   metadata text COMMENT 'Object metadata.',
+  is_admin int(1) NOT NULL DEFAULT '0' COMMENT 'Whether or not this is an admin action.',
   PRIMARY KEY (id),
   UNIQUE KEY id (id),
   UNIQUE KEY uid (uid),
-  KEY time_performed (time_performed,user_id,action_type)
+  KEY time_performed (time_performed,user_id,action_type),
+  KEY is_admin (is_admin)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Actions performed by users on objects.';
 
 -- --------------------------------------------------------
@@ -74,6 +76,7 @@ CREATE TABLE makers (
   avatar_url varchar(255) NOT NULL COMMENT 'Avatar URL.',
   creation_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation time.',
   is_archived int(1) NOT NULL DEFAULT '0' COMMENT 'Has maker been archived, 1 yes, 0 no.',
+  is_frozen int(1) NOT NULL DEFAULT '0' COMMENT 'Whether or not object is frozen (locked from changes).',
   PRIMARY KEY (id),
   UNIQUE KEY uid (uid),
   KEY creation_time (creation_time),
@@ -96,6 +99,7 @@ CREATE TABLE products (
   avatar_url varchar(255) NOT NULL COMMENT 'Product avatar url.',
   creation_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation time.',
   is_archived int(1) NOT NULL DEFAULT '0' COMMENT 'Has product been archived, 1 yes, 0 no.',
+  is_frozen int(1) NOT NULL DEFAULT '0' COMMENT 'Whether or not object is frozen (locked from changes).',
   PRIMARY KEY (id),
   UNIQUE KEY uid (uid),
   KEY creation_time (creation_time),
@@ -144,6 +148,7 @@ CREATE TABLE users (
   twitter_oauth_access_token varchar(255) NOT NULL COMMENT 'Twitter OAuth token.',
   twitter_oauth_access_token_secret varchar(255) NOT NULL COMMENT 'Twitter OAuth secret.',
   maker_id int(11) DEFAULT NULL COMMENT 'Maker ID if claimed.',
+  is_frozen int(1) NOT NULL DEFAULT '0' COMMENT 'Whether or not object is frozen (locked from changes).',
   PRIMARY KEY (id),
   UNIQUE KEY uid (uid),
   UNIQUE KEY twitter_user_id (twitter_user_id),

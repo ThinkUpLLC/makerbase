@@ -61,6 +61,10 @@ class Action {
      * @var text Object metadata.
      */
     var $metadata;
+    /**
+     * @var bool Whether or not this is an admin action.
+     */
+    var $is_admin = false;
     public function __construct($row = false) {
         if ($row) {
             $this->id = $row['id'];
@@ -75,6 +79,7 @@ class Action {
             $this->object2_id = $row['object2_id'];
             $this->object2_type = $row['object2_type'];
             $this->metadata = JSONDecoder::decode($row['metadata']);
+            $this->is_admin = PDODAO::convertDBToBool($row['is_admin']);
         }
     }
 }
