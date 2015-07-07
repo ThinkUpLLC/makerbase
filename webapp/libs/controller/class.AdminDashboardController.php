@@ -1,6 +1,6 @@
 <?php
 
-class AdminController extends MakerbaseAdminController {
+class AdminDashboardController extends MakerbaseAdminController {
 
     public function authControl() {
         $this->setViewTemplate('admin.tpl');

@@ -18,6 +18,8 @@ abstract class MakerbaseAdminController extends AuthController {
             $this->addToView('logged_in_user', $user);
             $this->logged_in_user = $user;
 
+            $this->addToView('thinkup_uid', $cfg->getValue('thinkup_uid'));
+
             if (!$user->is_admin) {
                 $controller = new AccessDeniedController(true);
                 return $controller->go();
