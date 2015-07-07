@@ -171,7 +171,7 @@ class EditController extends MakerbaseAuthController {
                 $has_changed_archive_status = $product_dao->archive($_POST['uid']);
                 if ($has_changed_archive_status) {
                     $product->is_archived = true;
-                    SessionCache::put('success_message', 'Archived product');
+                    SessionCache::put('success_message', 'Archived project');
                     $action_type = 'archive';
 
                     //Remove product from Elasticsearch
@@ -185,7 +185,7 @@ class EditController extends MakerbaseAuthController {
                 $has_changed_archive_status = $product_dao->unarchive($_POST['uid']);
                 if ($has_changed_archive_status) {
                     $product->is_archived = false;
-                    SessionCache::put('success_message', 'Unarchived product');
+                    SessionCache::put('success_message', 'Unarchived project');
                     $action_type = 'unarchive';
 
                     // Add product back to Elasticsearch
