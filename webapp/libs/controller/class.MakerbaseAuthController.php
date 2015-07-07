@@ -12,13 +12,13 @@ class MakerbaseAuthController extends AuthController {
         $user = $user_dao->get($logged_in_user);
 
         //Set admin status
-        $admins = Config::getInstance()->getValue('admins');
+        $cfg = Config::getInstance();
+        $admins = $cfg->getValue('admins');
         $user->is_admin = in_array($user->twitter_username, $admins);
 
         $this->addToView('logged_in_user', $user);
         $this->logged_in_user = $user;
 
-        $cfg = Config::getInstance();
         $this->addToView('thinkup_uid', $cfg->getValue('thinkup_uid'));
     }
 
