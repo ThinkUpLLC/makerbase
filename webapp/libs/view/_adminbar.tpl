@@ -6,10 +6,10 @@
     </div>
 
 	<ul class="nav navbar-nav navbar-right">
-        {if isset($maker)}<li><button class="btn btn-warning btn-sm" style="margin-right: 30px;">Lock maker</button></li>{/if}
-        {if isset($project)}<li><button class="btn btn-warning btn-sm" style="margin-right: 30px;">Lock project</button></li>{/if}
+        {if isset($maker)}<li><button class="btn btn-warning btn-sm" style="margin-right: 30px;">Freeze maker</button></li>{/if}
+        {if isset($product)}<li><button class="btn btn-warning btn-sm" style="margin-right: 30px;">Freeze project</button></li>{/if}
         {if isset($user)}<li><button class="btn btn-warning btn-sm" style="margin-right: 30px;">Freeze user</button></li>{/if}
-		{if isset($maker) || isset($project)}<li><button href="#" class="btn btn-danger btn-sm" style="margin-right: 30px;">DELETE</button></li>{/if}
+		{if isset($maker) || isset($product)}<li><button href="#" class="btn btn-danger btn-sm" style="margin-right: 30px;">DELETE</button></li>{/if}
 	</ul>
 
   </div>
