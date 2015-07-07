@@ -41,6 +41,11 @@ class ProductController extends MakerbaseAuthController {
                 $this->addToView('image_proxy_sig', $image_proxy_sig);
 
                 $this->addToView('placeholder', Role::getRandoPlaceholder());
+
+                if ($this->logged_in_user->is_admin) {
+                    $last_admin_activity = $action_dao->getLastAdminActivityPerformedOnProduct($product);
+                    $this->addToView('last_admin_activity', $last_admin_activity);
+                }
             } catch (ProductDoesNotExistException $e) {
                 $this->redirect('/404');
             }

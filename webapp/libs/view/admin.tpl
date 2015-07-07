@@ -4,8 +4,6 @@
 <div class="row">
 <div class="col-xs-12">
 
-{if isset($waitlisters)}
-
 <div class="page-header">
   <ul class="nav nav-pills nav-justified">
     <li><h2><small><i class="fa fa-child"></i> Users:</small> {$total_users|number_format}</h2></li>
@@ -19,10 +17,12 @@
 <h3><small><i class="fa fa-clock-o"></i> Waitlist:</small> {$total_waitlisters|number_format}</h3>
 
     <ul class="nav nav-tabs">
-      <li role="presentation" {if isset($sort_view)}{if $sort_view eq 'follower_count'}class="active"{/if}{/if}><a href="/s3cr3t/follower_count">Most Followers</a></li>
-      <li role="presentation"{if !isset($sort_view)}class="active"{/if}><a href="/s3cr3t/creation_time">Newest</a></li>
+      <li role="presentation" {if isset($sort_view)}{if $sort_view eq 'waitlist_followers'}class="active"{/if}{/if}><a href="/s3cr3t/waitlist_followers">Waitlist Most Followers</a></li>
+      <li role="presentation"{if isset($sort_view)}{if $sort_view eq 'waitlist_newest'}class="active"{/if}{/if}><a href="/s3cr3t/waitlist_newest">Waitlist Newest</a></li>
+      <li role="presentation"{if isset($sort_view)}{if $sort_view eq 'actions'}class="active"{/if}{/if}><a href="/s3cr3t/actions">Admin Actions</a></li>
     </ul>
 
+{if isset($waitlisters)}
     <ul class=" list-group media-list">
     {foreach $waitlisters as $waitlister}
       <li class=" list-group-item">
@@ -58,6 +58,20 @@
       {/if}
     </ul>
   </nav>
+
+{/if}
+
+{if isset($actions)}
+
+      {if sizeof($actions) > 0}
+      <ul class="list-group">
+      {foreach $actions as $action}
+          <li class="list-group-item col-xs-12">
+          {include file="_action.tpl"}
+          </li>
+      {/foreach}
+      </ul>
+      {/if}
 
 {/if}
 </div>

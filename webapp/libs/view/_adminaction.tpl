@@ -1,5 +1,5 @@
 {*
- * Display an action.
+ * Display action text (for the admin bar).
  *
  * $action (required)
  * $logged_in_user (optional)
@@ -27,6 +27,7 @@
         {assign var="user_name" value=$action->metadata->name}
         {assign var="user_uid" value=$action->metadata->uid}
     {/if}
+
 {/if}
 {if isset($action->metadata->after->avatar_url)}
     {assign var="avatar_url" value=$action->metadata->after->avatar_url}
@@ -65,40 +66,7 @@
     {assign var="product_name" value=$action->metadata->after->product->name}
 {/if}
 
-{if $action->action_type neq 'freeze' && $action->action_type neq 'unfreeze'}
-    {assign var="verbed" value="`$action->action_type`d"}
-{else}
-    {if $action->action_type eq 'freeze'}
-        {assign var="verbed" value="froze"}
-    {else}
-        {assign var="verbed" value="unfroze"}
-    {/if}
-{/if}
-
-<div class="action-item">
-	<div class="media-left media-top col-xs-2 col-sm-2">
-		{if isset($maker_avatar_url)}<a href="/m/{$maker_uid}/{$maker_slug}"><img src="{if isset($maker_avatar_url)}{insert name='user_image' image_url=$maker_avatar_url image_proxy_sig=$image_proxy_sig type='m'}{else}http://makerba.se/assets/img/blank-maker.png{/if}" class="img-responsive" alt="{$maker_name}"></a>{else}<img src="{if isset($avatar_url)}{insert name='user_image' image_url=$avatar_url image_proxy_sig=$image_proxy_sig type='m'}{else}http://makerba.se/assets/img/blank-maker.png{/if}" class="img-responsive" alt="">{/if}
-	</div>
-
-    <div class=" pull-right media-right col-xs-2 col-sm-2">
-        {if isset($product_avatar_url)}<a href="/p/{$product_uid}/{$product_slug}"><img src="{if isset($product_avatar_url)}{insert name='user_image' image_url=$product_avatar_url image_proxy_sig=$image_proxy_sig type='m'}{else}http://makerba.se/assets/img/blank-maker.png{/if}" class="img-responsive"></a>{/if}
-    </div>
-
-	<div class="media-body">
-		<h5>{if $actor neq 'You'}<a href="/u/{$action->user_uid}" class="user-link">{$action->username}</a>{else}{$actor}{/if} {$verbed} <a href="/{if $action->object_type eq 'Maker'}m/{$maker_uid}/{$maker_slug}">{$maker_name}{elseif $action->object_type eq 'Product'}p/{$product_uid}/{$product_slug}">{$product_name}{else if $action->object_type eq 'User'}u/{$user_uid}">{$user_name}{/if}</a>{if isset($action->object2_id)} {if $action->action_type eq 'associate'}with{else}on{/if} <a href="/p/{$product_uid}/{$product_slug}">{$product_name}</a>{/if}</h5>
-
-        <div class="datestamp"><small class="text-muted">{$action->time_performed|relative_datetime} ago</small></div>
-
-        {if $action->action_type eq 'update'}
-        <blockquote>
-            {include file='_diff.tpl'}
-        </blockquote>
-        {/if}
-
-	</div>
-
-
-</div>
+- {if $actor neq 'You'}<a href="/u/{$action->user_uid}" class="user-link">{$action->username}</a>{else}{$actor}{/if} {$action->action_type|replace:'reez':'roz'} <a href="/{if $action->object_type eq 'Maker'}m/{$maker_uid}/{$maker_slug}">{$maker_name}{elseif $action->object_type eq 'Product'}p/{$product_uid}/{$product_slug}">{$product_name}{elseif $action->object_type eq 'User'}u/{$user_uid}">{$user_name}{/if}</a>{if isset($action->object2_id)} {if $action->action_type eq 'associate'}with{else}on{/if} <a href="/p/{$product_uid}/{$product_slug}">{$product_name}</a>{/if} <small class="text-muted">{$action->time_performed|relative_datetime} ago</small>
 
 
 {assign var="actor" value=null}

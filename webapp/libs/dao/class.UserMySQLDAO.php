@@ -107,6 +107,28 @@ EOD;
         $result = $this->getDataRowAsArray($ps);
         return $result['total'];
     }
+
+    public function freeze($uid) {
+        return $this->setIsFrozen($uid, true);
+    }
+
+    public function unfreeze($uid) {
+        return $this->setIsFrozen($uid, false);
+    }
+
+    private function setIsFrozen($uid, $is_frozen) {
+        $q = <<<EOD
+UPDATE users SET is_frozen = :is_frozen WHERE uid = :uid
+EOD;
+        $vars = array (
+            ':uid' => $uid,
+            ':is_frozen' => ($is_frozen)?1:0
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        return ($this->getUpdateCount($ps) > 0);
+    }
 }
 
 

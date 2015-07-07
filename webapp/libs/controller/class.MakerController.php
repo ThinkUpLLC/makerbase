@@ -71,6 +71,11 @@ class MakerController extends MakerbaseAuthController {
                 $this->addToView('image_proxy_sig', $image_proxy_sig);
 
                 $this->addToView('placeholder', Role::getRandoPlaceholder());
+
+                if ($this->logged_in_user->is_admin) {
+                    $last_admin_activity = $action_dao->getLastAdminActivityPerformedOnMaker($maker);
+                    $this->addToView('last_admin_activity', $last_admin_activity);
+                }
             } catch (MakerDoesNotExistException $e) {
                 $this->redirect('/404');
             }

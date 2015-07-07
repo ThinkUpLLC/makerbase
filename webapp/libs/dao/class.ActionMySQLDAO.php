@@ -5,7 +5,7 @@ class ActionMySQLDAO extends MakerbasePDODAO {
         $q = <<<EOD
 SELECT a.*, u.name, u.uid AS user_uid, u.twitter_username as username FROM actions a
 INNER JOIN users u ON a.user_id = u.id
-WHERE a.uid = :uid ;
+WHERE a.uid = :uid AND is_admin = 0;
 EOD;
         $vars = array ( ':uid' => $uid);
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
@@ -24,9 +24,10 @@ EOD;
         $action->uid = self::generateRandomString(6);
         $q = <<<EOD
 INSERT INTO actions (
-uid, user_id, ip_address, action_type, severity, object_id, object_type, object2_id, object2_type, metadata
+uid, user_id, ip_address, action_type, severity, object_id, object_type, object2_id, object2_type, metadata, is_admin
 ) VALUES (
-:uid, :user_id, :ip_address, :action_type, :severity, :object_id, :object_type, :object2_id, :object2_type, :metadata
+:uid, :user_id, :ip_address, :action_type, :severity, :object_id, :object_type, :object2_id, :object2_type, :metadata,
+:is_admin
 )
 EOD;
         $vars = array (
@@ -40,6 +41,7 @@ EOD;
             ':object2_id' => $action->object2_id,
             ':object2_type' => $action->object2_type,
             ':metadata' => $action->metadata,
+            ':is_admin' => $action->is_admin,
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         $try_insert = true;
@@ -65,7 +67,8 @@ EOD;
 SELECT a.*, u.name, u.uid AS user_uid, u.twitter_username as username FROM actions a INNER JOIN connections c
 ON c.object_type = a.object_type and c.object_id = a.object_id
 INNER JOIN users u ON a.user_id = u.id
-WHERE c.user_id = :user_id ORDER BY time_performed DESC LIMIT 7;
+WHERE c.user_id = :user_id AND is_admin = 0
+ORDER BY time_performed DESC LIMIT 7;
 EOD;
         $vars = array (
             ':user_id' => $user_id
@@ -85,7 +88,8 @@ EOD;
         $q = <<<EOD
 SELECT a.*, u.name, u.uid AS user_uid, u.twitter_username as username FROM actions a
 INNER JOIN users u ON a.user_id = u.id
-WHERE a.user_id = :user_id ORDER BY time_performed DESC LIMIT :start, :limit;
+WHERE a.user_id = :user_id AND is_admin = 0
+ORDER BY time_performed DESC LIMIT :start, :limit;
 EOD;
         $vars = array (
             ':user_id' => $user_id,
@@ -107,12 +111,51 @@ EOD;
         $q = <<<EOD
 SELECT a.*, u.name, u.uid AS user_uid, u.twitter_username as username FROM actions a
 INNER JOIN users u ON a.user_id = u.id
-WHERE a.object_type = 'Maker' AND a.object_id = :maker_id ORDER BY time_performed DESC LIMIT :start, :limit;
+WHERE a.object_type = 'Maker' AND a.object_id = :maker_id AND is_admin = 0
+ORDER BY time_performed DESC LIMIT :start, :limit;
 EOD;
         $vars = array (
             ':maker_id' => $maker->id,
             ':start' => $start,
             ':limit' => $limit
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $ps = $this->execute($q, $vars);
+        $actions = $this->getDataRowsAsObjects($ps, 'Action');
+        foreach ($actions as $action) {
+            $action->metadata = JSONDecoder::decode($action->metadata);
+        }
+        return $actions;
+    }
+
+    public function getLastAdminActivityPerformedOnMaker(Maker $maker) {
+        $q = <<<EOD
+SELECT a.*, u.name, u.uid AS user_uid, u.twitter_username as username FROM actions a
+INNER JOIN users u ON a.user_id = u.id
+WHERE a.object_type = 'Maker' AND a.object_id = :maker_id AND is_admin = 1
+ORDER BY time_performed DESC LIMIT 1;
+EOD;
+        $vars = array (
+            ':maker_id' => $maker->id
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $ps = $this->execute($q, $vars);
+        $actions = $this->getDataRowsAsObjects($ps, 'Action');
+        foreach ($actions as $action) {
+            $action->metadata = JSONDecoder::decode($action->metadata);
+        }
+        return $actions;
+    }
+
+    public function getLastAdminActivityPerformedOnUser(User $user) {
+        $q = <<<EOD
+SELECT a.*, u.name, u.uid AS user_uid, u.twitter_username as username FROM actions a
+INNER JOIN users u ON a.user_id = u.id
+WHERE a.object_type = 'User' AND a.object_id = :user_id AND is_admin = 1
+ORDER BY time_performed DESC LIMIT 1;
+EOD;
+        $vars = array (
+            ':user_id' => $user->id
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         $ps = $this->execute($q, $vars);
@@ -129,13 +172,34 @@ EOD;
         $q = <<<EOD
 SELECT a.*, u.name, u.uid AS user_uid, u.twitter_username as username FROM actions a
 INNER JOIN users u ON a.user_id = u.id
-WHERE (a.object_type = 'Product' AND a.object_id = :product_id)
-OR (a.object2_type = 'Product' AND a.object2_id = :product_id) ORDER BY time_performed DESC LIMIT :start, :limit;
+WHERE ((a.object_type = 'Product' AND a.object_id = :product_id)
+OR (a.object2_type = 'Product' AND a.object2_id = :product_id)) AND is_admin = 0
+ORDER BY time_performed DESC LIMIT :start, :limit;
 EOD;
         $vars = array (
             ':product_id' => $product->id,
             ':start' => $start,
             ':limit' => $limit
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $ps = $this->execute($q, $vars);
+        $actions = $this->getDataRowsAsObjects($ps, 'Action');
+        foreach ($actions as $action) {
+            $action->metadata = JSONDecoder::decode($action->metadata);
+        }
+        return $actions;
+    }
+
+    public function getLastAdminActivityPerformedOnProduct(Product $product) {
+        $q = <<<EOD
+SELECT a.*, u.name, u.uid AS user_uid, u.twitter_username as username FROM actions a
+INNER JOIN users u ON a.user_id = u.id
+WHERE ((a.object_type = 'Product' AND a.object_id = :product_id)
+OR (a.object2_type = 'Product' AND a.object2_id = :product_id)) AND is_admin = 1
+ORDER BY time_performed DESC LIMIT 1;
+EOD;
+        $vars = array (
+            ':product_id' => $product->id
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         $ps = $this->execute($q, $vars);
@@ -152,6 +216,29 @@ EOD;
         $q = <<<EOD
 SELECT a.*, u.name, u.uid AS user_uid, u.twitter_username as username FROM actions a
 INNER JOIN users u ON a.user_id = u.id
+WHERE is_admin = 0
+ORDER BY time_performed DESC LIMIT :start, :limit;
+EOD;
+        $vars = array (
+            ':start' => $start,
+            ':limit' => $limit
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $ps = $this->execute($q, $vars);
+        $actions = $this->getDataRowsAsObjects($ps, 'Action');
+        foreach ($actions as $action) {
+            $action->metadata = JSONDecoder::decode($action->metadata);
+        }
+        return $actions;
+    }
+
+    public function getAdminActivities($page = 1, $limit = 30) {
+        $start = $limit * ($page - 1);
+        $limit++;
+        $q = <<<EOD
+SELECT a.*, u.name, u.uid AS user_uid, u.twitter_username as username FROM actions a
+INNER JOIN users u ON a.user_id = u.id
+WHERE is_admin = 1
 ORDER BY time_performed DESC LIMIT :start, :limit;
 EOD;
         $vars = array (
@@ -169,7 +256,7 @@ EOD;
 
     public function getTotal() {
         $q = <<<EOD
-SELECT count(*) AS total FROM actions a;
+SELECT count(*) AS total FROM actions a WHERE is_admin = 0;
 EOD;
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         $ps = $this->execute($q);

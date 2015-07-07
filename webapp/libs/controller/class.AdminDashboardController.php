@@ -11,25 +11,34 @@ class AdminDashboardController extends MakerbaseAdminController {
         $page_number = (isset($_GET['p']))?$_GET['p']:1;
         $limit = 20;
 
-        if (!isset($_GET['sort']) ) {
-            $_GET['sort'] = 'follower_count';
-        }
-        if ($_GET['sort'] == 'follower_count') {
-            $waitlisters = $waitlist_dao->listWaitlisters($limit, 'follower_count', $page_number);
-
-            $this->addToView('sort_view', 'follower_count');
-        } else {
-            $waitlisters = $waitlist_dao->listWaitlisters($limit, 'creation_time', $page_number);
-        }
-        if (count($waitlisters) > $limit) {
-            array_pop($waitlisters);
-            $this->addToView('next_page', $page_number+1);
-        }
-        if ($page_number > 1) {
-            $this->addToView('prev_page', $page_number-1);
+        if (!isset($_GET['v']) ) {
+            $_GET['v'] = 'waitlist_followers';
         }
 
-        $this->addToView('waitlisters', $waitlisters);
+        if ($_GET['v'] == 'waitlist_followers' || $_GET['v'] == 'waitlist_newest') {
+            if ($_GET['v'] == 'waitlist_followers') {
+                $waitlisters = $waitlist_dao->listWaitlisters($limit, 'follower_count', $page_number);
+            } elseif ($_GET['v'] == 'waitlist_newest') {
+                $waitlisters = $waitlist_dao->listWaitlisters($limit, 'creation_time', $page_number);
+            }
+
+            if (count($waitlisters) > $limit) {
+                array_pop($waitlisters);
+                $this->addToView('next_page', $page_number+1);
+            }
+            if ($page_number > 1) {
+                $this->addToView('prev_page', $page_number-1);
+            }
+
+            $this->addToView('waitlisters', $waitlisters);
+        }
+        if ($_GET['v'] == 'actions') {
+            $action_dao = new ActionMySQLDAO();
+            $actions = $action_dao->getAdminActivities($page_number, $limit);
+            $this->addToView('actions', $actions);
+        }
+
+        $this->addToView('sort_view',  $_GET['v']);
 
         $total_waitlisters = $waitlist_dao->getTotal();
         $this->addToView('total_waitlisters', $total_waitlisters);

@@ -28,6 +28,11 @@ class UserController extends MakerbaseAuthController {
 
                 $image_proxy_sig = Config::getInstance()->getValue('image_proxy_sig');
                 $this->addToView('image_proxy_sig', $image_proxy_sig);
+
+                if ($this->logged_in_user->is_admin) {
+                    $last_admin_activity = $action_dao->getLastAdminActivityPerformedOnUser($user);
+                    $this->addToView('last_admin_activity', $last_admin_activity);
+                }
             } catch (UserDoesNotExistException $e) {
                 $this->redirect('/404');
             }

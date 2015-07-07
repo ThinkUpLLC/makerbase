@@ -26,10 +26,12 @@ class ActionMySQLDAOTest extends MakerbaseUnitTestCase {
         $action->object_type = 'product';
         $action->severity = Action::SEVERITY_NORMAL;
         $action->user_id = 100;
+        $action->is_admin = true;
 
         $inserted_action = $action_dao->insert($action);
         $this->assertInstanceOf('Action', $inserted_action);
         $this->assertEquals($inserted_action->id, 1);
         $this->assertNotNull($inserted_action->uid);
+        $this->assertTrue($inserted_action->is_admin);
     }
 }
