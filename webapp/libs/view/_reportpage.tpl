@@ -12,17 +12,18 @@ Hi! I'd like to report a page on Makerbase:
 
 http://makerba.se/{if $object_type eq 'product'}p{else}m{/if}/{$object->uid}/{$object->slug}
 
-Tell us why you think we should review this page:
+Here's why this page should be reviewed:
 
 
 Thanks!
 
 {if isset($logged_in_user)}
 Reporting user:
+{$logged_in_user->name}
 http://makerba.se/u/{$logged_in_user->uid}
 {/if}
 {/capture}
 
 
-  <a type="button" class="btn btn-default btn-link pull-right" href="mailto:help@thinkup.com?subject={$report_subject|escape:'url'}&body={$report_body|escape:'url'}">Report this page</a>
+  <a type="button" class="btn btn-default btn-link pull-right" href="mailto:help@thinkup.com?subject={$report_subject|escape:'url'}&body={$report_body|escape:'url'}"><i class="fa fa-flag text-muted"></i><span class="hidden-xs hidden-sm text-muted"> Report this page</span></a>
 
