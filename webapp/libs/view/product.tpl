@@ -161,7 +161,7 @@
 
           <!-- /add roles -->
 
-          {include file="_reportpage.tpl" object=$product object_type='product'}
+          {include file="_reportpage.tpl" object=$product object_type='project'}
 
     </div>
 
