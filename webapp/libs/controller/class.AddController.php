@@ -212,8 +212,6 @@ class AddController extends MakerbaseAuthController {
             $maker->avatar_url = $_POST['avatar_url'];
 
             $maker_dao = new MakerMySQLDAO();
-            $controller = new MakerController(true);
-
             $maker = $maker_dao->insert($maker);
 
             // Add new maker to Elasticsearch
@@ -283,7 +281,6 @@ class AddController extends MakerbaseAuthController {
             $product->avatar_url = $_POST['avatar_url'];
 
             $product_dao = new ProductMySQLDAO();
-            $controller = new ProductController(true);
 
             //Insert maker (this may throw a DuplicateMakerException)
             $product = $product_dao->insert($product);
