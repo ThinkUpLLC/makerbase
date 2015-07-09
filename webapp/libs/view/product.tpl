@@ -31,6 +31,7 @@
     <form method="post" action="/edit/product/" id="project-profile-archive" class="">
       <div class="form-group">
         <input type="hidden" name="uid" value="{$product->uid}" />
+        <input type="hidden" name="slug" value="{$product->slug}" />
         <input type="hidden" name="archive" value="{if $product->is_archived}0{else}1{/if}"/>
         {if $product->is_archived}
         <button type="submit" class="btn btn-xs btn-success col-xs-12" id="project-profile-archive-button">

@@ -6,6 +6,11 @@ class AddController extends MakerbaseAuthController {
         parent::authControl();
         $this->setViewTemplate('add.tpl');
 
+        if ($this->logged_in_user->is_frozen && !isset($_GET['q'])) {
+            echo 'HAI';
+            SessionCache::put('error_message', 'Unable to save your changes. Please try again in a little while.');
+        }
+
         if ($_GET['object'] == 'maker' || $_GET['object'] == 'product' || $_GET['object'] == 'role') {
             $this->addToView('object', $_GET['object']);
 
@@ -16,19 +21,32 @@ class AddController extends MakerbaseAuthController {
                     $this->addiOSAppsToView($_GET['q']);
                 }
             } elseif ($_GET['object'] == 'maker' && $this->hasSubmittedMakerForm()) {
-                CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
-                $this->addMaker();
+                if (!$this->logged_in_user->is_frozen) {
+                    CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
+                    $this->addMaker();
+                }
             } elseif ($_GET['object'] == 'product' && $this->hasSubmittedProductForm()) {
-                CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
-                $this->addProduct();
+                if (!$this->logged_in_user->is_frozen) {
+                    CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
+                    $this->addProduct();
+                }
             } elseif ($_GET['object'] == 'role' && $this->hasSubmittedRoleForm()) {
-                CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
-                $this->addRole();
+                if (!$this->logged_in_user->is_frozen) {
+                    CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
+                    $this->addRole();
+                }
+                if ($_POST['originate'] == 'maker') {
+                    $this->redirect('/m/'.$_POST['originate_uid'].'/'.$_POST['originate_slug']);
+                } else {
+                    $this->redirect('/p/'.$_POST['originate_uid'].'/'.$_POST['originate_slug']);
+                }
             }
         } else {
             $this->redirect(Config::getInstance()->getValue('site_root_path'));
         }
 
+        // Transfer cached user messages to the view
+        $this->setUserMessages();
         return $this->generateView();
     }
 
@@ -193,11 +211,6 @@ class AddController extends MakerbaseAuthController {
             SessionCache::put('error_message', 'That maker does not exist.');
         } catch (ProductDoesNotExistException $e) {
             SessionCache::put('error_message', 'That product does not exist.');
-        }
-        if ($_POST['originate'] == 'maker') {
-            $this->redirect('/m/'.$_POST['originate_uid'].'/'.$_POST['originate_slug']);
-        } else {
-            $this->redirect('/p/'.$_POST['originate_uid'].'/'.$_POST['originate_slug']);
         }
     }
 

@@ -31,6 +31,7 @@
     <form method="post" action="/edit/maker/" id="maker-profile-archive" class="">
       <div class="form-group">
         <input type="hidden" name="uid" value="{$maker->uid}" />
+        <input type="hidden" name="slug" value="{$maker->slug}" />
         <input type="hidden" name="archive" value="{if $maker->is_archived}0{else}1{/if}"/>
         {if $maker->is_archived}
         <button type="submit" class="btn btn-xs btn-success col-xs-12" id="maker-profile-archive-button">
