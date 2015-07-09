@@ -134,31 +134,6 @@ class EditController extends MakerbaseAuthController {
         $role_dao = new RoleMySQLDAO();
         $role = $role_dao->get($_POST['uid']);
 
-        $has_changed_archive_status = false;
-        if ($_POST['archive'] == 1) {
-            if ($role->is_archived) {
-                SessionCache::put('info_message', "Already archived");
-            } else {
-                $has_changed_archive_status = $role_dao->archive($_POST['uid']);
-                if ($has_changed_archive_status) {
-                    $role->is_archived = true;
-                    SessionCache::put('success_message', 'Archived role');
-                    $action_type = 'archive';
-                }
-            }
-        } else {
-            if (!$role->is_archived) {
-                SessionCache::put('info_message', "Already unarchived");
-            } else {
-                $has_changed_archive_status = $role_dao->unarchive($_POST['uid']);
-                if ($has_changed_archive_status) {
-                    $role->is_archived = false;
-                    SessionCache::put('success_message', 'Unarchived role');
-                    $action_type = 'unarchive';
-                }
-            }
-        }
-
         //Get maker
         $maker_dao = new MakerMySQLDAO();
         $maker = $maker_dao->getByID($role->maker_id);
@@ -167,28 +142,57 @@ class EditController extends MakerbaseAuthController {
         $product_dao = new ProductMySQLDAO();
         $product = $product_dao->getByID($role->product_id);
 
-        //Add new connection
-        $connection_dao = new ConnectionMySQLDAO();
-        $connection_dao->insert($this->logged_in_user, $maker);
-        $connection_dao->insert($this->logged_in_user, $product);
+        if ($product->is_frozen || $maker->is_frozen) {
+            SessionCache::put('error_message', 'Unable to save your edits. Please try again in a little while.');
+        } else {
+            $has_changed_archive_status = false;
+            if ($_POST['archive'] == 1) {
+                if ($role->is_archived) {
+                    SessionCache::put('info_message', "Already archived");
+                } else {
+                    $has_changed_archive_status = $role_dao->archive($_POST['uid']);
+                    if ($has_changed_archive_status) {
+                        $role->is_archived = true;
+                        SessionCache::put('success_message', 'Archived role');
+                        $action_type = 'archive';
+                    }
+                }
+            } else {
+                if (!$role->is_archived) {
+                    SessionCache::put('info_message', "Already unarchived");
+                } else {
+                    $has_changed_archive_status = $role_dao->unarchive($_POST['uid']);
+                    if ($has_changed_archive_status) {
+                        $role->is_archived = false;
+                        SessionCache::put('success_message', 'Unarchived role');
+                        $action_type = 'unarchive';
+                    }
+                }
+            }
 
-        if ($has_changed_archive_status) {
-            //Add new action
-            $action = new Action();
-            $action->user_id = $this->logged_in_user->id;
-            $action->severity = Action::SEVERITY_MAJOR;
-            $action->object_id = $maker->id;
-            $action->object_type = get_class($maker);
-            $action->object2_id = $product->id;
-            $action->object2_type = get_class($product);
-            $action->ip_address = $_SERVER['REMOTE_ADDR'];
-            $action->action_type = $action_type;
+            //Add new connection
+            $connection_dao = new ConnectionMySQLDAO();
+            $connection_dao->insert($this->logged_in_user, $maker);
+            $connection_dao->insert($this->logged_in_user, $product);
 
-            $role->maker = $maker;
-            $role->product = $product;
-            $action->metadata = json_encode($role);
-            $action_dao = new ActionMySQLDAO();
-            $action_dao->insert($action);
+            if ($has_changed_archive_status) {
+                //Add new action
+                $action = new Action();
+                $action->user_id = $this->logged_in_user->id;
+                $action->severity = Action::SEVERITY_MAJOR;
+                $action->object_id = $maker->id;
+                $action->object_type = get_class($maker);
+                $action->object2_id = $product->id;
+                $action->object2_type = get_class($product);
+                $action->ip_address = $_SERVER['REMOTE_ADDR'];
+                $action->action_type = $action_type;
+
+                $role->maker = $maker;
+                $role->product = $product;
+                $action->metadata = json_encode($role);
+                $action_dao = new ActionMySQLDAO();
+                $action_dao->insert($action);
+            }
         }
     }
 
@@ -196,111 +200,119 @@ class EditController extends MakerbaseAuthController {
         $product_dao = new ProductMySQLDAO();
         $product = $product_dao->get($_POST['uid']);
 
-        $has_changed_archive_status = false;
-        if ($_POST['archive'] == 1) {
-            if ($product->is_archived) {
-                SessionCache::put('info_message', 'Already archived');
-            } else {
-                $has_changed_archive_status = $product_dao->archive($_POST['uid']);
-                if ($has_changed_archive_status) {
-                    $product->is_archived = true;
-                    SessionCache::put('success_message', 'Archived project');
-                    $action_type = 'archive';
-
-                    //Remove product from Elasticsearch
-                    SearchHelper::deindexProduct($product);
-                }
-            }
+        if ($product->is_frozen) {
+            SessionCache::put('error_message', "Unable to save your edits. Please try again in a little while.");
         } else {
-            if (!$product->is_archived) {
-                SessionCache::put('info_message', 'Already unarchived');
-            } else {
-                $has_changed_archive_status = $product_dao->unarchive($_POST['uid']);
-                if ($has_changed_archive_status) {
-                    $product->is_archived = false;
-                    SessionCache::put('success_message', 'Unarchived project');
-                    $action_type = 'unarchive';
+            $has_changed_archive_status = false;
+            if ($_POST['archive'] == 1) {
+                if ($product->is_archived) {
+                    SessionCache::put('info_message', 'Already archived');
+                } else {
+                    $has_changed_archive_status = $product_dao->archive($_POST['uid']);
+                    if ($has_changed_archive_status) {
+                        $product->is_archived = true;
+                        SessionCache::put('success_message', 'Archived project');
+                        $action_type = 'archive';
 
-                    // Add product back to Elasticsearch
-                    SearchHelper::indexProduct($product);
+                        //Remove product from Elasticsearch
+                        SearchHelper::deindexProduct($product);
+                    }
+                }
+            } else {
+                if (!$product->is_archived) {
+                    SessionCache::put('info_message', 'Already unarchived');
+                } else {
+                    $has_changed_archive_status = $product_dao->unarchive($_POST['uid']);
+                    if ($has_changed_archive_status) {
+                        $product->is_archived = false;
+                        SessionCache::put('success_message', 'Unarchived project');
+                        $action_type = 'unarchive';
+
+                        // Add product back to Elasticsearch
+                        SearchHelper::indexProduct($product);
+                    }
                 }
             }
+
+            //Add new connection
+            $connection_dao = new ConnectionMySQLDAO();
+            $connection_dao->insert($this->logged_in_user, $product);
+
+            if ($has_changed_archive_status) {
+                //Add new action
+                $action = new Action();
+                $action->user_id = $this->logged_in_user->id;
+                $action->severity = Action::SEVERITY_MAJOR;
+                $action->object_id = $product->id;
+                $action->object_type = get_class($product);
+                $action->ip_address = $_SERVER['REMOTE_ADDR'];
+                $action->action_type = $action_type;
+
+                $action->metadata = json_encode($product);
+                $action_dao = new ActionMySQLDAO();
+                $action_dao->insert($action);
+            }
+            CacheHelper::expireCache('product.tpl', $product->uid, $product->slug);
         }
-
-        //Add new connection
-        $connection_dao = new ConnectionMySQLDAO();
-        $connection_dao->insert($this->logged_in_user, $product);
-
-        if ($has_changed_archive_status) {
-            //Add new action
-            $action = new Action();
-            $action->user_id = $this->logged_in_user->id;
-            $action->severity = Action::SEVERITY_MAJOR;
-            $action->object_id = $product->id;
-            $action->object_type = get_class($product);
-            $action->ip_address = $_SERVER['REMOTE_ADDR'];
-            $action->action_type = $action_type;
-
-            $action->metadata = json_encode($product);
-            $action_dao = new ActionMySQLDAO();
-            $action_dao->insert($action);
-        }
-        CacheHelper::expireCache('product.tpl', $product->uid, $product->slug);
     }
 
     private function archiveMaker() {
         $maker_dao = new MakerMySQLDAO();
         $maker = $maker_dao->get($_POST['uid']);
 
-        $has_changed_archive_status = false;
-        if ($_POST['archive'] == 1) {
-            if ($maker->is_archived) {
-                SessionCache::put('info_message', "Already archived");
-            } else {
-                $has_changed_archive_status = $maker_dao->archive($_POST['uid']);
-                if ($has_changed_archive_status) {
-                    $maker->is_archived = true;
-                    SessionCache::put('success_message', 'Archived maker');
-                    $action_type = 'archive';
-
-                    // Remove maker from Elasticsearch
-                    SearchHelper::deindexMaker($maker);
-                }
-            }
+        if ($maker->is_frozen) {
+            SessionCache::put('error_message', "Unable to save your edits. Please try again in a little while.");
         } else {
-            if (!$maker->is_archived) {
-                SessionCache::put('info_message', "Already unarchived");
+            $has_changed_archive_status = false;
+            if ($_POST['archive'] == 1) {
+                if ($maker->is_archived) {
+                    SessionCache::put('info_message', "Already archived");
+                } else {
+                    $has_changed_archive_status = $maker_dao->archive($_POST['uid']);
+                    if ($has_changed_archive_status) {
+                        $maker->is_archived = true;
+                        SessionCache::put('success_message', 'Archived maker');
+                        $action_type = 'archive';
+
+                        // Remove maker from Elasticsearch
+                        SearchHelper::deindexMaker($maker);
+                    }
+                }
             } else {
-                $has_changed_archive_status = $maker_dao->unarchive($_POST['uid']);
-                if ($has_changed_archive_status) {
-                    $maker->is_archived = false;
-                    SessionCache::put('success_message', 'Unarchived maker');
-                    $action_type = 'unarchive';
-                    // Add maker back to Elasticsearch
-                    SearchHelper::indexMaker($maker);
+                if (!$maker->is_archived) {
+                    SessionCache::put('info_message', "Already unarchived");
+                } else {
+                    $has_changed_archive_status = $maker_dao->unarchive($_POST['uid']);
+                    if ($has_changed_archive_status) {
+                        $maker->is_archived = false;
+                        SessionCache::put('success_message', 'Unarchived maker');
+                        $action_type = 'unarchive';
+                        // Add maker back to Elasticsearch
+                        SearchHelper::indexMaker($maker);
+                    }
                 }
             }
+
+            //Add new connection
+            $connection_dao = new ConnectionMySQLDAO();
+            $connection_dao->insert($this->logged_in_user, $maker);
+
+            if ($has_changed_archive_status) {
+                //Add new action
+                $action = new Action();
+                $action->user_id = $this->logged_in_user->id;
+                $action->severity = Action::SEVERITY_MAJOR;
+                $action->object_id = $maker->id;
+                $action->object_type = get_class($maker);
+                $action->ip_address = $_SERVER['REMOTE_ADDR'];
+                $action->action_type = $action_type;
+
+                $action->metadata = json_encode($maker);
+                $action_dao = new ActionMySQLDAO();
+                $action_dao->insert($action);
+            }
+            CacheHelper::expireCache('maker.tpl', $maker->uid, $maker->slug);
         }
-
-        //Add new connection
-        $connection_dao = new ConnectionMySQLDAO();
-        $connection_dao->insert($this->logged_in_user, $maker);
-
-        if ($has_changed_archive_status) {
-            //Add new action
-            $action = new Action();
-            $action->user_id = $this->logged_in_user->id;
-            $action->severity = Action::SEVERITY_MAJOR;
-            $action->object_id = $maker->id;
-            $action->object_type = get_class($maker);
-            $action->ip_address = $_SERVER['REMOTE_ADDR'];
-            $action->action_type = $action_type;
-
-            $action->metadata = json_encode($maker);
-            $action_dao = new ActionMySQLDAO();
-            $action_dao->insert($action);
-        }
-        CacheHelper::expireCache('maker.tpl', $maker->uid, $maker->slug);
     }
 
     private function editMaker() {
@@ -309,44 +321,48 @@ class EditController extends MakerbaseAuthController {
         //This will throw an exception if the maker doesn't exist
         $original_maker = $maker_dao->get($_POST['maker_uid']);
 
-        $maker = new Maker();
-        $maker->id = $original_maker->id;
-        $maker->uid = $_POST['maker_uid'];
-        $maker->slug = $original_maker->slug;
-        $maker->name = $_POST['name'];
-        $maker->url = $_POST['url'];
-        $maker->avatar_url = $_POST['avatar_url'];
+        if ($original_maker->is_frozen) {
+            SessionCache::put('error_message', "Unable to save your edits. Please try again in a little while.");
+        } else {
+            $maker = new Maker();
+            $maker->id = $original_maker->id;
+            $maker->uid = $_POST['maker_uid'];
+            $maker->slug = $original_maker->slug;
+            $maker->name = $_POST['name'];
+            $maker->url = $_POST['url'];
+            $maker->avatar_url = $_POST['avatar_url'];
 
-        $has_been_updated = $maker_dao->update($maker);
+            $has_been_updated = $maker_dao->update($maker);
 
-        //Add new connection
-        $connection_dao = new ConnectionMySQLDAO();
-        $connection_dao->insert($this->logged_in_user, $maker);
+            //Add new connection
+            $connection_dao = new ConnectionMySQLDAO();
+            $connection_dao->insert($this->logged_in_user, $maker);
 
-        if ($has_been_updated) {
-            //Add new action
-            $action = new Action();
-            $action->user_id = $this->logged_in_user->id;
-            $action->severity = Action::SEVERITY_NORMAL;
-            $action->object_id = $maker->id;
-            $action->object_type = get_class($maker);
-            $action->ip_address = $_SERVER['REMOTE_ADDR'];
-            $action->action_type = 'update';
+            if ($has_been_updated) {
+                //Add new action
+                $action = new Action();
+                $action->user_id = $this->logged_in_user->id;
+                $action->severity = Action::SEVERITY_NORMAL;
+                $action->object_id = $maker->id;
+                $action->object_type = get_class($maker);
+                $action->ip_address = $_SERVER['REMOTE_ADDR'];
+                $action->action_type = 'update';
 
-            $versions = array('before'=>$original_maker, 'after'=>$maker);
+                $versions = array('before'=>$original_maker, 'after'=>$maker);
 
-            $action->metadata = json_encode($versions);
-            $action_dao = new ActionMySQLDAO();
-            $action_dao->insert($action);
+                $action->metadata = json_encode($versions);
+                $action_dao = new ActionMySQLDAO();
+                $action_dao->insert($action);
 
-            //Update search index
-            SearchHelper::updateIndexMaker($maker);
+                //Update search index
+                SearchHelper::updateIndexMaker($maker);
+            }
+
+            if ($has_been_updated) {
+                SessionCache::put('success_message', "Updated ".$maker->name);
+            }
+            CacheHelper::expireCache('maker.tpl', $maker->uid, $maker->slug);
         }
-
-        if ($has_been_updated) {
-            SessionCache::put('success_message', "Updated ".$maker->name);
-        }
-        CacheHelper::expireCache('maker.tpl', $maker->uid, $maker->slug);
     }
 
     private function editProduct() {
@@ -355,45 +371,49 @@ class EditController extends MakerbaseAuthController {
         //This will throw an exception if the product doesn't exist
         $original_product = $product_dao->get($_POST['product_uid']);
 
-        $product = new Product();
-        $product->id = $original_product->id;
-        $product->uid = $_POST['product_uid'];
-        $product->slug = $_POST['product_slug'];
-        $product->name = $_POST['name'];
-        $product->description = $_POST['description'];
-        $product->url = $_POST['url'];
-        $product->avatar_url = $_POST['avatar_url'];
+        if ($original_product->is_frozen) {
+            SessionCache::put('error_message', "Unable to save your edits. Please try again in a little while.");
+        } else {
+            $product = new Product();
+            $product->id = $original_product->id;
+            $product->uid = $_POST['product_uid'];
+            $product->slug = $_POST['product_slug'];
+            $product->name = $_POST['name'];
+            $product->description = $_POST['description'];
+            $product->url = $_POST['url'];
+            $product->avatar_url = $_POST['avatar_url'];
 
-        $has_been_updated = $product_dao->update($product);
+            $has_been_updated = $product_dao->update($product);
 
-        //Add new connection
-        $connection_dao = new ConnectionMySQLDAO();
-        $connection_dao->insert($this->logged_in_user, $product);
+            //Add new connection
+            $connection_dao = new ConnectionMySQLDAO();
+            $connection_dao->insert($this->logged_in_user, $product);
 
-        if ($has_been_updated) {
-            //Add new action
-            $action = new Action();
-            $action->user_id = $this->logged_in_user->id;
-            $action->severity = Action::SEVERITY_NORMAL;
-            $action->object_id = $product->id;
-            $action->object_type = get_class($product);
-            $action->ip_address = $_SERVER['REMOTE_ADDR'];
-            $action->action_type = 'update';
+            if ($has_been_updated) {
+                //Add new action
+                $action = new Action();
+                $action->user_id = $this->logged_in_user->id;
+                $action->severity = Action::SEVERITY_NORMAL;
+                $action->object_id = $product->id;
+                $action->object_type = get_class($product);
+                $action->ip_address = $_SERVER['REMOTE_ADDR'];
+                $action->action_type = 'update';
 
-            $versions = array('before'=>$original_product, 'after'=>$product);
+                $versions = array('before'=>$original_product, 'after'=>$product);
 
-            $action->metadata = json_encode($versions);
-            $action_dao = new ActionMySQLDAO();
-            $action_dao->insert($action);
+                $action->metadata = json_encode($versions);
+                $action_dao = new ActionMySQLDAO();
+                $action_dao->insert($action);
 
-            //Update search index
-            SearchHelper::updateIndexProduct($product);
+                //Update search index
+                SearchHelper::updateIndexProduct($product);
+            }
+
+            if ($has_been_updated) {
+                SessionCache::put('success_message', "Updated ".$product->name);
+            }
+            CacheHelper::expireCache('product.tpl', $product->uid, $product->slug);
         }
-
-        if ($has_been_updated) {
-            SessionCache::put('success_message', "Updated ".$product->name);
-        }
-        CacheHelper::expireCache('product.tpl', $product->uid, $product->slug);
     }
 
     private function editRole(){
@@ -402,54 +422,58 @@ class EditController extends MakerbaseAuthController {
         //This will throw an exception if the role doesn't exist
         $original_role = $role_dao->get($_POST['role_uid']);
 
-        $role = new Role();
-        $role->id = $original_role->id;
-        $role->uid = $_POST['role_uid'];
-        $role->start = ($_POST['start_date'] == '')?null:$_POST['start_date']."-01";
-        $role->end = ($_POST['end_date'] == '')?null:$_POST['end_date']."-01";
-        $role->role = $_POST['role'];
-        $has_been_updated = $role_dao->update($role);
-
-        $updated_role = $role_dao->get($role->uid);
-
         //Get maker
         $maker_dao = new MakerMySQLDAO();
-        $maker = $maker_dao->getByID($updated_role->maker_id);
+        $maker = $maker_dao->getByID($original_role->maker_id);
 
         //Get product
         $product_dao = new ProductMySQLDAO();
-        $product = $product_dao->getByID($updated_role->product_id);
+        $product = $product_dao->getByID($original_role->product_id);
 
-        //Add new connection
-        $connection_dao = new ConnectionMySQLDAO();
-        $connection_dao->insert($this->logged_in_user, $maker);
-        $connection_dao->insert($this->logged_in_user, $product);
+        if ($product->is_frozen || $maker->is_frozen) {
+            SessionCache::put('error_message', 'Unable to save your edits. Please try again in a little while.');
+        } else {
+            $role = new Role();
+            $role->id = $original_role->id;
+            $role->uid = $_POST['role_uid'];
+            $role->start = ($_POST['start_date'] == '')?null:$_POST['start_date']."-01";
+            $role->end = ($_POST['end_date'] == '')?null:$_POST['end_date']."-01";
+            $role->role = $_POST['role'];
+            $has_been_updated = $role_dao->update($role);
 
-        if ($has_been_updated) {
-            //Add new action
-            $action = new Action();
-            $action->user_id = $this->logged_in_user->id;
-            $action->severity = Action::SEVERITY_NORMAL;
-            $action->object_id = $maker->id;
-            $action->object_type = get_class($maker);
-            $action->object2_id = $product->id;
-            $action->object2_type = get_class($product);
-            $action->ip_address = $_SERVER['REMOTE_ADDR'];
-            $action->action_type = 'update';
+            $updated_role = $role_dao->get($role->uid);
 
-            $original_role->maker = $maker;
-            $original_role->product = $product;
-            $updated_role->maker = $maker;
-            $updated_role->product = $product;
+            //Add new connection
+            $connection_dao = new ConnectionMySQLDAO();
+            $connection_dao->insert($this->logged_in_user, $maker);
+            $connection_dao->insert($this->logged_in_user, $product);
 
-            $versions = array('before'=>$original_role, 'after'=>$updated_role);
-            $action->metadata = json_encode($versions);
-            $action_dao = new ActionMySQLDAO();
-            $action_dao->insert($action);
-        }
+            if ($has_been_updated) {
+                //Add new action
+                $action = new Action();
+                $action->user_id = $this->logged_in_user->id;
+                $action->severity = Action::SEVERITY_NORMAL;
+                $action->object_id = $maker->id;
+                $action->object_type = get_class($maker);
+                $action->object2_id = $product->id;
+                $action->object2_type = get_class($product);
+                $action->ip_address = $_SERVER['REMOTE_ADDR'];
+                $action->action_type = 'update';
 
-        if ($has_been_updated) {
-            SessionCache::put('success_message', "Updated role successfully");
+                $original_role->maker = $maker;
+                $original_role->product = $product;
+                $updated_role->maker = $maker;
+                $updated_role->product = $product;
+
+                $versions = array('before'=>$original_role, 'after'=>$updated_role);
+                $action->metadata = json_encode($versions);
+                $action_dao = new ActionMySQLDAO();
+                $action_dao->insert($action);
+            }
+
+            if ($has_been_updated) {
+                SessionCache::put('success_message', "Updated role successfully");
+            }
         }
     }
 }
