@@ -18,6 +18,12 @@
         <input type="hidden" name="freeze" value="{if $maker->is_frozen}0{else}1{/if}"/>
         <button class="btn btn-warning btn-sm" style="margin-right: 30px;">{if $maker->is_frozen}Unf{else}F{/if}reeze</button></form>
         </li>
+        <li>
+        <form method="post" action="/adminedit/maker/" class="">
+        <input type="hidden" name="uid" value="{$maker->uid}" />
+        <input type="hidden" name="delete" value="1"/>
+        <button class="btn btn-warning btn-sm" style="margin-right: 30px;">DELETE</button></form>
+        </li>
         {/if}
 
         {if isset($product)}
@@ -27,9 +33,15 @@
         <input type="hidden" name="freeze" value="{if $product->is_frozen}0{else}1{/if}"/>
         <button class="btn btn-warning btn-sm" style="margin-right: 30px;">{if $product->is_frozen}Unf{else}F{/if}reeze</button></form>
         </li>
+        <li>
+        <form method="post" action="/adminedit/product/" class="">
+        <input type="hidden" name="uid" value="{$product->uid}" />
+        <input type="hidden" name="delete" value="1"/>
+        <button class="btn btn-danger btn-sm" style="margin-right: 30px;">DELETE</button></form>
+        </li>
         {/if}
 
-        {if isset($user)}
+        {if isset($user) && $user->uid !== $logged_in_user->uid}
         <li>
         <form method="post" action="/adminedit/user/" class="">
         <input type="hidden" name="uid" value="{$user->uid}" />
@@ -37,8 +49,6 @@
         <button class="btn btn-warning btn-sm" style="margin-right: 30px;">{if $user->is_frozen}Unf{else}F{/if}reeze</button></form>
         </li>
         {/if}
-
-		{if isset($maker) || isset($product)}<li><button href="#" class="btn btn-danger btn-sm" style="margin-right: 30px;">DELETE</button></li>{/if}
 	</ul>
 
   </div>

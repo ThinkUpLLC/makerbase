@@ -77,6 +77,17 @@ EOD;
         return ($this->getUpdateCount($ps) > 0);
     }
 
+    public function deleteByProduct($product_id) {
+        $q = "DELETE FROM roles WHERE product_id = :product_id";
+        $vars = array (
+            ':product_id' => (int)$product_id
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        return ($this->getUpdateCount($ps) > 0);
+    }
+
     public function getByProduct($product_id) {
         $q = <<<EOD
 SELECT r.*, r.id AS role_id, r.uid AS role_uid, m.*, m.id AS maker_id, m.uid AS maker_uid,

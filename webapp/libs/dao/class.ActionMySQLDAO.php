@@ -263,4 +263,39 @@ EOD;
         $result = $this->getDataRowAsArray($ps);
         return $result['total'];
     }
+
+    public function deleteActionsForProduct($product_id) {
+        return self::deleteActionsForObject('Product', $product_id);
+    }
+
+    public function deleteActionsForMaker($maker_id) {
+        return self::deleteActionsForObject('Maker', $maker_id);
+    }
+
+    private function deleteActionsForObject($object_type, $object_id) {
+        //Delete object 1
+        $q = <<<EOD
+DELETE FROM actions WHERE object_id = :object_id AND object_type = :object_type;
+EOD;
+        $vars = array (
+            ':object_id' => $object_id,
+            ':object_type' => $object_type
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $ps = $this->execute($q, $vars);
+        $have_actions_been_deleted = ($this->getUpdateCount($ps) > 0);
+
+        //Delete object 2
+        $q = <<<EOD
+DELETE FROM actions WHERE object2_id = :object2_id AND object2_type = :object2_type;
+EOD;
+        $vars = array (
+            ':object2_id' => $object_id,
+            ':object2_type' => $object_type
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $ps = $this->execute($q, $vars);
+
+        return $have_actions_been_deleted && ($this->getUpdateCount($ps) > 0);
+    }
 }

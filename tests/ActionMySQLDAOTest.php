@@ -34,4 +34,22 @@ class ActionMySQLDAOTest extends MakerbaseUnitTestCase {
         $this->assertNotNull($inserted_action->uid);
         $this->assertTrue($inserted_action->is_admin);
     }
+
+    public function testDelete() {
+        $builders = array();
+        $builders[] = FixtureBuilder::build('actions', array('uid'=>'delete1', 'object_id'=>'100',
+            'object_type'=>'Product'));
+        $builders[] = FixtureBuilder::build('actions', array('uid'=>'delete2', 'object2_id'=>'100',
+            'object2_type'=>'Product'));
+
+        $action_dao = new ActionMySQLDAO();
+        //Actions exist, should be deleted
+        $deleted_action = $action_dao->deleteActionsForProduct(100);
+        $this->assertTrue($deleted_action);
+
+        //Actions don't exist, shouldn't be deleted
+        $deleted_action = null;
+        $deleted_action = $action_dao->deleteActionsForProduct(101);
+        $this->assertFalse($deleted_action);
+    }
 }

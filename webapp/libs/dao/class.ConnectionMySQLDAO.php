@@ -29,4 +29,25 @@ EOD;
             }
         }
     }
+
+    private function deleteConnectionsToObject($object_type, $object_id) {
+        $q = <<<EOD
+DELETE FROM connections WHERE object_id = :object_id AND object_type = :object_type;
+EOD;
+        $vars = array (
+            ':object_id' => $object_id,
+            ':object_type' => $object_type
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $ps = $this->execute($q, $vars);
+        return ($this->getUpdateCount($ps) > 0);
+    }
+
+    public function deleteConnectionsToProduct($product_id) {
+        return self::deleteConnectionsToObject('Product', $product_id);
+    }
+
+    public function deleteConnectionsToMaker($maker_id) {
+        return self::deleteConnectionsToObject('Maker', $maker_id);
+    }
 }

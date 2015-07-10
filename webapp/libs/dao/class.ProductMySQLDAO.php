@@ -45,6 +45,19 @@ EOD;
         return ($this->getUpdateCount($ps) > 0);
     }
 
+    public function delete($uid) {
+        $q = <<<EOD
+DELETE FROM products WHERE uid = :uid
+EOD;
+        $vars = array (
+            ':uid' => $uid
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        return ($this->getUpdateCount($ps) > 0);
+    }
+
     public function get($uid) {
         $q = "SELECT * FROM products WHERE uid = :uid";
         $vars = array ( ':uid' => $uid);
