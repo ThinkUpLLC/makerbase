@@ -113,8 +113,10 @@ class AdminEditController extends MakerbaseAdminController {
         if ($_POST['delete'] == 1) {
             $has_been_deleted = $product_dao->delete($_POST['uid']);
 
-            //Remove from ElasticSearch
-            SearchHelper::deindexProduct($product);
+            if (!$product->is_archived) {
+                //Remove from ElasticSearch
+                SearchHelper::deindexProduct($product);
+            }
 
             //Delete roles
             $role_dao = new RoleMySQLDAO();
@@ -161,8 +163,10 @@ class AdminEditController extends MakerbaseAdminController {
         if ($_POST['delete'] == 1) {
             $has_been_deleted = $maker_dao->delete($_POST['uid']);
 
-            //Remove from ElasticSearch
-            SearchHelper::deindexMaker($maker);
+            if (!$maker->is_archived) {
+                //Remove from ElasticSearch
+                SearchHelper::deindexMaker($maker);
+            }
 
             //Delete roles
             $role_dao = new RoleMySQLDAO();
