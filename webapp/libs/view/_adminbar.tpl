@@ -22,7 +22,7 @@
         <form method="post" action="/adminedit/maker/" class="">
         <input type="hidden" name="uid" value="{$maker->uid}" />
         <input type="hidden" name="delete" value="1"/>
-        <button class="btn btn-warning btn-sm" style="margin-right: 30px;">DELETE</button></form>
+        <button class="btn btn-warning btn-sm" style="margin-right: 30px;" onclick="return confirm('Are you sure? This cannot be undone.');">DELETE</button></form>
         </li>
         {/if}
 
@@ -37,7 +37,7 @@
         <form method="post" action="/adminedit/product/" class="">
         <input type="hidden" name="uid" value="{$product->uid}" />
         <input type="hidden" name="delete" value="1"/>
-        <button class="btn btn-danger btn-sm" style="margin-right: 30px;">DELETE</button></form>
+        <button class="btn btn-danger btn-sm" style="margin-right: 30px;" onclick="return confirm('Are you sure? This cannot be undone.');">DELETE</button></form>
         </li>
         {/if}
 
