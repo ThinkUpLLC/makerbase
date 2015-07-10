@@ -17,7 +17,9 @@ class ConnectionMySQLDAOTest extends MakerbaseUnitTestCase {
         $this->assertInstanceOf('ConnectionMySQLDAO', $connection_dao);
     }
 
-    public function testInsertAndDelete() {
+    public function testInsertGetDelete() {
+        //TODO Separate these into distinct tests
+        //Test Insert
         $connection_dao = new ConnectionMySQLDAO();
 
         $user = new User();
@@ -32,8 +34,15 @@ class ConnectionMySQLDAOTest extends MakerbaseUnitTestCase {
         $result = $connection_dao->insert($user, $product);
         $this->assertFalse($result);
 
-        //TODO Use raw SQL to select the new connection and assert its values
+        //Test Get
+        //Assert the connection is in storage
+        $connection = $connection_dao->get($user->id, $product->id, 'Product');
+        $this->assertNotNull($result);
+        $this->assertInstanceOf('Connection', $connection);
+        $this->assertEquals($connection->user_id, $user->id);
+        $this->assertEquals($connection->object_type, 'Product');
 
+        //Test Delete
         //Product exists, should get deleted
         $result = null;
         $result = $connection_dao->deleteConnectionsToProduct(432);

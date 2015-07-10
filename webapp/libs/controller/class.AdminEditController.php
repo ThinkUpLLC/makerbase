@@ -11,6 +11,8 @@ class AdminEditController extends MakerbaseAdminController {
             $this->freezeUser();
         } elseif ($this->hasDeletedProduct()) {
             $this->deleteProduct();
+        } elseif ($this->hasDeletedMaker()) {
+            $this->deleteMaker();
         } else {
             //print_r($_POST);
             $this->redirect(Config::getInstance()->getValue('site_root_path'));
@@ -22,6 +24,14 @@ class AdminEditController extends MakerbaseAdminController {
             (isset($_GET['object']) && $_GET['object'] == 'maker')
             && isset($_POST['uid'])
             && isset($_POST['freeze']) && ($_POST['freeze'] == 1 || $_POST['freeze'] == 0)
+        );
+    }
+
+    private function hasDeletedMaker() {
+        return (
+            (isset($_GET['object']) && $_GET['object'] == 'maker')
+            && isset($_POST['uid'])
+            && isset($_POST['delete']) && $_POST['delete'] == 1
         );
     }
 
@@ -137,6 +147,54 @@ class AdminEditController extends MakerbaseAdminController {
             $action->action_type = $action_type;
             $action->is_admin = true;
             $action->metadata = json_encode($product);
+            $action_dao = new ActionMySQLDAO();
+            $action_dao->insert($action);
+        }
+        $this->redirect(Config::getInstance()->getValue('site_root_path'));
+    }
+
+    private function deleteMaker() {
+        $maker_dao = new MakerMySQLDAO();
+        $maker = $maker_dao->get($_POST['uid']);
+
+        $has_been_deleted = false;
+        if ($_POST['delete'] == 1) {
+            $has_been_deleted = $maker_dao->delete($_POST['uid']);
+
+            //Remove from ElasticSearch
+            SearchHelper::deindexMaker($maker);
+
+            //Delete roles
+            $role_dao = new RoleMySQLDAO();
+            $role_dao->deleteByMaker($maker->id);
+
+            //Delete actions by users (the only action for this product will be the admin's delete action)
+            $action_dao = new ActionMySQLDAO();
+            $action_dao->deleteActionsForMaker($maker->id);
+
+            //Delete connections
+            $connection_dao = new ConnectionMySQLDAO();
+            $connection_dao->deleteConnectionsToMaker($maker->id);
+
+            //TODO Delete made-withs (once made-withs are built)
+
+            if ($has_been_deleted) {
+                SessionCache::put('success_message', 'Deleted maker');
+                $action_type = 'delete';
+            }
+        }
+
+        if ($has_been_deleted) {
+            //Add admin delete action
+            $action = new Action();
+            $action->user_id = $this->logged_in_user->id;
+            $action->severity = Action::SEVERITY_MAJOR;
+            $action->object_id = $maker->id;
+            $action->object_type = get_class($maker);
+            $action->ip_address = $_SERVER['REMOTE_ADDR'];
+            $action->action_type = $action_type;
+            $action->is_admin = true;
+            $action->metadata = json_encode($maker);
             $action_dao = new ActionMySQLDAO();
             $action_dao->insert($action);
         }

@@ -1,6 +1,26 @@
 <?php
 class ConnectionMySQLDAO extends PDODAO {
 
+    public function get($user_id, $object_id, $object_type) {
+        $q = <<<EOD
+SELECT c.* FROM connections c
+WHERE c.user_id = :user_id AND c.object_id = :object_id AND c.object_type = :object_type;
+EOD;
+        $vars = array (
+            ':user_id' => $user_id,
+            ':object_id' => $object_id,
+            ':object_type' => $object_type
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        $connection = $this->getDataRowAsObject($ps, "Connection");
+        if (!isset($connection)) {
+            throw new ConnectionDoesNotExistException('Connection does not exist.');
+        }
+        return $connection;
+    }
+
     public function insert(User $user, $object) {
         $type = get_class($object);
         $q = <<<EOD

@@ -162,7 +162,6 @@ class AdminEditControllerTest extends MakerbaseUnitTestCase {
         $action = $action_dao->get('nodel2');
         $this->assertNotNull($action);
 
-
         $action = null;
         try {
             $action_dao->get('delete1');
@@ -183,7 +182,154 @@ class AdminEditControllerTest extends MakerbaseUnitTestCase {
         $this->assertEquals($admin_action[0]->action_type, 'delete');
         $this->assertEquals($admin_action[0]->user_id, 1001);
 
-        //TODO Assert connections have been deleted
+        //Assert connections have been deleted
+        $connection_dao = new ConnectionMySQLDAO();
+        try {
+            $connection = $connection_dao->get(1001, 20, 'Product');
+            $this->fail('An expected exception has not been raised.');
+        } catch (ConnectionDoesNotExistException $e) {
+            $this->assertEquals($e->getMessage(), 'Connection does not exist.');
+        }
+        $connection = $connection_dao->get(1001, 21, 'Product');
+        $this->assertNotNull($connection);
+
         //TODO Assert madewiths have been deleted
     }
+
+    public function testEditSignedInAsAdminDeleteMaker() {
+        //Set up base data
+        $builders = $this->buildData();
+
+        //Admin user
+        $builders[] = FixtureBuilder::build('users', array('id'=>1001, 'twitter_username'=>'giantairnapadmin',
+            'uid'=>'blahad', 'is_frozen'=>0));
+        //Products
+        $builders[] = FixtureBuilder::build('makers', array('id'=>20, 'uid'=>'deleteme', 'slug'=>'DeletableMaker',
+            'name'=>'Sweet Mary Jane', 'is_frozen'=>0));
+        $builders[] = FixtureBuilder::build('makers', array('id'=>21, 'uid'=>'dontdeleteme',
+            'slug'=>'UnDeletableProject', 'name'=>'Sweet Mary Jane', 'is_frozen'=>0));
+
+        //Roles
+        $builders[] = FixtureBuilder::build('roles', array('product_id'=>1, 'maker_id'=>20, 'uid'=>'adfeb'));
+        $builders[] = FixtureBuilder::build('roles', array('product_id'=>2, 'maker_id'=>20, 'uid'=>'adfea'));
+        $builders[] = FixtureBuilder::build('roles', array('product_id'=>1, 'maker_id'=>21, 'uid'=>'adfec'));
+
+        //Actions
+        $test_json = '"just some valid test JSON"';
+        $builders[] = FixtureBuilder::build('actions', array('uid'=>'delete1', 'object_id'=>20,
+            'object_type'=>'Maker', 'user_id'=>1001));
+        $builders[] = FixtureBuilder::build('actions', array('uid'=>'delete2', 'object2_id'=>20,
+            'object2_type'=>'Maker', 'user_id'=>1001));
+        $builders[] = FixtureBuilder::build('actions', array('uid'=>'nodel2', 'object2_id'=>21,
+            'object2_type'=>'Maker', 'user_id'=>1001, 'metadata'=>$test_json));
+
+        //Connections
+        $builders[] = FixtureBuilder::build('connections', array('object_id'=>20, 'object_type'=>'Maker',
+            'user_id'=>1001));
+        $builders[] = FixtureBuilder::build('connections', array('object_id'=>20, 'object_type'=>'Product',
+            'user_id'=>1001));
+        $builders[] = FixtureBuilder::build('connections', array('object_id'=>21, 'object_type'=>'Maker',
+            'user_id'=>1001));
+
+        //Set admins
+        Config::getInstance()->setValue('admins', array('giantairnapadmin'));
+
+        //Log in as admin
+        Session::completeLogin('blahad');
+
+        //Set GET and POST params
+        // (isset($_GET['object']) && $_GET['object'] == 'product')
+        $_GET['object'] = 'maker';
+        // && isset($_POST['uid'])
+        $_POST['uid'] = 'deleteme';
+        // && isset($_POST['delete']) && $_POST['delete'] == 1)
+        $_POST['delete'] = '1';
+        //Edit IP
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+
+        //Assert project exists
+        $maker_dao = new MakerMySQLDAO();
+        $maker_predelete = $maker_dao->get('deleteme');
+
+        $this->assertNotNull($maker_predelete);
+        $this->assertEquals($maker_predelete->slug, 'DeletableMaker');
+
+        $controller = new AdminEditController(true);
+        $results = $controller->go();
+
+        //Assert controller redirects to landing page post delete
+        $this->assertNull($results);
+        $this->assertNotNull($controller->redirect_destination);
+        $this->assertEquals($controller->redirect_destination, '/');
+
+        //Assert project has been deleted
+        try {
+            $maker = $maker_dao->get('deleteme');
+            $this->fail('An expected exception has not been raised.');
+        } catch (MakerDoesNotExistException $e) {
+            $this->assertEquals($e->getMessage(), 'Maker deleteme does not exist.');
+        }
+
+        //Assert roles have been deleted
+        $role_dao = new RoleMySQLDAO();
+        //Don't delete role for the other project
+        $role = $role_dao->get('adfec');
+        $this->assertNotNull($role);
+        $role = null;
+        //Two roles should have been deleted
+        try {
+            $role = $role_dao->get('adfeb');
+            $this->fail('An expected exception has not been raised.');
+        } catch (RoleDoesNotExistException $e) {
+            $this->assertEquals($e->getMessage(), 'Role adfeb does not exist.');
+        }
+        try {
+            $role = $role_dao->get('adfea');
+            $this->fail('An expected exception has not been raised.');
+        } catch (RoleDoesNotExistException $e) {
+            $this->assertEquals($e->getMessage(), 'Role adfea does not exist.');
+        }
+
+        //Assert actions got deleted
+        $action_dao = new ActionMySQLDAO();
+        //Don't delete action for the other project
+        $action = $action_dao->get('nodel2');
+        $this->assertNotNull($action);
+
+        $action = null;
+        try {
+            $action_dao->get('delete1');
+            $this->fail('An expected exception has not been raised.');
+        } catch (ActionDoesNotExistException $e) {
+            $this->assertEquals($e->getMessage(), 'Action delete1 does not exist.');
+        }
+        try {
+            $action_dao->get('delete2');
+            $this->fail('An expected exception has not been raised.');
+        } catch (ActionDoesNotExistException $e) {
+            $this->assertEquals($e->getMessage(), 'Action delete2 does not exist.');
+        }
+
+        //Assert admin action got inserted
+        $admin_action = $action_dao->getLastAdminActivityPerformedOnMaker($maker_predelete);
+        $this->assertEquals($admin_action[0]->is_admin, 1);
+        $this->assertEquals($admin_action[0]->action_type, 'delete');
+        $this->assertEquals($admin_action[0]->user_id, 1001);
+
+        //Assert connections have been deleted
+        $connection_dao = new ConnectionMySQLDAO();
+        try {
+            $connection = $connection_dao->get(1001, 20, 'Maker');
+            $this->fail('An expected exception has not been raised.');
+        } catch (ConnectionDoesNotExistException $e) {
+            $this->assertEquals($e->getMessage(), 'Connection does not exist.');
+        }
+        $connection = $connection_dao->get(1001, 21, 'Maker');
+        $this->assertNotNull($connection);
+
+        //TODO Assert madewiths have been deleted
+    }
+
+
+
 }

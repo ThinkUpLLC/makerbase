@@ -9,6 +9,19 @@ class MakerMySQLDAO extends MakerbasePDODAO {
         return $this->setIsArchived($uid, false);
     }
 
+    public function delete($uid) {
+        $q = <<<EOD
+DELETE FROM makers WHERE uid = :uid
+EOD;
+        $vars = array (
+            ':uid' => $uid
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        return ($this->getUpdateCount($ps) > 0);
+    }
+
     private function setIsArchived($uid, $is_archived) {
         $q = <<<EOD
 UPDATE makers SET is_archived = :is_archived WHERE uid = :uid
