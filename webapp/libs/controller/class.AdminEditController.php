@@ -135,6 +135,8 @@ class AdminEditController extends MakerbaseAdminController {
             if ($has_been_deleted) {
                 SessionCache::put('success_message', 'Deleted project');
                 $action_type = 'delete';
+
+                CacheHelper::expireCache('product.tpl', $product->uid, $product->slug);
             }
         }
 
@@ -185,6 +187,8 @@ class AdminEditController extends MakerbaseAdminController {
             if ($has_been_deleted) {
                 SessionCache::put('success_message', 'Deleted maker');
                 $action_type = 'delete';
+
+                CacheHelper::expireCache('maker.tpl', $maker->uid, $maker->slug);
             }
         }
 
