@@ -138,9 +138,10 @@ a.user-link {
 .bg-danger,
 .alert-danger,
 .btn-danger {
-    background-color: #666;
+    /* background-color: #666;
     border-color: #999;
     color: #DBDBDB;
+    */
 }
 .bg-success,
 .alert-success {

@@ -1,10 +1,6 @@
 
     </div><!-- /.container -->
 
-{if isset($logged_in_user) &&  $logged_in_user->is_admin}
-  {include file="_adminbar.tpl"}
-{/if}
-
     <footer class="footer">
       <div class="container">
         <p class="pull-right text-muted"><a href="https://twitter.com/makerbase">@makerbase</a> &#183; <a href="/about/terms/">Terms</a> &#183; <a href="/about/privacy/">Privacy</a></p>

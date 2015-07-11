@@ -114,21 +114,25 @@
            </form>
            {/if}
 
-
-
         {if isset($logged_in_user)}
-        <div class="col-xs-1 col-sm-1 pull-right" role="signout" id="signout-button">
-          <div class="btn-group">
-            <button type="button" class="btn btn-default btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="user-menu">
-              <img src="{$logged_in_user->avatar_url}" alt="Signed in as {$logged_in_user->twitter_username}" width="20" height="20">
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="{$site_root_path}u/{$logged_in_user->uid}">Your activity</a></li>
-              <li><a href="{$site_root_path}signout/">Sign out</a></li>
-            </ul>
+          {if $logged_in_user->is_admin}
+            {include file="_adminbar.tpl"}
+          {else}
+
+          <div class="col-xs-1 col-sm-1 pull-right" role="signout" id="signout-button">
+            <div class="btn-group">
+              <button type="button" class="btn btn-default btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="user-menu">
+                <img src="{$logged_in_user->avatar_url}" alt="Signed in as {$logged_in_user->twitter_username}" width="20" height="20">
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="{$site_root_path}u/{$logged_in_user->uid}">Your activity</a></li>
+                <li><a href="{$site_root_path}signout/">Sign out</a></li>
+              </ul>
+            </div>
           </div>
-        </div>
+
+          {/if}
         {else}
         <div class="col-xs-2 col-sm-1 pull-right" role="signin" id="signin-button">
           {if isset($sign_in_with_twttr_link)}<a href="{$sign_in_with_twttr_link}" class="btn btn-default btn-sm navbar-btn" id="signin-button"><i class="fa fa-twitter"></i> Sign in</a>{/if}
