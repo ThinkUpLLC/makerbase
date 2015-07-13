@@ -66,9 +66,7 @@
     {assign var="product_name" value=$action->metadata->after->product->name}
 {/if}
 
-- {if $actor neq 'You'}<a href="/u/{$action->user_uid}" class="user-link">{$action->username}</a>{else}{$actor}{/if} {$action->action_type|replace:'reez':'roz'} <a href="/{if $action->object_type eq 'Maker'}m/{$maker_uid}/{$maker_slug}">{$maker_name}{elseif $action->object_type eq 'Product'}p/{$product_uid}/{$product_slug}">{$product_name}{elseif $action->object_type eq 'User'}u/{$user_uid}">{$user_name}{/if}</a>{if isset($action->object2_id)} {if $action->action_type eq 'associate'}with{else}on{/if} <a href="/p/{$product_uid}/{$product_slug}">{$product_name}</a>{/if} <small class="text-muted">{$action->time_performed|relative_datetime} ago</small>
-
-
+{if $actor neq 'You'}<a href="/u/{$action->user_uid}" class="user-link">{$action->username}</a>{else}{$actor}{/if} {$action->action_type|replace:'reez':'roz'} <a href="/{if $action->object_type eq 'Maker'}m/{$maker_uid}/{$maker_slug}">{$maker_name}{elseif $action->object_type eq 'Product'}p/{$product_uid}/{$product_slug}">{$product_name}{elseif $action->object_type eq 'User'}u/{$user_uid}">{$user_name}{/if}</a>{if isset($action->object2_id)} {if $action->action_type eq 'associate'}with{else}on{/if} <a href="/p/{$product_uid}/{$product_slug}">{$product_name}</a>{/if}<br /><small class="text-muted">{$action->time_performed|relative_datetime} ago</small>
 {assign var="actor" value=null}
 {assign var="product_avatar_url" value=null}
 {assign var="product_slug" value=null}
