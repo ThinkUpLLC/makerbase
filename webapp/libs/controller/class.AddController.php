@@ -45,11 +45,7 @@ class AddController extends MakerbaseAuthController {
                     CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
                     $this->addMadeWith();
                 }
-                if ($_POST['originate'] == 'maker') {
-                    $this->redirect('/m/'.$_POST['originate_uid'].'/'.$_POST['originate_slug']);
-                } else {
-                    $this->redirect('/p/'.$_POST['originate_uid'].'/'.$_POST['originate_slug']);
-                }
+                $this->redirect('/p/'.$_POST['originate_uid'].'/'.$_POST['originate_slug']);
             }
         } else {
             $this->redirect(Config::getInstance()->getValue('site_root_path'));
@@ -86,7 +82,6 @@ class AddController extends MakerbaseAuthController {
         return (
             isset($_POST['product_uid'])
             && isset($_POST['product_used_uid'])
-            && isset($_POST['originate'])
             && isset($_POST['originate_uid'])
             && isset($_POST['originate_slug'])
             );

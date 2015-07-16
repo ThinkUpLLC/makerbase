@@ -190,7 +190,6 @@
               <input type="hidden" name="product_used_uid" value="m348b6">
               <input type="hidden" name="originate_slug" value="{$product->slug}">
               <input type="hidden" name="originate_uid" value="{$product->uid}">
-              <input type="hidden" name="originate" value="product">
               <button class="btn btn-primary" type="submit">Slack</button>
             </form>
             <form method="post" action="/add/madewith/" class="form-horizontal col-xs-12" id="add-maker-form">
@@ -198,7 +197,6 @@
               <input type="hidden" name="product_used_uid" value="9u0s6y">
               <input type="hidden" name="originate_slug" value="{$product->slug}">
               <input type="hidden" name="originate_uid" value="{$product->uid}">
-              <input type="hidden" name="originate" value="product">
               <button class="btn btn-primary" type="submit">Mailchimp</button>
             </form>
             <form method="post" action="/add/madewith/" class="form-horizontal col-xs-12" id="add-maker-form">
@@ -206,7 +204,6 @@
               <input type="hidden" name="product_used_uid" value="7p97ga">
               <input type="hidden" name="originate_slug" value="{$product->slug}">
               <input type="hidden" name="originate_uid" value="{$product->uid}">
-              <input type="hidden" name="originate" value="product">
               <button class="btn btn-primary" type="submit">Hover</button>
             </form>
           </div>
