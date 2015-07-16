@@ -17,7 +17,7 @@
     <title>{if isset($maker)}{$maker->name} on {elseif isset($product)}{$product->name} on {/if}{$app_title}</title>
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{$site_root_path}assets/css/makerbase.css">
     <script src="//use.typekit.net/xzh8ady.js"></script>
@@ -75,12 +75,12 @@
       <meta name="description" content="A directory of people who make things." />
       <meta name="twitter:description" content="A directory of people who make things." />
 
-      {assign var="image" value="http://makerba.se/img/makerbase-logo@2x.png"}
+      {assign var="image" value="http://makerba.se/img/makerbase-logo-horizontal.png"}
       <meta itemprop="image" content="{$image}">
       <meta property="og:image" content="{$image}" />
       <meta property="og:image:secure" content="{$image}" />
       <meta name="twitter:image:src" content="{$image}" />
-      <meta name="twitter:image:width" content="540" />
+      <meta name="twitter:image:width" content="524" />
     {/if}
 
     <style type="text/css">

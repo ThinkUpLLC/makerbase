@@ -2,7 +2,7 @@
 
 <div class="row" id="project-profile">
   <div class="col-xs-2">
-    <img class="img-responsive" src="{if isset($product->avatar_url)}{insert name='user_image' image_url=$product->avatar_url image_proxy_sig=$image_proxy_sig type='m'}{else}/assets/img/blank-product.png{/if}" alt="{$product->name}" width="100%">
+    <img class="img-responsive" src="{if isset($product->avatar_url)}{insert name='user_image' image_url=$product->avatar_url image_proxy_sig=$image_proxy_sig type='m'}{else}/assets/img/blank-project.png{/if}" alt="{$product->name}" width="100%">
 
   </div>
   <div class="col-xs-10">
