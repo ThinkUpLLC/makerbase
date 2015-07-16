@@ -7,7 +7,6 @@ class AddController extends MakerbaseAuthController {
         $this->setViewTemplate('add.tpl');
 
         if ($this->logged_in_user->is_frozen && !isset($_GET['q'])) {
-            echo 'HAI';
             SessionCache::put('error_message', 'Unable to save your changes. Please try again in a little while.');
         }
 
