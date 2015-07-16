@@ -8,6 +8,8 @@ class AddController extends MakerbaseAuthController {
 
         if ($this->logged_in_user->is_frozen && !isset($_GET['q'])) {
             SessionCache::put('error_message', 'Unable to save your changes. Please try again in a little while.');
+            // Transfer cached user messages to the view
+            $this->setUserMessages();
         }
 
         $valid_objects = array('maker', 'product', 'role', 'madewith');
@@ -51,8 +53,6 @@ class AddController extends MakerbaseAuthController {
             $this->redirect(Config::getInstance()->getValue('site_root_path'));
         }
 
-        // Transfer cached user messages to the view
-        $this->setUserMessages();
         return $this->generateView();
     }
 
