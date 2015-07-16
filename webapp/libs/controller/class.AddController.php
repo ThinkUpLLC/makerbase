@@ -209,7 +209,7 @@ class AddController extends MakerbaseAuthController {
         } catch (MakerDoesNotExistException $e) {
             SessionCache::put('error_message', 'That maker does not exist.');
         } catch (ProductDoesNotExistException $e) {
-            SessionCache::put('error_message', 'That product does not exist.');
+            SessionCache::put('error_message', 'That project does not exist.');
         }
     }
 
