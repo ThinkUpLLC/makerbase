@@ -10,13 +10,19 @@ class ProductController extends MakerbaseAuthController {
             $product_dao = new ProductMySQLDAO();
 
             try {
+                // Get product
                 $product = $product_dao->get($_GET['uid']);
-
                 $this->addToView('product', $product);
 
+                // Get roles
                 $role_dao = new RoleMySQLDAO();
                 $roles = $role_dao->getByProduct($product->id);
                 $this->addToView('roles', $roles);
+
+                // Get madewiths
+                $madewith_dao = new MadeWithMySQLDAO();
+                $madewiths = $madewith_dao->getByProduct($product);
+                $this->addToView('madewiths', $madewiths);
 
                 // Get actions
                 $page_number = (isset($_GET['p']))?$_GET['p']:1;

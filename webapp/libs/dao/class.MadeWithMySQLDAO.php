@@ -26,7 +26,7 @@ EOD;
     public function insert(MadeWith $madewith) {
         $madewith->uid = self::generateRandomString(6);
         $q = <<<EOD
-INSERT INTO made_withs (
+INSERT IGNORE INTO made_withs (
 uid, product_id, used_product_id
 ) VALUES (
 :uid, :product_id, :used_product_id
