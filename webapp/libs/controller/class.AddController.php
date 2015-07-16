@@ -10,7 +10,8 @@ class AddController extends MakerbaseAuthController {
             SessionCache::put('error_message', 'Unable to save your changes. Please try again in a little while.');
         }
 
-        if ($_GET['object'] == 'maker' || $_GET['object'] == 'product' || $_GET['object'] == 'role') {
+        $valid_objects = array('maker', 'product', 'role', 'madewith');
+        if (in_array($_GET['object'], $valid_objects)) {
             $this->addToView('object', $_GET['object']);
 
             if (isset($_GET['q'])) {
@@ -33,6 +34,16 @@ class AddController extends MakerbaseAuthController {
                 if (!$this->logged_in_user->is_frozen) {
                     CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
                     $this->addRole();
+                }
+                if ($_POST['originate'] == 'maker') {
+                    $this->redirect('/m/'.$_POST['originate_uid'].'/'.$_POST['originate_slug']);
+                } else {
+                    $this->redirect('/p/'.$_POST['originate_uid'].'/'.$_POST['originate_slug']);
+                }
+            } elseif ($_GET['object'] == 'madewith' && $this->hasSubmittedMadeWithForm()) {
+                if (!$this->logged_in_user->is_frozen) {
+                    CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
+                    $this->addMadeWith();
                 }
                 if ($_POST['originate'] == 'maker') {
                     $this->redirect('/m/'.$_POST['originate_uid'].'/'.$_POST['originate_slug']);
@@ -65,6 +76,16 @@ class AddController extends MakerbaseAuthController {
             && isset($_POST['start_date'])
             && isset($_POST['end_date'])
             && isset($_POST['role'])
+            && isset($_POST['originate'])
+            && isset($_POST['originate_uid'])
+            && isset($_POST['originate_slug'])
+            );
+    }
+
+    private function hasSubmittedMadeWithForm() {
+        return (
+            isset($_POST['product_uid'])
+            && isset($_POST['product_used_uid'])
             && isset($_POST['originate'])
             && isset($_POST['originate_uid'])
             && isset($_POST['originate_slug'])
@@ -208,6 +229,52 @@ class AddController extends MakerbaseAuthController {
             SessionCache::put('success_message', 'You added '.$maker->name.' to '.$product->name.'.');
         } catch (MakerDoesNotExistException $e) {
             SessionCache::put('error_message', 'That maker does not exist.');
+        } catch (ProductDoesNotExistException $e) {
+            SessionCache::put('error_message', 'That project does not exist.');
+        }
+    }
+
+    private function addMadeWith() {
+        $product_dao = new ProductMySQLDAO();
+        try {
+            $product = $product_dao->get($_POST['product_uid']);
+            $used_product = $product_dao->get($_POST['product_used_uid']);
+
+            $madewith = new MadeWith();
+            $madewith->product_id = $product->id;
+            $madewith->used_product_id = $used_product->id;
+
+            $madewith_dao = new MadeWithMySQLDAO();
+            $inserted_madewith = $madewith_dao->insert($madewith);
+
+            //Add new connection
+            $connection_dao = new ConnectionMySQLDAO();
+            $connection_dao->insert($this->logged_in_user, $used_product);
+            $connection_dao->insert($this->logged_in_user, $product);
+
+            //Add new action
+            $action = new Action();
+            $action->user_id = $this->logged_in_user->id;
+            $action->severity = Action::SEVERITY_NORMAL;
+            $action->object_id = $product->id;
+            $action->object_type = get_class($product);
+            $action->object2_id = $used_product->id;
+            $action->object2_type = get_class($used_product);
+            $action->ip_address = $_SERVER['REMOTE_ADDR'];
+            $action->action_type = 'made with';
+
+            $inserted_madewith->product = $product;
+            $inserted_madewith->used_product = $used_product;
+            $action->metadata = json_encode($inserted_madewith);
+
+            $action_dao = new ActionMySQLDAO();
+            $action_dao->insert($action);
+
+            //Force cache refresh
+            CacheHelper::expireCache('product.tpl', $product->uid, $product->slug);
+            CacheHelper::expireCache('product.tpl', $used_product->uid, $used_product->slug);
+
+            SessionCache::put('success_message', 'You said '.$product->name.' was made with '.$used_product->name.'.');
         } catch (ProductDoesNotExistException $e) {
             SessionCache::put('error_message', 'That project does not exist.');
         }

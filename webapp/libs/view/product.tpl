@@ -110,8 +110,6 @@
 
 
           <!-- add roles -->
-
-
           {if isset($logged_in_user)}
 
             <button class="btn btn-primary" type="submit" id="add-maker-action" data-toggle="collapse" data-target="#add-maker-form" onclick="$('#add-maker-action').toggle();" ><i class="fa fa-plus"></i> Add a{if $roles}nother{/if} maker</button>
@@ -159,15 +157,55 @@
             <a href="{$sign_in_with_twttr_link}" class="btn btn-primary col-offset-xs-1 col-offset-sm-3" id="add-maker-action"><i class="fa fa-plus"></i> Add a{if $roles}nother{/if} project</a>
 
           {/if}
-
           <!-- /add roles -->
+    </div>
 
-          {include file="_reportpage.tpl" object=$product object_type='project'}
+    <div id="madewiths">
+          <!-- add madewiths -->
+       {if sizeof($madewiths) > 0}
+        <div id="madewiths">
+            <h4><a href="#madewiths">{$product->name} was made with</a></h4>
 
+            <ul class="list-group col-sm-12 col-xs-12" id="collaborator-list">
+            {foreach $madewiths as $madewith}
+            <li class="list-group-item col-sm-12 col-xs-12">
+                <div class="media-left media-top">
+                  <a href="/p/{$madewith->used_product->uid}/{$madewith->used_product->slug}"><img class="media-object" src="{insert name='user_image' image_url=$madewith->used_product->avatar_url image_proxy_sig=$image_proxy_sig type='p'}" width="50" height="50"></a>
+                </div>
+
+                <div class="media-body">
+                  <h3>{$product->name} was made with <a href="/p/{$madewith->used_product->uid}/{$madewith->used_product->slug}">{$madewith->used_product->name}</a></h3> <small><a href="#">archive</a></small>
+                </div>
+            </li>
+            {/foreach}
+          </ul>
+        </div>
+      {/if}
+
+          {if isset($logged_in_user)}
+
+          <div>{$product->name} uses
+            <form method="post" action="/add/madewith/" class="form-horizontal col-xs-12" id="add-maker-form">
+              <input type="hidden" name="product_uid" value="{$product->uid}">
+              <input type="hidden" name="product_used_uid" value="m348b6">
+              <input type="hidden" name="originate_slug" value="{$product->slug}">
+              <input type="hidden" name="originate_uid" value="{$product->uid}">
+              <input type="hidden" name="originate" value="product">
+              <button class="btn btn-primary" type="submit">Slack</button>
+            </form>
+          </div>
+
+          {else}
+
+            <a href="{$sign_in_with_twttr_link}" class="btn btn-primary col-offset-xs-1 col-offset-sm-3" id="add-madewith-action"><i class="fa fa-plus"></i> Add a project {$project->name} was made with</a>
+
+          {/if}
+          <!-- /add madewiths -->
     </div>
 
 
     <div id="history" class="history-muted">
+          {include file="_reportpage.tpl" object=$product object_type='project'}
 
       <h4><a href="#history">History</a></h4>
 
