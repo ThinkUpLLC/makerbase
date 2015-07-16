@@ -43,7 +43,15 @@ cp /var/www/webapp/assets/img/blank-product.png /home/vagrant/data/image-cache/.
 chown -R www-data /home/vagrant/data/
 
 # Load sample data
-mysql -u makerbase -pnice2bnice -D makerbase_web < /var/www/puphpet/files/makerbase-setup/sample-data.sql
+mysql -u makerbase -pnice2bnice -D makerbase_web < /var/www/puphpet/files/makerbase-setup/sample-data/actions.sql
+mysql -u makerbase -pnice2bnice -D makerbase_web < /var/www/puphpet/files/makerbase-setup/sample-data/autofills.sql
+mysql -u makerbase -pnice2bnice -D makerbase_web < /var/www/puphpet/files/makerbase-setup/sample-data/connections.sql
+mysql -u makerbase -pnice2bnice -D makerbase_web < /var/www/puphpet/files/makerbase-setup/sample-data/makers.sql
+mysql -u makerbase -pnice2bnice -D makerbase_web < /var/www/puphpet/files/makerbase-setup/sample-data/products.sql
+mysql -u makerbase -pnice2bnice -D makerbase_web < /var/www/puphpet/files/makerbase-setup/sample-data/roles.sql
+mysql -u makerbase -pnice2bnice -D makerbase_web < /var/www/puphpet/files/makerbase-setup/sample-data/users.sql
+mysql -u makerbase -pnice2bnice -D makerbase_web < /var/www/puphpet/files/makerbase-setup/sample-data/waitlist-follows.sql
+mysql -u makerbase -pnice2bnice -D makerbase_web < /var/www/puphpet/files/makerbase-setup/sample-data/waitlist.sql
 
 # Create makers index in Elasticsearch
 curl -XPUT 'localhost:9200/_river/my_jdbc_river_makers/_meta' -d '{
@@ -73,7 +81,7 @@ curl -XPUT 'localhost:9200/_river/my_jdbc_river_products/_meta' -d '{
 }'
 
 # Create tmp table
-mysql -u makerbase -pnice2bnice -D makerbase_web -e "CREATE TABLE tmp SELECT CONCAT('m/', uid) as _id, uid, slug, name, '' as description, url, avatar_url, 'm' AS type FROM makers UNION SELECT CONCAT('p/', uid) as _id, uid, slug, name, description, url, avatar_url, 'p' AS type FROM products;"
+mysql -u makerbase -pnice2bnice -D makerbase_web -e "CREATE TABLE tmp SELECT CONCAT('m/', uid) as _id, uid, slug, name, '' as description, url, avatar_url, 'm' AS type FROM makers WHERE is_archived = 0 UNION SELECT CONCAT('p/', uid) as _id, uid, slug, name, description, url, avatar_url, 'p' AS type FROM products  WHERE is_archived = 0;"
 
 # Create makers AND products index in Elasticsearch
 curl -XPUT 'localhost:9200/_river/my_jdbc_river_makers_and_products/_meta' -d '{
