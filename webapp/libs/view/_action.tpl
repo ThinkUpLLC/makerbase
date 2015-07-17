@@ -22,6 +22,9 @@
 {elseif $action->action_type eq 'made with'} {* User said Project uses Project *}
     {assign var="is_says" value=true}
     {assign var="verbed" value="uses"}
+{elseif $action->action_type eq 'not made with'} {* User said Project does not use Project *}
+    {assign var="is_says" value=true}
+    {assign var="verbed" value="doesn't use"}
 {elseif $action->action_type eq 'associate'} {* User said Maker made Project *}
     {assign var="is_says" value=true}
     {assign var="verbed" value="made"}
