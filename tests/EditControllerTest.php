@@ -179,4 +179,8 @@ class EditControllerTest extends MakerbaseUnitTestCase {
     //TODO testArchiveRoleSignedInUserFrozen
     //TODO testArchiveRoleSignedInProductFrozen
     //TODO testArchiveRoleSignedInMakerFrozen
+
+    //TODO testArchiveMadeWithSignedIn
+    //TODO testArchiveMadeWithSignedInUserFrozen
+    //TODO testArchiveMadeWithSignedInProductFrozen
 }

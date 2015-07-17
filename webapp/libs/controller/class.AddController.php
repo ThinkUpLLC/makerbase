@@ -245,7 +245,14 @@ class AddController extends MakerbaseAuthController {
             $madewith->used_product_id = $used_product->id;
 
             $madewith_dao = new MadeWithMySQLDAO();
-            $inserted_madewith = $madewith_dao->insert($madewith);
+            $existing_madewith = $madewith_dao->getByProductUsedProductID($product->id, $used_product->id);
+            if (isset($existing_madewith)) {
+                $madewith_dao->unarchive($existing_madewith->uid);
+                $existing_madewith->archived = false;
+                $inserted_madewith = $existing_madewith;
+            } else {
+                $inserted_madewith = $madewith_dao->insert($madewith);
+            }
 
             //Add new connection
             $connection_dao = new ConnectionMySQLDAO();

@@ -97,4 +97,22 @@ EOD;
         }
         return $madewiths;
     }
+
+    public function getByProductUsedProductID($product_id, $used_product_id) {
+        $q = <<<EOD
+SELECT mw.* FROM made_withs mw
+WHERE mw.used_product_id = :used_product_id AND mw.product_id = :product_id
+EOD;
+        $vars = array (
+            ':product_id' => $product_id,
+            ':used_product_id' => $used_product_id
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        $row = $this->getDataRowAsArray($ps);
+        $madewith = new MadeWith($row);
+        $madewith->is_archived = PDODAO::convertDBToBool($row['is_archived']);
+        return $madewith;
+    }
 }

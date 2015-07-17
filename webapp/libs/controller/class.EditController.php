@@ -59,6 +59,14 @@ class EditController extends MakerbaseAuthController {
                 CacheHelper::expireCache('maker.tpl', $_POST['originate_uid'], $_POST['originate_slug']);
                 $this->redirect('/m/'.$_POST['originate_uid'].'/'.$_POST['originate_slug']);
             }
+        } elseif ($this->hasArchivedMadeWith()) {
+            if (!$this->logged_in_user->is_frozen) {
+                CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
+                $this->archiveMadeWith();
+            }
+
+            CacheHelper::expireCache('product.tpl', $_POST['originate_uid'], $_POST['originate_slug']);
+            $this->redirect('/p/'.$_POST['originate_uid'].'/'.$_POST['originate_slug']);
         } else {
             //print_r($_POST);
             $this->redirect(Config::getInstance()->getValue('site_root_path'));
@@ -93,6 +101,16 @@ class EditController extends MakerbaseAuthController {
             && isset($_POST['uid'])
             && isset($_POST['archive']) && ($_POST['archive'] == 1 || $_POST['archive'] == 0)
             && isset($_POST['originate']) && ($_POST['originate'] == 'product' || $_POST['originate'] == 'maker')
+            && isset($_POST['originate_slug'])
+            && isset($_POST['originate_uid'])
+        );
+    }
+
+    private function hasArchivedMadeWith() {
+        return (
+            (isset($_GET['object']) && $_GET['object'] == 'madewith')
+            && isset($_POST['madewith_uid'])
+            && isset($_POST['archive']) && ($_POST['archive'] == 1 || $_POST['archive'] == 0)
             && isset($_POST['originate_slug'])
             && isset($_POST['originate_uid'])
         );
@@ -190,6 +208,70 @@ class EditController extends MakerbaseAuthController {
                 $role->maker = $maker;
                 $role->product = $product;
                 $action->metadata = json_encode($role);
+                $action_dao = new ActionMySQLDAO();
+                $action_dao->insert($action);
+            }
+        }
+    }
+
+    private function archiveMadeWith() {
+        $madewith_dao = new MadeWithMySQLDAO();
+        $madewith = $madewith_dao->get($_POST['madewith_uid']);
+
+        //Get products
+        $product_dao = new ProductMySQLDAO();
+        $product = $product_dao->getByID($madewith->product_id);
+        $used_product = $product_dao->getByID($madewith->used_product_id);
+
+        if ($product->is_frozen || $used_product->is_frozen) {
+            SessionCache::put('error_message', 'Unable to save your edits. Please try again in a little while.');
+        } else {
+            $has_changed_archive_status = false;
+            if ($_POST['archive'] == 1) {
+                if ($madewith->is_archived) {
+                    SessionCache::put('info_message', "Already archived");
+                } else {
+                    $has_changed_archive_status = $madewith_dao->archive($_POST['madewith_uid']);
+                    if ($has_changed_archive_status) {
+                        $madewith->is_archived = true;
+                        SessionCache::put('success_message', 'Archived use');
+                        $action_type = 'archive';
+                    }
+                }
+            } else {
+                if (!$madewith->is_archived) {
+                    SessionCache::put('info_message', "Already unarchived");
+                } else {
+                    $has_changed_archive_status = $madewith_dao->unarchive($_POST['madewith_uid']);
+                    if ($has_changed_archive_status) {
+                        $madewith->is_archived = false;
+                        SessionCache::put('success_message', 'Unarchived use');
+                        $action_type = 'unarchive';
+                    }
+                }
+            }
+
+            //Add new connection
+            $connection_dao = new ConnectionMySQLDAO();
+            $connection_dao->insert($this->logged_in_user, $product);
+            $connection_dao->insert($this->logged_in_user, $used_product);
+
+            if ($has_changed_archive_status) {
+                //Add new action
+                $action = new Action();
+                $action->user_id = $this->logged_in_user->id;
+                $action->severity = Action::SEVERITY_NORMAL;
+                $action->object_id = $product->id;
+                $action->object_type = get_class($product);
+                $action->object2_id = $used_product->id;
+                $action->object2_type = get_class($used_product);
+                $action->ip_address = $_SERVER['REMOTE_ADDR'];
+                $action->action_type = 'not made with';
+
+                $madewith->product = $product;
+                $madewith->used_product = $used_product;
+                $action->metadata = json_encode($madewith);
+
                 $action_dao = new ActionMySQLDAO();
                 $action_dao->insert($action);
             }

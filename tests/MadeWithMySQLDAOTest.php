@@ -75,4 +75,26 @@ class MadeWithMySQLDAOTest extends MakerbaseUnitTestCase {
         $this->assertEquals($madewiths_by_product[0]->product->slug, 'user');
         $this->assertEquals($madewiths_by_product[0]->used_product->slug, 'usee');
     }
+
+    public function testGetByProductUsedProductID() {
+        $builders = array();
+        $builders[] = FixtureBuilder::build('products', array('id'=>1, 'uid'=>'asdf', 'slug'=>'user'));
+        $builders[] = FixtureBuilder::build('products', array('id'=>2, 'uid'=>'bsdf', 'slug'=>'usee'));
+        $builders[] = FixtureBuilder::build('products', array('id'=>3, 'uid'=>'csdf', 'slug'=>'usee'));
+        $builders[] = FixtureBuilder::build('products', array('id'=>4, 'uid'=>'dsdf', 'slug'=>'usee'));
+        $builders[] = FixtureBuilder::build('products', array('id'=>5, 'uid'=>'esdf', 'slug'=>'usee'));
+        $builders[] = FixtureBuilder::build('products', array('id'=>6, 'uid'=>'fsdf', 'slug'=>'usee'));
+        $builders[] = FixtureBuilder::build('made_withs', array('id'=>1, 'uid'=>'asdf', 'product_id'=>1,
+            'used_product_id'=>2));
+        $builders[] = FixtureBuilder::build('made_withs', array('id'=>2, 'uid'=>'bsdf', 'product_id'=>1,
+            'used_product_id'=>3));
+        $builders[] = FixtureBuilder::build('made_withs', array('id'=>3, 'uid'=>'csdf', 'product_id'=>1,
+            'used_product_id'=>4));
+
+        $madewith_dao = new MadeWithMySQLDAO();
+        $madewith = $madewith_dao->getByProductUsedProductID(1,3);
+        $this->assertInstanceOf('MadeWith', $madewith);
+        $this->assertEquals($madewith->product_id, 1);
+        $this->assertEquals($madewith->used_product_id, 3);
+    }
 }
