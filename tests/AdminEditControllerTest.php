@@ -80,6 +80,14 @@ class AdminEditControllerTest extends MakerbaseUnitTestCase {
         $builders[] = FixtureBuilder::build('roles', array('product_id'=>20, 'maker_id'=>2, 'uid'=>'adfea'));
         $builders[] = FixtureBuilder::build('roles', array('product_id'=>21, 'maker_id'=>1, 'uid'=>'adfec'));
 
+        //Made withs
+        $builders[] = FixtureBuilder::build('made_withs', array('product_id'=>20, 'used_product_id'=>1,
+            'uid'=>'adfeb'));
+        $builders[] = FixtureBuilder::build('made_withs', array('product_id'=>20, 'used_product_id'=>2,
+            'uid'=>'adfea'));
+        $builders[] = FixtureBuilder::build('made_withs', array('product_id'=>21, 'used_product_id'=>1,
+            'uid'=>'adfec'));
+
         //Actions
         $test_json = '"just some valid test JSON"';
         $builders[] = FixtureBuilder::build('actions', array('uid'=>'delete1', 'object_id'=>20,
@@ -193,7 +201,14 @@ class AdminEditControllerTest extends MakerbaseUnitTestCase {
         $connection = $connection_dao->get(1001, 21, 'Product');
         $this->assertNotNull($connection);
 
-        //TODO Assert madewiths have been deleted
+        //Assert madewiths have been deleted
+        $made_with_dao = new MadeWithMySQLDAO();
+        $made_with = $made_with_dao->getByProductUsedProductID(20, 1);
+        $this->assertNull($made_with);
+        $made_with = $made_with_dao->getByProductUsedProductID(20, 2);
+        $this->assertNull($made_with);
+        $made_with = $made_with_dao->getByProductUsedProductID(21, 1);
+        $this->assertNotNull($made_with);
     }
 
     public function testEditSignedInAsAdminDeleteMaker() {

@@ -130,7 +130,10 @@ class AdminEditController extends MakerbaseAdminController {
             $connection_dao = new ConnectionMySQLDAO();
             $connection_dao->deleteConnectionsToProduct($product->id);
 
-            //TODO Delete made-withs (once made-withs are built)
+            //Delete made-withs
+            //While they are only sponsors, just the using products get deleted, not the used products
+            $madewith_dao = new MadeWithMySQLDAO();
+            $madewith_dao->deleteByProduct($product->id);
 
             if ($has_been_deleted) {
                 SessionCache::put('success_message', 'Deleted project');
