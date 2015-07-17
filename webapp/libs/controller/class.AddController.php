@@ -8,8 +8,6 @@ class AddController extends MakerbaseAuthController {
 
         if ($this->logged_in_user->is_frozen && !isset($_GET['q'])) {
             SessionCache::put('error_message', 'Unable to save your changes. Please try again in a little while.');
-            // Transfer cached user messages to the view
-            $this->setUserMessages();
         }
 
         $valid_objects = array('maker', 'product', 'role', 'madewith');
@@ -22,16 +20,25 @@ class AddController extends MakerbaseAuthController {
                 if ($_GET['object'] == 'product') {
                     $this->addiOSAppsToView($_GET['q']);
                 }
+                // Transfer cached user messages to the view
+                $this->setUserMessages();
+                return $this->generateView();
             } elseif ($_GET['object'] == 'maker' && $this->hasSubmittedMakerForm()) {
                 if (!$this->logged_in_user->is_frozen) {
                     CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
                     $this->addMaker();
                 }
+                // Transfer cached user messages to the view
+                $this->setUserMessages();
+                return $this->generateView();
             } elseif ($_GET['object'] == 'product' && $this->hasSubmittedProductForm()) {
                 if (!$this->logged_in_user->is_frozen) {
                     CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
                     $this->addProduct();
                 }
+                // Transfer cached user messages to the view
+                $this->setUserMessages();
+                return $this->generateView();
             } elseif ($_GET['object'] == 'role' && $this->hasSubmittedRoleForm()) {
                 if (!$this->logged_in_user->is_frozen) {
                     CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
@@ -52,8 +59,6 @@ class AddController extends MakerbaseAuthController {
         } else {
             $this->redirect(Config::getInstance()->getValue('site_root_path'));
         }
-
-        return $this->generateView();
     }
 
     private function hasSubmittedMakerForm() {
