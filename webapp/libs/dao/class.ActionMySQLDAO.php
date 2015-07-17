@@ -62,16 +62,21 @@ EOD;
         }
     }
 
-    public function getUserConnectionsActivities($user_id) {
+    public function getUserConnectionsActivities($user_uid, $page=1, $limit=10) {
+        $start = $limit * ($page - 1);
+        $limit++;
         $q = <<<EOD
-SELECT a.*, u.name, u.uid AS user_uid, u.twitter_username as username FROM actions a INNER JOIN connections c
-ON c.object_type = a.object_type and c.object_id = a.object_id
-INNER JOIN users u ON a.user_id = u.id
-WHERE c.user_id = :user_id AND is_admin = 0
-ORDER BY time_performed DESC LIMIT 7;
+SELECT a.*, uactor.name, uactor.uid AS user_uid, uactor.twitter_username as username FROM actions a
+INNER JOIN connections c ON c.object_type = a.object_type and c.object_id = a.object_id
+INNER JOIN users u ON c.user_id = u.id
+INNER JOIN users uactor ON a.user_id = uactor.id
+WHERE u.uid = :user_uid AND is_admin = 0 AND a.user_id != u.id
+ORDER BY time_performed DESC LIMIT :start, :limit;
 EOD;
         $vars = array (
-            ':user_id' => $user_id
+            ':user_uid' => $user_uid,
+            ':start' => $start,
+            ':limit' => $limit
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         $ps = $this->execute($q, $vars);
