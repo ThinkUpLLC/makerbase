@@ -303,6 +303,15 @@ input,
         font-size: 15px;
     }
 }
+.madewith-archive button i {
+    color: red;
+    margin-bottom: 3px;
+    visibility: hidden;
+    margin: 0;
+}
+.madewith-archive:hover button i {
+    visibility: visible;
+}
 .main-avatar {
     width: 100%;
 }
@@ -324,8 +333,8 @@ input,
     width: 170px!important;
 }
 .navbar {
-    background-color: #black;
-    border-bottom: 1px solid #black;
+    background-color: black;
+    border-bottom: 1px solid black;
     color: #FFF;
     margin-bottom: 0;
     min-height: 0;
@@ -646,4 +655,7 @@ input,
 #signout-button .dropdown-menu {
     left: -120px;
     top: 40px;
+}
+#sponsor-actions {
+  margin-top: 50px;
 }
