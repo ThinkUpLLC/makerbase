@@ -174,7 +174,15 @@
                 </div>
 
                 <div class="media-body">
-                  <h3>{$product->name} was made with <a href="/p/{$madewith->used_product->uid}/{$madewith->used_product->slug}">{$madewith->used_product->name}</a></h3> <small><a href="#">archive</a></small>
+                  <h3>{$product->name} was made with <a href="/p/{$madewith->used_product->uid}/{$madewith->used_product->slug}">{$madewith->used_product->name}</a></h3> <small>
+
+                  <form method="post" action="/edit/madewith/" class="form-horizontal col-xs-12" id="archive-madewith-form">
+                    <input type="hidden" name="madewith_uid" value="{$madewith->uid}">
+                    <input type="hidden" name="archive" value="1"/>
+                    <input type="hidden" name="originate_slug" value="{$product->slug}">
+                    <input type="hidden" name="originate_uid" value="{$product->uid}">
+                    <button class="btn btn-primary" type="submit">Archive</button>
+                  </form>
                 </div>
             </li>
             {/foreach}
