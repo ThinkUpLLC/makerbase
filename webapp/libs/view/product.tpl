@@ -94,6 +94,29 @@
 
 </div>
 
+{if sizeof($madewiths) > 0}
+<div class="row">
+  <div class="col-xs-12">
+    <ul class="list-group list-unstyled col-xs-12" id="sponsor-list">
+      {foreach $madewiths as $madewith}
+      <li class="pull-right madewith-archive" >
+        <a href="/p/{$madewith->used_product->uid}/{$madewith->used_product->slug}" class=""><img src="{insert name='user_image' image_url=$madewith->used_product->avatar_url image_proxy_sig=$image_proxy_sig type='p'}" style="width: 16px;"/> {$madewith->used_product->name}</a>
+
+        <form method="post" action="/edit/madewith/" class="form-inline pull-right">
+          <input type="hidden" name="madewith_uid" value="{$madewith->uid}">
+          <input type="hidden" name="archive" value="1"/>
+          <input type="hidden" name="originate_slug" value="{$product->slug}">
+          <input type="hidden" name="originate_uid" value="{$product->uid}">
+          <button class="btn btn-link btn-xs" type="submit"><i class="fa fa-close"></i></button>
+        </form>
+      </li>
+      {/foreach}
+      <li class="pull-right">{$product->name} was made with &nbsp;</li>
+    </ul>
+  </div>
+</div>
+{/if}
+
 
 <div class="row">
   <div class="col-xs-12">
@@ -160,70 +183,54 @@
           <!-- /add roles -->
     </div>
 
-    <div id="madewiths">
-          <!-- add madewiths -->
-       {if sizeof($madewiths) > 0}
-        <div id="madewiths">
-            <h4><a href="#madewiths">{$product->name} was made with</a></h4>
 
-            <ul class="list-group col-sm-12 col-xs-12" id="collaborator-list">
-            {foreach $madewiths as $madewith}
-            <li class="list-group-item col-sm-12 col-xs-12">
-                <div class="media-left media-top">
-                  <a href="/p/{$madewith->used_product->uid}/{$madewith->used_product->slug}"><img class="media-object" src="{insert name='user_image' image_url=$madewith->used_product->avatar_url image_proxy_sig=$image_proxy_sig type='p'}" width="50" height="50"></a>
-                </div>
+<div class="row">
+  <div class="col-xs-12">
 
-                <div class="media-body">
-                  <h3>{$product->name} was made with <a href="/p/{$madewith->used_product->uid}/{$madewith->used_product->slug}">{$madewith->used_product->name}</a></h3> <small>
+    <div id="sponsor-actions" class="">
 
-                  <form method="post" action="/edit/madewith/" class="form-horizontal col-xs-12" id="archive-madewith-form">
-                    <input type="hidden" name="madewith_uid" value="{$madewith->uid}">
-                    <input type="hidden" name="archive" value="1"/>
-                    <input type="hidden" name="originate_slug" value="{$product->slug}">
-                    <input type="hidden" name="originate_uid" value="{$product->uid}">
-                    <button class="btn btn-primary" type="submit">Archive</button>
-                  </form>
-                </div>
-            </li>
-            {/foreach}
-          </ul>
-        </div>
-      {/if}
+        <p class="text-muted " style="margin-right: 10px;">Use any of these tools to make {$product->name}?</p>
 
-          {if isset($logged_in_user)}
+        {if isset($logged_in_user)}
+        <p class="text-muted">
 
-          <div>{$product->name} uses
-            <form method="post" action="/add/madewith/" class="form-horizontal col-xs-12" id="add-maker-form">
+            <form method="post" action="/add/madewith/" class="form-inline pull-left" id="add-maker-form">
               <input type="hidden" name="product_uid" value="{$product->uid}">
               <input type="hidden" name="product_used_uid" value="m348b6">
               <input type="hidden" name="originate_slug" value="{$product->slug}">
               <input type="hidden" name="originate_uid" value="{$product->uid}">
-              <button class="btn btn-primary" type="submit">Slack</button>
+              <button class=" btn btn-sm btn-default" type="submit" style="margin-right: 10px;" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="Slack sponsors Makerbase" data-content="If {$product->name} uses Slack, you can support Makerbase by saying so."><img src="/img.php?url=http://pbs.twimg.com/profile_images/378800000271328329/349dc6f270e53cbe09cd05f6c032fc67.png&t=m&s=d324372b5018ab44536ea0dc260a89d0" style="width: 16px;"/>Slack</button>
             </form>
-            <form method="post" action="/add/madewith/" class="form-horizontal col-xs-12" id="add-maker-form">
+
+            <form method="post" action="/add/madewith/" class="form-inline pull-left" id="add-maker-form">
               <input type="hidden" name="product_uid" value="{$product->uid}">
               <input type="hidden" name="product_used_uid" value="9u0s6y">
               <input type="hidden" name="originate_slug" value="{$product->slug}">
               <input type="hidden" name="originate_uid" value="{$product->uid}">
-              <button class="btn btn-primary" type="submit">Mailchimp</button>
+              <button class=" btn btn-sm btn-default" type="submit" style="margin-right: 10px;" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="MailChimp sponsors Makerbase" data-content="If {$product->name} uses MailChimp, you can support Makerbase by saying so."><img src="/img.php?url=https://pbs.twimg.com/profile_images/615875108385656832/D_nZMonl.jpg&t=p&s=d324372b5018ab44536ea0dc260a89d0" style="width: 16px;"/>MailChimp</button>
             </form>
-            <form method="post" action="/add/madewith/" class="form-horizontal col-xs-12" id="add-maker-form">
+
+            <form method="post" action="/add/madewith/" class="form-inline pull-left" id="add-maker-form">
               <input type="hidden" name="product_uid" value="{$product->uid}">
               <input type="hidden" name="product_used_uid" value="7p97ga">
               <input type="hidden" name="originate_slug" value="{$product->slug}">
               <input type="hidden" name="originate_uid" value="{$product->uid}">
-              <button class="btn btn-primary" type="submit">Hover</button>
+              <button class=" btn btn-sm btn-default" type="submit" style="margin-right: 10px;" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="Hover sponsors Makerbase" data-content="If {$product->name} uses Hover, you can support Makerbase by saying so."><img src="/img.php?url=http://pbs.twimg.com/profile_images/505340149660520449/3-sIzuBq.png&t=m&s=d324372b5018ab44536ea0dc260a89d0" style="width: 16px;"/>Hover</button>
             </form>
-          </div>
 
-          {else}
+        {else}
 
-            <a href="{$sign_in_with_twttr_link}" class="btn btn-primary col-offset-xs-1 col-offset-sm-3" id="add-madewith-action"><i class="fa fa-plus"></i> Add a project {$project->name} was made with</a>
+              <a class=" btn btn-sm btn-default" href="{$sign_in_with_twttr_link}" style="margin-right: 10px;" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="Slack sponsors Makerbase" data-content="If {$product->name} uses Slack, you can support Makerbase by saying so."><img src="/img.php?url=http://pbs.twimg.com/profile_images/378800000271328329/349dc6f270e53cbe09cd05f6c032fc67.png&t=m&s=d324372b5018ab44536ea0dc260a89d0" style="width: 16px;"/>Slack</a>
 
-          {/if}
-          <!-- /add madewiths -->
-    </div>
+              <a class=" btn btn-sm btn-default" href="{$sign_in_with_twttr_link}" style="margin-right: 10px;" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="MailChimp sponsors Makerbase" data-content="If {$product->name} uses MailChimp, you can support Makerbase by saying so."><img src="/img.php?url=https://pbs.twimg.com/profile_images/615875108385656832/D_nZMonl.jpg&t=p&s=d324372b5018ab44536ea0dc260a89d0" style="width: 16px;"/>MailChimp</a>
 
+              <a class=" btn btn-sm btn-default" href="{$sign_in_with_twttr_link}" style="margin-right: 10px;" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="Hover sponsors Makerbase" data-content="If {$product->name} uses Hover, you can support Makerbase by saying so."><img src="/img.php?url=http://pbs.twimg.com/profile_images/505340149660520449/3-sIzuBq.png&t=m&s=d324372b5018ab44536ea0dc260a89d0" style="width: 16px;"/>Hover</a>
+        {/if}
+        </p>
+
+      </div>
+  </div>
+</div>
 
     <div id="history" class="history-muted">
           {include file="_reportpage.tpl" object=$product object_type='project'}
