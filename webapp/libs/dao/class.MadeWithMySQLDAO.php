@@ -111,8 +111,23 @@ EOD;
         //echo self::mergeSQLVars($q, $vars);
         $ps = $this->execute($q, $vars);
         $row = $this->getDataRowAsArray($ps);
-        $madewith = new MadeWith($row);
-        $madewith->is_archived = PDODAO::convertDBToBool($row['is_archived']);
-        return $madewith;
+        if (isset($row)) {
+            $madewith = new MadeWith($row);
+            $madewith->is_archived = PDODAO::convertDBToBool($row['is_archived']);
+            return $madewith;
+        } else {
+            return null;
+        }
+    }
+
+    public function deleteByProduct($product_id) {
+        $q = "DELETE FROM made_withs WHERE product_id = :product_id";
+        $vars = array (
+            ':product_id' => (int)$product_id
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        return ($this->getUpdateCount($ps) > 0);
     }
 }
