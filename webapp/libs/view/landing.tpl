@@ -17,7 +17,7 @@
 
    <div class="page-header col-sm-10 col-sm-offset-1 col-xs-12">
       <div class="jumbotron">
-        <h1><strong>Makerbase</strong> is:</h1>
+        <h1>Makerbase</h1>
         <ul class="list">
           <li>A place to tell the world what you made, and to find out who made the things you love.</li>
           <li>Edited by <strong>everyone</strong>. You can change and add to anything that you see.</li>
