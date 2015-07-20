@@ -13,7 +13,6 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="{$site_root_path}assets/js/vendor/typeahead.bundle.min.js"></script>
-    <script src="{$site_root_path}assets/js/vendor/handlebars-v3.0.0.js"></script>
 
     {literal}
     <script type='text/javascript'>
@@ -50,12 +49,14 @@
         displayKey: 'name',
         source: searchAllMakersProducts.ttAdapter(),
         templates: {
-          empty: [
+           empty: [
             '<div class="media" id="add-buttons">',
             '<h4 class="media-heading">Oops! No makers or projects match.</h4>',
             '</div>'
           ].join('\n'),
-          suggestion: Handlebars.compile('<a class="media" href="/{{type}}/{{uid}}/{{slug}}"><div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div></a>'),
+          suggestion: function(data){
+            return '<a class="media" href="/' + data.type + '/' + data.uid + '/' + data.slug + '"><div class="media-left"><img class="media-object" src="' + data.avatar_url + '" alt="' + data.name + '" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">' + data.name + '</h4></div></a>';
+          },
           footer: [
             '<br><div class="media-body">',
             '<a onclick="location.href=\'/add/maker/?q=\'+ encodeURIComponent($(\'#nav-typeahead\').val());" class="btn btn-success btn-md">Create this Maker</a> ',
@@ -90,7 +91,9 @@
             '<h4 class="media-heading">Oops! No makers match.</h4>',
             '</div>'
           ].join('\n'),
-          suggestion: Handlebars.compile('<div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div>'),
+          suggestion: function(data){
+            return '<div class="media-left"><img class="media-object" src="' + data.avatar_url + '" alt="' + data.name + '" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">' + data.name + '</h4></div>';
+          },
           footer: [
             '<br><div class="media-body"><a onclick="location.href=\'/add/maker/?q=\'+ encodeURIComponent($(\'#maker-name\').val());" class="btn btn-success btn-md">Create this Maker</a></div>'
           ].join('\n')
@@ -128,7 +131,9 @@
             '<h4 class="media-heading">Oops! No projects match.</h4>',
             '</div>'
           ].join('\n'),
-          suggestion: Handlebars.compile('<div class="media-left"><img class="media-object" src="{{avatar_url}}" alt="{{name}}" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">{{name}}</h4></div></div>'),
+          suggestion: function(data){
+            return '<div class="media-left"><img class="media-object" src="' + data.avatar_url + '" alt="' + data.name + '" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">' + data.name + '</h4></div></div>';
+          },
           footer: [
             '<br><div class="media-body"><a onclick="location.href=\'/add/product/?q=\'+ encodeURIComponent($(\'#product-name\').val());" class="btn btn-success btn-md">Create this Project</a></div>'
           ].join('\n')
