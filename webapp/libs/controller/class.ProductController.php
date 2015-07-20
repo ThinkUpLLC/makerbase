@@ -24,6 +24,25 @@ class ProductController extends MakerbaseAuthController {
                 $madewiths = $madewith_dao->getByProduct($product);
                 $this->addToView('madewiths', $madewiths);
 
+                //Get uses this buttons (subtract madewiths from sponsors)
+                $sponsors = Config::getInstance()->getValue('sponsors');
+                $sponsor_names = array();
+                foreach ($sponsors as $key=>$val) {
+                    $sponsor_names[] = $key;
+                }
+                $madewith_names = array();
+                foreach ($madewiths as $madewith) {
+                    $madewith_names[] = $madewith->used_product->name;
+                }
+                $uses_this_button_names = array();
+
+                $uses_this_button_names = array_diff($sponsor_names, $madewith_names);
+                $uses_this_buttons = array();
+                foreach ($uses_this_button_names as $uses_this_name) {
+                    $uses_this_buttons[] = $sponsors[$uses_this_name];
+                }
+                $this->addToView('uses_this_buttons', $uses_this_buttons);
+
                 // Get actions
                 $page_number = (isset($_GET['p']))?$_GET['p']:1;
                 $limit = 10;

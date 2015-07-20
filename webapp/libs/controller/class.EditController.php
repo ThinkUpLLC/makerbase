@@ -234,7 +234,8 @@ class EditController extends MakerbaseAuthController {
                     $has_changed_archive_status = $madewith_dao->archive($_POST['madewith_uid']);
                     if ($has_changed_archive_status) {
                         $madewith->is_archived = true;
-                        SessionCache::put('success_message', 'Archived use');
+                        SessionCache::put('success_message', 'You said '.$product->name.' doesn\'t use '.
+                            $used_product->name.'.');
                         $action_type = 'archive';
                     }
                 }
@@ -245,7 +246,8 @@ class EditController extends MakerbaseAuthController {
                     $has_changed_archive_status = $madewith_dao->unarchive($_POST['madewith_uid']);
                     if ($has_changed_archive_status) {
                         $madewith->is_archived = false;
-                        SessionCache::put('success_message', 'Unarchived use');
+                        SessionCache::put('success_message', 'You said '.$product->name.' doesn\'t use '.
+                            $used_product->name.'.');
                         $action_type = 'unarchive';
                     }
                 }

@@ -19,3 +19,25 @@ $ISOSCELES_CFG['twitter_makerbase_oauth_access_token_secret'] = 'A4CYpcG79wcdmJp
 // Rando
 $ISOSCELES_CFG['thinkup_uid']    = '38523i';
 $ISOSCELES_CFG['admins']         = array('makerbase', 'anildash');
+
+//Sponsors
+$ISOSCELES_CFG['sponsors'] = array(
+    'Slack' => array(
+        'name' => 'Slack',
+        'avatar_url' => 'http://pbs.twimg.com/profile_images/378800000271328329/349dc6f270e53cbe09cd05f6c032fc67.png',
+        'uid' => 'm348b6',
+        'slug'=> 'slackhq'
+    ),
+    'MailChimp' => array(
+        'name' => 'MailChimp',
+        'avatar_url' => 'https://pbs.twimg.com/profile_images/615875108385656832/D_nZMonl.jpg',
+        'uid' =>'9u0s6y',
+        'slug'=> 'mailchimp'
+    ),
+    'Hover' => array(
+        'name' => 'Hover',
+        'avatar_url' =>'http://pbs.twimg.com/profile_images/505340149660520449/3-sIzuBq.png',
+        'uid' => '7p97ga',
+        'slug'=> 'hover'
+    )
+);
