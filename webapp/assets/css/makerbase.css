@@ -479,11 +479,13 @@ input,
 }
 #collaborators h4 a,
 #history h4 a,
+#usedby h4 a,
 .media-body h4 a {
     color: #666;
 }
 #collaborators,
-#history {
+#history,
+#usedby {
     margin-top: 50px;
 }
 #history.history-muted .list-group-item {

@@ -183,6 +183,24 @@
           <!-- /add roles -->
     </div>
 
+{if isset($used_by_madewiths) && sizeof($used_by_madewiths) > 0}
+<div id="usedby">
+  <h4><a href="#usedby">{$product->name} is used by:</a></h4>
+
+  {foreach $used_by_madewiths as $used_by_madewith}
+  <div class="list-group-item col-xs-12" id="usedby-madewith-{$used_by_madewith->uid}">
+      <div class="media-left media-top">
+          <a href="/p/{$used_by_madewith->product->uid}/{$used_by_madewith->product->slug}">
+          <img class="media-object" src="{insert name='user_image' image_url=$used_by_madewith->product->avatar_url image_proxy_sig=$image_proxy_sig type='p'}" alt="{$used_by_madewith->product->name} logo" width="50" height="50">
+          </a>
+      </div>
+      <div class="media-body">
+          <h3><a href="/p/{$used_by_madewith->product->uid}/{$used_by_madewith->product->uid}">{$used_by_madewith->product->name}</a></h3>
+      </div>
+  </div>
+  {/foreach}
+</div>
+{/if}
 
 {if sizeof($uses_this_buttons) > 0}
 <div class="row">

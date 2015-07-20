@@ -98,6 +98,33 @@ EOD;
         return $madewiths;
     }
 
+    public function getByUsedProduct($used_product) {
+        $q = <<<EOD
+SELECT mw.*, mw.id AS mw_id, mw.uid AS mw_uid, p.*, p.id AS product_id, p.uid AS product_uid FROM made_withs mw
+INNER JOIN products p ON mw.product_id = p.id WHERE mw.is_archived = 0 AND p.is_archived = 0
+AND mw.used_product_id = :used_product_id LIMIT 25
+EOD;
+        $vars = array ( ':used_product_id' => $used_product->id);
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        $rows = $this->getDataRowsAsArrays($ps);
+        $madewiths = array();
+        foreach ($rows as $row) {
+            $madewith = new MadeWith($row);
+            $madewith->id = $row['mw_id'];
+            $madewith->uid = $row['mw_uid'];
+            $madewith->is_archived = false;
+            $product = new Product($row);
+            $product->id = $row['product_id'];
+            $product->uid = $row['product_uid'];
+            $madewith->product = $product;
+            $madewith->used_product = $used_product;
+            $madewiths[] = $madewith;
+        }
+        return $madewiths;
+    }
+
     public function getByProductUsedProductID($product_id, $used_product_id) {
         $q = <<<EOD
 SELECT mw.* FROM made_withs mw
