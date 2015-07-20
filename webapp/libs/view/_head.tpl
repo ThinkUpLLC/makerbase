@@ -122,7 +122,7 @@
           <div class="col-xs-1 col-sm-1 pull-right" role="signout" id="signout-button">
             <div class="btn-group">
               <button type="button" class="btn btn-default btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="user-menu">
-                <img src="{$logged_in_user->avatar_url}" alt="Signed in as {$logged_in_user->twitter_username}" width="20" height="20">
+                <img src="{insert name='user_image' image_url=$logged_in_user->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" alt="Signed in as {$logged_in_user->twitter_username}" width="20" height="20">
                 <span class="caret"></span>
               </button>
               <ul class="dropdown-menu" role="menu">
