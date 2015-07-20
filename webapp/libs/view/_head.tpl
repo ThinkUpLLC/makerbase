@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{$site_root_path}assets/css/makerbase.css">
-    <script src="//use.typekit.net/xzh8ady.js"></script>
+    <script src="//use.typekit.net/lym0xhq.js"></script>
     {literal}
     <script>try{Typekit.load();}catch(e){}</script>
     {/literal}
