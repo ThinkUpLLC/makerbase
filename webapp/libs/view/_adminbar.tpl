@@ -64,6 +64,7 @@
                     <button class="btn {if $user->is_frozen}btn-success{else}btn-warning{/if} btn-sm">{if $user->is_frozen}Unf{else}F{/if}reeze {$user->name}</button>
                 </form>
             </li>
+            <li><a>Logged in {$user->last_login_time|relative_datetime} ago</a></li>
             {/if}
 
           </ul>
