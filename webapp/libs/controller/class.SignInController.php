@@ -39,6 +39,18 @@ class SignInController extends MakerbaseController {
                         try {
                             $user = $user_dao->getByTwitterUserId($authed_twitter_user['user_id']);
                             $user_dao->updateLastLogin($user);
+                            //If avatar, url, username, or name has changed on Twitter, update it in storage
+                            if ($user->avatar_url !== $authed_twitter_user['avatar'] ||
+                                $user->twitter_username !== $authed_twitter_user['user_name'] ||
+                                $user->url !== $authed_twitter_user['url'] ||
+                                $user->name !== $authed_twitter_user['full_name']
+                                ) {
+                                $user->name = $authed_twitter_user['full_name'];
+                                $user->twitter_username = $authed_twitter_user['user_name'];
+                                $user->url = $authed_twitter_user['url'];
+                                $user->avatar_url = $authed_twitter_user['avatar'];
+                                $user_dao->update($user);
+                            }
                         } catch (UserDoesNotExistException $e) {
                             $user = new User();
                             $user->name = $authed_twitter_user['full_name'];
