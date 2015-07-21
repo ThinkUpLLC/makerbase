@@ -120,8 +120,11 @@ ul.list li {
     padding: 8px;
 }
 .alert {
-    margin-top: 14px;
-    padding: 4px;
+    padding: 6px 0 4px 0;
+    font-size: larger;
+    text-align: center;
+    border-radius: 0;
+    margin-bottom: 0;
 }
 .alert a,
 a.user-link {
@@ -650,6 +653,9 @@ input,
 #maker-profile-edit input {
     margin-bottom: 2px;
     padding: 4px;
+}
+#navbar-alert {
+    border: none;
 }
 #role-list {
     clear: both;
