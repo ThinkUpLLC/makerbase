@@ -63,8 +63,6 @@ class AdminDashboardController extends MakerbaseAdminController {
         $total_actions = $action_dao->getTotal();
         $this->addToView('total_actions', $total_actions);
 
-        $image_proxy_sig = Config::getInstance()->getValue('image_proxy_sig');
-        $this->addToView('image_proxy_sig', $image_proxy_sig);
         return $this->generateView();
     }
 }

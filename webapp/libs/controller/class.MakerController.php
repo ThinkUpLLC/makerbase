@@ -67,9 +67,6 @@ class MakerController extends MakerbaseAuthController {
                 }
                 $this->addToView('maker', $maker);
 
-                $image_proxy_sig = Config::getInstance()->getValue('image_proxy_sig');
-                $this->addToView('image_proxy_sig', $image_proxy_sig);
-
                 $this->addToView('placeholder', Role::getRandoPlaceholder());
 
                 if ($this->logged_in_user->is_admin) {

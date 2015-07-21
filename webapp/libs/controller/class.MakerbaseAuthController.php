@@ -20,6 +20,7 @@ class MakerbaseAuthController extends AuthController {
         $this->logged_in_user = $user;
 
         $this->addToView('thinkup_uid', $cfg->getValue('thinkup_uid'));
+        $this->addToView('image_proxy_sig', $cfg->getValue('image_proxy_sig'));
     }
 
     protected function setUserMessages() {

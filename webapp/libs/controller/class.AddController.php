@@ -137,8 +137,6 @@ class AddController extends MakerbaseAuthController {
 
     private function addSearchResultsToView($term) {
         $start_time = microtime(true);
-        $image_proxy_sig = Config::getInstance()->getValue('image_proxy_sig');
-        $this->addToView('image_proxy_sig', $image_proxy_sig);
 
         if (substr($term, 0, 1) === '@') {
             $term = substr($term, 1, (strlen($term) -1 ));

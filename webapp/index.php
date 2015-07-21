@@ -16,6 +16,9 @@ require 'vendor/autoload.php';
 //FineDiff
 require 'extlibs/FineDiff/finediff.php';
 
+//Mandrill
+require_once 'extlibs/mandrill/Mandrill.php';
+
 $router = new Router('PageNotFoundController');
 //In case of caching issues
 //Router::$routes = null;
