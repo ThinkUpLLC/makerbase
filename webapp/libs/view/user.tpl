@@ -1,3 +1,13 @@
+{*
+Display user's account page.
+
+Expected vars:
+
+$user User object
+$logged_in_user Currently logged-in user object
+$email_capture_state either 'need email', 'confirmation_pending' or 'confirmation_success'
+
+*}
 {include file="_head.tpl"}
 
 <div class="row" id="maker-profile">
@@ -10,8 +20,61 @@
   </div>
 </div>
 
-<div class="row">
+{if isset($logged_in_user)}
+  {if $logged_in_user->twitter_user_id eq $user->twitter_user_id}
 
+<div class="row">
+   <div class="page-header col-sm-10 col-sm-offset-1 col-xs-12">
+      <div class="jumbotron">
+
+      {if $email_capture_state eq 'need_email'}
+
+        <h1 class="">We're asking for your email, but don't worry.</h1>
+
+          {include file="_user.email-form.tpl" is_collapsed=false}
+
+        <ul class="list col-md-offset-1">
+          <li>We'll only email you when your stuff changes (like updates to your Maker page)</li>
+          <li>We <strong>won't spam you</strong></li>
+        </ul>
+
+      {elseif $email_capture_state eq 'confirmation_pending'}
+
+        <h1>Hey, check your email!</h1>
+
+        <p>We sent a confirmation email to <strong>{$user->email}</strong>. Click the link in that message to verify your address.</p>
+
+        <div class="row">
+        <form id="resend-confirm" method="post">
+          <input type="hidden" name="resend" value="1">
+          <button type="submit" class="btn btn-sm btn-primary col-xs-offset-1">Re-send email</button>
+        </form>
+          <a href="#" onClick="$('#user-email-capture').toggle();" class="btn btn-sm btn-link pull-right">Whoops! Wrong address.</a>
+
+          {include file="_user.email-form.tpl" is_collapsed=true}
+        </div>
+
+      {elseif $email_capture_state eq 'confirmation_success'}
+
+        <h2>Your Makerbase settings</h2>
+        <h3>These settings are visible only to you.</h3>
+
+        <p>Email: <strong>{$user->email}</strong></p>
+
+          <a href="#" onClick="$('#user-email-capture').toggle();" class="btn btn-sm btn-link pull-right">Change your email address</a>
+
+          {include file="_user.email-form.tpl" is_collapsed=true}
+
+      {/if}
+
+      </div>
+   </div>
+</div>
+
+  {/if}
+{/if}
+
+<div class="row">
   <div id="history" class="col-sm-10 col-sm-offset-1 col-xs-12 history-vivid">
 
     <h3>Recent activity</h3>

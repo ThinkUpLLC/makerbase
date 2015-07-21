@@ -48,9 +48,6 @@ class LandingController extends MakerbaseController {
         // Transfer cached user messages to the view
         $this->setUserMessages();
 
-        $image_proxy_sig = Config::getInstance()->getValue('image_proxy_sig');
-        $this->addToView('image_proxy_sig', $image_proxy_sig);
-
         return $this->generateView();
     }
 }

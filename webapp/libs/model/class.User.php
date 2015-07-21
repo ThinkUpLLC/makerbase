@@ -29,6 +29,10 @@ class User {
      */
     var $twitter_username;
     /**
+     * @var str Creation time.
+     */
+    var $creation_time;
+    /**
      * @var str Last login time.
      */
     var $last_login_time;
@@ -48,6 +52,18 @@ class User {
      * @var bool Whether or not object is frozen (locked from changes).
      */
     var $is_frozen = false;
+    /**
+     * @var str User email address.
+     */
+    var $email;
+    /**
+     * @var int Email verification code.
+     */
+    var $email_verification_code;
+    /**
+     * @var bool Whether or not email is verified.
+     */
+    var $is_email_verified = false;
     public function __construct($row = false) {
         if ($row) {
             $this->id = $row['id'];
@@ -63,6 +79,9 @@ class User {
             $this->twitter_oauth_access_token_secret = $row['twitter_oauth_access_token_secret'];
             $this->maker_id = $row['maker_id'];
             $this->is_frozen = PDODAO::convertDBToBool($row['is_frozen']);
+            $this->email = $row['email'];
+            $this->email_verification_code = $row['email_verification_code'];
+            $this->is_email_verified = PDODAO::convertDBToBool($row['is_email_verified']);
         }
     }
 }

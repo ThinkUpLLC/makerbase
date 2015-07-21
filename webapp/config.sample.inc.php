@@ -41,3 +41,6 @@ $ISOSCELES_CFG['sponsors'] = array(
         'slug'=> 'hover'
     )
 );
+
+// Mandrill
+$ISOSCELES_CFG['mandrill_api_key']    = 'g5zBXny4VBAp0s4TCVB27Q';

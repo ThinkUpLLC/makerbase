@@ -98,6 +98,54 @@ EOD;
         return $update_count;
     }
 
+    public function updateEmail(User $user) {
+        $email_verification_code = rand(1000, 9999);
+        $q = <<<EOD
+UPDATE users SET email = :email, email_verification_code = :email_verification_code,
+is_email_verified = 0 WHERE twitter_user_id = :twitter_user_id
+EOD;
+
+        $vars = array (
+            ':twitter_user_id' => $user->twitter_user_id,
+            ':email' => $user->email,
+            ':email_verification_code' => $email_verification_code
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        $update_count = $this->getUpdateCount($ps);
+        if ($update_count == 0) {
+            throw new UserDoesNotExistException('User '.$user->twitter_user_id.' does not exist.');
+        } else {
+            $user->email = $user->email;
+            $user->is_email_verified = false;
+            $user->email_verification_code = $email_verification_code;
+            return $user;
+        }
+    }
+
+    public function verifyEmail(User $user) {
+        $email_verification_code = rand(1000, 9999);
+        $q = <<<EOD
+UPDATE users SET email_verification_code = null, is_email_verified = 1 WHERE twitter_user_id = :twitter_user_id
+EOD;
+
+        $vars = array (
+            ':twitter_user_id' => $user->twitter_user_id
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        $update_count = $this->getUpdateCount($ps);
+        if ($update_count == 0) {
+            throw new UserDoesNotExistException('User '.$user->twitter_user_id.' does not exist.');
+        } else {
+            $user->email_verification_code = null;
+            $user->is_email_verified = true;
+            return $user;
+        }
+    }
+
     public function update(User $user) {
         $q = <<<EOD
 UPDATE users SET twitter_username = :twitter_username, name = :name, url = :url, avatar_url = :avatar_url

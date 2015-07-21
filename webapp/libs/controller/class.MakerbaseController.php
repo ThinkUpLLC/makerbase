@@ -9,6 +9,7 @@ class MakerbaseController extends Controller {
     public function control() {
         $cfg = Config::getInstance();
         $this->addToView('thinkup_uid', $cfg->getValue('thinkup_uid'));
+        $this->addToView('image_proxy_sig', $cfg->getValue('image_proxy_sig'));
         if (Session::isLoggedIn()) {
             $logged_in_user = Session::getLoggedInUser();
             $user_dao = new UserMySQLDAO();
