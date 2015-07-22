@@ -16,10 +16,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{if isset($maker)}{$maker->name} on {elseif isset($product)}{$product->name} on {/if}{$app_title}</title>
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
     <link rel="stylesheet" href="{$site_root_path}assets/css/makerbase.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <script src="//use.typekit.net/lym0xhq.js"></script>
     {literal}
     <script>try{Typekit.load();}catch(e){}</script>
