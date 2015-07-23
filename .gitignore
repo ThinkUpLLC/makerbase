@@ -1,5 +1,6 @@
 .vagrant/*
 
+html/adminer/index.php
 default/adminer/index.php
 
 html/index.html

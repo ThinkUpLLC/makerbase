@@ -37,10 +37,10 @@ mkdir /home/vagrant/data/image-cache/
 
 # Copy over blank avatars
 cp /var/www/webapp/assets/img/blank-maker.png /home/vagrant/data/image-cache/.
-cp /var/www/webapp/assets/img/blank-product.png /home/vagrant/data/image-cache/.
+cp /var/www/webapp/assets/img/blank-project.png /home/vagrant/data/image-cache/.
 
 # Set web-accessible perms
-chown -R www-data /home/vagrant/data/
+chmod -R 777 /home/vagrant/data/
 
 # Load sample data
 mysql -u makerbase -pnice2bnice -D makerbase_web < /var/www/puphpet/files/makerbase-setup/sample-data/actions.sql
