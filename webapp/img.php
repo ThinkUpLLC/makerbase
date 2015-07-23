@@ -59,10 +59,10 @@ class ImageProxyCacheController extends Controller {
                 header('Content-Length: ' . filesize($this->local_filename));
                 readfile($this->local_filename);
             } else {
-                if ($_GET['t'] == 'm') {
+                if ($_GET['t'] == 'm' || $_GET['t'] == 'u') {
                     $blank_image = (FileDataManager::getDataPath()).'image-cache/blank-maker.png';
                 } elseif ($_GET['t'] == 'p') {
-                    $blank_image = (FileDataManager::getDataPath()).'image-cache/blank-product.png';
+                    $blank_image = (FileDataManager::getDataPath()).'image-cache/blank-project.png';
                 }
                 $this->cacheAndDisplayImage($this->url, $this->local_filename, $blank_image, $extension);
             }
