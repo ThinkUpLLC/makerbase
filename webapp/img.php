@@ -81,7 +81,7 @@ class ImageProxyCacheController extends Controller {
         return (
             isset($_GET['url'])
             //image type
-            && (isset($_GET['t']) && ($_GET['t'] == 'p' || $_GET['t'] == 'm'))
+            && (isset($_GET['t']) && ($_GET['t'] == 'p' || $_GET['t'] == 'm' || $_GET['t'] == 'u'))
             //request signature is a simple MD5 hash of a passphrase
             && (isset($_GET['s']) && $_GET['s'] == md5($passphrase))
         );
