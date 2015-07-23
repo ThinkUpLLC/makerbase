@@ -6,7 +6,15 @@ class UserController extends MakerbaseAuthController {
         parent::control();
         $this->setViewTemplate('user.tpl');
 
-        if ($this->shouldRefreshCache() ) {
+        // Is the logged in user looking at zer own settings?
+        if (isset($this->logged_in_user) && isset($_GET['uid'])
+            && $this->logged_in_user->uid == $_GET['uid']) {
+            $is_user_settings = true;
+        } else {
+            $is_user_settings = false;
+        }
+
+        if ($this->shouldRefreshCache() || $is_user_settings) {
             $user_dao = new UserMySQLDAO();
             try {
                 $user = $user_dao->get($_GET['uid']);
