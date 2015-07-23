@@ -14,6 +14,7 @@
   </ul>
 </div>
 
+<h3 class="pull-right"><small><i class="fa fa-inbox"></i> Email addresses:</small> {$total_emails|number_format}</h3>
 <h3><small><i class="fa fa-clock-o"></i> Waitlist:</small> {$total_waitlisters|number_format}</h3>
 
     <ul class="nav nav-tabs">

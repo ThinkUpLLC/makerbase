@@ -178,6 +178,16 @@ EOD;
         return $result['total'];
     }
 
+    public function getTotalEmails() {
+        $q = <<<EOD
+SELECT count(*) AS total FROM users u WHERE email IS NOT NULL AND is_email_verified = 1;
+EOD;
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $ps = $this->execute($q);
+        $result = $this->getDataRowAsArray($ps);
+        return $result['total'];
+    }
+
     public function freeze($uid) {
         return $this->setIsFrozen($uid, true);
     }
