@@ -24,5 +24,5 @@ https://makerba.se/u/{$logged_in_user->uid}
 {/capture}
 
 
-  <a type="button" class="btn btn-default btn-link pull-right" href="mailto:help@thinkup.com?subject={$report_subject|escape:'url'}&body={$report_body|escape:'url'}"><i class="fa fa-flag text-muted"></i><span class="hidden-xs hidden-sm text-muted"> Report this {$object_type}</span></a>
+  <a type="button" class="btn btn-default btn-link pull-right" href="mailto:team@makerba.se?subject={$report_subject|escape:'url'}&body={$report_body|escape:'url'}"><i class="fa fa-flag text-muted"></i><span class="hidden-xs hidden-sm text-muted"> Report this {$object_type}</span></a>
 
