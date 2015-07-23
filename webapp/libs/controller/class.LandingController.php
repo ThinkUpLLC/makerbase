@@ -32,6 +32,12 @@ class LandingController extends MakerbaseController {
                 }
                 $this->addToView('actions', $actions);
             }
+
+            if (!isset($this->logged_in_user->email)) {
+                SessionCache::put('success_message',
+                    'Get notified when your pages change! <a href="/u/'.$this->logged_in_user->uid
+                    .'">Add your email address now.</a>');
+            }
         } else {
             $waitlisted_user = SessionCache::get('is_waitlisted');
             $is_waitlisted = isset($waitlisted_user);
