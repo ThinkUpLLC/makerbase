@@ -41,7 +41,7 @@ EOD;
             ':object2_id' => $action->object2_id,
             ':object2_type' => $action->object2_type,
             ':metadata' => $action->metadata,
-            ':is_admin' => $action->is_admin,
+            ':is_admin' => PDODAO::convertBoolToDB($action->is_admin)
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         $try_insert = true;
