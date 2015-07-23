@@ -1,6 +1,6 @@
 {
   "name": "Makerbase",
-  "homepage": "http://makerba.se",
+  "homepage": "https://makerba.se",
   "engines": {
     "node": ">= 0.10.0"
   },

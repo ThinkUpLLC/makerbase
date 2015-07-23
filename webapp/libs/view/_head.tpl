@@ -66,7 +66,7 @@
 
       <meta property="og:image:type" content="image/jpg">
     {else}
-      <meta property="og:url" content="http://makerba.se" />
+      <meta property="og:url" content="https://makerba.se" />
       <meta itemprop="name" content="Makerbase" />
       <meta name="twitter:title" content="Makerbase" />
       <meta property="og:title" content="Makerbase" />
@@ -74,7 +74,7 @@
       <meta name="description" content="A directory of people who make things." />
       <meta name="twitter:description" content="A directory of people who make things." />
 
-      {assign var="image" value="http://makerba.se/img/makerbase-logo-horizontal.png"}
+      {assign var="image" value="https://makerba.se/img/makerbase-logo-horizontal.png"}
       <meta itemprop="image" content="{$image}">
       <meta property="og:image" content="{$image}" />
       <meta property="og:image:secure" content="{$image}" />

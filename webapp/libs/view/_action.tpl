@@ -90,11 +90,11 @@
 
 <div class="action-item">
 	<div class="media-left media-top col-xs-2 col-sm-2">
-		<a href="{$object_url}"><img src="{if isset($object_avatar_url)}{insert name='user_image' image_url=$object_avatar_url image_proxy_sig=$image_proxy_sig type='m'}{else}http://makerba.se/assets/img/blank-maker.png{/if}" class="img-responsive" alt="{$object_name}"></a>
+		<a href="{$object_url}"><img src="{if isset($object_avatar_url)}{insert name='user_image' image_url=$object_avatar_url image_proxy_sig=$image_proxy_sig type='m'}{else}https://makerba.se/assets/img/blank-maker.png{/if}" class="img-responsive" alt="{$object_name}"></a>
 	</div>
 
     <div class=" pull-right media-right col-xs-2 col-sm-2">
-        {if isset($object2_avatar_url)}<a href="{$object2_url}"><img src="{if isset($object2_avatar_url)}{insert name='user_image' image_url=$object2_avatar_url image_proxy_sig=$image_proxy_sig type='m'}{else}http://makerba.se/assets/img/blank-maker.png{/if}" class="img-responsive"></a>{/if}
+        {if isset($object2_avatar_url)}<a href="{$object2_url}"><img src="{if isset($object2_avatar_url)}{insert name='user_image' image_url=$object2_avatar_url image_proxy_sig=$image_proxy_sig type='m'}{else}https://makerba.se/assets/img/blank-maker.png{/if}" class="img-responsive"></a>{/if}
     </div>
 
 	<div class="media-body">

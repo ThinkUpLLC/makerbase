@@ -26,7 +26,7 @@
 
 
   <div class="col-xs-2">
-    <img class="img-responsive" src="{if isset($product->avatar_url)}{insert name='user_image' image_url=$product->avatar_url image_proxy_sig=$image_proxy_sig type='m'}{else}http://makerba.se/assets/img/blank-maker.png{/if}" alt="{$product->name}" width="100%">
+    <img class="img-responsive" src="{if isset($product->avatar_url)}{insert name='user_image' image_url=$product->avatar_url image_proxy_sig=$image_proxy_sig type='m'}{else}https://makerba.se/assets/img/blank-maker.png{/if}" alt="{$product->name}" width="100%">
 
     <form method="post" action="/edit/product/" id="project-profile-archive" class="">
       <div class="form-group">
