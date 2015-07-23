@@ -38,12 +38,15 @@
     {if $action->object_type eq 'Maker'}
         {assign var="object_url" value="/m/`$action->metadata->uid`/`$action->metadata->slug`"}
         {assign var="object_name" value=$action->metadata->name}
+        {assign var="object_type" value='m'}
     {elseif $action->object_type eq 'Product'}
         {assign var="object_url" value="/p/`$action->metadata->uid`/`$action->metadata->slug`"}
         {assign var="object_name" value=$action->metadata->name}
+        {assign var="object_type" value='p'}
     {elseif $action->object_type eq 'User'}
         {assign var="object_name" value=$action->metadata->name}
         {assign var="object_url" value="/u/`$action->metadata->uid`"}
+        {assign var="object_type" value='u'}
     {/if}
 {/if}
 {if isset($action->metadata->after->avatar_url)}
@@ -51,50 +54,58 @@
     {if $action->object_type eq 'Maker'}
         {assign var="object_url" value="/m/`$action->metadata->after->uid`/`$action->metadata->after->slug`"}
         {assign var="object_name" value=$action->metadata->after->name}
+        {assign var="object_type" value='m'}
     {elseif $action->object_type eq 'Product'}
         {assign var="object_url" value="/p/`$action->metadata->after->uid`/`$action->metadata->after->slug`"}
         {assign var="object_name" value=$action->metadata->after->name}
+        {assign var="object_type" value='p'}
     {/if}
 {/if}
 {if isset($action->metadata->maker->avatar_url)}
     {assign var="object_url" value="/m/`$action->metadata->maker->uid`/`$action->metadata->maker->slug`"}
     {assign var="object_avatar_url" value=$action->metadata->maker->avatar_url}
     {assign var="object_name" value=$action->metadata->maker->name}
+    {assign var="object_type" value='m'}
 {/if}
 {if isset($action->metadata->product->avatar_url)}
     {if $action->object_type eq 'Product'}
         {assign var="object_url" value="/p/`$action->metadata->product->uid`/`$action->metadata->product->slug`"}
         {assign var="object_avatar_url" value=$action->metadata->product->avatar_url}
         {assign var="object_name" value=$action->metadata->product->name}
+        {assign var="object_type" value='p'}
     {else}
         {assign var="object2_url" value="/p/`$action->metadata->product->uid`/`$action->metadata->product->slug`"}
         {assign var="object2_avatar_url" value=$action->metadata->product->avatar_url}
         {assign var="object2_name" value=$action->metadata->product->name}
+        {assign var="object2_type" value='p'}
     {/if}
 {/if}
 {if isset($action->metadata->used_product->avatar_url)}
     {assign var="object2_url" value="/p/`$action->metadata->used_product->uid`/`$action->metadata->used_product->slug`"}
     {assign var="object2_avatar_url" value=$action->metadata->used_product->avatar_url}
     {assign var="object2_name" value=$action->metadata->used_product->name}
+    {assign var="object2_type" value='p'}
 {/if}
 {if isset($action->metadata->after->maker->avatar_url)}
     {assign var="object_avatar_url" value=$action->metadata->after->maker->avatar_url}
     {assign var="object_url" value="/m/`$action->metadata->after->maker->uid`/`$action->metadata->after->maker->slug`"}
     {assign var="object_name" value=$action->metadata->after->maker->name}
+    {assign var="object_type" value='m'}
 {/if}
 {if isset($action->metadata->after->product->avatar_url)}
     {assign var="object2_url" value="/p/`$action->metadata->after->product->uid`/`$action->metadata->after->product->slug`"}
     {assign var="object2_avatar_url" value=$action->metadata->after->product->avatar_url}
     {assign var="object2_name" value=$action->metadata->after->product->name}
+    {assign var="object2_type" value='p'}
 {/if}
 
 <div class="action-item">
 	<div class="media-left media-top col-xs-2 col-sm-2">
-		<a href="{$object_url}"><img src="{if isset($object_avatar_url)}{insert name='user_image' image_url=$object_avatar_url image_proxy_sig=$image_proxy_sig type='m'}{else}https://makerba.se/assets/img/blank-maker.png{/if}" class="img-responsive" alt="{$object_name}"></a>
+		<a href="{$object_url}"><img src="{insert name='user_image' image_url=$object_avatar_url image_proxy_sig=$image_proxy_sig type=$object_type}" class="img-responsive" alt="{$object_name}"></a>
 	</div>
 
     <div class=" pull-right media-right col-xs-2 col-sm-2">
-        {if isset($object2_avatar_url)}<a href="{$object2_url}"><img src="{if isset($object2_avatar_url)}{insert name='user_image' image_url=$object2_avatar_url image_proxy_sig=$image_proxy_sig type='m'}{else}https://makerba.se/assets/img/blank-maker.png{/if}" class="img-responsive"></a>{/if}
+        {if isset($object2_avatar_url)}<a href="{$object2_url}"><img src="{insert name='user_image' image_url=$object2_avatar_url image_proxy_sig=$image_proxy_sig type=$object2_type}" class="img-responsive"></a>{/if}
     </div>
 
 	<div class="media-body">
@@ -119,7 +130,9 @@
 {assign var="object_avatar_url" value=null}
 {assign var="object_name" value=null}
 {assign var="object_url" value=null}
+{assign var="object_type" value=null}
 
 {assign var="object2_avatar_url" value=null}
 {assign var="object2_name" value=null}
 {assign var="object2_url" value=null}
+{assign var="object2_type" value=null}
