@@ -14,19 +14,56 @@
 {if isset($existing_objects)}
 <div class="row" id="search-results">
 	<div class="col-xs-12">
-		<h2>This what you were trying to add?</h2>
+		{if isset($to_product) || isset($to_maker)}
+			{if isset($to_product)}<h2>This who you were trying to add to {$to_product->name}?</h2>{/if}
+			{if isset($to_maker)}<h2>This what you were trying to add to {$to_maker->name}?</h2>{/if}
+		{else}
+			<h2>This what you were trying to add?</h2>
+		{/if}
 
 		<div class="list-group">
 			{foreach $existing_objects as $hit}
-			<a class="list-group-item" href="/{$hit._source.type}/{$hit._source.uid}/{$hit._source.slug}">
-					<div class="media-left">
-		        <img class="media-object" src="{insert name='user_image' image_url=$hit._source.avatar_url image_proxy_sig=$image_proxy_sig type=$hit._source.type}" alt="{$hit._source.name}" width="100">
+				{if isset($to_product) || isset($to_maker)}
+					{if isset($to_product)} <a class="list-group-item" href="#" onClick="document.getElementById('add-maker-form-{$hit._source.uid}').submit();">{/if}
+					{if isset($to_maker)} <a class="list-group-item" href="#" onClick="document.getElementById('add-product-form-{$hit._source.uid}').submit();">{/if}
+				{else}
+					<a class="list-group-item" href="/{$existing_objects_hit_type}/{$hit._source.uid}/{$hit._source.slug}">
+				{/if}
+				<div class="media-left">
+		        <img class="media-object" src="{insert name='user_image' image_url=$hit._source.avatar_url image_proxy_sig=$image_proxy_sig type=$existing_objects_hit_type}" alt="{$hit._source.name}" width="100">
 				</div>
 				<div class="media-body">
 					<h3>{$hit._source.name}</h3>
-					{if $hit._source.description neq ''}{$hit._source.description}{/if}
+					{if isset($hit._source.url) && $hit._source.url neq ''}{$hit._source.url}{/if}
+					{if isset($hit._source.description) && $hit._source.description neq ''}<br>{$hit._source.description}{/if}
 				</div>
 			</a>
+
+			{if isset($to_product)}
+            <form method="post" action="/add/role/" id="add-maker-form-{$hit._source.uid}">
+              <input type="hidden" name="product_uid" value="{$to_product->uid}">
+              <input type="hidden" name="originate_slug" value="{$to_product->slug}">
+              <input type="hidden" name="originate_uid" value="{$to_product->uid}">
+              <input type="hidden" name="originate" value="product">
+              <input type="hidden" name="maker_uid" value="{$hit._source.uid}">
+              <input type="hidden" name="role" value="">
+              <input type="hidden" name="start_date" value="">
+              <input type="hidden" name="end_date" value="">
+            </form>
+            {/if}
+			{if isset($to_maker)}
+            <form method="post" action="/add/role/" id="add-product-form-{$hit._source.uid}">
+              <input type="hidden" name="maker_uid" value="{$to_maker->uid}">
+              <input type="hidden" name="originate_slug" value="{$to_maker->slug}">
+              <input type="hidden" name="originate_uid" value="{$to_maker->uid}">
+              <input type="hidden" name="originate" value="maker">
+              <input type="hidden" name="product_uid" value="{$hit._source.uid}">
+              <input type="hidden" name="role" value="">
+              <input type="hidden" name="start_date" value="">
+              <input type="hidden" name="end_date" value="">
+            </form>
+            {/if}
+
 			{/foreach}
 		</div>
 
@@ -41,7 +78,7 @@
 	<div class="row" id="add-form">
 
 		<h2 class="col-xs-12">
-			Add a {$addtype}<br />
+			Add a {$addtype}{if isset($to_product)} to {$to_product->name}{/if}{if isset($to_maker)} to {$to_maker->name}{/if}<br />
 			{if $object eq 'product'}
 				<small>{$project_guidance}</small>
 			{/if}
@@ -91,6 +128,8 @@
 						<input type="hidden" name="network_id" id="network-id" value="{if isset($network_id)}{$network_id}{/if}">
 						<input type="hidden" name="network" id="network" value="{if isset($network)}{$network}{/if}">
 						<input type="hidden" name="network_username" id="network-username" value="{if isset($network_username)}{$network_username}{/if}">
+						{if isset($to_product)}<input type="hidden" name="add_role_to_product_uid" value="{$to_product->uid}">{/if}
+						{if isset($to_maker)}<input type="hidden" name="add_role_to_maker_uid" value="{$to_maker->uid}">{/if}
 						<button class="btn btn-primary col-xs-6 col-sm-3 col-sm-offset-3" type="submit">{if $object eq 'product'}Make it!{else}Add this maker!{/if}</button>
 					</div>
 		    </div>

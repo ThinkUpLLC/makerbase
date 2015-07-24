@@ -29,7 +29,7 @@ $router->addRoute('p', 'ProductController', array('uid', 'slug', 'p'));
 $router->addRoute('u', 'UserController', array('uid', 'p'));
 $router->addRoute('signin', 'SignInController');
 $router->addRoute('signout', 'SignOutController');
-$router->addRoute('add', 'AddController', array('object', 'method'));
+$router->addRoute('add', 'AddController', array('object', 'target'));
 $router->addRoute('edit', 'EditController', array('object'));
 $router->addRoute('search', 'SearchController');
 $router->addRoute('autocomplete', 'SearchAutoCompleteController');

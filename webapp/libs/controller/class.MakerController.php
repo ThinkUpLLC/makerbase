@@ -41,9 +41,6 @@ class MakerController extends MakerbaseAuthController {
                 }
                 $this->addToView('collaborators', $collaborators_with_projects);
 
-                // Transfer cached user messages to the view
-                $this->setUserMessages();
-
                 // Set up Tweet button
                 $tweet_maker_link = '';
                 // Get autofill
@@ -77,6 +74,9 @@ class MakerController extends MakerbaseAuthController {
                 $this->redirect('/404');
             }
         }
+        // Transfer cached user messages to the view
+        $this->setUserMessages();
+
         return $this->generateView();
     }
 }

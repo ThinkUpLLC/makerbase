@@ -15,11 +15,14 @@ class AddController extends MakerbaseAuthController {
             $this->addToView('object', $_GET['object']);
 
             if (isset($_GET['q'])) {
-                $this->addSearchResultsToView($_GET['q']);
-                $this->addTwitterUsersToView($_GET['q']);
                 if ($_GET['object'] == 'product') {
                     $this->addiOSAppsToView($_GET['q']);
+                    $this->addSearchResultsToView($_GET['q'], 'product');
+                } elseif ($_GET['object'] == 'maker') {
+                    $this->addSearchResultsToView($_GET['q'], 'maker');
                 }
+                $this->addTwitterUsersToView($_GET['q']);
+                $this->addTargetToView();
                 // Transfer cached user messages to the view
                 $this->setUserMessages();
                 return $this->generateView();
@@ -27,18 +30,20 @@ class AddController extends MakerbaseAuthController {
                 if (!$this->logged_in_user->is_frozen) {
                     CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
                     $this->addMaker();
+                } else {
+                    // Transfer cached user messages to the view
+                    $this->setUserMessages();
+                    return $this->generateView();
                 }
-                // Transfer cached user messages to the view
-                $this->setUserMessages();
-                return $this->generateView();
             } elseif ($_GET['object'] == 'product' && $this->hasSubmittedProductForm()) {
                 if (!$this->logged_in_user->is_frozen) {
                     CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
                     $this->addProduct();
+                } else {
+                    // Transfer cached user messages to the view
+                    $this->setUserMessages();
+                    return $this->generateView();
                 }
-                // Transfer cached user messages to the view
-                $this->setUserMessages();
-                return $this->generateView();
             } elseif ($_GET['object'] == 'role' && $this->hasSubmittedRoleForm()) {
                 if (!$this->logged_in_user->is_frozen) {
                     CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
@@ -135,7 +140,7 @@ class AddController extends MakerbaseAuthController {
         }
     }
 
-    private function addSearchResultsToView($term) {
+    private function addSearchResultsToView($term, $index) {
         $start_time = microtime(true);
 
         if (substr($term, 0, 1) === '@') {
@@ -145,9 +150,13 @@ class AddController extends MakerbaseAuthController {
         $client = new Elasticsearch\Client();
 
         $search_params = array();
-        $search_params['index'] = 'maker_product_index';
-        $search_params['type']  = 'maker_product_type';
-        $search_params['body']['query']['multi_match']['fields'] = array('slug', 'name', 'description', 'url');
+        $search_params['index'] = $index.'_index';
+        $search_params['type']  = $index.'_type';
+        if ($index == 'product') {
+            $search_params['body']['query']['multi_match']['fields'] = array('slug', 'name', 'description', 'url');
+        } elseif ($index == 'maker') {
+            $search_params['body']['query']['multi_match']['fields'] = array('slug', 'name', 'url');
+        }
         $search_params['body']['query']['multi_match']['query'] = urlencode($term);
         $search_params['body']['query']['multi_match']['type'] = 'phrase_prefix';
 
@@ -162,6 +171,7 @@ class AddController extends MakerbaseAuthController {
 
         if (count($return_document['hits']['hits']) > 0) {
             $this->addToView('existing_objects', $return_document['hits']['hits']);
+            $this->addToView('existing_objects_hit_type', substr($index, 0, 1));
         }
     }
 
@@ -177,6 +187,30 @@ class AddController extends MakerbaseAuthController {
             $profiler->add($total_time, "App Store search", false);
         }
         $this->addToView('ios_apps', $ios_apps);
+    }
+
+    private function addTargetToView() {
+        if (isset($_GET['object']) && isset($_GET['target'])) {
+            if ($_GET['object'] == 'maker') {
+                // If originating object is a maker, the target is a product
+                $product_dao = new ProductMySQLDAO();
+                try {
+                    $to_product = $product_dao->get($_GET['target']);
+                    $this->addToView('to_product', $to_product);
+                } catch (ProductDoesNotExistException $e) {
+                    //do nothing, move along
+                }
+            } elseif ($_GET['object'] == 'product') {
+                // If originating object is a product, the target is a maker
+                $maker_dao = new MakerMySQLDAO();
+                try {
+                    $to_maker = $maker_dao->get($_GET['target']);
+                    $this->addToView('to_maker', $to_maker);
+                } catch (MakerDoesNotExistException $e) {
+                    //do nothing, move along
+                }
+            }
+        }
     }
 
     private function addRole() {
@@ -348,9 +382,62 @@ class AddController extends MakerbaseAuthController {
                 }
             }
 
-            SessionCache::put('success_message', 'You added '.$maker->name.'.'.$tweet_link);
-            $this->redirect('/m/'.$maker->uid.'/'.$maker->slug);
+            // If adding from a product page, insert a role and redirect back to product
+            if (isset($_POST['add_role_to_product_uid'])) {
+                $product_dao = new ProductMySQLDAO();
+                try {
+                    $product = $product_dao->get($_POST['add_role_to_product_uid']);
+
+                    //Add role
+                    $role = $this->insertBlankRole($maker, $product);
+
+                    //Add new connection
+                    $connection_dao->insert($this->logged_in_user, $product);
+
+                    //Add new action for role
+                    $this->insertActionForRole($maker, $product, $role);
+
+                    SessionCache::put('success_message', 'You added '.$maker->name.' to '.$product->name
+                        .'.'.$tweet_link);
+                    $this->redirect('/p/'.$product->uid.'/'.$product->slug);
+                } catch (ProductDoesNotExistException $e) {
+                    SessionCache::put('success_message', 'You added '.$maker->name.'.'.$tweet_link);
+                    $this->redirect('/m/'.$maker->uid.'/'.$maker->slug);
+                }
+            } else {
+                SessionCache::put('success_message', 'You added '.$maker->name.'.'.$tweet_link);
+                $this->redirect('/m/'.$maker->uid.'/'.$maker->slug);
+            }
         }
+    }
+
+    private function insertBlankRole(Maker $maker, Product $product) {
+        $role = new Role();
+        $role->maker_id = $maker->id;
+        $role->product_id = $product->id;
+        $role->start = null;
+        $role->end = null;
+        $role->role = '';
+        $role_dao = new RoleMySQLDAO();
+        $role = $role_dao->insert($role);
+        return $role;
+    }
+
+    private function insertActionForRole(Maker $maker, Product $product, Role $role) {
+        $action = new Action();
+        $action->user_id = $this->logged_in_user->id;
+        $action->severity = Action::SEVERITY_NORMAL;
+        $action->object_id = $maker->id;
+        $action->object_type = get_class($maker);
+        $action->object2_id = $product->id;
+        $action->object2_type = get_class($product);
+        $action->ip_address = $_SERVER['REMOTE_ADDR'];
+        $action->action_type = 'associate';
+        $role->maker = $maker;
+        $role->product = $product;
+        $action->metadata = json_encode($role);
+        $action_dao = new ActionMySQLDAO();
+        $action_dao->insert($action);
     }
 
     private function addProduct() {
@@ -403,8 +490,32 @@ class AddController extends MakerbaseAuthController {
                 $waitlist_dao->archive($_POST['network_id'], $_POST['network']);
             }
 
-            SessionCache::put('success_message', 'You added '.$product->name.'.');
-            $this->redirect('/p/'.$product->uid.'/'.$product->slug);
+            // If adding from a maker page, insert a role and redirect back to maker
+            if (isset($_POST['add_role_to_maker_uid'])) {
+                $maker_dao = new MakerMySQLDAO();
+                try {
+                    $maker = $maker_dao->get($_POST['add_role_to_maker_uid']);
+
+                    //Add role
+                    $role = $this->insertBlankRole($maker, $product);
+
+                    //Add new connection
+                    $connection_dao->insert($this->logged_in_user, $maker);
+
+                    //Add new action for role
+                    $this->insertActionForRole($maker, $product, $role);
+
+                    SessionCache::put('success_message', 'You added '.$product->name.' to '.$maker->name
+                        .'.');
+                    $this->redirect('/m/'.$maker->uid.'/'.$maker->slug);
+                } catch (MakerDoesNotExistException $e) {
+                    SessionCache::put('success_message', 'You added '.$product->name.'.');
+                    $this->redirect('/p/'.$product->uid.'/'.$product->slug);
+                }
+            } else {
+                SessionCache::put('success_message', 'You added '.$product->name.'.');
+                $this->redirect('/p/'.$product->uid.'/'.$product->slug);
+            }
         }
     }
 

@@ -67,9 +67,6 @@ class ProductController extends MakerbaseAuthController {
                 }
                 $this->addToView('actions', $actions);
 
-                // Transfer cached user messages to the view
-                $this->setUserMessages();
-
                 $this->addToView('placeholder', Role::getRandoPlaceholder());
 
                 if ($this->logged_in_user->is_admin) {
@@ -80,6 +77,9 @@ class ProductController extends MakerbaseAuthController {
                 $this->redirect('/404');
             }
         }
+        // Transfer cached user messages to the view
+        $this->setUserMessages();
+
         return $this->generateView();
     }
 }

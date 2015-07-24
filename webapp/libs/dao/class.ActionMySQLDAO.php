@@ -71,7 +71,7 @@ INNER JOIN connections c ON c.object_type = a.object_type and c.object_id = a.ob
 INNER JOIN users u ON c.user_id = u.id
 INNER JOIN users uactor ON a.user_id = uactor.id
 WHERE u.uid = :user_uid AND is_admin = 0 AND a.user_id != u.id
-ORDER BY time_performed DESC LIMIT :start, :limit;
+ORDER BY id DESC LIMIT :start, :limit;
 EOD;
         $vars = array (
             ':user_uid' => $user_uid,
@@ -94,7 +94,7 @@ EOD;
 SELECT a.*, u.name, u.uid AS user_uid, u.twitter_username as username FROM actions a
 INNER JOIN users u ON a.user_id = u.id
 WHERE a.user_id = :user_id AND is_admin = 0
-ORDER BY time_performed DESC LIMIT :start, :limit;
+ORDER BY id DESC LIMIT :start, :limit;
 EOD;
         $vars = array (
             ':user_id' => $user_id,
@@ -117,7 +117,7 @@ EOD;
 SELECT a.*, u.name, u.uid AS user_uid, u.twitter_username as username FROM actions a
 INNER JOIN users u ON a.user_id = u.id
 WHERE a.object_type = 'Maker' AND a.object_id = :maker_id AND is_admin = 0
-ORDER BY time_performed DESC LIMIT :start, :limit;
+ORDER BY id DESC LIMIT :start, :limit;
 EOD;
         $vars = array (
             ':maker_id' => $maker->id,
@@ -138,7 +138,7 @@ EOD;
 SELECT a.*, u.name, u.uid AS user_uid, u.twitter_username as username FROM actions a
 INNER JOIN users u ON a.user_id = u.id
 WHERE a.object_type = 'Maker' AND a.object_id = :maker_id AND is_admin = 1
-ORDER BY time_performed DESC LIMIT 1;
+ORDER BY id DESC LIMIT 1;
 EOD;
         $vars = array (
             ':maker_id' => $maker->id
@@ -157,7 +157,7 @@ EOD;
 SELECT a.*, u.name, u.uid AS user_uid, u.twitter_username as username FROM actions a
 INNER JOIN users u ON a.user_id = u.id
 WHERE a.object_type = 'User' AND a.object_id = :user_id AND is_admin = 1
-ORDER BY time_performed DESC LIMIT 1;
+ORDER BY id DESC LIMIT 1;
 EOD;
         $vars = array (
             ':user_id' => $user->id
@@ -179,7 +179,7 @@ SELECT a.*, u.name, u.uid AS user_uid, u.twitter_username as username FROM actio
 INNER JOIN users u ON a.user_id = u.id
 WHERE ((a.object_type = 'Product' AND a.object_id = :product_id)
 OR (a.object2_type = 'Product' AND a.object2_id = :product_id)) AND is_admin = 0
-ORDER BY time_performed DESC LIMIT :start, :limit;
+ORDER BY id DESC LIMIT :start, :limit;
 EOD;
         $vars = array (
             ':product_id' => $product->id,
@@ -201,7 +201,7 @@ SELECT a.*, u.name, u.uid AS user_uid, u.twitter_username as username FROM actio
 INNER JOIN users u ON a.user_id = u.id
 WHERE ((a.object_type = 'Product' AND a.object_id = :product_id)
 OR (a.object2_type = 'Product' AND a.object2_id = :product_id)) AND is_admin = 1
-ORDER BY time_performed DESC LIMIT 1;
+ORDER BY id DESC LIMIT 1;
 EOD;
         $vars = array (
             ':product_id' => $product->id
@@ -222,7 +222,7 @@ EOD;
 SELECT a.*, u.name, u.uid AS user_uid, u.twitter_username as username FROM actions a
 INNER JOIN users u ON a.user_id = u.id
 WHERE is_admin = 0
-ORDER BY time_performed DESC LIMIT :start, :limit;
+ORDER BY id DESC LIMIT :start, :limit;
 EOD;
         $vars = array (
             ':start' => $start,
@@ -244,7 +244,7 @@ EOD;
 SELECT a.*, u.name, u.uid AS user_uid, u.twitter_username as username FROM actions a
 INNER JOIN users u ON a.user_id = u.id
 WHERE is_admin = 1
-ORDER BY time_performed DESC LIMIT :start, :limit;
+ORDER BY id DESC LIMIT :start, :limit;
 EOD;
         $vars = array (
             ':start' => $start,

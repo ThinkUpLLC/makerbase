@@ -95,7 +95,7 @@
             return '<div class="media-left"><img class="media-object" src="' + data.avatar_url + '" alt="' + data.name + '" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">' + data.name + '</h4></div>';
           },
           footer: [
-            '<br><div class="media-body"><a onclick="location.href=\'/add/maker/?q=\'+ encodeURIComponent($(\'#maker-name\').val());" class="btn btn-success btn-md">Create this Maker</a></div>'
+            '<br><div class="media-body"><a onclick="location.href=\'/add/maker/{/literal}{if isset($smarty.get.uid)}{$smarty.get.uid}/{/if}{literal}?q=\'+ encodeURIComponent($(\'#maker-name\').val());" class="btn btn-success btn-md">Create this Maker</a></div>'
           ].join('\n')
         }
       });
@@ -135,7 +135,7 @@
             return '<div class="media-left"><img class="media-object" src="' + data.avatar_url + '" alt="' + data.name + '" width="20" height="20"></div><div class="media-body"><h4 class="media-heading">' + data.name + '</h4></div></div>';
           },
           footer: [
-            '<br><div class="media-body"><a onclick="location.href=\'/add/product/?q=\'+ encodeURIComponent($(\'#product-name\').val());" class="btn btn-success btn-md">Create this Project</a></div>'
+            '<br><div class="media-body"><a onclick="location.href=\'/add/product/{/literal}{if isset($smarty.get.uid)}{$smarty.get.uid}/{/if}{literal}?q=\'+ encodeURIComponent($(\'#product-name\').val());" class="btn btn-success btn-md">Create this Project</a></div>'
           ].join('\n')
         }
       });
