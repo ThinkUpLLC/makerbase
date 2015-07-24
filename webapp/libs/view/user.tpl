@@ -70,12 +70,15 @@ $email_capture_state either 'need email', 'confirmation_pending' or 'confirmatio
       </div>
    </div>
 </div>
-
+<div class="row">
+  <p class="btn btn-default btn-link pull-right">Want to close your account? Need help? <a href="mailto:team@makerba.se">Get in touch</a>.</p>
+</div>
+{else}
+<div class="row">
+      {include file="_reportpage.tpl" object=$user object_type='user'}
+</div>
   {/if}
 {/if}
-<div class="row">
-<p class="pull-right">Want to close your account? Need help? <a href="mailto:team@makerba.se">Get in touch</a>.</p>
-</div>
 
 <div class="row">
   <div id="history" class="col-sm-10 col-sm-offset-1 col-xs-12 history-vivid">

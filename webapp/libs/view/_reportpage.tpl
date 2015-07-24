@@ -1,8 +1,8 @@
 {*
-Report a project or maker.
+Report a project or maker or user.
 
-$object_type 'project' or 'maker'
-$object either the project or Maker
+$object_type 'project' or 'maker' or 'user'
+$object either the Product or Maker or User
 *}
 
 {capture name="report_subject" assign="report_subject"}Report {$object_type}: {$object->name}{/capture}
@@ -10,7 +10,7 @@ $object either the project or Maker
 {capture name="report_body" assign="report_body"}
 Hi! I'd like to report a {$object_type} on Makerbase:
 
-https://makerba.se/{if $object_type eq 'project'}p{else}m{/if}/{$object->uid}/{$object->slug}
+https://makerba.se/{if $object_type eq 'project'}p{elseif $object_type eq 'maker'}m{elseif $object_type eq 'user'}u{/if}/{$object->uid}{if isset($object->slug)}/{$object->slug}{/if}
 
 Here's why this {$object_type} should be reviewed:
 
