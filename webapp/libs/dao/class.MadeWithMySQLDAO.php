@@ -15,7 +15,7 @@ UPDATE made_withs SET is_archived = :is_archived WHERE uid = :uid
 EOD;
         $vars = array (
             ':uid' => $uid,
-            ':is_archived' => $is_archived
+            ':is_archived' => PDODAO::convertBoolToDB($is_archived)
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         //echo self::mergeSQLVars($q, $vars);

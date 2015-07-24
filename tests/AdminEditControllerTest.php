@@ -72,7 +72,7 @@ class AdminEditControllerTest extends MakerbaseUnitTestCase {
         //Products
         $builders[] = FixtureBuilder::build('products', array('id'=>20, 'uid'=>'deleteme', 'slug'=>'DeletableProject',
             'name'=>'Sweet Mary Jane', 'is_frozen'=>0));
-        $builders[] = FixtureBuilder::build('products', array('id'=>21, 'uid'=>'dontdeleteme',
+        $builders[] = FixtureBuilder::build('products', array('id'=>21, 'uid'=>'dontdel',
             'slug'=>'UnDeletableProject', 'name'=>'Sweet Mary Jane', 'is_frozen'=>0));
 
         //Roles
@@ -221,7 +221,7 @@ class AdminEditControllerTest extends MakerbaseUnitTestCase {
         //Products
         $builders[] = FixtureBuilder::build('makers', array('id'=>20, 'uid'=>'deleteme', 'slug'=>'DeletableMaker',
             'name'=>'Sweet Mary Jane', 'is_frozen'=>0));
-        $builders[] = FixtureBuilder::build('makers', array('id'=>21, 'uid'=>'dontdeleteme',
+        $builders[] = FixtureBuilder::build('makers', array('id'=>21, 'uid'=>'dontdel',
             'slug'=>'UnDeletableProject', 'name'=>'Sweet Mary Jane', 'is_frozen'=>0));
 
         //Roles
