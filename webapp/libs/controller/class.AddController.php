@@ -420,6 +420,9 @@ class AddController extends MakerbaseAuthController {
         $role->role = '';
         $role_dao = new RoleMySQLDAO();
         $role = $role_dao->insert($role);
+        //Force cache refresh
+        CacheHelper::expireCache('product.tpl', $product->uid, $product->slug);
+        CacheHelper::expireCache('maker.tpl', $maker->uid, $maker->slug);
         return $role;
     }
 
