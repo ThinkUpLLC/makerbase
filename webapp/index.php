@@ -19,7 +19,7 @@ require 'extlibs/FineDiff/finediff.php';
 //Mandrill
 require_once 'extlibs/mandrill/Mandrill.php';
 
-$router = new Router('PageNotFoundController');
+$router = new Router('PageNotFoundController', 'InternalServerErrorController');
 //In case of caching issues
 //Router::$routes = null;
 $router->addRoute('index', 'LandingController');
