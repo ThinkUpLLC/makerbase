@@ -22,7 +22,7 @@ class UserController extends MakerbaseAuthController {
                 $this->addToView('user', $user);
 
                 // Get actions
-                $page_number = (isset($_GET['p']))?$_GET['p']:1;
+                $page_number = (isset($_GET['p']) && is_numeric($_GET['p']))?$_GET['p']:1;
                 $limit = 10;
                 $action_dao = new ActionMySQLDAO();
                 $actions = $action_dao->getUserActivities($user->id, $page_number, $limit);

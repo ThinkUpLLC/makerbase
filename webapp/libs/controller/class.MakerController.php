@@ -17,7 +17,7 @@ class MakerController extends MakerbaseAuthController {
                 $this->addToView('roles', $roles);
 
                 // Get actions
-                $page_number = (isset($_GET['p']))?$_GET['p']:1;
+                $page_number = (isset($_GET['p']) && is_numeric($_GET['p']))?$_GET['p']:1;
                 $limit = 10;
 
                 $action_dao = new ActionMySQLDAO();
