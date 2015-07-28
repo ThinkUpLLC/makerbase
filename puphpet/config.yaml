@@ -3,14 +3,14 @@ vagrantfile:
     vm:
         box: puphpet/ubuntu1404-x64
         box_url: puphpet/ubuntu1404-x64
-        hostname: local.puphpet
+        hostname: local.makerbase
         memory: '512'
         cpus: '1'
         chosen_provider: virtualbox
         network:
             private_network: 192.168.56.101
             forwarded_port:
-                vflnp_bfm8obz8m8fx:
+                vflnp_adetkee3nxqj:
                     host: '5422'
                     guest: '22'
         post_up_message: ''
@@ -33,7 +33,7 @@ vagrantfile:
                     - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
                     - '--parser future'
         synced_folder:
-            vflsf_8jotwaltpt42:
+            vflsf_jnj51fe0h3tf:
                 source: ./
                 target: /var/www
                 sync_type: default
@@ -97,7 +97,7 @@ nginx:
         proxy_buffers: '4 256k'
     upstreams: {  }
     vhosts:
-        nxv_p6bqeszq78d1:
+        nxv_873bqbwdzcpp:
             server_name: awesome.dev
             server_aliases:
                 - www.awesome.dev
@@ -128,7 +128,7 @@ apache:
         - proxy_fcgi
         - rewrite
     vhosts:
-        av_wmuk94d6a9oj:
+        av_lgqaieqdtmz8:
             servername: makerbase.dev
             serveraliases:
                 - www.makerbase.dev
@@ -145,7 +145,7 @@ apache:
             ssl_protocol: ''
             ssl_cipher: ''
             directories:
-                avd_v1ccd7l7448k:
+                avd_kpvitoec8uc7:
                     path: /var/www/webapp
                     options:
                         - Indexes
@@ -157,13 +157,13 @@ apache:
                         - 'all granted'
                     custom_fragment: ''
                     files_match:
-                        avdfm_e9x1hgkypoxl:
+                        avdfm_0qotq4m283z5:
                             path: \.php$
                             sethandler: 'proxy:fcgi://127.0.0.1:9000'
                             custom_fragment: ''
                             provider: filesmatch
                     provider: directory
-        av_icy0had6289s:
+        av_s3djg3jx65xi:
             servername: makerbase.dev
             serveraliases:
                 - www.makerbase.dev
@@ -204,7 +204,7 @@ php:
     fpm_ini:
         error_log: /var/log/php-fpm.log
     fpm_pools:
-        phpfp_pd8e47b82v63:
+        phpfp_5bu5d7f0cldz:
             ini:
                 listen: '127.0.0.1:9000'
                 security.limit_extensions: .php
@@ -247,13 +247,13 @@ drush:
 ruby:
     install: '1'
     versions:
-        rv_twqwucf3kqqw:
+        rv_j9irwtnunta9:
             version: ''
 python:
     install: '1'
     packages: {  }
     versions:
-        pyenv_msxur29w8y2l:
+        pyenv_w6hpcleqyxxm:
             version: 2.6.9
 nodejs:
     install: '0'
@@ -274,18 +274,18 @@ mysql:
         override_options: {  }
     adminer: '1'
     users:
-        mysqlnu_2u8lm4qy918p:
+        mysqlnu_cggra3x3beer:
             name: makerbase
             password: nice2bnice
     databases:
-        mysqlnd_bjfaw8uefx55:
+        mysqlnd_oasg3ek4tcyr:
             name: makerbase_web
             sql: /var/www/sql/makerbase.sql
-        mysqlnd_ryi6194wljwt:
+        mysqlnd_4fppg02hx8kq:
             name: makerbase_tests
             sql: ''
     grants:
-        mysqlng_6gyoazerjbpn:
+        mysqlng_z219qluuplmi:
             user: makerbase
             table: '*.*'
             privileges:
