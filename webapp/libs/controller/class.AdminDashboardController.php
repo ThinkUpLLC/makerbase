@@ -38,6 +38,12 @@ class AdminDashboardController extends MakerbaseAdminController {
             $this->addToView('actions', $actions);
         }
 
+        if ($_GET['v'] == 'all-actions') {
+            $action_dao = new ActionMySQLDAO();
+            $actions = $action_dao->getActivities($page_number, $limit);
+            $this->addToView('actions', $actions);
+        }
+
         $this->addToView('sort_view',  $_GET['v']);
 
         $total_waitlisters = $waitlist_dao->getTotal();

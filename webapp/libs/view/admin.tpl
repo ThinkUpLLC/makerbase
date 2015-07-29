@@ -21,6 +21,7 @@
       <li role="presentation" {if isset($sort_view)}{if $sort_view eq 'waitlist_followers'}class="active"{/if}{/if}><a href="/s3cr3t/waitlist_followers">Waitlist Most Followers</a></li>
       <li role="presentation"{if isset($sort_view)}{if $sort_view eq 'waitlist_newest'}class="active"{/if}{/if}><a href="/s3cr3t/waitlist_newest">Waitlist Newest</a></li>
       <li role="presentation"{if isset($sort_view)}{if $sort_view eq 'actions'}class="active"{/if}{/if}><a href="/s3cr3t/actions">Admin Actions</a></li>
+      <li role="presentation"{if isset($sort_view)}{if $sort_view eq 'all-actions'}class="active"{/if}{/if}><a href="/s3cr3t/all-actions">All Actions</a></li>
     </ul>
 
 {if isset($waitlisters)}
