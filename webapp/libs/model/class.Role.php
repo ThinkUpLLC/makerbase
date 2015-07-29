@@ -50,6 +50,11 @@ class Role {
                 $this->start_YM = date_format(date_create($this->start), 'Y-m');
                 $this->start_m = date_format(date_create($this->start), 'm');
                 $this->start_Y = date_format(date_create($this->start), 'Y');
+            } else {
+                $this->start_MY = null;
+                $this->start_YM = null;
+                $this->start_m = null;
+                $this->start_Y = null;
             }
             $this->end = $row['end'];
             if (isset($this->end)) {
@@ -59,6 +64,11 @@ class Role {
                 $this->end_YM = date_format(date_create($this->end), 'Y-m');
                 $this->end_m = date_format(date_create($this->end), 'm');
                 $this->end_Y = date_format(date_create($this->end), 'Y');
+            } else {
+                $this->end_MY = null;
+                $this->end_YM = null;
+                $this->end_m = null;
+                $this->end_Y = null;
             }
             $this->end = $row['end'];
             $this->creation_time = $row['creation_time'];
