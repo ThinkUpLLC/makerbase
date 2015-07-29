@@ -29,10 +29,10 @@ class ConnectionMySQLDAOTest extends MakerbaseUnitTestCase {
         $product->id = 432;
 
         $result = $connection_dao->insert($user, $product);
-        $this->assertTrue($result);
+        $this->assertEquals($result, 1);
 
         $result = $connection_dao->insert($user, $product);
-        $this->assertFalse($result);
+        $this->assertEquals($result, 0);
 
         //Test Get
         //Assert the connection is in storage
