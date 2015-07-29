@@ -12,7 +12,7 @@ class TwitterSignInController extends Controller {
         $callback_url = Utils::getApplicationURL(false, false).'signin/';
         if (isset($_GET['redirect'])) {
             $callback_url .= '?redirect='.$_GET['redirect'];
-        } else {
+        } elseif (isset($_SERVER['HTTP_REFERER'])) {
             $callback_url .= '?redirect='.$_SERVER['HTTP_REFERER'];
         }
 
