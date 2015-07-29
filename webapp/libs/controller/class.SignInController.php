@@ -67,6 +67,7 @@ class SignInController extends MakerbaseController {
                             $waitlist_dao->archive($authed_twitter_user['user_id'], 'twitter');
                         }
                         Session::completeLogin($user->uid);
+                        CacheHelper::expireLandingAndUserActivityCache($user->uid);
                         SessionCache::put('success_message', 'You have signed in.');
                     } else {
                         $waitlist_dao->insert( $authed_twitter_user['user_id'], 'twitter',
@@ -76,8 +77,6 @@ class SignInController extends MakerbaseController {
                         SessionCache::put('is_waitlisted', $authed_twitter_user);
                         $this->redirect(Config::getInstance()->getValue('site_root_path'));
                     }
-
-                    CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
                     //Redirect user if redir is set
                     if (isset($_GET['redirect'])) {
                         if (!$this->redirect($_GET['redirect'])) {
