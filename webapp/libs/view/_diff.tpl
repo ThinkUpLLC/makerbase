@@ -11,5 +11,5 @@
 {if $action->action_type eq 'update' && isset($action->metadata->before->role)}
   <h4>{insert name="string_diff" from_text=$action->metadata->before->role to_text=$action->metadata->after->role}</h4>
   <h5>{insert name="string_diff" from_text=$action->metadata->before->start to_text=$action->metadata->after->start}</h5>
-  <h5>{insert name="string_diff" from_text=$action->metadata->before->end to_text=$action->metadata->after->end}</h5>
+  <h6>{insert name="string_diff" from_text=$action->metadata->before->end to_text=$action->metadata->after->end}</h6>
 {/if}

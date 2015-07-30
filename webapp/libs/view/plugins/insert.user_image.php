@@ -24,9 +24,9 @@ function smarty_insert_user_image($params, &$smarty) {
         return;
     } elseif (empty($params['image_url'])) {
         if ($params['type'] == 'm' || $params['type'] == 'u') {
-            return 'https://makerba.se/assets/img/blank-maker.png';
+            return '/assets/img/blank-maker.png';
         } else {
-            return 'https://makerba.se/assets/img/blank-project.png';
+            return '/assets/img/blank-project.png';
         }
    } else {
         if (!empty($params['image_proxy_sig'])) {
