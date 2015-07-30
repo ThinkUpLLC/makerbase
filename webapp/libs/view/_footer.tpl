@@ -7,11 +7,12 @@
           <div class="col-sm-4 col-sm-offset-1 col-xs-4">
             <img src="/assets/img/makerbase-mark-white.svg" class="hidden-xs pull-left" width="100" style="padding-right: 20px; margin-top: -20px;"/>
             <ul class="list-unstyled">
-              <li>&copy; 2015 <a href="{if isset($logged_in_user)}/p/{$thinkup_uid}/thinkup{else}http://thinkup.com{/if}">ThinkUp</a></li>
+              <li>&copy; 2015 <a href="{if isset($logged_in_user)}/p/{$thinkup_uid}/thinkup{else}http://thinkup.com{/if}">ThinkUp LLC</a></li>
               <li>Go make something.</li>
             </ul>
           </div>
 
+{*
           <div class="col-sm-2 col-xs-4">
             <p>sponsored by:</p>
             <ul class="list-unstyled footer-sponsors">
@@ -36,7 +37,7 @@
               </li>
             </ul>
           </div>
-
+*}
           <div class="col-sm-2 hidden-xs">
             <ul class="list-unstyled">
               <li><a href="mailto:team@makerba.se?subject=sponsorship">Become a sponsor</a></li>

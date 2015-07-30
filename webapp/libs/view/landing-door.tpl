@@ -5,7 +5,7 @@
 
 <div class="row landing-row" id="landing-header">
    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-    <h3 class="col-xs-12">You make great things. Tell the world what you made!</h3>
+    <h3 class="col-xs-12">You make great things. Tell the world what you made.</h3>
     <h1 class="col-xs-12 col-sm-7 col-lg-8">
       Makerbase
     </h1>
@@ -137,7 +137,7 @@
 <div class="container-fluud">
 
   <div class="row" id="testimonial-quote">
-    <h2 class="col-xs-12">Makerbase is gonna be like an "IMDB for apps". <i>We'll see you Tuesday.</i></h2>
+    <h2 class="col-xs-12">Makerbase is like IMDb for apps. <i>See you Tuesday.</i></h2>
   </div>
 
 </div>
