@@ -17,36 +17,29 @@
     {assign var="object_uid" value=$role->maker->uid}
 {/if}
 
-<div class="list-group-item col-xs-12" id="role-{$role->uid}">
+<div class="list-group-item" id="role-{$role->uid}">
     <div class="media-left media-top">
         <a href="/{$object_route}/{$display_object->uid}/{$display_object->slug}">
         <img class="media-object" src="{insert name='user_image' image_url=$display_object->avatar_url image_proxy_sig=$image_proxy_sig type=$object_route}" alt="{$display_object->name} logo" width="50" height="50">
         </a>
-
-        <form method="post" action="/edit/role/" class="role-archive-form" id="role-archive-{$role->uid}">
-          <input type="hidden" name="uid" value="{$role->uid}" />
-          <input type="hidden" name="archive" value="{if $role->is_archived}0{else}1{/if}"/>
-            <input type="hidden" name="originate_slug" value="{if isset($product->slug)}{$product->slug}{elseif isset($maker->slug)}{$maker->slug}{/if}">
-            <input type="hidden" name="originate_uid" value="{if isset($product->uid)}{$product->uid}{elseif isset($maker->uid)}{$maker->uid}{/if}">
-            <input type="hidden" name="originate" value="{if isset($product->slug)}product{elseif isset($maker->slug)}maker{/if}">
-            <button type="submit" class="btn btn-danger btn-xs pull-left">
-                {if $role->is_archived}Unarchive{else}Archive{/if}
-            </button>
-        </form>
-
     </div>
     <div class="media-body">
-        <h5 class="pull-right {if !isset($role->end_MY)}text-success{/if}">{if isset($role->start_MY)}{$role->start_MY} &mdash; {if isset($role->end_MY)}{$role->end_MY}{else}Present{/if}{/if}</h5>
 
-        <h3><a href="/{$object_route}/{$object_uid}/{$display_object->slug}">{$display_object->name}</a></h3>
+            <a {if isset($logged_in_user)}href="#" onclick="$('#edit-role-{$role->uid}').toggle();$('#role-description-{$role->uid}').toggle();$('#role-archive-{$role->uid}').toggle();$('#edit-role-btn-{$role->uid}').toggle();$('#edit-role-btn-cancel-{$role->uid}').toggle();"{else}href="{$sign_in_with_twttr_link}"{/if} type="button" class="btn btn-link btn-xs edit-role-btn pull-right" id="edit-role-btn-{$role->uid}">edit</a>
+
+            <button onclick="$('#role-description-{$role->uid}').toggle();$('#edit-role-{$role->uid}').toggle();$('#role-archive-{$role->uid}').toggle();$('#edit-role-btn-{$role->uid}').toggle();$('#edit-role-btn-cancel-{$role->uid}').toggle();" type="button" class="btn btn-link btn-xs pull-right edit-role-button-cancel" id="edit-role-btn-cancel-{$role->uid}">cancel</button>
+
+        <h3>
+            <a href="/{$object_route}/{$object_uid}/{$display_object->slug}">{$display_object->name}</a>
+
+        </h3>
+        <h5 class="{if !isset($role->end_MY)}text-success{/if}">{if isset($role->start_MY)}{$role->start_MY} &mdash; {if isset($role->end_MY)}{$role->end_MY}{else}Present{/if}{/if}</h5>
 
         <div id="role-description-{$role->uid}">
 
-            <a {if isset($logged_in_user)}href="#" onclick="$('#edit-role-{$role->uid}').toggle();$('#role-description-{$role->uid}').toggle();$('#role-archive-{$role->uid}').toggle();"{else}href="{$sign_in_with_twttr_link}"{/if} type="button" class="btn btn-link btn-xs pull-right" id="edit-role-btn">edit</a>
-
-            <h4>
+            <p>
                 {$role->role|atnames:'/search/?q='}
-            </h4>
+            </p>
 
 
        </div>
@@ -54,6 +47,7 @@
         {if isset($logged_in_user)}
         <!-- edit form -->
         <div class="media-footer" id="edit-role-{$role->uid}">
+
         <form method="post" action="/edit/role/" class="form-horizontal edit-role-form">
 
 
@@ -72,16 +66,26 @@
             <input type="hidden" name="originate_uid" value="{if isset($product->uid)}{$product->uid}{elseif isset($maker->uid)}{$maker->uid}{/if}">
             <input type="hidden" name="originate" value="{if isset($product->slug)}product{elseif isset($maker->slug)}maker{/if}">
 
-            <div class="form-group">
-                <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                  <button class="btn btn-primary" type="submit" id="update-role">Update role</button>
-                </div>
-            </div>
+            <button class="btn btn-info pull-right" type="submit" id="update-role">Update role</button>
 
         </form>
 
 
-        <button onclick="$('#role-description-{$role->uid}').toggle();$('#edit-role-{$role->uid}').toggle();$('#role-archive-{$role->uid}').toggle();" type="button" class="btn btn-link btn-xs pull-right" id="edit-role-btn">cancel</button>
+            <form method="post" action="/edit/role/" class="form-inline pull-left role-archive-form" id="role-archive-{$role->uid}">
+              <input type="hidden" name="uid" value="{$role->uid}" />
+              <input type="hidden" name="archive" value="{if $role->is_archived}0{else}1{/if}"/>
+                <input type="hidden" name="originate_slug" value="{if isset($product->slug)}{$product->slug}{elseif isset($maker->slug)}{$maker->slug}{/if}">
+                <input type="hidden" name="originate_uid" value="{if isset($product->uid)}{$product->uid}{elseif isset($maker->uid)}{$maker->uid}{/if}">
+                <input type="hidden" name="originate" value="{if isset($product->slug)}product{elseif isset($maker->slug)}maker{/if}">
+                <button type="submit" class="btn btn-danger btn-xs pull-left">
+                    {if $role->is_archived}
+                        Unarchive
+                    {else}
+                        <i class="fa fa-close"></i> Archive
+                    {/if}
+                </button>
+            </form>
+
 
         </div>
         {/if}

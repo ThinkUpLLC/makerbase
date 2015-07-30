@@ -66,7 +66,7 @@
 
       <meta property="og:image:type" content="image/jpg">
     {else}
-      <meta property="og:url" content="https://makerba.se" />
+      <meta property="og:url" content="{$site_root_path}" />
       <meta itemprop="name" content="Makerbase" />
       <meta name="twitter:title" content="Makerbase" />
       <meta property="og:title" content="Makerbase" />
@@ -92,35 +92,30 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body>
-
-      <nav class="navbar navbar-inverse navbar-static-top"
-      {if isset($suppress_navbar)}{if $suppress_navbar eq true}style="display: none;"{/if}{/if}>
-      <div class="container col-xs-12 col-sm-12">
+  <body {if isset($body_class)}class="{$body_class}"{/if}>
 
 
-        <div class="navbar-header col-xs-12">
-
-          <a class="navbar-brand col-xs-5 col-sm-4" href="{$site_root_path}">{$app_title}</a>
-
-          {if $suppress_search neq true}
-          <form class="navbar-form col-xs-6 col-sm-6" role="search" action="/search/">
-            <div class="" id="remote-search">
-              <div class="input-group">
-              <input type="search" class="form-control typeahead col-xs-6" placeholder="Search for..." name="q" autocomplete="off" id="nav-typeahead">
+    <nav class="navbar navbar-default" {if isset($suppress_navbar)}{if $suppress_navbar eq true}style="display: none;"{/if}{/if}>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-2 col-sm-1">
+            <a class="navbar-brand" href="{$site_root_path}">{$app_title}</a>
+          </div>
+          <div class=" col-xs-8 col-sm-10">
+            {if $suppress_search neq true}
+            <form class="navbar-form" role="search" action="/search/">
+              <div class="" id="remote-search">
+                <input type="search" class="form-control typeahead" placeholder="Search for..." name="q" autocomplete="off" id="nav-typeahead">
               </div>
-            </div>
-           </form>
-           {/if}
-
-        {if isset($logged_in_user)}
-          {if $logged_in_user->is_admin}
-            {include file="_adminbar.tpl"}
-          {else}
-
-          <div class="col-xs-1 col-sm-1 pull-right" role="signout" id="signout-button">
-            <div class="btn-group">
-              <button type="button" class="btn btn-default btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="user-menu">
+            </form>
+            {/if}
+          </div>
+          {if isset($logged_in_user)}
+            {if $logged_in_user->is_admin}
+              {include file="_adminbar.tpl"}
+            {else}
+            <div class=" col-xs-2 col-sm-1" role="signout" id="signout-button">
+              <button type="button" class="btn btn-default btn-sm navbar-btn dropdown-toggle pull-right" data-toggle="dropdown" aria-expanded="false" id="user-menu">
                 <img src="{insert name='user_image' image_url=$logged_in_user->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" alt="Signed in as {$logged_in_user->twitter_username}" width="20" height="20">
                 <span class="caret"></span>
               </button>
@@ -129,20 +124,16 @@
                 <li><a href="{$site_root_path}signout/">Sign out</a></li>
               </ul>
             </div>
-          </div>
-
+            {/if}
+          {else}
+            <div class=" col-xs-2 col-sm-1" role="signout" id="signout-button">
+              {if isset($sign_in_with_twttr_link)}<a href="{$sign_in_with_twttr_link}" class="btn btn-default btn-sm navbar-btn" id="signin-button"><i class="fa fa-twitter"></i> Sign in</a>{/if}
+            </div>
           {/if}
-        {else}
-        <div class="col-xs-2 col-sm-1 pull-right" role="signin" id="signin-button">
-          {if isset($sign_in_with_twttr_link)}<a href="{$sign_in_with_twttr_link}" class="btn btn-default btn-sm navbar-btn" id="signin-button"><i class="fa fa-twitter"></i> Sign in</a>{/if}
         </div>
-        {/if}
-
-        </div>
-
-
       </div>
     </nav>
+
 
 {include file="_usermessage.tpl"}
 

@@ -1,20 +1,804 @@
 // Makerbase-specific
 
-@color-mint:         	#41dab3;
-@color-seabreeze:       #44c9d7;
-@color-creamsicle:      #ffbb4e;
-@color-rust:    	    #c73a0a;
+@color-pea:                 #9DD767;
+@color-pea-dark:            #5FAC1C;
+@color-pea-darker:          #417505;
+@color-pea-light:           mix(@color-pea, #fff, 25%);
+@color-salmon:              #FC939E;
+@color-salmon-dark:         #DA6070;
+@color-salmon-darker:       darken(@color-salmon-dark, 10%);
+@color-salmon-light:        mix(@color-salmon, #fff, 25%);
+@color-creamsicle:          #FFBB4E;
+@color-creamsicle-dark:     #FF8F41;
+@color-creamsicle-darker:   darken(@color-creamsicle-dark, 15%);
+@color-creamsicle-light:    mix(@color-creamsicle, #fff, 25%);
+@color-sepia:               #C0BDAF;
+@color-sepia-dark:          #A19F8B;
+@color-sepia-darker:        darken(@color-sepia-dark, 10%);
+@color-sepia-light:         mix(@color-sepia, #fff, 25%);
+@color-purple:              #B690E2;
+@color-purple-dark:         #8E69C2;
+@color-purple-darker:       darken(@color-purple-dark, 10%);
+@color-purple-light:        mix(@color-purple, #fff, 25%);
+@color-mint:                #41DAB3;
+@color-mint-dark:           #24B98F;
+@color-mint-darker:         darken(@color-mint-dark, 10%);
+@color-mint-light:          mix(@color-mint, #fff, 25%);
+@color-bubblegum:           #F576B5;
+@color-bubblegum-dark:      #B3487C;
+@color-bubblegum-darker:    darken(@color-bubblegum-dark, 10%);
+@color-bubblegum-light:     mix(@color-bubblegum, #fff, 25%);
+@color-seabreeze:           #44C9D7;
+@color-seabreeze-dark:      #198A9C;
+@color-seabreeze-darker:    darken(@color-seabreeze-dark, 10%);
+@color-seabreeze-light:     mix(@color-seabreeze, #fff, 25%);
+@color-dijon:               #E4BF28;
+@color-dijon-dark:          #C59301;
+@color-dijon-darker:        darken(@color-dijon-dark, 10%);
+@color-dijon-light:         mix(@color-dijon, #fff, 25%);
+@color-sandalwood:          #FD8560;
+@color-sandalwood-dark:     #D13A0A;
+@color-sandalwood-darker:   darken(@color-sandalwood-dark, 10%);
+@color-sandalwood-light:    mix(@color-sandalwood, #fff, 25%);
+@color-caramel:             #DD814B;
+@color-caramel-dark:        #9E5E14;
+@color-caramel-darker:      darken(@color-caramel-dark, 10%);
+@color-caramel-light:       mix(@color-caramel, #fff, 25%);
+
+@color-lightslate:			#c9dae1;
+@color-bgslate: 				#e2eaee;
+@color-rust:    	    	#c73a0a;
 
 @import "theme.less";
 @import "bootstrap-files.less";
 
 
-#history.history-vivid .action-item blockquote,
-.media-footer,
-#maker-profile-edit,
-#project-profile-edit,
-.role-archive-form {
+// UTILITY STYLING ************************************
+
+// Rounded corners
+.img-rounded {
+	border-radius: 12%;
+}
+
+.fade {
+  opacity: 0;
+  -webkit-transition: opacity 0.15s linear;
+  -moz-transition: opacity 0.15s linear;
+  -o-transition: opacity 0.15s linear;
+  transition: opacity 0.15s linear;
+}
+.fade.in {
+  opacity: 1;
+}
+
+.style-bubblegum {
+	background-color: @color-bubblegum;
+	border-radius: 0 0 0 20px;
+}
+.style-caramel {
+	background-color: @color-caramel;
+	border-radius: 0 0 0 20px;
+}
+.style-creamsicle {
+	background-color: @color-creamsicle;
+	border-radius: 0 20px 0 0;
+}
+.style-dijon {
+	background-color: @color-dijon;
+	border-radius: 0 20px 0 0;
+}
+.style-mint {
+	background-color: @color-mint;
+	border-radius: 20px 0 0 0;
+}
+.style-pea {
+	background-color: @color-pea;
+	border-radius: 20px 0 0 0;
+}
+.style-purple {
+	background-color: @color-purple;
+	border-radius: 0 0 20px 0;
+}
+.style-salmon {
+	background-color: @color-salmon;
+	border-radius: 0 0 20px 0;
+}
+.style-sandalwood {
+	background-color: @color-sandalwood;
+	border-radius: 0 0 20px 0;
+}
+.style-seabreeze {
+	background-color: @color-seabreeze;
+	border-radius: 20px 0 0 0;
+}
+.style-sepia {
+	background-color: @color-sepia;
+	border-radius: 20px 0 0 0;
+}
+
+.style-gray-lighter {
+	background-color: @gray-lighter;
+	border-radius: 0;
+}
+.style-transparent {
+	background-color: transparent;
+	border: 1px solid @color-lightslate;
+	.img-rounded {
+		background-color: #fff;
+	}
+}
+
+/*
+bubblegum
+caramel
+creamsicle
+dijon
+mint
+pea
+purple
+salmon
+sandalwood
+seabreeze
+sepia
+*/
+
+.style-bubblegum-light {
+	background-color: @color-bubblegum-light;
+	border-radius: 0 0 0 20px;
+}
+.style-caramel-light {
+	background-color: @color-caramel-light;
+	border-radius: 0 0 0 20px;
+}
+.style-creamsicle-light {
+	background-color: @color-creamsicle-light;
+	border-radius: 0 20px 0 0;
+}
+.style-dijon-light {
+	background-color: @color-dijon-light;
+	border-radius: 0 20px 0 0;
+}
+.style-mint-light {
+	background-color: @color-mint-light;
+	border-radius: 20px 0 0 0;
+}
+.style-pea-light {
+	background-color: @color-pea-light;
+	border-radius: 20px 0 0 0;
+}
+.style-purple-light {
+	background-color: @color-purple-light;
+	border-radius: 0 0 20px 0;
+}
+.style-salmon-light {
+	background-color: @color-salmon-light;
+	border-radius: 0 0 20px 0;
+}
+.style-sandalwood-light {
+	background-color: @color-sandalwood-light;
+	border-radius: 0 0 20px 0;
+}
+.style-seabreeze-light {
+	background-color: @color-seabreeze-light;
+	border-radius: 20px 0 0 0;
+}
+.style-sepia-light {
+	background-color: @color-sepia-light;
+	border-radius: 20px 0 0 0;
+}
+
+
+// APP-WIDE ************************************
+
+h2,
+h2 a {
+	color: @gray;
+	font-weight: 200;
+}
+
+h6 {
+	font-weight: 200;
+}
+
+.navbar .navbar-brand {
+
+		width: 200%;
+		height: auto;
+
+    background: url(../img/makerbase-logo-square.svg) no-repeat top 0 left 0;
+    background-size: auto 100%;
+    font-size: 0;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.navbar-form {
+	border: none;
+	margin: 0;
+	line-height: 0.5;
+	@media (min-width: @screen-sm-min) {
+		margin-top: 8px;
+	}
+	.form-control {
+		width: 100%;
+	}
+}
+.twitter-typeahead {
+	width: 100%;
+}
+#nav-typeahead,
+.tt-hint {
+	width: 100%;
+}
+.tt-hint {
+	color: @gray-light;
+}
+
+.tt-dropdown-menu {
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, .15);
+    box-shadow: 0 1px 0px rgba(0,0,0,.175);
+    min-width: 312px;
+    padding: 4px 0 4px 4px;
+    z-index: 1000;
+
+    h4 {
+    	font-size: 1.4em;
+    	color: @gray;
+    	font-weight: 200;
+    	padding-top: 0;
+    	strong {
+    		font-weight: 200;
+    		color: #000;
+    	}
+    }
+    .tt-suggestion a {
+	    text-decoration: none;
+		}
+		.tt-suggestion.tt-cursor {
+		    background-color: @color-seabreeze;
+		    strong {
+		    	color: #000;
+		    }
+		}
+}
+
+
+#signout-button {
+	ul.dropdown-menu {
+		border: 1px solid @color-lightslate;
+		left: -106px;
+		top: 42px;
+	}
+}
+
+.media-footer {
     display: none;
 }
 
-@import "old-styles.less";
+form.form-inline {
+	display: inline-block;
+}
+
+#activity {
+	margin-top: 2em;
+	a {
+		&.avatar {
+			img {
+				min-width: 70px;
+			}
+
+		}
+	}
+	h4 {
+		font-weight: 200;
+		a {
+			font-weight: 600;
+		}
+	}
+	h5,
+	h6 {
+		margin: 0;
+	}
+	.media {
+		padding: 12px;
+		a {
+			color: black;
+		}
+		.media-left a img {
+			max-width: 75px;
+		}
+		blockquote {
+			border-left: none;
+			margin: 0;
+			padding: 8px;
+			h3,
+			h5,
+			h6 {
+				font-weight: 200;
+				margin: 0;
+				color: @gray-dark;
+			}
+		}
+		.activity-attachment {
+			a.avatar {
+				max-width: 5%;
+			}
+			a.action-avatar {
+				max-width: 5%;
+				padding-right: .5em;
+			}
+		}
+	}
+	#pager {
+		margin-top: 1em;
+	}
+}
+
+.footer {
+	background-color: @color-lightslate;
+	color: white;
+	min-height: 200px;
+	font-size: smaller;
+	margin-top: 60px;
+	padding-top: 40px;
+
+	a {
+		color: white;
+	}
+}
+
+// ALERTS
+
+#navbar-alert {
+	text-align: center;
+	border: none;
+	a {
+		color: #000;
+		font-weight: bolder;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}
+
+// PROJECTS AND MAKERS ************************************
+
+#project-info,
+#project-info-edit,
+#maker-info,
+#maker-info-edit,
+#user-profile {
+	padding-top: 1em;
+	h1 {
+		font-weight: 200;
+		margin: 0;
+		color: @color-rust;
+	}
+
+	@media (max-width: @screen-sm-min) {
+		h1 {
+			font-size: 1.2em;
+		}
+	}
+	h3 {
+		font-size: 1.1em;
+		font-weight: 200;
+		margin: 2px 0;
+	}
+	h5 {
+		font-size: 0.8em;
+		font-weight: 200;
+		margin: 6px 0;
+	}
+	.btn {
+		font-size: 0.8em;
+	}
+	.media-left {
+		width: 25%;
+	}
+	.img-responsive {
+		background-color: #fff;
+	}
+}
+
+#project-info,
+#maker-info {
+	a,
+	.btn {
+		padding: 0;
+		color: @color-seabreeze-dark;
+	}
+	#maker-info-edit-cancel,
+	#project-info-edit-cancel {
+		color: @brand-danger;
+	}
+}
+
+#project-info-edit,
+#maker-info-edit {
+	button.btn-link {
+		padding: 0;
+		color: @brand-danger;
+	}
+	label {
+		clear: left;
+	}
+	display: none;
+}
+
+
+#made-with{
+	margin-top: 2em;
+	ul {
+		text-align: center;
+		background-color: #fff;
+		padding: 0.5em;
+		margin: 0;
+		@media (max-width: @screen-md-min) {
+			font-size: 0.8em;
+		}
+		a {
+			color: @color-seabreeze-dark;
+		}
+		button {
+			display: none;
+			padding: 0;
+			line-height: .5;
+		}
+		img {
+			width: 16px;
+		}
+		li {
+			padding: 0;
+			&:hover {
+				img {
+						display: none;
+				}
+				button {
+					display: inline;
+					color: @brand-danger;
+					width: 19px;
+					border: 0;
+				}
+				form {
+					margin-bottom: 1px;
+				}
+			}
+		}
+	}
+}
+
+#maker-nudge {
+	text-align: center;
+	background-color: #fff;
+	padding: 0.5em;
+	margin-top: 1em;
+	@media (max-width: @screen-md-min) {
+		font-size: 0.8em;
+	}
+	a {
+		color: @color-seabreeze-dark;
+	}
+}
+
+#roles {
+	margin-top: 1em;
+	h3 {
+		margin: .2em 0;
+		font-size: 1.4em;
+		a {
+			color: #000;
+		}
+	}
+	h5 {
+		margin: 0;
+		font-size: 0.8em;
+		font-weight: 200;
+	}
+	.edit-role-btn {
+		color: @color-seabreeze-dark;
+	}
+	.edit-role-button-cancel {
+		display: none;
+	}
+	.role-archive-form {
+		display: none;
+	}
+}
+
+#makers,
+#projects {
+	#add-role {
+	}
+	#add-role-form {
+		display: none;
+	}
+}
+
+#usedby {
+	padding-top: 2em;
+	h3 {
+		margin-top: 10px;
+		a {
+			color: #000;
+		}
+	}
+}
+
+#use-these {
+	margin-top: 2em;
+	#use-these-actions {
+		text-align: center;
+		background-color: @color-lightslate;
+		padding-bottom: 1em;
+		h4 {
+			font-size: 1em;
+			font-weight: 200;
+			padding: 0.5em;
+		}
+		.use-these-actions-buttons {
+			.btn {
+				padding: 6px 8px;
+			}
+		}
+	}
+
+}
+
+#collaborators {
+	h3 {
+		margin: .2em 0;
+		font-size: 1.4em;
+		a {
+			color: #000;
+		}
+	}
+	.media-body {
+		a {
+			padding-right: 10px;
+			img {
+				 width: 12px;
+				 height: 12px;
+				 margin-top: -3px;
+			}
+		}
+	}
+}
+
+// USER PAGE ************************************
+
+#user-settings {
+	margin-top: 1em;
+	.jumbotron {
+		margin: 0;
+		padding: 0;
+		background-color: #fff;
+		h2 {
+			font-size: 1.5em;
+		}
+		form {
+			padding: 20px;
+		}
+		p {
+			font-size: 1em;
+			display: block;
+			clear: both;
+		}
+	}
+}
+
+// LANDING PAGE ************************************
+
+#homepage-search {
+	.twitter-typeahead {
+		padding-top: 1em;
+	}
+	#nav-typeahead,
+	.tt-hint {
+		padding: 1.5em;
+		width: 100%;
+		@media (min-width: @screen-sm-min) {
+			font-size: 1.7em;
+		}
+	}
+	#nav-typeahead {
+		margin-top: -14px;
+	}
+}
+
+#landing-header {
+
+	h1 {
+		height: 2em;
+    margin-bottom: 0;
+    background: url(../img/makerbase-logo-horizontal.svg) no-repeat top 0 left 0;
+    background-size: 90% auto;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+	}
+
+	h3 {
+		font-size: smaller;
+		font-weight: 200;
+		color: @color-lightslate;
+		text-align: center;
+	}
+
+	h6 {
+		text-align: center;
+	}
+
+	#join-button {
+		.btn-styles(@btn-success-bg);
+		display: block;
+		margin: 40px auto 0 auto;
+	}
+
+	@media (min-width: @screen-sm-min) {
+		h1 {
+			height: 3em;
+		}
+		h3 {
+			font-size: ceil((@font-size-base * 1.7));
+		}
+
+	}
+
+	@media (min-width: @screen-md-min) {
+		#join-button {
+			display: inline-block;
+			margin: 40px 15% 0 15%;
+		}
+	}
+}
+
+#landing-featured {
+	a {
+		color: black;
+	}
+	.media {
+		margin-top: 8px;
+	}
+}
+
+#landing-top-contributors {
+	a.top-contributor {
+		display: inline-block;
+		margin-bottom: 8px;
+		padding: 8px 0 8px 20px;
+		img.avatar {
+			width: 50%;
+			margin-bottom: 8px;
+		}
+		.contrib-meet {
+			color: white;
+			background-color: hsla(0, 0%, 0%, 0.3);
+			padding: 2px 4px 0 6px;
+			margin-top: 15%;
+		}
+		h4 {
+			clear: both;
+			color: black;
+			font-weight: 200;
+		}
+	}
+	@media (min-width: @screen-sm-min) {
+		a.top-contributor {
+			.contrib-meet {
+				padding: 4px 12px;
+			}
+		}
+	}
+}
+
+body.landing {
+	#activity {
+		blockquote {
+			display: none;
+		}
+	}
+}
+
+body.landing-door {
+	background-color: #fff;
+	#activity {
+		margin-top: 0;
+		blockquote {
+			display: none;
+		}
+	}
+	.pager {
+		display: none;
+	}
+}
+
+#testimonial-quote {
+	background-color: black;
+	padding: .3em 0;
+	margin-top: 2em;
+	h2 {
+		text-align: center;
+		color: white;
+		font-weight: 200;
+		font-size: 1.2em;
+		i {
+			color: @color-seabreeze;
+		}
+	}
+
+	@media (min-width: @screen-sm-min) {
+		font-size: 1.8em;
+	}
+}
+
+.feature-box {
+	margin-top: 3em;
+	min-height: 240px;
+	h1 {
+		font-size: 4em;
+		color: white;
+	}
+	p {
+		color: white;
+	}
+
+	@media (min-width: @screen-sm-min) {
+		min-height: 300px;
+		p {
+			font-size: 1.3em;
+		}
+	}
+}
+
+#landing-makers {
+	background-color: @color-dijon-dark;
+	background-image: url(../img/landing-maker-desk.png);
+	background-position: left top;
+	background-repeat: no-repeat;
+}
+
+#landing-projects {
+	background-color: @color-bubblegum-dark;
+	background-image: url(../img/landing-project-apps.png);
+	background-position: left -120px top;
+	background-repeat: no-repeat;
+	@media (min-width: @screen-sm-min) {
+		background-position: left 0 top 0;
+	}
+}
+
+#landing-sponsors {
+	background-color: @gray-lighter;
+	h1,
+	p {
+		color: black;
+	}
+	a.sponsor {
+		display: inline-block;
+		background-color: white;
+		margin-bottom: 8px;
+		padding: 8px 0 0 0;
+		border-radius: 8px 2px;
+		width: 100%;
+		img.avatar {
+			width: 40%;
+			margin-bottom: 8px;
+		}
+		.sponsor-projects {
+			color: white;
+			background-color: @color-seabreeze;
+			padding: 4px 4px 4px 8px;
+			margin-top: 12%;
+		}
+	}
+
+	@media (max-width: @screen-md-min) {
+		h1 {
+			font-size: 1.5em;
+		}
+	}
+}
