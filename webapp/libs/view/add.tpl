@@ -87,7 +87,7 @@
 		<form method="post" action="/add/{$object}/" class="form-horizontal">
 
 			<div class="col-xs-2">
-					<img src="{if isset($avatar_url)}{$avatar_url}{else}https://makerba.se/assets/img/blank-maker.png{/if}" id="avatar-img" class="img-responsive">
+					<img src="{if isset($avatar_url)}{$avatar_url}{else}{$site_root_path}assets/img/blank-{if $object eq 'product'}project{else}maker{/if}.png{/if}" id="avatar-img" class="img-responsive">
 			</div>
 
 			<div class="col-xs-10">

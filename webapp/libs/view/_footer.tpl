@@ -3,8 +3,39 @@
 
     <footer class="footer">
       <div class="container">
-        <p class="pull-right text-muted"><a href="https://twitter.com/makerbase">@makerbase</a> &#183; <a href="/about/terms/">Terms</a> &#183; <a href="/about/privacy/">Privacy</a></p>
-        <p class="text-muted">&copy; 2015 <a href="{if isset($logged_in_user)}/p/{$thinkup_uid}/thinkup{else}http://thinkup.com{/if}">ThinkUp</a>. Go make something.</p>
+        <div class="row">
+          <div class="col-sm-6 col-sm-offset-1 col-xs-4">
+            <img src="/assets/img/makerbase-mark-white.svg" class="hidden-xs pull-left" width="100" style="padding-right: 20px; margin-top: -20px;"/>
+            <ul class="list-unstyled">
+              <li>&copy; 2015 <a href="{if isset($logged_in_user)}/p/{$thinkup_uid}/thinkup{else}http://thinkup.com{/if}">ThinkUp</a></li>
+              <li>Go make something.</li>
+            </ul>
+          </div>
+
+          <div class="col-sm-2 col-xs-4">
+            <ul class="list-unstyled">
+              <li><a href="/about/sponsor/">Become a sponsor</a></li>
+              <li><a href="/about/terms/">Terms</a></li>
+              <li><a href="/about/privacy/">Privacy</a></li>
+            </ul>
+          </div>
+
+          <div class="col-sm-2 col-xs-4">
+            <ul class="list-unstyled">
+              <li><a href="/about/">About</a></li>
+              <li><a href="/about/faq/">FAQ</a></li>
+              <li><i class="fa fa-twitter"></i> <a href="https://twitter.com/makerbase">@makerbase</a></li>
+            </ul>
+          </div>
+
+
+
+
+        <!--
+        <p class="pull-right"> &#183; </p>
+        <p class=""></p>
+        -->
+        </div>
       </div>
     </footer>
 
@@ -177,8 +208,10 @@
       });
 
       $(function () {
-        $('[data-toggle="popover"]').popover()
+        $('[data-toggle="popover"]').popover();
+        $(".alert").addClass("in")
       })
+
     </script>
 
     <script type='text/javascript'>

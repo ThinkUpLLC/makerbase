@@ -49,6 +49,15 @@ class LandingController extends MakerbaseController {
             SessionCache::unsetKey('is_waitlisted');
             $this->disableCaching();
             $this->setViewTemplate('landing-door.tpl');
+
+            if ($this->shouldRefreshCache() ) {
+                $page_number = 1;
+                $limit = 6;
+                $action_dao = new ActionMySQLDAO();
+                $actions = $action_dao->getActivities($page_number, $limit);
+                $this->addToView('actions', $actions);
+            }
+
         }
 
         // Transfer cached user messages to the view
