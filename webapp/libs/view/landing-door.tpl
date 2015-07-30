@@ -31,82 +31,54 @@
   <div class="col-xs-12 col-sm-5 col-sm-offset-1">
     <h3>featured makers</h3>
 
+    {foreach $featured_makers as $featured_maker}
     <div class="media row">
       <div class="media-left media-top col-xs-3">
-        <a href="/m/u438n4/buster" class="avatar">
-          <img class="media-object img-responsive img-rounded" src="/img.php?url=https://pbs.twimg.com/profile_images/596779047134199808/IBpBry99_400x400.jpg&t=m&s=d324372b5018ab44536ea0dc260a89d0" alt="Buster Benson">
+        <a href="/m/{$featured_maker->uid}/{$featured_maker->slug}" class="avatar">
+          <img class="media-object img-responsive img-rounded" src="{insert name='user_image' image_url=$featured_maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" alt="{$featured_maker->name}">
         </a>
       </div>
       <div class="col-xs-9">
-        <h4 class="media-heading"><a href="/m/u438n4/buster">Buster Benson</a></h4>
-        <p><a href="/p/m348b6/slackhq">Slack</a>, <a href="/p/29t1ck/nanowrimo">NaNoWriMo</a>, <a href="/p/220mqa/coachdotme">Coach.me</a>, <a href="/p/6n0h77/twitter">Twitter</a>, <a href="https://makerbase.dev/p/dk2x9t/healthmonth">Health Month</a>, <a href="/p/sthl3c/43things">43 Things</a>, <a href="/p/c67ze0/allconsuming">All Consuming</a></p>
-      </div>
-    </div>
+        <h4 class="media-heading"><a href="/m/{$featured_maker->uid}/{$featured_maker->slug}">{$featured_maker->name}</a></h4>
+        <p class="media-body">
 
-    <div class="media row">
-      <div class="media-left media-top col-xs-3">
-        <a href="/m/8b04i1/tiffani" class="avatar">
-          <img class="media-object img-responsive img-rounded" src="/img.php?url=https://pbs.twimg.com/profile_images/603688189132320768/Rx0gbYCE.jpg&t=m&s=d324372b5018ab44536ea0dc260a89d0" alt="Tiffani Ashley Bell">
-        </a>
-      </div>
-      <div class="col-xs-9">
-        <h4 class="media-heading"><a href="/m/8b04i1/tiffani">Tiffani Ashley Bell</a></h4>
-        <p><a href="/p/104y4n/detwaterproject">Detroit Water Project</a></p>
-      </div>
-    </div>
+          {foreach $featured_maker->products as $featured_maker_product}
+            <a href="/p/{$featured_maker_product->uid}/{$featured_maker_product->slug}">
+              <img src="{insert name='user_image' image_url=$featured_maker_product->avatar_url image_proxy_sig=$image_proxy_sig type='m'}">
+              {$featured_maker_product->name}
+            </a>
+          {/foreach}
 
-    <div class="media row">
-      <div class="media-left media-top col-xs-3">
-        <a href="/m/21of1k/baratunde" class="avatar">
-          <img class="media-object img-responsive img-rounded" src="/img.php?url=https://pbs.twimg.com/profile_images/607560746344583168/v-qSauYE.jpg&t=m&s=d324372b5018ab44536ea0dc260a89d0" alt="Baratunde Thurston">
-        </a>
-      </div>
-      <div class="col-xs-9">
-        <h4 class="media-heading"><a href="/m/21of1k/baratunde">Baratunde Thurston</a></h4>
-        <p><a href="/p/n48ne8/comedyhackday">Comedy Hack Day</a>, <a href="/p/s9k24z/showaboutrace">About Race</a></p>
+        </p>
       </div>
     </div>
+    {/foreach}
 
   </div>
 
   <div class="col-xs-12 col-sm-5">
     <h3>featured projects</h3>
 
+    {foreach $featured_products as $featured_product}
     <div class="media row">
       <div class="media-left media-top col-xs-3">
-        <a href="/p/336qs6/podcaststartup" class="avatar">
-          <img class="media-object img-responsive img-rounded" src="/img.php?url=http://pbs.twimg.com/profile_images/505379339823640577/8-Y8h6pL.jpeg&t=p&s=d324372b5018ab44536ea0dc260a89d0" alt="Startup podcast">
+        <a href="/p/{$featured_product->uid}/{$featured_product->slug}" class="avatar">
+          <img class="media-object img-responsive img-rounded" src="{insert name='user_image' image_url=$featured_product->avatar_url image_proxy_sig=$image_proxy_sig type='p'}" alt="{$featured_product->name}">
         </a>
       </div>
       <div class="col-xs-9">
-        <h4 class="media-heading"><a href="/p/336qs6/podcaststartup">Startup podcast</a></h4>
-        <p><a href="/m/ytfi65/abexlumberg">Alex Blumberg</a></p>
+        <h4 class="media-heading"><a href="/p/{$featured_product->uid}/{$featured_product->slug}">{$featured_product->name}</a></h4>
+        <p class="media-body">
+          {foreach $featured_product->makers as $featured_product_maker}
+            <a href="/p/{$featured_product_maker->uid}/{$featured_product_maker->slug}">
+              <img src="{insert name='user_image' image_url=$featured_product_maker->avatar_url image_proxy_sig=$image_proxy_sig type='p'}">
+              {$featured_product_maker->name}
+            </a>
+          {/foreach}      
+        </p>
       </div>
     </div>
-
-    <div class="media row">
-      <div class="media-left media-top col-xs-3">
-        <a href="/p/50807q/googlereader" class="avatar">
-          <img class="media-object img-responsive img-rounded" src="/img.php?url=http://pbs.twimg.com/profile_images/71187612/reader.png&t=p&s=d324372b5018ab44536ea0dc260a89d0" alt="Google Reader">
-        </a>
-      </div>
-      <div class="col-xs-9">
-        <h4 class="media-heading"><a href="/p/50807q/googlereader">Google Reader</a></h4>
-        <p><a href="/m/q8yji8/shellen">Jason Shellen</a>, <a href="/m/11r2z0/cw">Chris Wetherell</a>, <a href="https://makerbase.dev/m/e50b37/mihai">Mihai Parparita</a>, <a href="/m/1r08h6/jenna">Jenna Bilotta</a></p>
-      </div>
-    </div>
-
-    <div class="media row">
-      <div class="media-left media-top col-xs-3">
-        <a href="/p/pzbhgf/whatiscode" class="avatar">
-          <img class="media-object img-responsive img-rounded" src="/img.php?url=http://www.bloomberg.com/graphics/2015-paul-ford-what-is-code/images/emotes/angry.gif&t=p&s=d324372b5018ab44536ea0dc260a89d0" alt="What Is Code?">
-        </a>
-      </div>
-      <div class="col-xs-9">
-        <h4 class="media-heading"><a href="/p/pzbhgf/whatiscode">What is Code?</a></h4>
-        <p><a href="/m/5lav62/ftrain">Paul Ford</a></p>
-      </div>
-    </div>
+    {/foreach}
 
   </div>
 
@@ -118,37 +90,32 @@
     <h3>today's top contributors</h3>
     <ul class="list-inline row">
 
+      {foreach $featured_users as $featured_user}
+
+      {assign var='color_num' value=1|mt_rand:9}
+
+      {if $color_num eq '1'}{assign var='color' value='bubblegum'}
+        {elseif $color_num eq '2'}{assign var='color' value='caramel'}
+        {elseif $color_num eq '3'}{assign var='color' value='creamsicle'}
+        {elseif $color_num eq '4'}{assign var='color' value='dijon'}
+        {elseif $color_num eq '5'}{assign var='color' value='mint'}
+        {elseif $color_num eq '6'}{assign var='color' value='pea'}
+        {elseif $color_num eq '7'}{assign var='color' value='purple'}
+        {elseif $color_num eq '8'}{assign var='color' value='salmon'}
+        {elseif $color_num eq '9'}{assign var='color' value='sandalwood'}
+        {elseif $color_num eq '0'}{assign var='color' value='sepia'}
+        {else}{assign var='color' value='gray-lighter'}
+      {/if}
+
       <li class="col-xs-6 col-sm-3">
-        <a href="/u/24ul5k" class="top-contributor style-mint">
-            <img class="img-rounded avatar pull-left" src="https://pbs.twimg.com/profile_images/624922880887779328/6WbU2QPv.jpg" alt="fourtonfish">
+        <a href="/u/{$featured_user->uid}" class="top-contributor style-{$color}">
+            <img class="img-rounded avatar pull-left" src="{insert name='user_image' image_url=$featured_user->avatar_url image_proxy_sig=$image_proxy_sig type='u'}" alt="{$featured_user->name}">
             <buttton class="pull-right contrib-meet">meet <i class="fa fa-arrow-right"></i></buttton>
-            <h4>fourtonfish</h4>
+            <h4>{$featured_user->name}</h4>
           </a>
       </li>
 
-      <li class="col-xs-6 col-sm-3">
-        <a href="/u/587uv4" class="top-contributor style-creamsicle">
-            <img class="img-rounded avatar pull-left" src="/img.php?url=http://pbs.twimg.com/profile_images/523226616957530112/JECOzLlD.jpeg&t=m&s=d324372b5018ab44536ea0dc260a89d0" alt="mathowie">
-            <buttton class="pull-right contrib-meet">meet <i class="fa fa-arrow-right"></i></buttton>
-            <h4>mathowie</h4>
-          </a>
-      </li>
-
-      <li class="col-xs-6 col-sm-3">
-        <a href="/u/ecxv9t" class="top-contributor style-purple">
-            <img class="img-rounded avatar pull-left" src="/img.php?url=http://pbs.twimg.com/profile_images/550825678673682432/YRqb4FJE.png&t=m&s=d324372b5018ab44536ea0dc260a89d0" alt="ginatrapani">
-            <buttton class="pull-right contrib-meet">meet <i class="fa fa-arrow-right"></i></buttton>
-            <h4>ginatrapani</h4>
-          </a>
-      </li>
-
-      <li class="col-xs-6 col-sm-3">
-        <a href="/u/xrqyy7" class="top-contributor style-seabreeze">
-            <img class="img-rounded avatar pull-left" src="/img.php?url=http://pbs.twimg.com/profile_images/614456959643717632/r7vo2M9M.png&t=m&s=d324372b5018ab44536ea0dc260a89d0" alt="mrgan">
-            <buttton class="pull-right contrib-meet">meet <i class="fa fa-arrow-right"></i></buttton>
-            <h4>mrgan</h4>
-          </a>
-      </li>
+      {/foreach}
 
     </ul>
   </div>

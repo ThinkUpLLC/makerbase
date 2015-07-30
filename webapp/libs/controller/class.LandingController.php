@@ -39,6 +39,25 @@ class LandingController extends MakerbaseController {
                     .'">Add your email address now.</a>');
             }
         } else {
+            //Featured makers
+            $config = Config::getInstance();
+            $featured_makers = $config->getValue('featured_makers');
+            $this->addToView('featured_makers', $featured_makers);
+
+            //Featured products
+            $featured_products = $config->getValue('featured_products');
+            $this->addToView('featured_products', $featured_products);
+
+            //Featured users
+            $featured_user_uids = $config->getValue('featured_users');
+            $user_dao = new UserMySQLDAO();
+            $featured_users = array();
+            //@TODO Optimize this!
+            foreach($featured_user_uids as $featured_user_uid) {
+                $featured_users[] = $user_dao->get($featured_user_uid);
+            }
+            $this->addToView('featured_users', $featured_users);
+
             $waitlisted_user = SessionCache::get('is_waitlisted');
             $is_waitlisted = isset($waitlisted_user);
             if ($is_waitlisted) {
