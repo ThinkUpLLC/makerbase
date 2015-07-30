@@ -5747,6 +5747,7 @@ form.form-inline {
 }
 #collaborators .media-body a {
   padding-right: 10px;
+  display: inline-block;
 }
 #collaborators .media-body a img {
   width: 12px;
@@ -5809,7 +5810,7 @@ form.form-inline {
 }
 #landing-header #join-button {
   display: block;
-  margin: 40px auto 0 auto;
+  margin: 2em auto 0 auto;
 }
 #landing-header #join-button:hover,
 #landing-header #join-button:focus {
@@ -5851,9 +5852,19 @@ fieldset[disabled] #landing-header #join-button.active {
   }
 }
 @media (min-width: 992px) {
+  #landing-header h1 {
+    height: 3.5em;
+    margin-bottom: 0.5em;
+  }
   #landing-header #join-button {
     display: inline-block;
-    margin: 40px 15% 0 15%;
+    margin: 3em 15% 0 15%;
+  }
+}
+@media (min-width: 1200px) {
+  #landing-header #join-button {
+    display: inline-block;
+    margin: 3.5em 15% 0 15%;
   }
 }
 #landing-featured a {
@@ -5861,6 +5872,15 @@ fieldset[disabled] #landing-header #join-button.active {
 }
 #landing-featured .media {
   margin-top: 8px;
+}
+#landing-featured .media-body a {
+  padding-right: 10px;
+  display: inline-block;
+}
+#landing-featured .media-body a img {
+  width: 12px;
+  height: 12px;
+  margin-top: -3px;
 }
 #landing-top-contributors a.top-contributor {
   display: inline-block;

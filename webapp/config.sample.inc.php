@@ -44,3 +44,8 @@ $ISOSCELES_CFG['sponsors'] = array(
 
 // Mandrill
 $ISOSCELES_CFG['mandrill_api_key']    = 'g5zBXny4VBAp0s4TCVB27Q';
+
+//Featured makers/projects/users
+if (file_exists('featured.inc.php')) {
+    require('featured.inc.php');
+}
