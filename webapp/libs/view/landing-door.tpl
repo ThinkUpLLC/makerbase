@@ -70,11 +70,11 @@
         <h4 class="media-heading"><a href="/p/{$featured_product->uid}/{$featured_product->slug}">{$featured_product->name}</a></h4>
         <p class="media-body">
           {foreach $featured_product->makers as $featured_product_maker}
-            <a href="/p/{$featured_product_maker->uid}/{$featured_product_maker->slug}">
-              <img src="{insert name='user_image' image_url=$featured_product_maker->avatar_url image_proxy_sig=$image_proxy_sig type='p'}">
+            <a href="/m/{$featured_product_maker->uid}/{$featured_product_maker->slug}">
+              <img src="{insert name='user_image' image_url=$featured_product_maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}">
               {$featured_product_maker->name}
             </a>
-          {/foreach}      
+          {/foreach}
         </p>
       </div>
     </div>

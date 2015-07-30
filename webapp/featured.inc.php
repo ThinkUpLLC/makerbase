@@ -18,7 +18,8 @@ $featured_maker_1_products = array();
 $featured_maker_1_products[] = array(
     'name' => 'littleBits',
     'uid' => '1e2224',
-    'slug' => 'littlebits'
+    'slug' => 'littlebits',
+    'avatar_url' => 'http://pbs.twimg.com/profile_images/467301645009690624/l3sT7gHv.png'
 );
 
 // Second featured Maker
@@ -33,25 +34,29 @@ $featured_maker_2_products = array();
 $featured_maker_2_products[] = array(
     'name' => '750 Words',
     'uid' => '3v53xr',
-    'slug' => '750words'
+    'slug' => '750words',
+    'avatar_url' => 'http://pbs.twimg.com/profile_images/443644067075723264/QJc2IfUa.png'
 );
 
 $featured_maker_2_products[] = array(
     'name' => 'Peabrain',
     'uid' => 'jx3208',
-    'slug' => 'peabrain'
+    'slug' => 'peabrain',
+    'avatar_url' => 'http://pbs.twimg.com/profile_images/2340141109/a1ewp3airch7ocs4ccuh.png'
 );
 
 $featured_maker_2_products[] = array(
     'name' => 'Health Month',
     'uid' => 'dk2x9t',
-    'slug' => 'healthmonth'
+    'slug' => 'healthmonth',
+    'avatar_url' => 'http://pbs.twimg.com/profile_images/1136999397/track_meals.400.png'
 );
 
 $featured_maker_2_products[] = array(
     'name' => 'Locavore',
     'uid' => '2dd6xe',
-    'slug' => 'locavore'
+    'slug' => 'locavore',
+    'avatar_url' => 'http://is3.mzstatic.com/image/pf/us/r30/Purple/v4/19/a4/2d/19a42def-3e28-b8af-4310-cbb6a145ff60/mzl.evvvtiux.jpg'
 );
 
 // Third featured Maker
@@ -59,14 +64,15 @@ $featured_maker_3_array = array(
     'name' => 'Marques Brownlee',
     'avatar_url' => 'http://pbs.twimg.com/profile_images/590305718151970816/kk7QHF2q.jpg',
     'uid' => '8b04i1',
-    'slug' => 'baratunde'
+    'slug' => 'mkbhd'
 );
 
 $featured_maker_3_products = array();
 $featured_maker_3_products[] = array(
     'name' => 'MKBHD',
     'uid' => '7kviq5',
-    'slug' => 'mkbhd'
+    'slug' => 'mkbhd',
+    'avatar_url' => 'https://lh6.ggpht.com/61Gh4hjz3u0ZmrZvu6w2uODGdlahHy-_316PNgKtUsIQqi27r9J1sY5OiVffvR9hPdw=w300'
 );
 
 //** Featured Products **//
@@ -83,13 +89,15 @@ $featured_product_1_makers = array();
 $featured_product_1_makers[] = array(
     'name' => 'Tiffani Ashley Bell',
     'uid' => '8b04i1',
-    'slug' => 'tiffani'
+    'slug' => 'tiffani',
+    'avatar_url' => 'http://pbs.twimg.com/profile_images/476859378281095169/5b0SzaZm.jpeg'
 );
 
 $featured_product_1_makers[] = array(
     'name' => 'Kristy Tillman',
     'uid' => '8vciz8',
-    'slug' => 'kristyt'
+    'slug' => 'kristyt',
+    'avatar_url' => 'http://pbs.twimg.com/profile_images/538342171704049664/x4h_BHV1.jpeg'
 );
 
 // Second featured Product
@@ -104,19 +112,22 @@ $featured_product_2_makers = array();
 $featured_product_2_makers[] = array(
     'name' => 'Paul Ford',
     'uid' => '5lav62',
-    'slug' => 'ftrain'
+    'slug' => 'ftrain',
+    'avatar_url' => 'http://pbs.twimg.com/profile_images/3363818792/c90e33ccf22e3146d5cd871ce561795a.png'
 );
 
 $featured_product_2_makers[] = array(
     'name' => 'Jim Aley',
     'uid' => 'btdsg5',
-    'slug' => 'jimaley'
+    'slug' => 'jimaley',
+    'avatar_url' => 'http://pbs.twimg.com/profile_images/2928401560/7b981209a02e8019819973226d5c07ed.png'
 );
 
 $featured_product_2_makers[] = array(
     'name' => 'Toph Tucker',
     'uid' => 'bjb48n',
-    'slug' => 'tophtucker'
+    'slug' => 'tophtucker',
+    'avatar_url' => 'http://pbs.twimg.com/profile_images/587137703025762304/WYq1-qus.jpg'
 );
 
 // Third featured Product
@@ -131,13 +142,15 @@ $featured_product_3_makers = array();
 $featured_product_3_makers[] = array(
     'name' => 'Colin Nederkoorn',
     'uid' => '2k53m4',
-    'slug' => 'alphacolin'
+    'slug' => 'alphacolin',
+    'avatar_url' => 'http://pbs.twimg.com/profile_images/593215937219670016/mDRLFYEd.jpg'
 );
 
 $featured_product_3_makers[] = array(
     'name' => 'Ryan Witt',
     'uid' => 'z49b24',
-    'slug' => 'onecreativenerd'
+    'slug' => 'onecreativenerd',
+    'avatar_url' => 'http://pbs.twimg.com/profile_images/461721229292875776/v6shxhsp.jpeg'
 );
 
 
@@ -150,7 +163,7 @@ class FeatureHelper {
         $featured_makers = array();
 
         $defaults = array('id'=>null, 'creation_time'=>null, 'url'=>null, 'is_archived'=>0, 'is_frozen'=>0);
-        $product_defaults = array_merge(array('avatar_url'=>null, 'description'=>null), $defaults);
+        $product_defaults = array_merge(array('description'=>null), $defaults);
 
         $featured_maker_1 = new Maker(array_merge($featured_maker_1_array, $defaults));
         $featured_maker_1->products = array();
@@ -183,7 +196,7 @@ class FeatureHelper {
 
         $defaults = array('id'=>null, 'creation_time'=>null, 'url'=>null, 'is_archived'=>0, 'is_frozen'=>0,
             'description'=>null);
-        $maker_defaults = array_merge(array('avatar_url'=>null), $defaults);
+        $maker_defaults = $defaults;
 
         $featured_product_1 = new Product(array_merge($featured_product_1_array, $defaults));
         $featured_product_1->makers = array();
@@ -219,3 +232,5 @@ $ISOSCELES_CFG['featured_products'] = FeatureHelper::getFeaturedProducts($featur
     $featured_product_3_makers);
 
 $ISOSCELES_CFG['featured_users'] = array('2r068g', 'xrqyy7', 'lkq49x', '55lz73');
+
+
