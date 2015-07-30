@@ -38,12 +38,31 @@ class SearchAutoCompleteController extends MakerbaseAuthController {
                 $profiler->add($total_time, "Elasticsearch", false);
             }
             if (isset($return_document['hits']['hits'])) {
+                $image_proxy_sig = Config::getInstance()->getValue('image_proxy_sig');
                 foreach ($return_document['hits']['hits'] as $hit) {
+                    $hit['_source']['avatar_url'] = $this->sendImageThruProxy($hit['_source']['avatar_url'],
+                        $hit['_source']['type'], $image_proxy_sig);
                     $results[] = $hit['_source'];
                 }
             }
         }
         $this->setJsonData($results);
         return $this->generateView();
+    }
+
+    private function sendImageThruProxy($image_url, $type, $image_proxy_sig) {
+        if (empty($image_url)) {
+            if ($type == 'm' || $type == 'u') {
+                return 'https://makerba.se/assets/img/blank-maker.png';
+            } else {
+                return 'https://makerba.se/assets/img/blank-project.png';
+            }
+        } else {
+            if (!empty($image_proxy_sig)) {
+                return 'https://makerba.se/img.php?url='.$image_url."&t=".$type."&s=".$image_proxy_sig;
+            } else {
+                return $image_url;
+            }
+        }
     }
 }
