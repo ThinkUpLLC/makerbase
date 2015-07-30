@@ -28,7 +28,7 @@ class CacheHelper {
     private static function getCacheKeyStringForReload($template, $uid, $slug, $include_logged_in_user = true) {
         $view_cache_key = array();
         array_push($view_cache_key, $uid);
-        array_push($view_cache_key, $slug);
+        array_push($view_cache_key, strtolower($slug));
         if ($include_logged_in_user && Session::isLoggedIn()) {
             array_push($view_cache_key, Session::getLoggedInUser());
         }
