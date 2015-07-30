@@ -44,6 +44,12 @@ class AdminDashboardController extends MakerbaseAdminController {
             $this->addToView('actions', $actions);
         }
 
+        if ($_GET['v'] == 'top-users') {
+            $user_dao = new UserMySQLDAO();
+            $top_users = $user_dao->getUsersWithMostActions(30);
+            $this->addToView('top_users', $top_users);
+        }
+
         $this->addToView('sort_view',  $_GET['v']);
 
         $total_waitlisters = $waitlist_dao->getTotal();

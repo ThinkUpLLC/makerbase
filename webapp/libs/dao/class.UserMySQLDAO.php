@@ -188,6 +188,17 @@ EOD;
         return $result['total'];
     }
 
+    public function getUsersWithMostActions($in_last_x_days = 14) {
+        $q = <<<EOD
+SELECT u.*, COUNT(*) AS total_actions FROM actions a INNER JOIN users u ON a.user_id = u.id
+WHERE time_performed BETWEEN DATE_SUB(NOW(), INTERVAL $in_last_x_days DAY) AND NOW()
+GROUP by user_id ORDER BY total_actions DESC LIMIT 20;
+EOD;
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $ps = $this->execute($q);
+        return $this->getDataRowsAsObjects($ps, 'User');
+    }
+
     public function freeze($uid) {
         return $this->setIsFrozen($uid, true);
     }

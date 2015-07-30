@@ -22,6 +22,7 @@
       <li role="presentation"{if isset($sort_view)}{if $sort_view eq 'waitlist_newest'}class="active"{/if}{/if}><a href="/s3cr3t/waitlist_newest">Waitlist Newest</a></li>
       <li role="presentation"{if isset($sort_view)}{if $sort_view eq 'actions'}class="active"{/if}{/if}><a href="/s3cr3t/actions">Admin Actions</a></li>
       <li role="presentation"{if isset($sort_view)}{if $sort_view eq 'all-actions'}class="active"{/if}{/if}><a href="/s3cr3t/all-actions">All Actions</a></li>
+      <li role="presentation"{if isset($sort_view)}{if $sort_view eq 'top-users'}class="active"{/if}{/if}><a href="/s3cr3t/top-users">Active Users</a></li>
     </ul>
 
 {if isset($waitlisters)}
@@ -76,6 +77,22 @@
       {/if}
 
 {/if}
+
+{if isset($top_users)}
+
+      {if sizeof($top_users) > 0}
+      <ul class="list-group">
+      {foreach $top_users as $user}
+          <li class="list-group-item col-xs-12">
+          <a href="/u/{$user->uid}">{$user->name}</a> made {$user->total_actions} changes in last 30 days
+          </li>
+      {/foreach}
+      </ul>
+      {/if}
+
+{/if}
+
+
 </div>
 </div>
 
