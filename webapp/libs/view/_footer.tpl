@@ -4,7 +4,7 @@
     <footer class="footer">
       <div class="container">
         <div class="row">
-          <div class="col-sm-6 col-sm-offset-1 col-xs-4">
+          <div class="col-sm-4 col-sm-offset-1 col-xs-4">
             <img src="/assets/img/makerbase-mark-white.svg" class="hidden-xs pull-left" width="100" style="padding-right: 20px; margin-top: -20px;"/>
             <ul class="list-unstyled">
               <li>&copy; 2015 <a href="{if isset($logged_in_user)}/p/{$thinkup_uid}/thinkup{else}http://thinkup.com{/if}">ThinkUp</a></li>
@@ -13,8 +13,33 @@
           </div>
 
           <div class="col-sm-2 col-xs-4">
+            <p>sponsored by:</p>
+            <ul class="list-unstyled footer-sponsors">
+
+              <li class="">
+                <a href="/p/7p97ga/hover">
+                    <img class="img-rounded avatar pull-left" src="/assets/img/sponsors/logo-square-hover.png" alt="Hover">
+                    Hover
+                  </a>
+              </li>
+              <li class="">
+                <a href="/p/9u0s6y/mailchimp">
+                    <img class="img-rounded avatar pull-left" src="/assets/img/sponsors/logo-square-mailchimp.jpg" alt="MailChimp">
+                    MailChimp
+                  </a>
+              </li>
+              <li class="">
+                <a href="/p/m348b6/slackhq">
+                    <img class="img-rounded avatar pull-left" src="/assets/img/sponsors/logo-square-slack.png" alt="Slack">
+                    Slack
+                  </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-sm-2 hidden-xs">
             <ul class="list-unstyled">
-              <li><a href="/about/sponsor/">Become a sponsor</a></li>
+              <li><a href="mailto:team@makerba.se?subject=sponsorship">Become a sponsor</a></li>
               <li><a href="/about/terms/">Terms</a></li>
               <li><a href="/about/privacy/">Privacy</a></li>
             </ul>
@@ -30,11 +55,6 @@
 
 
 
-
-        <!--
-        <p class="pull-right"> &#183; </p>
-        <p class=""></p>
-        -->
         </div>
       </div>
     </footer>

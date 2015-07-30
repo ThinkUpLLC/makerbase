@@ -5530,6 +5530,10 @@ form.form-inline {
 .footer a {
   color: white;
 }
+.footer .footer-sponsors img {
+  width: 16px;
+  margin-right: 4px;
+}
 #navbar-alert {
   text-align: center;
   border: none;

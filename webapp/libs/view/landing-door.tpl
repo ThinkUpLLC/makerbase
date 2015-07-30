@@ -1,5 +1,7 @@
 
 {include file="_head.tpl" suppress_navbar='true' body_class='landing-door'}
+{assign var='now_date' value=$smarty.now}
+{assign var='launch_date' value='1438646400'}
 
 <div class="row landing-row" id="landing-header">
    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
@@ -9,10 +11,12 @@
     </h1>
     <div class="col-xs-12 col-sm-5 col-lg-4">
       <a class="btn btn-success btn-lg" href="/twittersignin/" id="join-button">sign in with twitter <i class="fa fa-arrow-right"></i></a>
-      <h6>(it's free!)</h6>
+      <h6>{if $now_date gt $launch_date}(it's free!){else}(if you're already in){/if}</h6>
     </div>
   </div>
 </div>
+
+{if $now_date gt $launch_date}
 
 <div class="row">
    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
@@ -25,6 +29,7 @@
 
   </div>
 </div>
+
 
 <div class="row" id="landing-featured">
 
@@ -124,19 +129,31 @@
 
 {include file="_actions.tpl"}
 
-</div>
+{else}
 
+
+<!-- begin quote -->
+</div>
 <div class="container-fluud">
 
   <div class="row" id="testimonial-quote">
-    <h2 class="col-xs-12"><i>Makerbase is awesome. It's like an IMDB for apps!</i> &mdash; Maker Name</h2>
+    <h2 class="col-xs-12">Makerbase is gonna be like an "IMDB for apps". <i>We'll see you Tuesday.</i></h2>
   </div>
 
 </div>
 
 <div class="container">
 
+<!-- end quote -->
+
+
+{/if}
+
+
 <div class="row">
+
+
+{if $now_date gt $launch_date}
 
     <div class="feature-box col-xs-12 col-sm-10 col-sm-offset-1" id="landing-sponsors">
       <h1 class="col-xs-12">brought to you by sponsors that makers <em>love to use</em>.</h1>
@@ -164,6 +181,8 @@
       </ul>
 
     </div>
+
+{/if}
 
     <div class="feature-box col-xs-12 col-sm-10 col-sm-offset-1" id="landing-makers">
       <h1 class="col-xs-12">makers.</h1>
