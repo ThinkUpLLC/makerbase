@@ -1,6 +1,6 @@
 <?php
 
-class MakerController extends MakerbaseAuthController {
+class MakerController extends MakerbaseController {
 
     public function control() {
         parent::control();
@@ -66,7 +66,7 @@ class MakerController extends MakerbaseAuthController {
 
                 $this->addToView('placeholder', Role::getRandoPlaceholder());
 
-                if ($this->logged_in_user->is_admin) {
+                if (isset($this->logged_in_user) && $this->logged_in_user->is_admin) {
                     $last_admin_activity = $action_dao->getLastAdminActivityPerformedOnMaker($maker);
                     $this->addToView('last_admin_activity', $last_admin_activity);
                 }

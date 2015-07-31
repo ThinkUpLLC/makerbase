@@ -1,6 +1,6 @@
 <?php
 
-class UserController extends MakerbaseAuthController {
+class UserController extends MakerbaseController {
 
     public function control() {
         parent::control();
@@ -36,7 +36,7 @@ class UserController extends MakerbaseAuthController {
                 $this->addToView('actions', $actions);
 
 
-                if ($this->logged_in_user->is_admin) {
+                if (isset($this->logged_in_user) && $this->logged_in_user->is_admin) {
                     $last_admin_activity = $action_dao->getLastAdminActivityPerformedOnUser($user);
                     $this->addToView('last_admin_activity', $last_admin_activity);
                 }
