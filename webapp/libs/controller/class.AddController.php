@@ -131,7 +131,8 @@ class AddController extends MakerbaseAuthController {
         //If search term starts with an @ sign, prefill the matching Twitter user in results
         if (substr($twitter_username, 0, 1) === '@') {
             $this->addToView('name', $twitter_users[0]['full_name']);
-            $this->addToView('avatar_url', $twitter_users[0]['avatar']);
+            $https_avatar_url = str_replace('http://', 'https://', $twitter_users[0]['avatar']);
+            $this->addToView('avatar_url', $https_avatar_url);
             $this->addToView('url', $twitter_users[0]['url']);
             $this->addToView('network_username', $twitter_users[0]['user_name']);
             $this->addToView('slug', $twitter_users[0]['user_name']);

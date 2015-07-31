@@ -150,7 +150,8 @@ class TwitterAPIAccessor {
             'user_id'         => (string)$json_user->id_str,
             'user_name'       => (string)$json_user->screen_name,
             'full_name'       => (string)$json_user->name,
-            'avatar'          => str_replace('_normal', '', (string)$json_user->profile_image_url),
+            'avatar'          => str_replace('http://', 'https://',
+                str_replace('_normal', '', (string)$json_user->profile_image_url)),
             'location'        => (string)$json_user->location,
             'description'     => (string)$json_user->description,
             'url'             => (isset($json_user->entities->url->urls[0]->expanded_url))
