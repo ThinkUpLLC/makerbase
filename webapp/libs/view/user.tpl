@@ -57,15 +57,21 @@ $email_capture_state either 'need email', 'confirmation_pending' or 'confirmatio
 
         {elseif $email_capture_state eq 'confirmation_success'}
 
-          <h2>Your Makerbase settings</h2>
-          <h3>These settings are visible only to you.</h3>
+          <h2 class="col-xs-12 col-sm-10 col-sm-offset-1">
+            Your Makerbase settings<br />
+            <small>(These settings are visible only to you.)</small>
+          </h2>
 
-          <a href="#" onClick="$('#user-email-capture').toggle();" class="btn btn-sm btn-link pull-right">Change your email address</a>
+          
 
-          <p>Email: <strong>{$user->email}</strong></p>
+          <h3 class="col-xs-12 col-sm-10 col-sm-offset-1">
+            Email: <strong>{$user->email}</strong>
+            <a href="#" onClick="$('#user-email-capture').toggle();" class="btn btn-sm btn-link pull-right">Change your email address</a>
+          </h3>
 
             {include file="_user.email-form.tpl" is_collapsed=true}
 
+            <p></p>
         {/if}
 
         </div>
