@@ -29,13 +29,23 @@
       </div>
     {/foreach}
 
+    {if isset($user)}
+      {assign var='paging_path' value="/u/"|cat:$user->uid}
+    {elseif isset($maker)}
+      {assign var='paging_path' value="/m/"|cat:$maker->uid|cat:"/"|cat:$maker->slug}
+    {elseif isset($product)}
+      {assign var='paging_path' value="/p/"|cat:$product->uid|cat:"/"|cat:$product->slug}
+    {else}
+      {assign var='paging_path' value="/activity"}
+    {/if}
+
     <nav id="pager">
       <ul class="list-inline">
         {if isset($next_page)}
-          <li class="previous"><a href="/activity/{$next_page}#history" class="btn btn-info"><span aria-hidden="true"><i class="fa fa-arrow-left"></i></span> Older</a></li>
+          <li class="previous"><a href="{$paging_path}/{$next_page}#activity" class="btn btn-info"><span aria-hidden="true"><i class="fa fa-arrow-left"></i></span> Older</a></li>
         {/if}
         {if isset($prev_page)}
-          <li class="next pull-right"><a href="/{if $prev_page neq 1}activity/{$prev_page}{/if}#history" class="btn btn-info">Newer <span aria-hidden="true"><i class="fa fa-arrow-right"></i></span></a></li>
+          <li class="next pull-right"><a href="{$paging_path}/{if $prev_page neq 1}{$prev_page}{/if}#activity" class="btn btn-info">Newer <span aria-hidden="true"><i class="fa fa-arrow-right"></i></span></a></li>
         {/if}
       </ul>
     </nav>
