@@ -107,7 +107,7 @@
       </div>
       <div class="media-body">
         <h6>{$action->time_performed|relative_datetime} ago</h6>
-        <h4 class="media-heading">{if $actor neq 'You'}<a href="{$object_url}">{$actor}</a>{else}{$actor}{/if} {if $is_says}said{else}{$verbed}{/if} <a href="{$object_url}">{$object_name}</a>{if isset($action->object2_id)} {if $is_says}{$verbed}{else}on{/if} <a href="{$object2_url}">{$object2_name}</a>{/if}</a></h4>
+        <h4 class="media-heading">{if $actor neq 'You'}{$actor}</a>{else}{$actor}{/if} {if $is_says}said{else}{$verbed}{/if} <a href="{$object_url}">{$object_name}</a>{if isset($action->object2_id)} {if $is_says}{$verbed}{else}on{/if} <a href="{$object2_url}">{$object2_name}</a>{/if}</a></h4>
           {if isset($object2_avatar_url)}
           <div class="activity-attachment">
             <a href="{$object2_url}" class="action-avatar pull-left">

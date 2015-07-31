@@ -5484,6 +5484,9 @@ form.form-inline {
 #activity h4 a {
   font-weight: 600;
 }
+#activity h4 a.user-link {
+  font-weight: normal;
+}
 #activity h5,
 #activity h6 {
   margin: 0;
