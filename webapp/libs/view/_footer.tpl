@@ -49,7 +49,6 @@
           <div class="col-sm-2 col-xs-4">
             <ul class="list-unstyled">
               <li><a href="/about/">About</a></li>
-              <li><a href="/about/faq/">FAQ</a></li>
               <li><i class="fa fa-twitter"></i> <a href="https://twitter.com/makerbase">@makerbase</a></li>
             </ul>
           </div>
