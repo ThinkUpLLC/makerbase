@@ -6016,8 +6016,16 @@ body.landing-door .pager {
   font-size: 3em;
 }
 .about-page h2 {
-  padding: 10px;
+  padding: 10px 1.3em;
   color: #fff;
+  font-size: 1.2em;
+  clear: both;
+}
+@media (min-width: 768px) {
+  .about-page h2 {
+    margin-top: 1.5em;
+    font-size: 2em;
+  }
 }
 .about-page h3 {
   font-weight: 200;
@@ -6031,6 +6039,15 @@ body.landing-door .pager {
 }
 .about-page p {
   margin-left: 2em;
+  padding-top: 1em;
+}
+@media (min-width: 768px) {
+  .about-page p {
+    font-size: 1.3em;
+  }
+}
+.about-page img {
+  margin-bottom: 1em;
 }
 .about-page dt {
   width: 33%;
@@ -6042,6 +6059,7 @@ body.landing-door .pager {
   padding: 2em;
   background: #fff;
   margin-top: 1em;
+  margin-bottom: 0;
 }
 .about-page .jumbotron h4 {
   font-weight: 200;
@@ -6050,4 +6068,11 @@ body.landing-door .pager {
 }
 .about-page .jumbotron p {
   margin-left: 0;
+}
+.about-page #landing-header h1 {
+  padding-bottom: 0;
+}
+.about-page #landing-header h3 {
+  font-size: 1.5em;
+  color: #000;
 }

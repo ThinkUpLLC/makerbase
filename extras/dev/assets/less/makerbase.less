@@ -841,8 +841,15 @@ body.landing-door {
 		font-size: 3em;
 	}
 	h2 {
-		padding: 10px;
+		padding: 10px 1.3em;
 		color: #fff;
+		font-size: 1.2em;
+		clear: both;
+
+		@media (min-width: @screen-sm-min) {
+			margin-top: 1.5em;
+			font-size: 2em;
+		}
 	}
 	h3 {
 		font-weight: 200;
@@ -857,6 +864,13 @@ body.landing-door {
 	}
 	p {
 		margin-left: 2em;
+		padding-top: 1em;
+		@media (min-width: @screen-sm-min) {
+			font-size: 1.3em;
+		}
+	}
+	img {
+		margin-bottom: 1em;
 	}
 	dt {
 		width: 33%;
@@ -868,6 +882,7 @@ body.landing-door {
 		padding: 2em;
 		background: #fff;
 		margin-top: 1em;
+		margin-bottom: 0;
 		h4 {
 			font-weight: 200;
 			text-align: right;
@@ -875,6 +890,15 @@ body.landing-door {
 		}
 		p {
 			margin-left: 0;
+		}
+	}	
+	#landing-header {
+		h1 {
+			padding-bottom: 0;
+		}
+		h3 {
+			font-size: 1.5em;
+			color: #000;
 		}
 	}
 }
