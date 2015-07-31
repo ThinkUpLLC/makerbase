@@ -99,7 +99,6 @@
     {assign var="object2_type" value='p'}
 {/if}
 
-
       <div class="media-left">
         <a href="{$object_url}" class="avatar">
           <img class="media-object img-responsive img-rounded" src="{insert name='user_image' image_url=$object_avatar_url image_proxy_sig=$image_proxy_sig type=$object_type}" alt="{$object_name}">
@@ -107,7 +106,7 @@
       </div>
       <div class="media-body">
         <h6>{$action->time_performed|relative_datetime} ago</h6>
-        <h4 class="media-heading">{if $actor neq 'You'}{$actor}</a>{else}{$actor}{/if} {if $is_says}said{else}{$verbed}{/if} <a href="{$object_url}">{$object_name}</a>{if isset($action->object2_id)} {if $is_says}{$verbed}{else}on{/if} <a href="{$object2_url}">{$object2_name}</a>{/if}</a></h4>
+        <h4 class="media-heading">{$actor} {if $is_says}said{else}{$verbed}{/if} <a href="{$object_url}">{$object_name}</a>{if isset($action->object2_id)} {if $is_says}{$verbed}{else}on{/if} <a href="{$object2_url}">{$object2_name}</a>{/if}</a></h4>
           {if isset($object2_avatar_url)}
           <div class="activity-attachment">
             <a href="{$object2_url}" class="action-avatar pull-left">
@@ -126,24 +125,6 @@
           {/if}
 
       </div>
-
-<!--
-<div class="action-item">
-	<div class="media-left media-top col-xs-2 col-sm-2">
-		<a href="{$object_url}"><img src="" class="img-responsive" alt=""></a>
-	</div>
-
-    <div class=" pull-right media-right col-xs-2 col-sm-2">
-        {if isset($object2_avatar_url)}<a href="{$object2_url}"><img src="{insert name='user_image' image_url=$object2_avatar_url image_proxy_sig=$image_proxy_sig type=$object2_type}" class="img-responsive"></a>{/if}
-    </div>
-
-	<div class="media-body">
-		<h5>{$actor} {if $is_says}said{else}{$verbed}{/if} <a href="{$object_url}">{$object_name}</a>{if isset($action->object2_id)} {if $is_says}{$verbed}{else}on{/if} <a href="{$object2_url}">{$object2_name}</a>{/if}</h5>
-
-
-	</div>
-</div>
--->
 
 {* Clear vars for next loop iteration *}
 {assign var="actor" value=null}
