@@ -234,7 +234,7 @@
               <input type="hidden" name="product_used_uid" value="{$uses_with_button.uid}">
               <input type="hidden" name="originate_slug" value="{$product->slug}">
               <input type="hidden" name="originate_uid" value="{$product->uid}">
-              <button class=" btn btn btn-default" type="submit" {* data-toggle="popover" data-placement="bottom" data-trigger="hover" title="{$uses_with_button.name} sponsors Makerbase" data-content="If {$product->name} uses {$uses_with_button.name}, you can support Makerbase by saying so."*}><img src="{insert name='user_image' image_url=$uses_with_button.avatar_url image_proxy_sig=$image_proxy_sig type='p'}" style="width: 16px;"/>&nbsp;{$uses_with_button.name}</button>
+              <button class=" btn btn btn-default" type="submit" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="{$uses_with_button.name} sponsors Makerbase" data-content="If {$product->name} uses {$uses_with_button.name}, you can support Makerbase by saying so."><img src="{insert name='user_image' image_url=$uses_with_button.avatar_url image_proxy_sig=$image_proxy_sig type='p'}" style="width: 16px;"/>&nbsp;{$uses_with_button.name}</button>
             </div>
           </form>
           {/foreach}
