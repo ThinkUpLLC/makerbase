@@ -6,7 +6,8 @@ class EditController extends MakerbaseAuthController {
         parent::authControl();
 
         if ($this->logged_in_user->is_frozen) {
-            SessionCache::put('error_message', 'Hmm, had some trouble saving your edits. Please try again in a little while.');
+            SessionCache::put('error_message',
+                "Hmm, had some trouble saving your edits. Please try again in a little while.");
         }
 
         if ($this->hasSubmittedRoleForm()) {
@@ -161,7 +162,8 @@ class EditController extends MakerbaseAuthController {
         $product = $product_dao->getByID($role->product_id);
 
         if ($product->is_frozen || $maker->is_frozen) {
-            SessionCache::put('error_message', 'Hmm, had some trouble saving your edits. Please try again in a little while.');
+            SessionCache::put('error_message',
+                'Hmm, had some trouble saving your edits. Please try again in a little while.');
         } else {
             $has_changed_archive_status = false;
             if ($_POST['archive'] == 1) {
@@ -224,7 +226,8 @@ class EditController extends MakerbaseAuthController {
         $used_product = $product_dao->getByID($madewith->used_product_id);
 
         if ($product->is_frozen || $used_product->is_frozen) {
-            SessionCache::put('error_message', 'Hmm, had some trouble saving your edits. Please try again in a little while.');
+            SessionCache::put('error_message',
+                'Hmm, had some trouble saving your edits. Please try again in a little while.');
         } else {
             $has_changed_archive_status = false;
             if ($_POST['archive'] == 1) {
@@ -285,7 +288,8 @@ class EditController extends MakerbaseAuthController {
         $product = $product_dao->get($_POST['uid']);
 
         if ($product->is_frozen) {
-            SessionCache::put('error_message', "Hmm, had some trouble saving your edits. Please try again in a little while.");
+            SessionCache::put('error_message',
+                "Hmm, had some trouble saving your edits. Please try again in a little while.");
         } else {
             $has_changed_archive_status = false;
             if ($_POST['archive'] == 1) {
@@ -345,7 +349,8 @@ class EditController extends MakerbaseAuthController {
         $maker = $maker_dao->get($_POST['uid']);
 
         if ($maker->is_frozen) {
-            SessionCache::put('error_message', "Hmm, had some trouble saving your edits. Please try again in a little while.");
+            SessionCache::put('error_message',
+                "Hmm, had some trouble saving your edits. Please try again in a little while.");
         } else {
             $has_changed_archive_status = false;
             if ($_POST['archive'] == 1) {
@@ -406,7 +411,11 @@ class EditController extends MakerbaseAuthController {
         $original_maker = $maker_dao->get($_POST['maker_uid']);
 
         if ($original_maker->is_frozen) {
-            SessionCache::put('error_message', "Hmm, had some trouble saving your edits. Please try again in a little while.");
+            SessionCache::put('error_message',
+                "Hmm, had some trouble saving your edits. Please try again in a little while.");
+        } elseif ($original_maker->is_archived) {
+            SessionCache::put('error_message',
+                "This maker is archived. To edit, unarchive the maker first and try again.");
         } else {
             $maker = new Maker();
             $maker->id = $original_maker->id;
@@ -456,7 +465,11 @@ class EditController extends MakerbaseAuthController {
         $original_product = $product_dao->get($_POST['product_uid']);
 
         if ($original_product->is_frozen) {
-            SessionCache::put('error_message', "Hmm, had some trouble saving your edits. Please try again in a little while.");
+            SessionCache::put('error_message',
+                "Hmm, had some trouble saving your edits. Please try again in a little while.");
+        } elseif ($original_product->is_archived) {
+            SessionCache::put('error_message',
+                "This project is archived. To edit it, unarchive it first and try again.");
         } else {
             $product = new Product();
             $product->id = $original_product->id;
@@ -515,7 +528,8 @@ class EditController extends MakerbaseAuthController {
         $product = $product_dao->getByID($original_role->product_id);
 
         if ($product->is_frozen || $maker->is_frozen) {
-            SessionCache::put('error_message', 'Hmm, had some trouble saving your edits. Please try again in a little while.');
+            SessionCache::put('error_message',
+                'Hmm, had some trouble saving your edits. Please try again in a little while.');
         } else {
             $role = new Role();
             $role->id = $original_role->id;
