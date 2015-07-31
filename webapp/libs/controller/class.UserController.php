@@ -56,13 +56,20 @@ class UserController extends MakerbaseAuthController {
             $this->logged_in_user->twitter_user_id == $user->twitter_user_id) {
             // Process posted email address
             if (isset($_POST['email'])) {
-                // TODO validate email here; show error message if not valid
-                // Save email address & new verification code
-                $user->email = $_POST['email'];
-                $user = $user_dao->updateEmail($user);
+                // Validate email here; show error message if not valid
+                if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+                    // Save email address & new verification code
+                    $user->email = $_POST['email'];
+                    $user = $user_dao->updateEmail($user);
 
-                // Send confirmation email
-                $this->sendConfirmationEmail($user);
+                    // Send confirmation email
+                    $this->sendConfirmationEmail($user);
+                } else {
+                    SessionCache::put('error_message',
+                        "Oops! That doesn't look like a valid email address. Please try again.");
+                    // Transfer cached user messages to the view
+                    $this->setUserMessages();
+                }
             } else {
                 if (isset($_GET['verify'])) {
                     if ($_GET['verify'] == $user->email_verification_code) {
