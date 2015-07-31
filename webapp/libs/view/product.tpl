@@ -145,7 +145,9 @@
 
 <div class="row" id="roles">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+    {if isset($roles) && count($roles) > 0}
     <h2><a href="#roles"><strong>{$product->name}</strong> is made by</a></h2>
+    {/if}
 
     <ul class="list-unstyled" id="role-list">
     {foreach $roles as $role}
