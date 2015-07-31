@@ -130,7 +130,7 @@
 						<input type="hidden" name="network_username" id="network-username" value="{if isset($network_username)}{$network_username}{/if}">
 						{if isset($to_product)}<input type="hidden" name="add_role_to_product_uid" value="{$to_product->uid}">{/if}
 						{if isset($to_maker)}<input type="hidden" name="add_role_to_maker_uid" value="{$to_maker->uid}">{/if}
-						<button class="btn btn-primary col-xs-6 col-sm-3 col-sm-offset-3" type="submit">{if $object eq 'product'}Make it!{else}Add this maker!{/if}</button>
+						<button class="btn btn-info pull-right" type="submit">{if $object eq 'product'}Make it!{else}Add this maker!{/if}</button>
 					</div>
 		    </div>
 

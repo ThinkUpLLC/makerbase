@@ -235,20 +235,6 @@
 
     </script>
 
-    <script type='text/javascript'>
-      $(window).resize(function() {
-        if ($('#add-panels').length){
-          if (window.matchMedia('(max-width: 767px)').matches) {
-            $('body').height('100%'),
-            $('#add-panels').height($(window).height() - $('#add-form').height() - 110),
-            $('#add-panels').css('overflow-y', 'scroll');
-          }
-        }
-      });
-
-      $(window).trigger('resize');
-    </script>
-
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
