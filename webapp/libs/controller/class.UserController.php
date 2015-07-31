@@ -44,6 +44,9 @@ class UserController extends MakerbaseAuthController {
                 $this->redirect('/404');
             }
         }
+        // Transfer cached user messages to the view
+        $this->setUserMessages();
+
         return $this->generateView();
     }
 
