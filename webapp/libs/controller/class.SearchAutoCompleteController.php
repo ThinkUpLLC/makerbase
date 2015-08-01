@@ -12,13 +12,16 @@ class SearchAutoCompleteController extends MakerbaseController {
             $client = new Elasticsearch\Client();
 
             $search_params = array();
+            $search_autocomplete_type = 'p';
             if ( isset($_GET['type'])) {
                 if ($_GET['type'] == 'product') {
                     $search_params['index'] = 'product_index';
                     $search_params['type']  = 'product_type';
+                    $search_autocomplete_type = 'p';
                 } elseif ($_GET['type'] == 'maker') {
                     $search_params['index'] = 'maker_index';
                     $search_params['type']  = 'maker_type';
+                    $search_autocomplete_type = 'm';
                 }
             } else {
                 $search_params['index'] = 'maker_product_index';
@@ -40,8 +43,11 @@ class SearchAutoCompleteController extends MakerbaseController {
             if (isset($return_document['hits']['hits'])) {
                 $image_proxy_sig = Config::getInstance()->getValue('image_proxy_sig');
                 foreach ($return_document['hits']['hits'] as $hit) {
+                    if (isset($hit['_source']['type'])) {
+                        $search_autocomplete_type = $hit['_source']['type'];
+                    }
                     $hit['_source']['avatar_url'] = $this->sendImageThruProxy($hit['_source']['avatar_url'],
-                        $hit['_source']['type'], $image_proxy_sig);
+                        $search_autocomplete_type, $image_proxy_sig);
                     $results[] = $hit['_source'];
                 }
             }
