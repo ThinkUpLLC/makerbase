@@ -94,4 +94,20 @@ class Role {
 
         return $placeholders[rand()%count($placeholders)];
     }
+    /**
+     * Checks if user-submitted date is valid.
+     * Expects date in format YYYY-MM
+     * @param  str $date_str
+     * @return bool
+     */
+    public static function isValidDateString($date_str) {
+        $date_str_arr = explode('-', $date_str);
+        if (count($date_str_arr) == 2) {
+            $year = $date_str_arr[0];
+            $month = $date_str_arr[1];
+            return checkdate($month, '01', $year);
+        } else {
+            return false;
+        }
+    }
 }

@@ -30,20 +30,18 @@ class AddController extends MakerbaseAuthController {
                 if (!$this->logged_in_user->is_frozen) {
                     CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
                     $this->addMaker();
-                } else {
-                    // Transfer cached user messages to the view
-                    $this->setUserMessages();
-                    return $this->generateView();
                 }
+                // Transfer cached user messages to the view
+                $this->setUserMessages();
+                return $this->generateView();
             } elseif ($_GET['object'] == 'product' && $this->hasSubmittedProductForm()) {
                 if (!$this->logged_in_user->is_frozen) {
                     CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
                     $this->addProduct();
-                } else {
-                    // Transfer cached user messages to the view
-                    $this->setUserMessages();
-                    return $this->generateView();
                 }
+                // Transfer cached user messages to the view
+                $this->setUserMessages();
+                return $this->generateView();
             } elseif ($_GET['object'] == 'role' && $this->hasSubmittedRoleForm()) {
                 if (!$this->logged_in_user->is_frozen) {
                     CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
@@ -221,11 +219,43 @@ class AddController extends MakerbaseAuthController {
             $maker = $maker_dao->get($_POST['maker_uid']);
             $product = $product_dao->get($_POST['product_uid']);
 
+            //Check dates
+            //Is the start date valid?
+            $start_date_str = (empty($_POST['start_date']))?null:$_POST['start_date'];
+            if (isset($start_date_str)) {
+                if (!Role::isValidDateString($start_date_str)) {
+                    SessionCache::put('error_message',
+                        'That start date doesn\'t look right. Please try again.');
+                    return;
+                }
+            }
+            //Is the end date valid?
+            $end_date_str = (empty($_POST['end_date']))?null:$_POST['end_date'];
+            if (isset($end_date_str)) {
+                if (!Role::isValidDateString($end_date_str)) {
+                    SessionCache::put('error_message',
+                        'That end date doesn\'t look right. Please try again.');
+                    return;
+                }
+            }
+            //Is the start date before or the same as the end date?
+            $start_date = (empty($_POST['start_date']))?null:$_POST['start_date']."-01";
+            $end_date = (empty($_POST['end_date']))?null:$_POST['end_date']."-01";
+            if (isset($start_date) && isset($end_date)) {
+                $start_date_time = strtotime($start_date);
+                $end_date_time = strtotime($end_date);
+                if ($start_date_time > $end_date_time) {
+                    SessionCache::put('error_message',
+                        'The start date has to be before the end date. Please try again.');
+                    return;
+                }
+            }
+
             $role = new Role();
             $role->maker_id = $maker->id;
             $role->product_id = $product->id;
-            $role->start = ($_POST['start_date'] == '')?null:$_POST['start_date'].'-01';
-            $role->end = ($_POST['end_date'] == '')?null:$_POST['end_date'].'-01';
+            $role->start = (empty($_POST['start_date']))?null:$_POST['start_date'].'-01';
+            $role->end = (empty($_POST['end_date']))?null:$_POST['end_date'].'-01';
             $role->role = $_POST['role'];
 
             $role_dao = new RoleMySQLDAO();
@@ -323,6 +353,10 @@ class AddController extends MakerbaseAuthController {
     private function addMaker() {
         if (empty($_POST['name'])) {
             $this->addErrorMessage('Name is required');
+        } elseif (!empty($_POST['url']) && filter_var($_POST['url'], FILTER_VALIDATE_URL) === false) {
+            $this->addErrorMessage("That doesn't look like a valid web site URL. Please try again.");
+        } elseif (!empty($_POST['avatar_url']) && filter_var($_POST['avatar_url'], FILTER_VALIDATE_URL) === false) {
+            $this->addErrorMessage("That doesn't look like a valid avatar URL. Please try again.");
         } else {
             $maker = new Maker();
             $maker->slug = $this->getSlug($_POST['slug'], $_POST['name']);
@@ -447,6 +481,12 @@ class AddController extends MakerbaseAuthController {
     private function addProduct() {
         if (empty($_POST['name'])) {
             $this->addErrorMessage('Name is required');
+        } elseif (!empty($_POST['url']) && filter_var($_POST['url'], FILTER_VALIDATE_URL) === false) {
+            $this->addErrorMessage("That doesn't look like a valid web site URL. Please try again.");
+        } elseif (!empty($_POST['avatar_url']) && filter_var($_POST['avatar_url'], FILTER_VALIDATE_URL) === false) {
+            $this->addErrorMessage("That doesn't look like a valid avatar URL. Please try again.");
+        } elseif (empty($_POST['name'])) {
+            $this->addErrorMessage("Please enter a name and try again.");
         } else {
             $product = new Product();
             $product->slug = $this->getSlug($_POST['slug'], $_POST['name']);

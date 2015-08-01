@@ -416,6 +416,14 @@ class EditController extends MakerbaseAuthController {
         } elseif ($original_maker->is_archived) {
             SessionCache::put('error_message',
                 "This maker is archived. To edit, unarchive the maker first and try again.");
+        } elseif (!empty($_POST['url']) && filter_var($_POST['url'], FILTER_VALIDATE_URL) === false) {
+            SessionCache::put('error_message',
+                "That doesn't look like a valid web site URL. Please try again.");
+        } elseif (!empty($_POST['avatar_url']) && filter_var($_POST['avatar_url'], FILTER_VALIDATE_URL) === false) {
+            SessionCache::put('error_message',
+                "That doesn't look like a valid avatar URL. Please try again.");
+        } elseif (empty($_POST['name'])) {
+            SessionCache::put('error_message', "Please enter a name and try again.");
         } else {
             $maker = new Maker();
             $maker->id = $original_maker->id;
@@ -453,6 +461,8 @@ class EditController extends MakerbaseAuthController {
 
             if ($has_been_updated) {
                 SessionCache::put('success_message', "Updated ".$maker->name);
+            } else {
+                SessionCache::put('error_message', "Looks like there were no changes to save.");
             }
             CacheHelper::expireCache('maker.tpl', $maker->uid, $maker->slug);
         }
@@ -470,6 +480,14 @@ class EditController extends MakerbaseAuthController {
         } elseif ($original_product->is_archived) {
             SessionCache::put('error_message',
                 "This project is archived. To edit it, unarchive it first and try again.");
+        } elseif (!empty($_POST['url']) && filter_var($_POST['url'], FILTER_VALIDATE_URL) === false) {
+            SessionCache::put('error_message',
+                "That doesn't look like a valid web site URL. Please try again.");
+        } elseif (!empty($_POST['avatar_url']) && filter_var($_POST['avatar_url'], FILTER_VALIDATE_URL) === false) {
+            SessionCache::put('error_message',
+                "That doesn't look like a valid avatar URL. Please try again.");
+        } elseif (empty($_POST['name'])) {
+            SessionCache::put('error_message', "Please enter a name and try again.");
         } else {
             $product = new Product();
             $product->id = $original_product->id;
@@ -508,6 +526,8 @@ class EditController extends MakerbaseAuthController {
 
             if ($has_been_updated) {
                 SessionCache::put('success_message', "Updated ".$product->name);
+            } else {
+                SessionCache::put('error_message', "Looks like there were no changes to save.");
             }
             CacheHelper::expireCache('product.tpl', $product->uid, $product->slug);
         }
@@ -531,11 +551,43 @@ class EditController extends MakerbaseAuthController {
             SessionCache::put('error_message',
                 'Hmm, had some trouble saving your edits. Please try again in a little while.');
         } else {
+            //Check dates
+            //Is the start date valid?
+            $start_date_str = (empty($_POST['start_date']))?null:$_POST['start_date'];
+            if (isset($start_date_str)) {
+                if (!Role::isValidDateString($start_date_str)) {
+                    SessionCache::put('error_message',
+                        'That start date doesn\'t look right. Please try again.');
+                    return;
+                }
+            }
+            //Is the end date valid?
+            $end_date_str = (empty($_POST['end_date']))?null:$_POST['end_date'];
+            if (isset($end_date_str)) {
+                if (!Role::isValidDateString($end_date_str)) {
+                    SessionCache::put('error_message',
+                        'That end date doesn\'t look right. Please try again.');
+                    return;
+                }
+            }
+            //Is the start date before or the same as the end date?
+            $start_date = (empty($_POST['start_date']))?null:$_POST['start_date']."-01";
+            $end_date = (empty($_POST['end_date']))?null:$_POST['end_date']."-01";
+            if (isset($start_date) && isset($end_date)) {
+                $start_date_time = strtotime($start_date);
+                $end_date_time = strtotime($end_date);
+                if ($start_date_time > $end_date_time) {
+                    SessionCache::put('error_message',
+                        'The start date has to be before the end date. Please try again.');
+                    return;
+                }
+            }
+
             $role = new Role();
             $role->id = $original_role->id;
             $role->uid = $_POST['role_uid'];
-            $role->start = ($_POST['start_date'] == '')?null:$_POST['start_date']."-01";
-            $role->end = ($_POST['end_date'] == '')?null:$_POST['end_date']."-01";
+            $role->start = (empty($_POST['start_date']))?null:$_POST['start_date']."-01";
+            $role->end = (empty($_POST['end_date']))?null:$_POST['end_date']."-01";
             $role->role = $_POST['role'];
             $has_been_updated = $role_dao->update($role);
 
@@ -571,6 +623,8 @@ class EditController extends MakerbaseAuthController {
 
             if ($has_been_updated) {
                 SessionCache::put('success_message', "Okay! The role was updated.");
+            } else {
+                SessionCache::put('error_message', "Looks like there were no changes to save.");
             }
         }
     }
