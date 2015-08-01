@@ -73,7 +73,7 @@
                     <option value="1970" {if isset($start_Y)}{if $start_Y eq '1970'}selected="selected"{/if}{/if}>1970</option>
                   </select>
 
-                  <select name="to_month" id="" class="form-input col-sm-2 col-sm-offset-1 col-xs-3 input-sm to_month{if !isset($role->start_YM)} collapse{/if}">
+                  <select name="to_month" id="" class="form-input col-sm-2 col-sm-offset-1 col-xs-3 input-sm to_month{if empty($start_Y) && empty($start_m)} collapse{/if}">
                     <option value="">To</option>
                     <option value="01" {if isset($end_m)}{if $end_m eq '01'}selected="selected"{/if}{/if}>Jan</option>
                     <option value="02" {if isset($end_m)}{if $end_m eq '02'}selected="selected"{/if}{/if}>Feb</option>
@@ -89,7 +89,7 @@
                     <option value="12" {if isset($end_m)}{if $end_m eq '12'}selected="selected"{/if}{/if}>Dec</option>
                   </select>
 
-                  <select name="to_year" id="" class="form-input col-sm-2 col-xs-3 input-sm to_year{if !isset($role->start_YM)} collapse{/if}">
+                  <select name="to_year" id="" class="form-input col-sm-2 col-xs-3 input-sm to_year{if empty($start_Y) && empty($start_m)} collapse{/if}">
                     <option value="">Present</option>
                     <option value="2015" {if isset($end_Y)}{if $end_Y eq '2015'}selected="selected"{/if}{/if}>2015</option>
                     <option value="2014" {if isset($end_Y)}{if $end_Y eq '2014'}selected="selected"{/if}{/if}>2014</option>
@@ -143,8 +143,8 @@
                     <option value="1970" {if isset($end_Y)}{if $end_Y eq '1970'}selected="selected"{/if}{/if}>1970</option>
                   </select>
 
-                    <input type="hidden" name="start_date" id="start_date_{$dates_id}" placeholder="YYYY-MM" autocomplete="off" value="{if isset($role->start_YM)}{$role->start_YM}{/if}"/>
-                    <input type="hidden" name="end_date" id="end_date_{$dates_id}" autocomplete="off"  value="{if isset($role->end_YM)}{$role->end_YM}{/if}" />
+                    <input type="hidden" name="start_date" id="start_date_{$dates_id}" autocomplete="off" value="{if !empty($start_Y) && !empty($start_m)}{$start_Y}-{$start_m}{/if}"/>
+                    <input type="hidden" name="end_date" id="end_date_{$dates_id}" autocomplete="off"  value="{if !empty($end_Y) && !empty($end_m)}{$end_Y}-{$end_m}{/if}" />
 
                 </div>
 
