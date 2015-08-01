@@ -73,6 +73,7 @@ class Role {
             $this->end = $row['end'];
             $this->creation_time = $row['creation_time'];
             $this->is_archived = PDODAO::convertDBToBool($row['is_archived']);
+            $this->rando_placeholder = self::getRandoPlaceholder();
         }
     }
 

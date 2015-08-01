@@ -54,7 +54,7 @@
             <div class="form-group col-xs-12">
                 <label for="role" class="col-sm-1 control-label hidden-xs">Role</label>
                 <div class="col-xs-12 col-sm-10">
-                  <input type="text" class="form-control edit-role-name" autocomplete="off" id="role" name="role" placeholder="{$placeholder}" value="{$role->role}">
+                  <input type="text" class="form-control edit-role-name" autocomplete="off" id="role" name="role" placeholder="{$role->rando_placeholder}" value="{$role->role}">
                    <small>{$role_guidance}</small>
                 </div>
             </div>
