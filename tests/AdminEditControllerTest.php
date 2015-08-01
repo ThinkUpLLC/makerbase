@@ -345,6 +345,7 @@ class AdminEditControllerTest extends MakerbaseUnitTestCase {
         //TODO Assert madewiths have been deleted
     }
 
-
-
+    //TODO testEditSignedInAsAdminFreezeProduct
+    //TODO testEditSignedInAsAdminFreezeMaker
+    //TODO testEditSignedInAsAdminFreezeUser
 }

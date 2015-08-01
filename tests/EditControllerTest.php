@@ -45,7 +45,7 @@ class EditControllerTest extends MakerbaseUnitTestCase {
         $this->assertNotNull($controller->redirect_destination);
     }
 
-    public function testEditMakerSignedIn() {
+    public function testEditMakerSignedInValidParams() {
         $builders = $this->buildData();
         Session::completeLogin('blah');
 
@@ -81,7 +81,7 @@ class EditControllerTest extends MakerbaseUnitTestCase {
         //TODO Assert user message
     }
 
-    public function testEditMakerSignedInUserFrozen() {
+    public function testEditMakerSignedInValidParamsUserFrozen() {
         $builders = $this->buildData();
         $builders[] = FixtureBuilder::build('users', array('twitter_username'=>'frozen', 'uid'=>'blahfroz',
             'is_frozen'=>1));
@@ -120,7 +120,7 @@ class EditControllerTest extends MakerbaseUnitTestCase {
         //TODO Assert user message
     }
 
-    public function testEditMakerSignedInMakerFrozen() {
+    public function testEditMakerSignedInValidParamsMakerFrozen() {
         $builders = $this->buildData();
         $builders[] = FixtureBuilder::build('makers', array('uid'=>'froze', 'slug'=>'giantairnap',
             'name'=>'Mary Jane', 'is_frozen'=>1, 'avatar_url'=>'http://example.com'));
@@ -158,14 +158,35 @@ class EditControllerTest extends MakerbaseUnitTestCase {
         //TODO Assert no action
         //TODO Assert user message
     }
-    //TODO testEditProductSignedIn
-    //TODO testEditProductSignedInUserFrozen
-    //TODO testEditProductSignedInProductFrozen
 
-    //TODO testEditRoleSignedIn
-    //TODO testEditRoleSignedInUserFrozen
-    //TODO testEditRoleSignedInProductFrozen
-    //TODO testEditRoleSignedInMakerFrozen
+    //TODO testAddInvalidObject
+
+    //TODO testEditMakerSignedInNoChange
+    //TODO testEditMakerSignedInIncompleteParams
+    //TODO testEditMakerSignedInMissingName
+    //TODO testEditMakerSignedInInvalidSiteURL
+    //TODO testEditMakerSignedInInvalidAvatarURL
+
+    //TODO testEditProductSignedInValidParams
+    //TODO testEditProductSignedInNoChange
+    //TODO testEditProductSignedInValidParamsUserFrozen
+    //TODO testEditProductSignedInValidParamsProductFrozen
+    //TODO testEditProductSignedInIncompleteParams
+    //TODO testEditProductSignedInMissingName
+    //TODO testEditProductSignedInInvalidSiteURL
+    //TODO testEditProductSignedInInvalidAvatarURL
+
+    //TODO testEditRoleSignedInValidParams
+    //TODO testEditRoleSignedInNoChange
+    //TODO testEditRoleSignedInValidParamsUserFrozen
+    //TODO testEditRoleSignedInValidParamsProductFrozen
+    //TODO testEditRoleSignedInValidParamsMakerFrozen
+    //TODO testEditRoleSignedInIncompleteParams
+    //TODO testEditRoleInvalidStartDate
+    //TODO testEditRoleInvalidEndDate
+    //TODO testEditRoleStartDateAfterEndDate
+    //TODO testEditRoleStartDateEqualsEndDate
+    //TODO testEditRoleDescriptionLongerThan255Chars
 
     //TODO testArchiveMakerSignedIn
     //TODO testArchiveMakerSignedInUserFrozen
