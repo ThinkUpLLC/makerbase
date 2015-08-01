@@ -200,13 +200,33 @@
 
       $('.from_month').change(function(){
           var date_parent = $(this).closest("div").attr("id");
-          var start_date = $('#' + date_parent + ' .from_year').val() + '-' + $('#' + date_parent + ' .from_month').val();
-          $('#' + date_parent + ' input#start_date_' + date_parent).val(start_date);
+          if ($('#' + date_parent + ' .from_month').val() && $('#' + date_parent + ' .from_year').val()) {
+            var start_date = $('#' + date_parent + ' .from_year').val() + '-' + $('#' + date_parent + ' .from_month').val();
+            $('#' + date_parent + ' input#start_date_' + date_parent).val(start_date);
+
+            $('#' + date_parent + ' .to_month').show();
+            $('#' + date_parent + ' .to_year').show();
+          } else {
+            $('#' + date_parent + ' input#start_date_' + date_parent).val('');
+
+            $('#' + date_parent + ' .to_month').hide();
+            $('#' + date_parent + ' .to_year').hide();
+          }
       });
       $('.from_year').change(function(){
           var date_parent = $(this).closest("div").attr("id");
-          var start_date = $('#' + date_parent + ' .from_year').val() + '-' + $('#' + date_parent + ' .from_month').val();
-          $('#' + date_parent + ' input#start_date_' + date_parent).val(start_date);
+          if ($('#' + date_parent + ' .from_month').val() && $('#' + date_parent + ' .from_year').val()) {
+            var start_date = $('#' + date_parent + ' .from_year').val() + '-' + $('#' + date_parent + ' .from_month').val();
+            $('#' + date_parent + ' input#start_date_' + date_parent).val(start_date);
+
+            $('#' + date_parent + ' .to_month').show();
+            $('#' + date_parent + ' .to_year').show();
+          } else {
+            $('#' + date_parent + ' input#start_date_' + date_parent).val('');
+
+            $('#' + date_parent + ' .to_month').hide();
+            $('#' + date_parent + ' .to_year').hide();
+          }
       });
       $('.to_month').change(function(){
           var date_parent = $(this).closest("div").attr("id");
