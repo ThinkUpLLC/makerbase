@@ -24,8 +24,12 @@
 
     </div>
 
+    </div>
+</div>
 
 
+<div class="row about-page">
+      <div class="col-xs-12 col-sm-10 col-sm-offset-1">
 
     <h2 class="style-bubblegum">1. Accepting the Terms of Service</h2>
 
