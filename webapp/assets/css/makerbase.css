@@ -5536,6 +5536,9 @@ form.form-inline {
 .footer a {
   color: white;
 }
+.footer .footer-sponsors li {
+  margin-bottom: 4px;
+}
 .footer .footer-sponsors img {
   width: 16px;
   margin-right: 4px;

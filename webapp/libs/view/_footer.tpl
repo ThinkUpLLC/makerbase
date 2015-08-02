@@ -18,13 +18,13 @@
 
               <li class="">
                 <a href="/p/7p97ga/hover">
-                    <img class="img-rounded avatar pull-left" src="/assets/img/sponsors/logo-square-hover.png" alt="Hover">
+                    <img class="img-rounded avatar pull-left" src="/assets/img/sponsors/logo-small-hover.png" alt="Hover">
                     Hover
                   </a>
               </li>
               <li class="">
                 <a href="/p/9u0s6y/mailchimp">
-                    <img class="img-rounded avatar pull-left" src="/assets/img/sponsors/logo-square-mailchimp.jpg" alt="MailChimp">
+                    <img class="img-rounded avatar pull-left" src="/assets/img/sponsors/logo-small-mailchimp.png" alt="MailChimp">
                     MailChimp
                   </a>
               </li>

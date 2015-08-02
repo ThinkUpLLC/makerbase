@@ -24,19 +24,19 @@ $ISOSCELES_CFG['admins']         = array('makerbase', 'anildash');
 $ISOSCELES_CFG['sponsors'] = array(
     'Slack' => array(
         'name' => 'Slack',
-        'avatar_url' => 'http://pbs.twimg.com/profile_images/378800000271328329/349dc6f270e53cbe09cd05f6c032fc67.png',
+        'avatar_url' => 'https://makerba.se/assets/img/sponsors/logo-square-slack.png',
         'uid' => 'm348b6',
         'slug'=> 'slackhq'
     ),
     'MailChimp' => array(
         'name' => 'MailChimp',
-        'avatar_url' => 'https://pbs.twimg.com/profile_images/615875108385656832/D_nZMonl.jpg',
+        'avatar_url' => 'https://makerba.se/assets/img/sponsors/logo-small-mailchimp.png',
         'uid' =>'9u0s6y',
         'slug'=> 'mailchimp'
     ),
     'Hover' => array(
         'name' => 'Hover',
-        'avatar_url' =>'http://pbs.twimg.com/profile_images/505340149660520449/3-sIzuBq.png',
+        'avatar_url' =>'https://makerba.se/assets/img/sponsors/logo-small-hover.png',
         'uid' => '7p97ga',
         'slug'=> 'hover'
     )
