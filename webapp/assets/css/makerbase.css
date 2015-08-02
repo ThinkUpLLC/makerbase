@@ -5270,6 +5270,7 @@ button.close {
 }
 .img-rounded {
   border-radius: 12%;
+  max-height: 100px;
 }
 .fade {
   opacity: 0;
@@ -5820,17 +5821,21 @@ form.form-inline {
   overflow: hidden;
 }
 #landing-header h3 {
-  font-size: smaller;
+  font-size: 1.4em;
   font-weight: 200;
   color: #c9dae1;
   text-align: center;
 }
 #landing-header h6 {
   text-align: center;
+  font-weight: 600;
+  width: 100%;
+  font-size: 1.2em;
 }
 #landing-header #join-button {
-  display: block;
-  margin: 2em auto 0 auto;
+  margin: 2em 0 0 0;
+  font-size: 1em;
+  width: 100%;
 }
 #landing-header #join-button:hover,
 #landing-header #join-button:focus {
@@ -5863,12 +5868,22 @@ fieldset[disabled] #landing-header #join-button.active {
   background-color: #24ba94;
   background-image: none;
 }
+#landing-header #join-button i {
+  display: inline-block;
+}
 @media (min-width: 768px) {
   #landing-header h1 {
     height: 3em;
   }
   #landing-header h3 {
-    font-size: 24px;
+    font-size: 28px;
+  }
+  #landing-header h6 {
+    margin-right: 5%;
+  }
+  #landing-header #join-button {
+    padding-right: 100%;
+    font-size: 1.2em;
   }
 }
 @media (min-width: 992px) {
@@ -5876,15 +5891,22 @@ fieldset[disabled] #landing-header #join-button.active {
     height: 3.5em;
     margin-bottom: 0.5em;
   }
+  #landing-header h6 {
+    margin-right: 5%;
+  }
   #landing-header #join-button {
-    display: inline-block;
-    margin: 3em 15% 0 15%;
+    padding-right: 100%;
+    font-size: 1.5em;
   }
 }
 @media (min-width: 1200px) {
+  #landing-header h6 {
+    margin-right: 5%;
+  }
   #landing-header #join-button {
-    display: inline-block;
-    margin: 3.5em 15% 0 15%;
+    padding-right: 100%;
+    margin: 1.7em 0 0 0;
+    font-size: 2em;
   }
 }
 #landing-featured a {
@@ -5892,6 +5914,7 @@ fieldset[disabled] #landing-header #join-button.active {
 }
 #landing-featured .media {
   margin-top: 8px;
+  max-height: 100px;
 }
 #landing-featured .media-body a {
   padding-right: 10px;

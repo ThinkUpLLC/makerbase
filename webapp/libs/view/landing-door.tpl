@@ -4,12 +4,12 @@
 <div class="row landing-row" id="landing-header">
    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <h3 class="col-xs-12">You make great things. Tell the world what you made.</h3>
-    <h1 class="col-xs-12 col-sm-7 col-lg-8">
+    <h1 class="col-xs-12 col-sm-8">
       Makerbase
     </h1>
-    <div class="col-xs-12 col-sm-5 col-lg-4">
-      <a class="btn btn-success btn-lg" href="/twittersignin/" id="join-button">sign in with twitter <i class="fa fa-arrow-right"></i></a>
-      <h6>it's free!</h6>
+    <div class="col-xs-12 col-sm-4">
+      <a class="btn btn-success btn-lg pull-right" href="/twittersignin/" id="join-button">sign in with twitter <i class="fa fa-arrow-right"></i></a>
+      <h6 class="pull-right">it's free!</h6>
     </div>
   </div>
 </div>

@@ -58,6 +58,7 @@
 // Rounded corners
 .img-rounded {
 	border-radius: 12%;
+	max-height: 100px;
 }
 
 .fade {
@@ -642,7 +643,7 @@ form.form-inline {
 	}
 
 	h3 {
-		font-size: smaller;
+		font-size: 1.4em;
 		font-weight: 200;
 		color: @color-lightslate;
 		text-align: center;
@@ -650,12 +651,19 @@ form.form-inline {
 
 	h6 {
 		text-align: center;
+		font-weight: 600;
+		width: 100%;
+		font-size: 1.2em;
 	}
 
 	#join-button {
 		.btn-styles(@btn-success-bg);
-		display: block;
-		margin: 2em auto 0 auto;
+		margin: 2em 0 0 0;
+		font-size: 1em;
+		width: 100%;
+		i {
+			display: inline-block;
+		}
 	}
 
 	@media (min-width: @screen-sm-min) {
@@ -663,7 +671,14 @@ form.form-inline {
 			height: 3em;
 		}
 		h3 {
-			font-size: ceil((@font-size-base * 1.7));
+			font-size: ceil((@font-size-base * 2.0));
+		}
+		h6 {
+			margin-right: 5%;
+		}
+		#join-button {
+			padding-right: 100%;
+			font-size: 1.2em;
 		}
 
 	}
@@ -673,16 +688,23 @@ form.form-inline {
 			height: 3.5em;
 			margin-bottom: 0.5em;
 		}
+		h6 {
+			margin-right: 5%;
+		}
 		#join-button {
-			display: inline-block;
-			margin: 3em 15% 0 15%;
+			padding-right: 100%;
+			font-size: 1.5em;
 		}
 	}
 
 	@media (min-width: @screen-lg-min) {
+		h6 {
+			margin-right: 5%;
+		}
 		#join-button {
-			display: inline-block;
-			margin: 3.5em 15% 0 15%;
+			padding-right: 100%;
+			margin: 1.7em 0 0 0;
+			font-size: 2em;
 		}
 	}
 }
@@ -693,6 +715,7 @@ form.form-inline {
 	}
 	.media {
 		margin-top: 8px;
+		max-height: 100px;
 	}
 	.media-body {
 		a {
