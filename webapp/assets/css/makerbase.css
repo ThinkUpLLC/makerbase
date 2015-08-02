@@ -5466,6 +5466,9 @@ h6 {
   left: -106px;
   top: 42px;
 }
+#signout-button #signin-button {
+  margin-left: -50px;
+}
 .media-footer {
   display: none;
 }
