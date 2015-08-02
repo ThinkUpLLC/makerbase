@@ -187,20 +187,22 @@
                 </div>
               </div>
 
-              <div class="form-group col-xs-12">
-                <label for="role" class="col-sm-1 control-label hidden-xs">Role</label>
-                <div class="col-xs-12 col-sm-10">
-                  <input type="text" class="form-control" autocomplete="off" id="role" name="role" placeholder="{$placeholder}">
-                  <small>{$role_guidance}</small>
+              <div id="maker-extended-form" class="collapse">
+                <div class="form-group col-xs-12">
+                  <label for="role" class="col-sm-1 control-label hidden-xs">Role</label>
+                  <div class="col-xs-12 col-sm-10">
+                    <input type="text" class="form-control" autocomplete="off" id="role" name="role" placeholder="{$placeholder}">
+                    <small>{$role_guidance}</small>
+                  </div>
                 </div>
-              </div>
 
-              {include file="_dates.tpl" start_m='' start_Y='' end_m='' end_Y='' dates_id='maker'}
+                {include file="_dates.tpl" start_m='' start_Y='' end_m='' end_Y='' dates_id='maker'}
 
-              <div class="form-group col-xs-12">
-                <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                  <a class="btn btn-link btn-sm pull-right" data-toggle="collapse" data-target="#add-maker-form" onclick="$('#add-role-form').toggle();" >cancel</a>
-                  <button class="btn btn-primary" type="submit">Add maker</button>
+                <div class="form-group col-xs-12">
+                  <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                    <a class="btn btn-link btn-sm pull-right" data-toggle="collapse" data-target="#add-maker-form" onclick="$('#add-role-form').toggle();" >cancel</a>
+                    <button class="btn btn-primary" type="submit">Add maker</button>
+                  </div>
                 </div>
               </div>
 

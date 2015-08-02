@@ -155,6 +155,7 @@
       $('#maker-name').bind('typeahead:selected', function(obj, datum, name) {
               $('#maker-uid').val(datum.uid);
               $('#maker-name').val(datum.name);
+              $('#maker-extended-form').show();
       }).off('blur');
 
       //Autocomplete products
@@ -194,6 +195,7 @@
       $('#product-name').bind('typeahead:selected', function(obj, datum, name) {
               $('#product-uid').val(datum.uid);
               $('#product-name').val(datum.name);
+              $('#product-extended-form').show();
       }).off('blur');
 
       //Enable drop-down month/year selection in roles
