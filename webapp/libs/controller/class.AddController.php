@@ -1,14 +1,15 @@
 <?php
 
 class AddController extends MakerbaseAuthController {
+    /**
+     * Message to show users who are frozen when they're denied edit rights.
+     * @var string
+     */
+    private $frozen_user_message = 'Unable to save your changes. Please try again in a little while.';
 
     public function authControl() {
         parent::authControl();
         $this->setViewTemplate('add.tpl');
-
-        if ($this->logged_in_user->is_frozen && !isset($_GET['q'])) {
-            SessionCache::put('error_message', 'Unable to save your changes. Please try again in a little while.');
-        }
 
         $valid_objects = array('maker', 'product', 'role', 'madewith');
         if (in_array($_GET['object'], $valid_objects)) {
@@ -23,29 +24,29 @@ class AddController extends MakerbaseAuthController {
                 }
                 $this->addTwitterUsersToView($_GET['q']);
                 $this->addTargetToView();
-                // Transfer cached user messages to the view
-                $this->setUserMessages();
                 return $this->generateView();
             } elseif ($_GET['object'] == 'maker' && $this->hasSubmittedMakerForm()) {
                 if (!$this->logged_in_user->is_frozen) {
                     CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
                     $this->addMaker();
+                } else {
+                    $this->addErrorMessage($this->frozen_user_message);
                 }
-                // Transfer cached user messages to the view
-                $this->setUserMessages();
                 return $this->generateView();
             } elseif ($_GET['object'] == 'product' && $this->hasSubmittedProductForm()) {
                 if (!$this->logged_in_user->is_frozen) {
                     CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
                     $this->addProduct();
+                } else {
+                    $this->addErrorMessage($this->frozen_user_message);
                 }
-                // Transfer cached user messages to the view
-                $this->setUserMessages();
                 return $this->generateView();
             } elseif ($_GET['object'] == 'role' && $this->hasSubmittedRoleForm()) {
                 if (!$this->logged_in_user->is_frozen) {
                     CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
                     $this->addRole();
+                } else {
+                    SessionCache::put('error_message', $this->frozen_user_message);
                 }
                 if ($_POST['originate'] == 'maker') {
                     $this->redirect('/m/'.$_POST['originate_uid'].'/'.$_POST['originate_slug']);
@@ -56,6 +57,8 @@ class AddController extends MakerbaseAuthController {
                 if (!$this->logged_in_user->is_frozen) {
                     CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
                     $this->addMadeWith();
+                } else {
+                    SessionCache::put('error_message', $this->frozen_user_message);
                 }
                 $this->redirect('/p/'.$_POST['originate_uid'].'/'.$_POST['originate_slug']);
             }

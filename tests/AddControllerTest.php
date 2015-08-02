@@ -43,7 +43,7 @@ class AddControllerTest extends MakerbaseUnitTestCase {
     //TODO testAddMakerSignedInValidParamsWithValidTarget
     //TODO testAddMakerSignedInValidParamsWithInvalidTarget
     //TODO testAddMakerSignedInValidParamsUserFrozen
-    //TODO testAddMakerSignedInValidParamsMakerFrozen
+    //TODO testAddMakerSignedInValidParamsProductFrozen
     //TODO testAddMakerSignedInNoChange
     //TODO testAddMakerSignedInIncompleteParams
     //TODO testAddMakerSignedInMissingName
@@ -55,7 +55,7 @@ class AddControllerTest extends MakerbaseUnitTestCase {
     //TODO testAddProductSignedInValidParamsWithInvalidTarget
     //TODO testAddProductSignedInNoChange
     //TODO testAddProductSignedInValidParamsUserFrozen
-    //TODO testAddProductSignedInValidParamsProductFrozen
+    //TODO testAddProductSignedInValidParamsMakerFrozen
     //TODO testAddProductSignedInIncompleteParams
     //TODO testAddProductSignedInMissingName
     //TODO testAddProductSignedInInvalidSiteURL
