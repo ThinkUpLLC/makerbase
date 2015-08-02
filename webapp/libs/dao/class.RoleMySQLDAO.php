@@ -27,7 +27,8 @@ EOD;
         $q = <<<EOD
 SELECT r.*, r.id AS role_id, r.uid AS role_uid, p.*, p.id AS product_id, p.uid AS product_uid,
 r.is_archived AS role_is_archived FROM roles r
-INNER JOIN products p ON r.product_id = p.id WHERE r.is_archived = 0 AND maker_id = :maker_id
+INNER JOIN products p ON r.product_id = p.id
+WHERE r.is_archived = 0 AND maker_id = :maker_id AND p.is_archived = 0
 ORDER BY ISNULL(start), -ISNULL(end), start DESC
 EOD;
         $vars = array ( ':maker_id' => $maker_id);
@@ -103,7 +104,8 @@ EOD;
         $q = <<<EOD
 SELECT r.*, r.id AS role_id, r.uid AS role_uid, m.*, m.id AS maker_id, m.uid AS maker_uid,
 r.is_archived AS role_is_archived FROM roles r
-INNER JOIN makers m ON r.maker_id = m.id WHERE r.is_archived = 0 AND r.product_id = :product_id
+INNER JOIN makers m ON r.maker_id = m.id
+WHERE r.is_archived = 0 AND r.product_id = :product_id AND m.is_archived = 0
 ORDER BY ISNULL(start), start ASC
 EOD;
         $vars = array ( ':product_id' => $product_id);
@@ -137,7 +139,7 @@ SELECT maker_id, total_collaborations, m.name, m.uid, m.avatar_url, m.slug FROM
     ) GROUP BY maker_id
 ) S
 INNER JOIN makers m ON maker_id = m.id
-WHERE total_collaborations > 1
+WHERE total_collaborations > 1 AND m.is_archived = 0
 ORDER BY total_collaborations DESC
 LIMIT :limit ;
 EOD;
