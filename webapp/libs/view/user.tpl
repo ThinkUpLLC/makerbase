@@ -17,6 +17,7 @@ $email_capture_state either 'need email', 'confirmation_pending' or 'confirmatio
   <div class="col-xs-8 col-sm-8">
     <h1><strong>{$user->twitter_username}</strong> makes Makerbase</h1>
     <h5><a href="{$user->url}">{$user->url}</a></h5>
+    <h5><a href="https://twitter.com/intent/user?user_id={$user->twitter_user_id}">@{$user->twitter_username}</a></h5>
   </div>
 </div>
 
@@ -61,8 +62,6 @@ $email_capture_state either 'need email', 'confirmation_pending' or 'confirmatio
             Your Makerbase settings<br />
             <small>(These settings are visible only to you.)</small>
           </h2>
-
-          
 
           <h3 class="col-xs-12 col-sm-10 col-sm-offset-1">
             Email: <strong>{$user->email}</strong>

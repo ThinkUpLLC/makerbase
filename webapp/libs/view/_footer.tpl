@@ -64,6 +64,8 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="{$site_root_path}assets/js/vendor/typeahead.bundle.min.js"></script>
+    <!-- Twitter intents -->
+    <script type="text/javascript" async src="//platform.twitter.com/widgets.js"></script>
 
     {literal}
     <script type='text/javascript'>
