@@ -48,7 +48,7 @@
       ThinkUp LLC, a Delaware limited liability company. Also known as &ldquo;we&rdquo; or &ldquo;us&rdquo;.</dd>
 
       <dt>Makerbase:</dt><dd>
-      ThinkUp&apos;s services related to describing projects and those involved in
+      ThinkUp&#39;s services related to describing projects and those involved in
       projects.</dd>
 
       <dt>Subscriber:</dt><dd>
@@ -125,7 +125,7 @@
     currently available, published interfaces that are provided by ThinkUp (and
     only pursuant to those terms and conditions), unless you have been specifically
     allowed to do so in a separate agreement with ThinkUp, or unless specifically
-    permitted by ThinkUp&apos;s robots.txt file or other robot exclusion mechanisms; (d)
+    permitted by ThinkUp&#39;s robots.txt file or other robot exclusion mechanisms; (d)
     scrape the Services, or scrape Content (as defined below) from the Services;
     (e) use the Services to send altered, deceptive, or false source-identifying
     information, including without limitation by forging TCP-IP packet headers or
@@ -193,7 +193,7 @@
     <h3>Subscriber Content:</h3>
 
     <h4>&ldquo;You have the right to let us use your content. We
-    don&apos;t warrant other user&apos;s content.&rdquo;</h4>
+    don&#39;t warrant other user&#39;s content.&rdquo;</h4>
 
     <p>You represent and warrant that you either own your
     Subscriber Content or have all necessary rights, licenses and consents relating
@@ -222,7 +222,7 @@
 
     <p><b>Copyright Infringement; DMCA Policy:</b></p>
 
-    <h4>&ldquo;We&apos;ll remove copyrighted materials of yours; just let us
+    <h4>&ldquo;We&#39;ll remove copyrighted materials of yours; just let us
     know about it.&rdquo;</h4>
 
     <p>If you believe that any materials available through our
@@ -240,7 +240,7 @@
     copyright owner, its agent or the law; (5) a statement that the information in
     your claim is accurate; and (6) a statement that &quot;under penalty of
     perjury,&quot; you declare that you are the lawful copyright owner or are
-    authorized to act on the owner&apos;s behalf. Our agent for copyright issues
+    authorized to act on the owner&#39;s behalf. Our agent for copyright issues
     relating to our Services is: Copyright Agent, 220 East 23rd, Suite 601, New York,
     NY 10010, USA or help@thinkup.com. In an effort to protect the rights of
     copyright owners, we reserve the right to suspend your Account, delete or
@@ -386,7 +386,7 @@
     directors, officers, members, employees, representatives, consultants, agents,
     suppliers, licensors and/or distributors, harmless from and against any
     demands, suits, actions, claims, losses, damages, liabilities, judgments,
-    settlements, costs or expenses, including without limitation attorneys&apos; fees,
+    settlements, costs or expenses, including without limitation attorneys&#39; fees,
     arising out of or relating to your use or misuse of the Services, violation of
     this Agreement or violation of the rights of any other person or entity.</p>
 
@@ -415,8 +415,8 @@
     <h2 class="style-caramel">13. Arbitration;
     Waiver of Class Actions</h2>
 
-    <h4>&ldquo;We&apos;ll arbitrate instead of going to court for many
-    disputes. We&apos;ll only resolve disputes on an individual basis.&rdquo;</h4>
+    <h4>&ldquo;We&#39;ll arbitrate instead of going to court for many
+    disputes. We&#39;ll only resolve disputes on an individual basis.&rdquo;</h4>
 
     <p>Any claim where (a) the total amount of the award sought
     by either you or ThinkUp is less than $10,000 and (b) that does not involve
@@ -439,7 +439,7 @@
     of competent jurisdiction.</p>
 
     <p>Any claims brought by you or us must be brought in that
-    party&apos;s individual capacity, and not as a plaintiff or class member in any
+    party&#39;s individual capacity, and not as a plaintiff or class member in any
     purported class or representative proceeding. Neither you nor us will
     participate in a class action or class-wide arbitration for any claims covered
     by these Agreement. You hereby waive any and all rights to bring any claims
@@ -490,7 +490,7 @@
     laws of the State of New York as they apply to agreements entered into and to
     be performed entirely within New York between New York residents, without
     regard to conflict of law provisions. You agree that any claim or dispute
-    you may have against ThinkUp that isn&apos;t subject to mandatory arbitration under
+    you may have against ThinkUp that isn&#39;t subject to mandatory arbitration under
     Section 14 must be resolved exclusively by a state or federal court located in
     New York County, New York, except as otherwise agreed by the parties. Each
     party agrees to submit to the personal jurisdiction of the courts located
