@@ -6141,6 +6141,11 @@ body.landing-door .pager {
     font-size: 1.5em;
   }
 }
+.about-page {
+  margin-top: 2em;
+  padding-bottom: 2em;
+  background-color: #fff;
+}
 .about-page h1 {
   margin-top: 0.5em;
   font-size: 3em;
