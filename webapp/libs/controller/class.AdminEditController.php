@@ -224,7 +224,7 @@ class AdminEditController extends MakerbaseAdminController {
                 $has_changed_frozen_status = $user_dao->freeze($_POST['uid']);
                 if ($has_changed_frozen_status) {
                     $user->is_frozen = true;
-                    SessionCache::put('success_message', 'Froze project');
+                    SessionCache::put('success_message', 'Froze user');
                     $action_type = 'freeze';
                 }
             }
@@ -235,7 +235,7 @@ class AdminEditController extends MakerbaseAdminController {
                 $has_changed_frozen_status = $user_dao->unfreeze($_POST['uid']);
                 if ($has_changed_frozen_status) {
                     $user->is_frozen = false;
-                    SessionCache::put('success_message', 'Unfroze project');
+                    SessionCache::put('success_message', 'Unfroze user');
                     $action_type = 'unfreeze';
                 }
             }
