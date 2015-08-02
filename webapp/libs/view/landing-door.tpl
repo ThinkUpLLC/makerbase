@@ -89,7 +89,7 @@
 <div class="row" id="landing-top-contributors">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <h3>today's top contributors</h3>
-    <ul class="list-inline row">
+    <ul class="list-inline">
 
       {foreach $featured_users as $featured_user}
 

@@ -200,6 +200,9 @@ h2 a {
 h6 {
 	font-weight: 200;
 }
+.form-control {
+	box-shadow: none;
+}
 
 .navbar .navbar-brand {
 
@@ -614,16 +617,19 @@ form.form-inline {
 // LANDING PAGE ************************************
 
 #homepage-search {
+	padding: 0;
+	margin-top: 1em;
 	.twitter-typeahead {
 		padding-top: 1em;
 	}
 	#nav-typeahead,
 	.tt-hint {
-		padding: 1.5em;
+		padding: 1.2em;
 		width: 100%;
 		@media (min-width: @screen-sm-min) {
-			font-size: 1.7em;
+			font-size: 2em;
 		}
+		border: 1px solid @color-lightslate;
 	}
 	#nav-typeahead {
 		margin-top: -14px;
@@ -710,6 +716,7 @@ form.form-inline {
 }
 
 #landing-featured {
+	margin-top: 1.5em;
 	a {
 		color: black;
 	}
