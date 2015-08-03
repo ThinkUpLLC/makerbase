@@ -106,14 +106,14 @@
       </div>
       <div class="media-body">
         <h6>{$action->time_performed|relative_datetime} ago</h6>
-        <h4 class="media-heading">{$actor} {if $is_says}said{else}{$verbed}{/if} <a href="{$object_url}">{$object_name}</a>{if isset($action->object2_id)} {if $is_says}{$verbed}{else}on{/if} <a href="{$object2_url}">{$object2_name}</a>{/if}</a></h4>
+        <h4 class="media-heading">{$actor} {if $is_says}said{else}{$verbed}{/if} <a href="{$object_url}">{$object_name|escape}</a>{if isset($action->object2_id)} {if $is_says}{$verbed}{else}on{/if} <a href="{$object2_url}">{$object2_name}</a>{/if}</a></h4>
           {if isset($object2_avatar_url)}
           <div class="activity-attachment">
             <a href="{$object2_url}" class="action-avatar pull-left">
               <img src="{insert name='user_image' image_url=$object2_avatar_url image_proxy_sig=$image_proxy_sig type=$object2_type}" alt="{$object2_name}" class="img-responsive img-rounded">
             </a>
             <div class="">
-              <h5><a href="{$object2_url}">{$object2_name}</a></h5>
+              <h5><a href="{$object2_url}">{$object2_name|escape}</a></h5>
               <p></p>
             </div>
           </div>

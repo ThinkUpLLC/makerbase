@@ -292,7 +292,8 @@ class AddController extends MakerbaseAuthController {
             CacheHelper::expireCache('product.tpl', $product->uid, $product->slug);
             CacheHelper::expireCache('maker.tpl', $maker->uid, $maker->slug);
 
-            SessionCache::put('success_message', 'You added '.$maker->name.' to '.$product->name.'.');
+            SessionCache::put('success_message', 'You added '.htmlspecialchars($maker->name).' to '.
+                htmlspecialchars($product->name).'.');
         } catch (MakerDoesNotExistException $e) {
             SessionCache::put('error_message', 'That maker does not exist.');
         } catch (ProductDoesNotExistException $e) {
@@ -347,7 +348,8 @@ class AddController extends MakerbaseAuthController {
             CacheHelper::expireCache('product.tpl', $product->uid, $product->slug);
             CacheHelper::expireCache('product.tpl', $used_product->uid, $used_product->slug);
 
-            SessionCache::put('success_message', 'You said '.$product->name.' was made with '.$used_product->name.'.');
+            SessionCache::put('success_message', 'You said '.htmlspecialchars($product->name).' was made with '
+                .htmlspecialchars($used_product->name).'.');
         } catch (ProductDoesNotExistException $e) {
             SessionCache::put('error_message', 'That project does not exist.');
         }
@@ -435,15 +437,16 @@ class AddController extends MakerbaseAuthController {
                     //Add new action for role
                     $this->insertActionForRole($maker, $product, $role);
 
-                    SessionCache::put('success_message', 'You added '.$maker->name.' to '.$product->name
-                        .'.'.$tweet_link);
+                    SessionCache::put('success_message', 'You added '.htmlspecialchars($maker->name).' to '
+                        .htmlspecialchars($product->name).'.'.$tweet_link);
                     $this->redirect('/p/'.$product->uid.'/'.$product->slug);
                 } catch (ProductDoesNotExistException $e) {
-                    SessionCache::put('success_message', 'You added '.$maker->name.'.'.$tweet_link);
+                    SessionCache::put('success_message', 'You added '.htmlspecialchars($maker->name).'.'
+                        .$tweet_link);
                     $this->redirect('/m/'.$maker->uid.'/'.$maker->slug);
                 }
             } else {
-                SessionCache::put('success_message', 'You added '.$maker->name.'.'.$tweet_link);
+                SessionCache::put('success_message', 'You added '.htmlspecialchars($maker->name).'.'.$tweet_link);
                 $this->redirect('/m/'.$maker->uid.'/'.$maker->slug);
             }
         }
@@ -552,15 +555,15 @@ class AddController extends MakerbaseAuthController {
                     //Add new action for role
                     $this->insertActionForRole($maker, $product, $role);
 
-                    SessionCache::put('success_message', 'You added '.$product->name.' to '.$maker->name
-                        .'.');
+                    SessionCache::put('success_message', 'You added '.htmlspecialchars($product->name).' to '
+                        .htmlspecialchars($maker->name).'.');
                     $this->redirect('/m/'.$maker->uid.'/'.$maker->slug);
                 } catch (MakerDoesNotExistException $e) {
-                    SessionCache::put('success_message', 'You added '.$product->name.'.');
+                    SessionCache::put('success_message', 'You added '.htmlspecialchars($product->name).'.');
                     $this->redirect('/p/'.$product->uid.'/'.$product->slug);
                 }
             } else {
-                SessionCache::put('success_message', 'You added '.$product->name.'.');
+                SessionCache::put('success_message', 'You added '.htmlspecialchars($product->name).'.');
                 $this->redirect('/p/'.$product->uid.'/'.$product->slug);
             }
         }

@@ -237,8 +237,8 @@ class EditController extends MakerbaseAuthController {
                     $has_changed_archive_status = $madewith_dao->archive($_POST['madewith_uid']);
                     if ($has_changed_archive_status) {
                         $madewith->is_archived = true;
-                        SessionCache::put('success_message', 'You said '.$product->name.' doesn\'t use '.
-                            $used_product->name.'.');
+                        SessionCache::put('success_message', 'You said '.htmlspecialchars($product->name)
+                            .' doesn\'t use '. htmlspecialchars($used_product->name).'.');
                         $action_type = 'archive';
                     }
                 }
@@ -249,8 +249,8 @@ class EditController extends MakerbaseAuthController {
                     $has_changed_archive_status = $madewith_dao->unarchive($_POST['madewith_uid']);
                     if ($has_changed_archive_status) {
                         $madewith->is_archived = false;
-                        SessionCache::put('success_message', 'You said '.$product->name.' doesn\'t use '.
-                            $used_product->name.'.');
+                        SessionCache::put('success_message', 'You said '.htmlspecialchars($product->name)
+                            .' doesn\'t use '. htmlspecialchars($used_product->name).'.');
                         $action_type = 'unarchive';
                     }
                 }
@@ -460,7 +460,7 @@ class EditController extends MakerbaseAuthController {
             }
 
             if ($has_been_updated) {
-                SessionCache::put('success_message', "Updated ".$maker->name);
+                SessionCache::put('success_message', "Updated ".htmlspecialchars($maker->name));
             } else {
                 SessionCache::put('error_message', "Looks like there were no changes to save.");
             }
@@ -525,7 +525,7 @@ class EditController extends MakerbaseAuthController {
             }
 
             if ($has_been_updated) {
-                SessionCache::put('success_message', "Updated ".$product->name);
+                SessionCache::put('success_message', "Updated ".htmlspecialchars($product->name));
             } else {
                 SessionCache::put('error_message', "Looks like there were no changes to save.");
             }

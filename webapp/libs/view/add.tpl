@@ -78,7 +78,7 @@
 	<div class="row" id="add-form">
 
 		<h2 class="col-xs-12">
-			Add a {$addtype}{if isset($to_product)} to {$to_product->name}{/if}{if isset($to_maker)} to {$to_maker->name}{/if}<br />
+			Add a {$addtype}{if isset($to_product)} to {$to_product->name|escape}{/if}{if isset($to_maker)} to {$to_maker->name|escape}{/if}<br />
 			{if $object eq 'product'}
 				<small>{$project_guidance}</small>
 			{/if}

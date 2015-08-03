@@ -30,7 +30,7 @@
             <button onclick="$('#role-description-{$role->uid}').toggle();$('#edit-role-{$role->uid}').toggle();$('#role-archive-{$role->uid}').toggle();$('#edit-role-btn-{$role->uid}').toggle();$('#edit-role-btn-cancel-{$role->uid}').toggle();" type="button" class="btn btn-link btn-xs pull-right edit-role-button-cancel" id="edit-role-btn-cancel-{$role->uid}">cancel</button>
 
         <h3>
-            <a href="/{$object_route}/{$object_uid}/{$display_object->slug}">{$display_object->name}</a>
+            <a href="/{$object_route}/{$object_uid}/{$display_object->slug}">{$display_object->name|escape}</a>
 
         </h3>
         <h5 class="{if !isset($role->end_MY)}text-success{/if}">{if isset($role->start_MY)}{$role->start_MY} &mdash; {if isset($role->end_MY)}{$role->end_MY}{else}Present{/if}{/if}</h5>
@@ -38,7 +38,7 @@
         <div id="role-description-{$role->uid}">
 
             <p>
-                {$role->role|atnames:'/search/?q='}
+                {$role->role|escape|atnames:'/search/?q='}
             </p>
 
 

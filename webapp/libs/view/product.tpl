@@ -12,8 +12,8 @@
         {else}
           <a href="{$sign_in_with_twttr_link}" class="btn btn-default btn-link pull-right">edit</a>
         {/if}
-        <h1 {if $product->is_archived}class="archived"{/if}>We made <strong>{$product->name}</strong></h1>
-        <h3>{$product->description}</h3>
+        <h1 {if $product->is_archived}class="archived"{/if}>We made <strong>{$product->name|escape}</strong></h1>
+        <h3>{$product->description|escape}</h3>
         <h5><a href="{$product->url}" class="text-muted">{$product->url}</a></h5>
       </div>
     </div>
@@ -172,7 +172,7 @@
 
             <form method="post" action="/add/role/" class="form-horizontal col-xs-12 collapse" id="add-role-form">
 
-            <h2>Who {if $roles}else {/if} made {$product->name}?</h2>
+            <h2>Who {if $roles}else {/if} made {$product->name|escape}?</h2>
               <input type="hidden" name="product_uid" value="{$product->uid}">
               <input type="hidden" name="originate_slug" value="{$product->slug}">
               <input type="hidden" name="originate_uid" value="{$product->uid}">

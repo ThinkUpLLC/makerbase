@@ -14,7 +14,7 @@
               <a href="{$sign_in_with_twttr_link}" class="btn btn-default btn-link pull-right">edit</a>
             {/if}
           <h1 {if $maker->is_archived}class="archived"{/if}>
-            <strong>{$maker->name}</strong> is a maker
+            <strong>{$maker->name|escape}</strong> is a maker
           </h1>
           <h5><a href="{$maker->url}" class="text-muted">{$maker->url}</a></h5>
         </div>
@@ -129,7 +129,7 @@
 
             <form method="post" action="/add/role/" class="form-horizontal col-xs-12 collapse" id="add-project-form">
 
-            <h2>What {if $roles}else {/if}did {$maker->name} make?</h2>
+            <h2>What {if $roles}else {/if}did {$maker->name|escape} make?</h2>
               <input type="hidden" name="maker_uid" value="{$maker->uid}">
               <input type="hidden" name="originate_slug" value="{$maker->slug}">
               <input type="hidden" name="originate_uid" value="{$maker->uid}">
