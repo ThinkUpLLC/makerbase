@@ -29,54 +29,39 @@ class SignInController extends MakerbaseController {
                 if ( isset($authed_twitter_user) && isset($authed_twitter_user['user_name'])
                     && isset($authed_twitter_user['user_id'])) {
 
-                    //Twitter sign-in succceeded
-                    $autofill_dao  = new AutofillMySQLDAO();
-                    $waitlist_dao = new WaitlistMySQLDAO();
-
-                    if ($autofill_dao->doesAutofillExist($authed_twitter_user['user_id'], 'twitter')) {
-                        //User is whitelisted, log on in
-                        $user_dao = new UserMySQLDAO();
-                        try {
-                            $user = $user_dao->getByTwitterUserId($authed_twitter_user['user_id']);
-                            $user_dao->updateLastLogin($user);
-                            //If avatar, url, username, or name has changed on Twitter, update it in storage
-                            if ($user->avatar_url !== $authed_twitter_user['avatar'] ||
-                                $user->twitter_username !== $authed_twitter_user['user_name'] ||
-                                $user->url !== $authed_twitter_user['url'] ||
-                                $user->name !== $authed_twitter_user['full_name']
-                                ) {
-                                $user->name = $authed_twitter_user['full_name'];
-                                $user->twitter_username = $authed_twitter_user['user_name'];
-                                $user->url = $authed_twitter_user['url'];
-                                $user->avatar_url = $authed_twitter_user['avatar'];
-                                $user_dao->update($user);
-                            }
-                        } catch (UserDoesNotExistException $e) {
-                            $user = new User();
+                    $user_dao = new UserMySQLDAO();
+                    try {
+                        $user = $user_dao->getByTwitterUserId($authed_twitter_user['user_id']);
+                        $user_dao->updateLastLogin($user);
+                        //If avatar, url, username, or name has changed on Twitter, update it in storage
+                        if ($user->avatar_url !== $authed_twitter_user['avatar'] ||
+                            $user->twitter_username !== $authed_twitter_user['user_name'] ||
+                            $user->url !== $authed_twitter_user['url'] ||
+                            $user->name !== $authed_twitter_user['full_name']
+                            ) {
                             $user->name = $authed_twitter_user['full_name'];
+                            $user->twitter_username = $authed_twitter_user['user_name'];
                             $user->url = $authed_twitter_user['url'];
                             $user->avatar_url = $authed_twitter_user['avatar'];
-                            $user->twitter_user_id = $authed_twitter_user['user_id'];
-                            $user->twitter_username = $authed_twitter_user['user_name'];
-                            $user->twitter_oauth_access_token = $token_array['oauth_token'];
-                            $user->twitter_oauth_access_token_secret = $token_array['oauth_token_secret'];
-                            $new_user = $user_dao->insert($user);
-                            $user->id = $new_user->id;
-                            $user->uid = $new_user->uid;
-
-                            $waitlist_dao->archive($authed_twitter_user['user_id'], 'twitter');
+                            $user_dao->update($user);
                         }
-                        Session::completeLogin($user->uid);
-                        CacheHelper::expireLandingAndUserActivityCache($user->uid);
-                        SessionCache::put('success_message', 'You have signed in.');
-                    } else {
-                        $waitlist_dao->insert( $authed_twitter_user['user_id'], 'twitter',
-                            $authed_twitter_user['user_name'], $authed_twitter_user['follower_count'],
-                            $authed_twitter_user['is_verified'], $token_array['oauth_token'],
-                            $token_array['oauth_token_secret']);
-                        SessionCache::put('is_waitlisted', $authed_twitter_user);
-                        $this->redirect(Config::getInstance()->getValue('site_root_path'));
+                    } catch (UserDoesNotExistException $e) {
+                        $user = new User();
+                        $user->name = $authed_twitter_user['full_name'];
+                        $user->url = $authed_twitter_user['url'];
+                        $user->avatar_url = $authed_twitter_user['avatar'];
+                        $user->twitter_user_id = $authed_twitter_user['user_id'];
+                        $user->twitter_username = $authed_twitter_user['user_name'];
+                        $user->twitter_oauth_access_token = $token_array['oauth_token'];
+                        $user->twitter_oauth_access_token_secret = $token_array['oauth_token_secret'];
+                        $new_user = $user_dao->insert($user);
+                        $user->id = $new_user->id;
+                        $user->uid = $new_user->uid;
                     }
+                    Session::completeLogin($user->uid);
+                    CacheHelper::expireLandingAndUserActivityCache($user->uid);
+                    SessionCache::put('success_message', 'You have signed in.');
+
                     //Redirect user if redir is set
                     if (isset($_GET['redirect'])) {
                         if (!$this->redirect($_GET['redirect'])) {

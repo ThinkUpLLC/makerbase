@@ -7,31 +7,13 @@ class AdminDashboardController extends MakerbaseAdminController {
 
         $this->disableCaching();
 
-        $waitlist_dao = new WaitlistMySQLDAO();
         $page_number = (isset($_GET['p']))?$_GET['p']:1;
         $limit = 20;
 
         if (!isset($_GET['v']) ) {
-            $_GET['v'] = 'waitlist_followers';
+            $_GET['v'] = 'all-actions';
         }
 
-        if ($_GET['v'] == 'waitlist_followers' || $_GET['v'] == 'waitlist_newest') {
-            if ($_GET['v'] == 'waitlist_followers') {
-                $waitlisters = $waitlist_dao->listWaitlisters($limit, 'follower_count', $page_number);
-            } elseif ($_GET['v'] == 'waitlist_newest') {
-                $waitlisters = $waitlist_dao->listWaitlisters($limit, 'creation_time', $page_number);
-            }
-
-            if (count($waitlisters) > $limit) {
-                array_pop($waitlisters);
-                $this->addToView('next_page', $page_number+1);
-            }
-            if ($page_number > 1) {
-                $this->addToView('prev_page', $page_number-1);
-            }
-
-            $this->addToView('waitlisters', $waitlisters);
-        }
         if ($_GET['v'] == 'actions') {
             $action_dao = new ActionMySQLDAO();
             $actions = $action_dao->getAdminActivities($page_number, $limit);
@@ -51,9 +33,6 @@ class AdminDashboardController extends MakerbaseAdminController {
         }
 
         $this->addToView('sort_view',  $_GET['v']);
-
-        $total_waitlisters = $waitlist_dao->getTotal();
-        $this->addToView('total_waitlisters', $total_waitlisters);
 
         $user_dao = new UserMySQLDAO();
         $total_users = $user_dao->getTotal();

@@ -6042,16 +6042,16 @@ fieldset[disabled] #landing-header #join-button.active {
 body.landing #activity blockquote {
   display: none;
 }
-body.landing-door {
+body.landing-not-signed-in {
   background-color: #fff;
 }
-body.landing-door #activity {
+body.landing-not-signed-in #activity {
   margin-top: 0;
 }
-body.landing-door #activity blockquote {
+body.landing-not-signed-in #activity blockquote {
   display: none;
 }
-body.landing-door .pager {
+body.landing-not-signed-in .pager {
   display: none;
 }
 #testimonial-quote {

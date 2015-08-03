@@ -35,7 +35,6 @@ $router->addRoute('search', 'SearchController');
 $router->addRoute('autocomplete', 'SearchAutoCompleteController');
 $router->addRoute('twittersignin', 'TwitterSignInController');
 $router->addRoute('about', 'AboutPageController', array('p'));
-$router->addRoute('requestinvites', 'RequestInvitesController', array('id'));
 $router->addRoute('s3cr3t', 'AdminDashboardController', array('v', 'p'));
 $router->addRoute('adminedit', 'AdminEditController', array('object'));
 

@@ -10,11 +10,9 @@ class LandingController extends MakerbaseController {
         //End terrible, terrible hack
 
         parent::control();
+        $this->setViewTemplate('landing.tpl');
 
         if (Session::isLoggedIn()) {
-            //$this->view_mgr->clear_all_cache();
-            $this->setViewTemplate('landing.tpl');
-
             if ($this->shouldRefreshCache() ) {
                 $page_number = (isset($_GET['p']) && is_numeric($_GET['p']))?$_GET['p']:1;
                 $limit = 10;
@@ -39,44 +37,34 @@ class LandingController extends MakerbaseController {
                     .'">Add your email address now.</a>');
             }
         } else {
-            //Featured makers
-            $config = Config::getInstance();
-            $featured_makers = $config->getValue('featured_makers');
-            $this->addToView('featured_makers', $featured_makers);
-
-            //Featured products
-            $featured_products = $config->getValue('featured_products');
-            $this->addToView('featured_products', $featured_products);
-
-            //Featured users
-            $featured_user_uids = $config->getValue('featured_users');
-            $user_dao = new UserMySQLDAO();
-            $featured_users = array();
-            //@TODO Optimize this!
-            foreach($featured_user_uids as $featured_user_uid) {
-                $featured_users[] = $user_dao->get($featured_user_uid);
-            }
-            $this->addToView('featured_users', $featured_users);
-
-            $waitlisted_user = SessionCache::get('is_waitlisted');
-            $is_waitlisted = isset($waitlisted_user);
-            if ($is_waitlisted) {
-                $this->addToView('waitlisted_username', $waitlisted_user['user_name']);
-                $this->addToView('waitlisted_twitter_id', $waitlisted_user['user_id']);
-            }
-            $this->addToView('is_waitlisted', $is_waitlisted);
-            SessionCache::unsetKey('is_waitlisted');
-            $this->disableCaching();
-            $this->setViewTemplate('landing-door.tpl');
-
             if ($this->shouldRefreshCache() ) {
-                $page_number = 1;
-                $limit = 6;
-                $action_dao = new ActionMySQLDAO();
-                $actions = $action_dao->getActivities($page_number, $limit);
-                $this->addToView('actions', $actions);
-            }
+                //Featured makers
+                $config = Config::getInstance();
+                $featured_makers = $config->getValue('featured_makers');
+                $this->addToView('featured_makers', $featured_makers);
 
+                //Featured products
+                $featured_products = $config->getValue('featured_products');
+                $this->addToView('featured_products', $featured_products);
+
+                //Featured users
+                $featured_user_uids = $config->getValue('featured_users');
+                $user_dao = new UserMySQLDAO();
+                $featured_users = array();
+                //@TODO Optimize this!
+                foreach($featured_user_uids as $featured_user_uid) {
+                    $featured_users[] = $user_dao->get($featured_user_uid);
+                }
+                $this->addToView('featured_users', $featured_users);
+
+                if ($this->shouldRefreshCache() ) {
+                    $page_number = 1;
+                    $limit = 6;
+                    $action_dao = new ActionMySQLDAO();
+                    $actions = $action_dao->getActivities($page_number, $limit);
+                    $this->addToView('actions', $actions);
+                }
+            }
         }
 
         // Transfer cached user messages to the view
