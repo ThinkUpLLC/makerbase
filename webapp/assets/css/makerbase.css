@@ -6127,6 +6127,7 @@ body.landing-door .pager {
 #landing-sponsors a.sponsor img.avatar {
   width: 40%;
   margin-bottom: 8px;
+  margin-left: 16px;
 }
 #landing-sponsors a.sponsor .sponsor-projects {
   color: white;
