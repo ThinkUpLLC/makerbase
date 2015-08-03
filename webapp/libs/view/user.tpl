@@ -85,13 +85,13 @@ $email_capture_state either 'need email', 'confirmation_pending' or 'confirmatio
     </div>
   </div>
 
+  {include file="_actions.tpl"}
+
   {else}
 
-    {include file="_reportpage.tpl" object=$user object_type='user'}
+    {include file="_actions.tpl" object=$user object_type='user'}
 
   {/if}
 {/if}
-
-{include file="_actions.tpl"}
 
 {include file="_footer.tpl"}

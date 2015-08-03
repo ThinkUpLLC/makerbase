@@ -207,8 +207,6 @@
 {/if}
 
 
-  {include file="_reportpage.tpl" object=$maker object_type='maker'}
-
-  {include file="_actions.tpl"}
+  {include file="_actions.tpl" object=$maker object_type='maker'}
 
 {include file="_footer.tpl"}

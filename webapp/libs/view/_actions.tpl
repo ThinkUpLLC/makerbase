@@ -1,10 +1,18 @@
+{*
+Display recent activity on a maker, project, or user page.
+
+$actions
+$object_type 'project' or 'maker' or 'user'
+$object either the Product or Maker or User
+*}
+
 
 {if isset($actions)}
   {if sizeof($actions) > 0}
 
 <div class="row" id="activity">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-    <h3>recent activity</h3>
+    <h3>recent activity{if isset($object_type)}            {include file="_reportpage.tpl"  object=$object object_type=$object_type}{/if}</h3>
 
     {foreach $actions as $action}
 
@@ -52,5 +60,11 @@
 
   </div>
 </div>
-  {/if}
+{else}
+<div class="row" id="activity">
+  <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+    <h3>{include file="_reportpage.tpl" object=$product object_type='project'}</h3>
+  </div>
+</div>
+{/if}
 {/if}
