@@ -142,9 +142,9 @@ $featured_product_2_array = array(
 $featured_product_2_makers = array();
 $featured_product_2_makers[] = array(
     'name' => 'Jason Shellen',
-    'uid' => '5lav62',
-    'slug' => 'ftrain',
-    'avatar_url' => 'http://pbs.twimg.com/profile_images/3363818792/c90e33ccf22e3146d5cd871ce561795a.png'
+    'uid' => 'q8yji8',
+    'slug' => 'shellen',
+    'avatar_url' => 'http://pbs.twimg.com/profile_images/563212823962980353/EEDscIja.jpeg'
 );
 
 $featured_product_2_makers[] = array(
