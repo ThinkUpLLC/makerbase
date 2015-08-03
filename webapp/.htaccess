@@ -1,12 +1,13 @@
 RewriteEngine On
 
+# Rewrite Gina and Anil's URLs (Temporarily, until claimed URLs are available)
+RewriteRule ^ginatrapani$ /m/583wg3/ginatrapani? [R=301,L]
+RewriteRule ^anildash$ /m/psw2ud/anildash? [R=301,L]
+
 # Enable URL routing
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php/$1 [L]
-
-# Test rewriting
-# RewriteRule ^test\.html http://www.google.com/? [R=301,L]
 
 # AuthType Basic
 # AuthUserFile /var/www/.htpasswd
