@@ -22,7 +22,6 @@ class ProductController extends MakerbaseController {
                 // Get madewiths
                 $madewith_dao = new MadeWithMySQLDAO();
                 $madewiths = $madewith_dao->getByProduct($product);
-                $this->addToView('madewiths', $madewiths);
 
                 //Get uses this buttons (subtract madewiths from sponsors)
                 $sponsors = Config::getInstance()->getValue('sponsors');
@@ -44,6 +43,12 @@ class ProductController extends MakerbaseController {
                     $uses_this_buttons[] = $sponsors[$uses_this_name];
                 }
                 $this->addToView('uses_this_buttons', $uses_this_buttons);
+
+                //Use config-specified sponsor avatars for madewiths
+                foreach ($madewiths as $madewith) {
+                    $madewith->used_product->avatar_url = $sponsors[$madewith->used_product->name]['avatar_url'];
+                }
+                $this->addToView('madewiths', $madewiths);
 
                 // Get used by (if sponsor)
                 if (in_array($product->uid, $sponsor_uids) ) {
