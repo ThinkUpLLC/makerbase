@@ -53,7 +53,9 @@ class ImageProxyCacheController extends Controller {
             //Construct the local cache filename
             $this->local_filename = $this->getLocalFilename($this->url, $extension);
 
-            if (file_exists($this->local_filename)) {
+            if ($parsed_url['host'] == 'makerba.se' || $parsed_url['host'] == $_SERVER['SERVER_NAME']) {
+                $this->redirect($this->url);
+            } elseif (file_exists($this->local_filename)) {
                 $type = 'image/'.$extension;
                 header('Content-Type:'.$type);
                 header('Content-Length: ' . filesize($this->local_filename));
