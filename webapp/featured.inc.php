@@ -8,18 +8,32 @@
 
 // First featured Maker
 $featured_maker_1_array = array(
-    'name' => 'Ayah Bdeir',
-    'avatar_url' => 'http://pbs.twimg.com/profile_images/1251593795/ayah_bdeir_cropped_lowres.jpg',
-    'uid' => 'g4414b',
-    'slug' => 'ayahbdeir'
+    'name' => 'Tracy Chou',
+    'avatar_url' => 'http://pbs.twimg.com/profile_images/576147637151215617/Rxm_J6SH.jpg',
+    'uid' => 'foevj5',
+    'slug' => 'triketora'
 );
 
 $featured_maker_1_products = array();
 $featured_maker_1_products[] = array(
-    'name' => 'littleBits',
-    'uid' => '1e2224',
-    'slug' => 'littlebits',
-    'avatar_url' => 'http://pbs.twimg.com/profile_images/467301645009690624/l3sT7gHv.png'
+    'name' => 'Pinterest',
+    'uid' => '60ul92',
+    'slug' => 'pinterest',
+    'avatar_url' => 'http://pbs.twimg.com/profile_images/552515711403175936/kEOy5T7L.png'
+);
+
+$featured_maker_1_products[] = array(
+    'name' => 'Quora',
+    'uid' => 'nq4s03',
+    'slug' => 'quora',
+    'avatar_url' => 'https://pbs.twimg.com/profile_images/615648367943651328/51pM5n5v.png'
+);
+
+$featured_maker_1_products[] = array(
+    'name' => 'Women in Software Engineering',
+    'uid' => '75z949',
+    'slug' => 'womeninsoftwareengineering',
+    'avatar_url' => 'https://makerba.se/assets/img/blank-project.png'
 );
 
 // Second featured Maker
@@ -39,10 +53,10 @@ $featured_maker_2_products[] = array(
 );
 
 $featured_maker_2_products[] = array(
-    'name' => 'Peabrain',
-    'uid' => 'jx3208',
-    'slug' => 'peabrain',
-    'avatar_url' => 'http://pbs.twimg.com/profile_images/2340141109/a1ewp3airch7ocs4ccuh.png'
+    'name' => '43 Things',
+    'uid' => 'sthl3c',
+    'slug' => '43things',
+    'avatar_url' => 'http://pbs.twimg.com/profile_images/1196619760/43thingsLogo_square.gif'
 );
 
 $featured_maker_2_products[] = array(
@@ -63,7 +77,7 @@ $featured_maker_2_products[] = array(
 $featured_maker_3_array = array(
     'name' => 'Marques Brownlee',
     'avatar_url' => 'http://pbs.twimg.com/profile_images/590305718151970816/kk7QHF2q.jpg',
-    'uid' => '8b04i1',
+    'uid' => 'nu9z3w',
     'slug' => 'mkbhd'
 );
 
@@ -74,6 +88,23 @@ $featured_maker_3_products[] = array(
     'slug' => 'mkbhd',
     'avatar_url' => 'https://lh6.ggpht.com/61Gh4hjz3u0ZmrZvu6w2uODGdlahHy-_316PNgKtUsIQqi27r9J1sY5OiVffvR9hPdw=w300'
 );
+
+// Fourth featured Maker
+$featured_maker_4_array = array(
+    'name' => 'Ayah Bdeir',
+    'avatar_url' => 'http://pbs.twimg.com/profile_images/1251593795/ayah_bdeir_cropped_lowres.jpg',
+    'uid' => 'g4414b',
+    'slug' => 'ayahbdeir'
+);
+
+$featured_maker_4_products = array();
+$featured_maker_4_products[] = array(
+    'name' => 'littleBits',
+    'uid' => '1e2224',
+    'slug' => 'littlebits',
+    'avatar_url' => 'http://pbs.twimg.com/profile_images/467301645009690624/l3sT7gHv.png'
+);
+
 
 //** Featured Products **//
 
@@ -102,63 +133,99 @@ $featured_product_1_makers[] = array(
 
 // Second featured Product
 $featured_product_2_array = array(
-    'name' => 'What is Code?',
-    'avatar_url' => 'http://www.bloomberg.com/graphics/2015-paul-ford-what-is-code/images/emotes/angry.gif',
-    'uid' => '15js4s',
-    'slug' => 'whatiscode'
+    'name' => 'Google Reader',
+    'avatar_url' => 'http://pbs.twimg.com/profile_images/71187612/reader.png',
+    'uid' => '50807q',
+    'slug' => 'googlereader'
 );
 
 $featured_product_2_makers = array();
 $featured_product_2_makers[] = array(
-    'name' => 'Paul Ford',
+    'name' => 'Jason Shellen',
     'uid' => '5lav62',
     'slug' => 'ftrain',
     'avatar_url' => 'http://pbs.twimg.com/profile_images/3363818792/c90e33ccf22e3146d5cd871ce561795a.png'
 );
 
 $featured_product_2_makers[] = array(
+    'name' => 'Chris Wetherell',
+    'uid' => '11r2z0',
+    'slug' => 'cw',
+    'avatar_url' => 'http://pbs.twimg.com/profile_images/564649912764076033/LeSnVk-r.png'
+);
+
+$featured_product_2_makers[] = array(
+    'name' => 'Mihai Parparita',
+    'uid' => 'e50b37',
+    'slug' => 'mihai',
+    'avatar_url' => 'http://pbs.twimg.com/profile_images/761082162/badge-twitter.png'
+);
+
+$featured_product_2_makers[] = array(
+    'name' => 'Jenna Bilotta',
+    'uid' => '1r08h6',
+    'slug' => 'jenna',
+    'avatar_url' => 'http://pbs.twimg.com/profile_images/509904021961056257/8FtQSD1L.jpeg'
+);
+
+// Third featured Product
+$featured_product_3_array = array(
+    'name' => 'What is Code?',
+    'avatar_url' => 'http://makerba.se/assets/img/featured/whatiscode-featured-logo.jpg',
+    'uid' => '15js4s',
+    'slug' => 'whatiscode'
+);
+
+$featured_product_3_makers = array();
+$featured_product_3_makers[] = array(
+    'name' => 'Paul Ford',
+    'uid' => '5lav62',
+    'slug' => 'ftrain',
+    'avatar_url' => 'http://pbs.twimg.com/profile_images/3363818792/c90e33ccf22e3146d5cd871ce561795a.png'
+);
+
+$featured_product_3_makers[] = array(
     'name' => 'Jim Aley',
     'uid' => 'btdsg5',
     'slug' => 'jimaley',
     'avatar_url' => 'http://pbs.twimg.com/profile_images/2928401560/7b981209a02e8019819973226d5c07ed.png'
 );
 
-$featured_product_2_makers[] = array(
+$featured_product_3_makers[] = array(
     'name' => 'Toph Tucker',
     'uid' => 'bjb48n',
     'slug' => 'tophtucker',
     'avatar_url' => 'http://pbs.twimg.com/profile_images/587137703025762304/WYq1-qus.jpg'
 );
 
-// Third featured Product
-$featured_product_3_array = array(
+// Fourth featured Product
+$featured_product_4_array = array(
     'name' => 'The Standesk 2200',
     'avatar_url' => 'http://www.wired.com/images_blogs/wiredscience/2012/09/mf-standing-desk_ikeab.jpg',
     'uid' => '227405',
     'slug' => 'thestandesk2200'
 );
 
-$featured_product_3_makers = array();
-$featured_product_3_makers[] = array(
+$featured_product_4_makers = array();
+$featured_product_4_makers[] = array(
     'name' => 'Colin Nederkoorn',
     'uid' => '2k53m4',
     'slug' => 'alphacolin',
     'avatar_url' => 'http://pbs.twimg.com/profile_images/593215937219670016/mDRLFYEd.jpg'
 );
 
-$featured_product_3_makers[] = array(
+$featured_product_4_makers[] = array(
     'name' => 'Ryan Witt',
     'uid' => 'z49b24',
     'slug' => 'onecreativenerd',
     'avatar_url' => 'http://pbs.twimg.com/profile_images/461721229292875776/v6shxhsp.jpeg'
 );
 
-
-
 class FeatureHelper {
 
     public static function getFeaturedMakers($featured_maker_1_array, $featured_maker_1_products,
-        $featured_maker_2_array, $featured_maker_2_products, $featured_maker_3_array, $featured_maker_3_products) {
+        $featured_maker_2_array, $featured_maker_2_products, $featured_maker_3_array, $featured_maker_3_products,
+        $featured_maker_4_array, $featured_maker_4_products) {
 
         $featured_makers = array();
 
@@ -183,14 +250,22 @@ class FeatureHelper {
             $featured_maker_3->products[] = new Product(array_merge($product_array, $product_defaults));
         }
 
+        $featured_maker_4 = new Maker(array_merge($featured_maker_4_array, $defaults));
+        $featured_maker_4->products = array();
+        foreach($featured_maker_4_products as $product_array) {
+            $featured_maker_4->products[] = new Product(array_merge($product_array, $product_defaults));
+        }
+
         $featured_makers[] = $featured_maker_1;
         $featured_makers[] = $featured_maker_2;
         $featured_makers[] = $featured_maker_3;
+        $featured_makers[] = $featured_maker_4;
         return $featured_makers;
     }
 
     public static function getFeaturedProducts($featured_product_1_array, $featured_product_1_makers,
-        $featured_product_2_array, $featured_product_2_makers, $featured_product_3_array, $featured_product_3_makers) {
+        $featured_product_2_array, $featured_product_2_makers, $featured_product_3_array, $featured_product_3_makers,
+        $featured_product_4_array, $featured_product_4_makers) {
 
         $featured_products = array();
 
@@ -216,21 +291,28 @@ class FeatureHelper {
             $featured_product_3->makers[] = new Maker(array_merge($maker_array, $defaults, $maker_defaults));
         }
 
+        $featured_product_4 = new Product(array_merge($featured_product_4_array, $defaults));
+        $featured_product_4->makers = array();
+        foreach($featured_product_4_makers as $maker_array) {
+            $featured_product_4->makers[] = new Maker(array_merge($maker_array, $defaults, $maker_defaults));
+        }
+
         $featured_products[] = $featured_product_1;
         $featured_products[] = $featured_product_2;
         $featured_products[] = $featured_product_3;
+        $featured_products[] = $featured_product_4;
         return $featured_products;
     }
 }
 
 $ISOSCELES_CFG['featured_makers'] = FeatureHelper::getFeaturedMakers($featured_maker_1_array,
     $featured_maker_1_products, $featured_maker_2_array, $featured_maker_2_products, $featured_maker_3_array,
-    $featured_maker_3_products);
+    $featured_maker_3_products, $featured_maker_4_array, $featured_maker_4_products);
 
 $ISOSCELES_CFG['featured_products'] = FeatureHelper::getFeaturedProducts($featured_product_1_array,
     $featured_product_1_makers, $featured_product_2_array, $featured_product_2_makers, $featured_product_3_array,
-    $featured_product_3_makers);
+    $featured_product_3_makers, $featured_product_4_array, $featured_product_4_makers);
 
-$ISOSCELES_CFG['featured_users'] = array('2r068g', 'xrqyy7', 'lkq49x', '55lz73');
+$ISOSCELES_CFG['featured_users'] = array('24ul5k', 'cq2i35', 'xrqyy7', 'g78e07');
 
 
