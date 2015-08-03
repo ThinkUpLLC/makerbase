@@ -23,6 +23,7 @@ $email_capture_state either 'need email', 'confirmation_pending' or 'confirmatio
 
 {if isset($logged_in_user)}
   {if $logged_in_user->twitter_user_id eq $user->twitter_user_id}
+  {** BEGIN SHOW LOGGED-IN USER THEIR OWN SETTINGS **}
 
   <div class="row" id="user-settings">
      <div class="col-sm-10 col-sm-offset-1 col-xs-12">
@@ -76,7 +77,6 @@ $email_capture_state either 'need email', 'confirmation_pending' or 'confirmatio
         </div>
      </div>
   </div>
-
   <div class="row" id="report-this">
     <div class="col-xs-12 col-sm-10 col-sm-offset-1">
 
@@ -87,11 +87,19 @@ $email_capture_state either 'need email', 'confirmation_pending' or 'confirmatio
 
   {include file="_actions.tpl"}
 
+  {** END SHOW LOGGED-IN USER THEIR OWN SETTINGS **}
   {else}
 
+    {** LOGGED IN AS ANOTHER USER **}
     {include file="_actions.tpl" object=$user object_type='user'}
 
   {/if}
+
+{else}
+
+    {** NOT LOGGED IN **}
+    {include file="_actions.tpl" object=$user object_type='user'}
+
 {/if}
 
 {include file="_footer.tpl"}
