@@ -5573,6 +5573,7 @@ form.form-inline {
 }
 #activity h4 a.user-link {
   font-weight: normal;
+  color: #333333;
 }
 #activity h5,
 #activity h6 {
