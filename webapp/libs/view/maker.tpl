@@ -180,7 +180,7 @@
 <div class="row" id="collaborators">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
 
-    <h2><a href="#collaborators">{$maker->name}'s <strong>Collaborators</strong></a></h2>
+    <h2><a href="#collaborators">{$maker->name|escape}'s <strong>Collaborators</strong></a></h2>
     <ul class="list-group" id="collaborator-list">
       {foreach $collaborators as $collaborator}
       <li class="list-group-item">
@@ -189,14 +189,14 @@
         </div>
 
         <div class="media-body">
-          <h3>{$collaborator.total_collaborations} projects with <strong><a href="/m/{$collaborator.uid}/{$collaborator.slug}">{$collaborator.name}</a></strong></h3>
+          <h3>{$collaborator.total_collaborations} projects with <strong><a href="/m/{$collaborator.uid}/{$collaborator.slug}">{$collaborator.name|escape}</a></strong></h3>
 
           {foreach $collaborator.projects as $project name="collaborated_projects"}
             <a href="/p/{$project->uid}/{$project->slug}">
 
             <img src="{insert name='user_image' image_url=$project->avatar_url image_proxy_sig=$image_proxy_sig type='p'}">
 
-            {$project->name}</a>
+            {$project->name|escape}</a>
           {/foreach}
         </div>
       </li>
