@@ -171,7 +171,7 @@ $featured_product_2_makers[] = array(
 // Third featured Product
 $featured_product_3_array = array(
     'name' => 'What is Code?',
-    'avatar_url' => 'http://makerba.se/assets/img/featured/whatiscode-featured-logo.jpg',
+    'avatar_url' => 'https://makerba.se/assets/img/featured/whatiscode-featured-logo.jpg',
     'uid' => '15js4s',
     'slug' => 'whatiscode'
 );
