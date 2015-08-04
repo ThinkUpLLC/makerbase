@@ -9,7 +9,8 @@
 // First featured Maker
 $featured_maker_1_array = array(
     'name' => 'Tracy Chou',
-    'avatar_url' => 'http://pbs.twimg.com/profile_images/576147637151215617/Rxm_J6SH.jpg',
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/576147637151215617/Rxm_J6SH.jpg',
+    'avatar_url' => 'https://makerba.se/assets/img/featured/tracy-chou.jpeg',
     'uid' => 'foevj5',
     'slug' => 'triketora'
 );
@@ -19,14 +20,16 @@ $featured_maker_1_products[] = array(
     'name' => 'Pinterest',
     'uid' => '60ul92',
     'slug' => 'pinterest',
-    'avatar_url' => 'http://pbs.twimg.com/profile_images/552515711403175936/kEOy5T7L.png'
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/552515711403175936/kEOy5T7L.png'
+    'avatar_url' => 'https://makerba.se/assets/img/featured/pinterest.png',
 );
 
 $featured_maker_1_products[] = array(
     'name' => 'Quora',
     'uid' => 'nq4s03',
     'slug' => 'quora',
-    'avatar_url' => 'https://pbs.twimg.com/profile_images/615648367943651328/51pM5n5v.png'
+    //'avatar_url' => 'https://pbs.twimg.com/profile_images/615648367943651328/51pM5n5v.png'
+    'avatar_url' => 'https://makerba.se/assets/img/featured/quora.png',
 );
 
 $featured_maker_1_products[] = array(
@@ -39,7 +42,8 @@ $featured_maker_1_products[] = array(
 // Second featured Maker
 $featured_maker_2_array = array(
     'name' => 'Buster Benson',
-    'avatar_url' => 'https://pbs.twimg.com/profile_images/596779047134199808/IBpBry99_400x400.jpg',
+    //'avatar_url' => 'https://pbs.twimg.com/profile_images/596779047134199808/IBpBry99_400x400.jpg',
+    'avatar_url' => 'https://makerba.se/assets/img/featured/buster-benson.jpeg',
     'uid' => 'u438n4',
     'slug' => 'buster'
 );
@@ -49,34 +53,39 @@ $featured_maker_2_products[] = array(
     'name' => '750 Words',
     'uid' => '3v53xr',
     'slug' => '750words',
-    'avatar_url' => 'http://pbs.twimg.com/profile_images/443644067075723264/QJc2IfUa.png'
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/443644067075723264/QJc2IfUa.png'
+    'avatar_url' => 'https://makerba.se/assets/img/featured/750words.png',
 );
 
 $featured_maker_2_products[] = array(
     'name' => '43 Things',
     'uid' => 'sthl3c',
     'slug' => '43things',
-    'avatar_url' => 'http://pbs.twimg.com/profile_images/1196619760/43thingsLogo_square.gif'
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/1196619760/43thingsLogo_square.gif'
+    'avatar_url' => 'https://makerba.se/assets/img/featured/43things.gif',
 );
 
 $featured_maker_2_products[] = array(
     'name' => 'Health Month',
     'uid' => 'dk2x9t',
     'slug' => 'healthmonth',
-    'avatar_url' => 'http://pbs.twimg.com/profile_images/1136999397/track_meals.400.png'
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/1136999397/track_meals.400.png'
+    'avatar_url' => 'https://makerba.se/assets/img/featured/healthmonth.png',
 );
 
 $featured_maker_2_products[] = array(
     'name' => 'Locavore',
     'uid' => '2dd6xe',
     'slug' => 'locavore',
-    'avatar_url' => 'http://is3.mzstatic.com/image/pf/us/r30/Purple/v4/19/a4/2d/19a42def-3e28-b8af-4310-cbb6a145ff60/mzl.evvvtiux.jpg'
+    //'avatar_url' => 'http://is3.mzstatic.com/image/pf/us/r30/Purple/v4/19/a4/2d/19a42def-3e28-b8af-4310-cbb6a145ff60/mzl.evvvtiux.jpg'
+    'avatar_url' => 'https://makerba.se/assets/img/featured/locavore.jpeg',
 );
 
 // Third featured Maker
 $featured_maker_3_array = array(
     'name' => 'Marques Brownlee',
-    'avatar_url' => 'http://pbs.twimg.com/profile_images/590305718151970816/kk7QHF2q.jpg',
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/590305718151970816/kk7QHF2q.jpg',
+    'avatar_url' => 'https://makerba.se/assets/img/featured/marques-brownlee.jpeg',
     'uid' => 'nu9z3w',
     'slug' => 'mkbhd'
 );
@@ -86,13 +95,15 @@ $featured_maker_3_products[] = array(
     'name' => 'MKBHD',
     'uid' => '7kviq5',
     'slug' => 'mkbhd',
-    'avatar_url' => 'https://lh6.ggpht.com/61Gh4hjz3u0ZmrZvu6w2uODGdlahHy-_316PNgKtUsIQqi27r9J1sY5OiVffvR9hPdw=w300'
+    //'avatar_url' => 'https://lh6.ggpht.com/61Gh4hjz3u0ZmrZvu6w2uODGdlahHy-_316PNgKtUsIQqi27r9J1sY5OiVffvR9hPdw=w300'
+    'avatar_url' => 'https://makerba.se/assets/img/featured/mkbhd.png',
 );
 
 // Fourth featured Maker
 $featured_maker_4_array = array(
     'name' => 'Ayah Bdeir',
-    'avatar_url' => 'http://pbs.twimg.com/profile_images/1251593795/ayah_bdeir_cropped_lowres.jpg',
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/1251593795/ayah_bdeir_cropped_lowres.jpg',
+    'avatar_url' => 'https://makerba.se/assets/img/featured/ayah-bdeir.jpeg',
     'uid' => 'g4414b',
     'slug' => 'ayahbdeir'
 );
@@ -102,7 +113,8 @@ $featured_maker_4_products[] = array(
     'name' => 'littleBits',
     'uid' => '1e2224',
     'slug' => 'littlebits',
-    'avatar_url' => 'http://pbs.twimg.com/profile_images/467301645009690624/l3sT7gHv.png'
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/467301645009690624/l3sT7gHv.png'
+    'avatar_url' => 'https://makerba.se/assets/img/featured/littlebits.png',
 );
 
 
@@ -111,7 +123,8 @@ $featured_maker_4_products[] = array(
 // First featured Product
 $featured_product_1_array = array(
     'name' => 'Detroit Water Project',
-    'avatar_url' => 'http://pbs.twimg.com/profile_images/513416804165619712/YiMgw-U3.png',
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/513416804165619712/YiMgw-U3.png',
+    'avatar_url' => 'https://makerba.se/assets/img/featured/detroit-water-project.png',
     'uid' => '104y4n',
     'slug' => 'detwaterproject'
 );
@@ -121,20 +134,23 @@ $featured_product_1_makers[] = array(
     'name' => 'Tiffani Ashley Bell',
     'uid' => '8b04i1',
     'slug' => 'tiffani',
-    'avatar_url' => 'http://pbs.twimg.com/profile_images/476859378281095169/5b0SzaZm.jpeg'
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/476859378281095169/5b0SzaZm.jpeg'
+    'avatar_url' => 'https://makerba.se/assets/img/featured/tiffaniashleybell.jpeg',
 );
 
 $featured_product_1_makers[] = array(
     'name' => 'Kristy Tillman',
     'uid' => '8vciz8',
     'slug' => 'kristyt',
-    'avatar_url' => 'http://pbs.twimg.com/profile_images/538342171704049664/x4h_BHV1.jpeg'
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/538342171704049664/x4h_BHV1.jpeg'
+    'avatar_url' => 'https://makerba.se/assets/img/featured/kristytillman.jpeg',
 );
 
 // Second featured Product
 $featured_product_2_array = array(
     'name' => 'Google Reader',
-    'avatar_url' => 'http://pbs.twimg.com/profile_images/71187612/reader.png',
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/71187612/reader.png',
+    'avatar_url' => 'https://makerba.se/assets/img/featured/google-reader.png',
     'uid' => '50807q',
     'slug' => 'googlereader'
 );
@@ -144,28 +160,32 @@ $featured_product_2_makers[] = array(
     'name' => 'Jason Shellen',
     'uid' => 'q8yji8',
     'slug' => 'shellen',
-    'avatar_url' => 'http://pbs.twimg.com/profile_images/563212823962980353/EEDscIja.jpeg'
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/563212823962980353/EEDscIja.jpeg'
+    'avatar_url' => 'https://makerba.se/assets/img/featured/jasonshellen.jpeg',
 );
 
 $featured_product_2_makers[] = array(
     'name' => 'Chris Wetherell',
     'uid' => '11r2z0',
     'slug' => 'cw',
-    'avatar_url' => 'http://pbs.twimg.com/profile_images/564649912764076033/LeSnVk-r.png'
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/564649912764076033/LeSnVk-r.png'
+    'avatar_url' => 'https://makerba.se/assets/img/featured/chriswetherell.png',
 );
 
 $featured_product_2_makers[] = array(
     'name' => 'Mihai Parparita',
     'uid' => 'e50b37',
     'slug' => 'mihai',
-    'avatar_url' => 'http://pbs.twimg.com/profile_images/761082162/badge-twitter.png'
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/761082162/badge-twitter.png'
+    'avatar_url' => 'https://makerba.se/assets/img/featured/mihaiparparita.png',
 );
 
 $featured_product_2_makers[] = array(
     'name' => 'Jenna Bilotta',
     'uid' => '1r08h6',
     'slug' => 'jenna',
-    'avatar_url' => 'http://pbs.twimg.com/profile_images/509904021961056257/8FtQSD1L.jpeg'
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/509904021961056257/8FtQSD1L.jpeg'
+    'avatar_url' => 'https://makerba.se/assets/img/featured/jennabilotta.jpeg',
 );
 
 // Third featured Product
@@ -181,27 +201,31 @@ $featured_product_3_makers[] = array(
     'name' => 'Paul Ford',
     'uid' => '5lav62',
     'slug' => 'ftrain',
-    'avatar_url' => 'http://pbs.twimg.com/profile_images/3363818792/c90e33ccf22e3146d5cd871ce561795a.png'
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/3363818792/c90e33ccf22e3146d5cd871ce561795a.png'
+    'avatar_url' => 'https://makerba.se/assets/img/featured/paulford.png',
 );
 
 $featured_product_3_makers[] = array(
     'name' => 'Jim Aley',
     'uid' => 'btdsg5',
     'slug' => 'jimaley',
-    'avatar_url' => 'http://pbs.twimg.com/profile_images/2928401560/7b981209a02e8019819973226d5c07ed.png'
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/2928401560/7b981209a02e8019819973226d5c07ed.png'
+    'avatar_url' => 'https://makerba.se/assets/img/featured/jimaley.png',
 );
 
 $featured_product_3_makers[] = array(
     'name' => 'Toph Tucker',
     'uid' => 'bjb48n',
     'slug' => 'tophtucker',
-    'avatar_url' => 'http://pbs.twimg.com/profile_images/587137703025762304/WYq1-qus.jpg'
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/587137703025762304/WYq1-qus.jpg'
+    'avatar_url' => 'https://makerba.se/assets/img/featured/tophtucker.jpeg',
 );
 
 // Fourth featured Product
 $featured_product_4_array = array(
     'name' => 'The Standesk 2200',
-    'avatar_url' => 'http://www.wired.com/images_blogs/wiredscience/2012/09/mf-standing-desk_ikeab.jpg',
+    //'avatar_url' => 'http://www.wired.com/images_blogs/wiredscience/2012/09/mf-standing-desk_ikeab.jpg',
+    'avatar_url' => 'https://makerba.se/assets/img/featured/standesk2200.jpeg',
     'uid' => '227405',
     'slug' => 'thestandesk2200'
 );
@@ -211,14 +235,16 @@ $featured_product_4_makers[] = array(
     'name' => 'Colin Nederkoorn',
     'uid' => '2k53m4',
     'slug' => 'alphacolin',
-    'avatar_url' => 'http://pbs.twimg.com/profile_images/593215937219670016/mDRLFYEd.jpg'
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/593215937219670016/mDRLFYEd.jpg'
+    'avatar_url' => 'https://makerba.se/assets/img/featured/colinn.jpeg',
 );
 
 $featured_product_4_makers[] = array(
     'name' => 'Ryan Witt',
     'uid' => 'z49b24',
     'slug' => 'onecreativenerd',
-    'avatar_url' => 'http://pbs.twimg.com/profile_images/461721229292875776/v6shxhsp.jpeg'
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/461721229292875776/v6shxhsp.jpeg'
+    'avatar_url' => 'https://makerba.se/assets/img/featured/ryanwitt.jpeg'
 );
 
 class FeatureHelper {

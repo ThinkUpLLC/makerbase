@@ -8,7 +8,7 @@
     <div class="media row">
       <div class="media-left media-top col-xs-3">
         <a href="/m/{$featured_maker->uid}/{$featured_maker->slug}" class="avatar">
-          <img class="media-object img-responsive img-rounded" src="{insert name='user_image' image_url=$featured_maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" alt="{$featured_maker->name}">
+          <img class="media-object img-responsive img-rounded" src="{$featured_maker->avatar_url}" alt="{$featured_maker->name}">
         </a>
       </div>
       <div class="col-xs-9">
@@ -17,7 +17,7 @@
 
           {foreach $featured_maker->products as $featured_maker_product}
             <a href="/p/{$featured_maker_product->uid}/{$featured_maker_product->slug}">
-              <img src="{insert name='user_image' image_url=$featured_maker_product->avatar_url image_proxy_sig=$image_proxy_sig type='m'}">
+              <img src="{$featured_maker_product->avatar_url}">
               {$featured_maker_product->name}
             </a>
           {/foreach}
@@ -36,7 +36,7 @@
     <div class="media row">
       <div class="media-left media-top col-xs-3">
         <a href="/p/{$featured_product->uid}/{$featured_product->slug}" class="avatar">
-          <img class="media-object img-responsive img-rounded" src="{insert name='user_image' image_url=$featured_product->avatar_url image_proxy_sig=$image_proxy_sig type='p'}" alt="{$featured_product->name}">
+          <img class="media-object img-responsive img-rounded" src="{$featured_product->avatar_url}" alt="{$featured_product->name}">
         </a>
       </div>
       <div class="col-xs-9">
@@ -44,7 +44,7 @@
         <p class="media-body">
           {foreach $featured_product->makers as $featured_product_maker}
             <a href="/m/{$featured_product_maker->uid}/{$featured_product_maker->slug}">
-              <img src="{insert name='user_image' image_url=$featured_product_maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}">
+              <img src="{$featured_product_maker->avatar_url}">
               {$featured_product_maker->name}
             </a>
           {/foreach}
