@@ -1,9 +1,5 @@
 {if !isset($suppress_search)}
-  {if !isset($logged_in_user)}
-    {assign var='suppress_search' value=true}
-  {else}
-    {assign var='suppress_search' value=false}
-  {/if}
+  {assign var='suppress_search' value=false}
 {/if}
 
 {include file="_reusablecopy.tpl"}
