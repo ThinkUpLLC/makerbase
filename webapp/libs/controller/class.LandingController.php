@@ -12,6 +12,11 @@ class LandingController extends MakerbaseController {
         parent::control();
         $this->setViewTemplate('landing.tpl');
 
+        //TODO Remove this after the Product Hunt launch
+        if (isset($_GET['producthunt'])) {
+            $_GET['producthunt'] = 'producthunt';
+        }
+
         if (Session::isLoggedIn()) {
             if ($this->shouldRefreshCache() ) {
                 $page_number = (isset($_GET['p']) && is_numeric($_GET['p']))?$_GET['p']:1;
@@ -20,7 +25,7 @@ class LandingController extends MakerbaseController {
 
                 // $actions = $action_dao->getUserConnectionsActivities($this->logged_in_user->uid, $page_number, $limit);
                 // right now, let's just show global actions
-                $actions[] = '';
+                $actions = array();
 
                 if (count($actions) == 0) {
                     $actions = $action_dao->getActivities($page_number, $limit);
@@ -61,13 +66,11 @@ class LandingController extends MakerbaseController {
             }
             $this->addToView('featured_users', $featured_users);
 
-            if ($this->shouldRefreshCache() ) {
-                $page_number = 1;
-                $limit = 6;
-                $action_dao = new ActionMySQLDAO();
-                $actions = $action_dao->getActivities($page_number, $limit);
-                $this->addToView('actions', $actions);
-            }
+            $page_number = 1;
+            $limit = 6;
+            $action_dao = new ActionMySQLDAO();
+            $actions = $action_dao->getActivities($page_number, $limit);
+            $this->addToView('actions', $actions);
         }
 
         // Transfer cached user messages to the view
