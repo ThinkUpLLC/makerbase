@@ -5,7 +5,7 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-4 col-sm-offset-1 col-xs-4">
-            <img src="/assets/img/makerbase-mark-white.svg" class="hidden-xs pull-left" width="100" style="padding-right: 20px; margin-top: -20px;"/>
+            <img src="/assets/img/makerbase-mark-white.svg" class="hidden-xs pull-left" width="120" style="padding-right: 20px; margin-top: -20px;"/>
             <ul class="list-unstyled">
               <li>&copy; 2015 <a href="/p/{$thinkup_uid}/thinkup">ThinkUp</a></li>
               <li>Go make something.</li>
@@ -13,7 +13,7 @@
           </div>
 
           <div class="col-sm-2 col-xs-4">
-            <p>sponsored by:</p>
+            <p>sponsors:</p>
             <ul class="list-unstyled footer-sponsors">
 
               <li class="">
@@ -39,16 +39,17 @@
 
           <div class="col-sm-2 hidden-xs">
             <ul class="list-unstyled">
-              <li><a href="mailto:team@makerba.se?subject=sponsorship">Become a sponsor</a></li>
               <li><a href="/about/terms/">Terms</a></li>
               <li><a href="/about/privacy/">Privacy</a></li>
+              <li><a href="mailto:team@makerba.se?subject=sponsorship">Become a sponsor</a></li>
             </ul>
           </div>
 
           <div class="col-sm-2 col-xs-4">
             <ul class="list-unstyled">
               <li><a href="/about/">About</a></li>
-              <li><i class="fa fa-twitter"></i> <a href="https://twitter.com/makerbase">@makerbase</a></li>
+              <li><a href="https://making.makerba.se">Blog</a></li>
+              <li><i class="fa fa-twitter hidden-xs"></i> <a href="https://twitter.com/makerbase">@makerbase</a></li>
             </ul>
           </div>
 
