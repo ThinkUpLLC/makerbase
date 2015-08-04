@@ -36,34 +36,33 @@ class LandingController extends MakerbaseController {
                     'Get notified when your pages change! <a href="/u/'.$this->logged_in_user->uid
                     .'">Add your email address now.</a>');
             }
-        } else {
+        }
+        if ($this->shouldRefreshCache() ) {
+            //Featured makers
+            $config = Config::getInstance();
+            $featured_makers = $config->getValue('featured_makers');
+            $this->addToView('featured_makers', $featured_makers);
+
+            //Featured products
+            $featured_products = $config->getValue('featured_products');
+            $this->addToView('featured_products', $featured_products);
+
+            //Featured users
+            $featured_user_uids = $config->getValue('featured_users');
+            $user_dao = new UserMySQLDAO();
+            $featured_users = array();
+            //@TODO Optimize this!
+            foreach($featured_user_uids as $featured_user_uid) {
+                $featured_users[] = $user_dao->get($featured_user_uid);
+            }
+            $this->addToView('featured_users', $featured_users);
+
             if ($this->shouldRefreshCache() ) {
-                //Featured makers
-                $config = Config::getInstance();
-                $featured_makers = $config->getValue('featured_makers');
-                $this->addToView('featured_makers', $featured_makers);
-
-                //Featured products
-                $featured_products = $config->getValue('featured_products');
-                $this->addToView('featured_products', $featured_products);
-
-                //Featured users
-                $featured_user_uids = $config->getValue('featured_users');
-                $user_dao = new UserMySQLDAO();
-                $featured_users = array();
-                //@TODO Optimize this!
-                foreach($featured_user_uids as $featured_user_uid) {
-                    $featured_users[] = $user_dao->get($featured_user_uid);
-                }
-                $this->addToView('featured_users', $featured_users);
-
-                if ($this->shouldRefreshCache() ) {
-                    $page_number = 1;
-                    $limit = 6;
-                    $action_dao = new ActionMySQLDAO();
-                    $actions = $action_dao->getActivities($page_number, $limit);
-                    $this->addToView('actions', $actions);
-                }
+                $page_number = 1;
+                $limit = 6;
+                $action_dao = new ActionMySQLDAO();
+                $actions = $action_dao->getActivities($page_number, $limit);
+                $this->addToView('actions', $actions);
             }
         }
 
