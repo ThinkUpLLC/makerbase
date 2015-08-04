@@ -5581,6 +5581,7 @@ form.form-inline {
 }
 #activity .media {
   padding: 12px;
+  margin-top: 8px;
 }
 #activity .media .media-left a img {
   max-width: 75px;
@@ -6003,7 +6004,7 @@ fieldset[disabled] #landing-header #join-button.active {
 }
 #landing-featured .media {
   margin-top: 8px;
-  max-height: 100px;
+  height: 76px;
 }
 #landing-featured .media-body a {
   padding-right: 10px;
