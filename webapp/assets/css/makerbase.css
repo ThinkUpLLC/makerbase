@@ -5614,7 +5614,8 @@ form.form-inline {
   min-height: 200px;
   font-size: smaller;
   margin-top: 60px;
-  padding-top: 40px;
+  padding-top: 60px;
+  padding-bottom: 140px;
 }
 .footer a {
   color: white;
