@@ -28,6 +28,8 @@
 {elseif $action->action_type eq 'associate'} {* User said Maker made Project *}
     {assign var="is_says" value=true}
     {assign var="verbed" value="made"}
+{elseif $action->action_type eq 'create'} {* User added Maker/Project *}
+    {assign var="verbed" value="added"}
 {else} {* default *}
     {assign var="verbed" value="`$action->action_type`d"}
 {/if}
