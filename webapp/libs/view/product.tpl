@@ -210,8 +210,7 @@
 
 
           {else}
-
-            <a href="{$sign_in_with_twttr_link}" class="btn btn-primary col-offset-xs-1 col-offset-sm-3" id="add-role-form"><i class="fa fa-plus"></i> Add a{if $roles}nother{/if} project</a>
+            <a href="{$sign_in_with_twttr_link}" class="btn btn-info pull-right" id="add-role"><i class="fa fa-plus"></i> Add a{if $roles}nother{/if} maker</a>
 
           {/if}
           <!-- /add a maker -->
