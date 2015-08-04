@@ -17,8 +17,8 @@ class LandingController extends MakerbaseController {
             $_GET['producthunt'] = 'producthunt';
         }
 
-        if (Session::isLoggedIn()) {
-            if ($this->shouldRefreshCache() ) {
+        if ($this->shouldRefreshCache() ) {
+            if (Session::isLoggedIn()) {
                 $page_number = (isset($_GET['p']) && is_numeric($_GET['p']))?$_GET['p']:1;
                 $limit = 10;
                 $action_dao = new ActionMySQLDAO();
@@ -38,15 +38,20 @@ class LandingController extends MakerbaseController {
                     $this->addToView('prev_page', $page_number-1);
                 }
                 $this->addToView('actions', $actions);
+
+                if (!isset($this->logged_in_user->email)) {
+                    SessionCache::put('success_message',
+                        'Get notified when your pages change! <a href="/u/'.$this->logged_in_user->uid
+                        .'">Add your email address now.</a>');
+                }
+            } else { //Non-logged in landing page, just show first page of global actions
+                $page_number = 1;
+                $limit = 6;
+                $action_dao = new ActionMySQLDAO();
+                $actions = $action_dao->getActivities($page_number, $limit);
+                $this->addToView('actions', $actions);
             }
 
-            if (!isset($this->logged_in_user->email)) {
-                SessionCache::put('success_message',
-                    'Get notified when your pages change! <a href="/u/'.$this->logged_in_user->uid
-                    .'">Add your email address now.</a>');
-            }
-        }
-        if ($this->shouldRefreshCache() ) {
             //Featured makers
             $config = Config::getInstance();
             $featured_makers = $config->getValue('featured_makers');
@@ -65,12 +70,6 @@ class LandingController extends MakerbaseController {
                 $featured_users[] = $user_dao->get($featured_user_uid);
             }
             $this->addToView('featured_users', $featured_users);
-
-            $page_number = 1;
-            $limit = 6;
-            $action_dao = new ActionMySQLDAO();
-            $actions = $action_dao->getActivities($page_number, $limit);
-            $this->addToView('actions', $actions);
         }
 
         // Transfer cached user messages to the view
