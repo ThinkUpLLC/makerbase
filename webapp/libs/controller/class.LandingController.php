@@ -17,7 +17,11 @@ class LandingController extends MakerbaseController {
                 $page_number = (isset($_GET['p']) && is_numeric($_GET['p']))?$_GET['p']:1;
                 $limit = 10;
                 $action_dao = new ActionMySQLDAO();
-                $actions = $action_dao->getUserConnectionsActivities($this->logged_in_user->uid, $page_number, $limit);
+
+                // $actions = $action_dao->getUserConnectionsActivities($this->logged_in_user->uid, $page_number, $limit);
+                // right now, let's just show global actions
+                $actions[] = '';
+
                 if (count($actions) == 0) {
                     $actions = $action_dao->getActivities($page_number, $limit);
                 }
