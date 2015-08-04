@@ -30,7 +30,7 @@ $object either the Product or Maker or User
         {else}{assign var='color' value='gray-lighter'}
       {/if}
 
-      {if isset($maker) || isset($product)}{assign var='color' value='transparent'}{/if}
+      {if isset($maker) || isset($product) || isset($user)}{assign var='color' value='transparent'}{/if}
 
       <div class="media {if isset($color)}style-{$color}{/if}">
         {include file="_action.tpl"}
