@@ -102,7 +102,7 @@ EOD;
         $q = <<<EOD
 SELECT mw.*, mw.id AS mw_id, mw.uid AS mw_uid, p.*, p.id AS product_id, p.uid AS product_uid FROM made_withs mw
 INNER JOIN products p ON mw.product_id = p.id WHERE mw.is_archived = 0 AND p.is_archived = 0
-AND mw.used_product_id = :used_product_id LIMIT 25
+AND mw.used_product_id = :used_product_id LIMIT 100
 EOD;
         $vars = array ( ':used_product_id' => $used_product->id);
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
