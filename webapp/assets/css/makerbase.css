@@ -5774,6 +5774,11 @@ form.form-inline {
 #made-with ul li:hover form {
   margin-bottom: 1px;
 }
+@media (min-width: 992px) {
+  #made-with ul li:hover form {
+    margin-bottom: 0;
+  }
+}
 #maker-nudge {
   text-align: center;
   background-color: #fff;
