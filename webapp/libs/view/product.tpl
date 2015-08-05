@@ -121,17 +121,16 @@
 </div>
 {/if}
 
-
 {if isset($used_by_madewiths) && sizeof($used_by_madewiths) > 0}
 <div class="row" id="usedby">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <h2><a href="#usedby"><strong>{$product->name}</strong> is used by</a></h2>
 
     {foreach $used_by_madewiths as $used_by_madewith}
-    <div class="list-group-item col-xs-12" id="usedby-madewith-{$used_by_madewith->uid}">
+    <div class="list-group-item col-xs-12 col-md-6" id="usedby-madewith-{$used_by_madewith->uid}">
       <div class="media-left media-top">
           <a href="/p/{$used_by_madewith->product->uid}/{$used_by_madewith->product->slug}">
-          <img class="media-object" src="{insert name='user_image' image_url=$used_by_madewith->product->avatar_url image_proxy_sig=$image_proxy_sig type='p'}" alt="{$used_by_madewith->product->name} logo" width="50" height="50">
+          <img class="media-object" src="{insert name='user_image' image_url=$used_by_madewith->product->avatar_url image_proxy_sig=$image_proxy_sig type='p'}" alt="{$used_by_madewith->product->name} logo" width="30" height="30">
           </a>
       </div>
       <div class="media-body">
