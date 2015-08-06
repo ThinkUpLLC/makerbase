@@ -25,14 +25,14 @@
 <div class="row">
   <div class="col-xs-12">
   	<div class="list-group">
-	{foreach $return_document.hits.hits as $hit}
-		<a class="list-group-item" href="/{$hit._source.type}/{$hit._source.uid}/{$hit._source.slug}">
+	{foreach $results as $hit}
+		<a class="list-group-item" href="/{$hit.type}/{$hit.uid}/{$hit.slug}">
   			<div class="media-left">
-            <img class="media-object" src="{insert name='user_image' image_url=$hit._source.avatar_url image_proxy_sig=$image_proxy_sig type=$hit._source.type}" alt="{$hit._source.name}" width="100">
+            <img class="media-object" src="{$hit.avatar_url}" alt="{$hit.name}" width="100">
 			</div>
 			<div class="media-body">
-				<h3>{$hit._source.name}</h3>
-				{if $hit._source.description neq ''}{$hit._source.description}{/if}
+				<h3>{$hit.name}</h3>
+				{if isset($hit.description) && $hit.description neq ''}{$hit.description}{/if}
 			</div>
 		</a>
 	{/foreach}

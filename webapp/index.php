@@ -31,7 +31,7 @@ $router->addRoute('signin', 'SignInController');
 $router->addRoute('signout', 'SignOutController');
 $router->addRoute('add', 'AddController', array('object', 'target'));
 $router->addRoute('edit', 'EditController', array('object'));
-$router->addRoute('search', 'SearchController');
+$router->addRoute('search', 'SearchController', array('type'));
 $router->addRoute('autocomplete', 'SearchAutoCompleteController');
 $router->addRoute('twittersignin', 'TwitterSignInController');
 $router->addRoute('about', 'AboutPageController', array('p'));
