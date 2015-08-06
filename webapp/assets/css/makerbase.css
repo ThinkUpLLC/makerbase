@@ -5779,20 +5779,6 @@ form.form-inline {
     margin-bottom: 0;
   }
 }
-#maker-nudge {
-  text-align: center;
-  background-color: #fff;
-  padding: 0.5em;
-  margin-top: 1em;
-}
-@media (max-width: 992px) {
-  #maker-nudge {
-    font-size: 0.8em;
-  }
-}
-#maker-nudge a {
-  color: #198a9c;
-}
 #roles {
   margin-top: 1em;
 }

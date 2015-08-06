@@ -17,6 +17,7 @@
             <strong>{$maker->name|escape}</strong> is a maker
           </h1>
           <h5><a href="{$maker->url}" class="text-muted">{$maker->url}</a></h5>
+          {if isset($maker->twitter_username)}<h5><a href="https://twitter.com/intent/user?screen_name={$maker->twitter_username}">@{$maker->twitter_username}</a></h5>{/if}
         </div>
       </div>
     </div>
@@ -93,16 +94,6 @@
   </div>
 </div>
 {/if}
-
-{if isset($maker->twitter_username)}
-  {assign var="tweet_body" value="@{$maker->twitter_username} Is your Makerbase page up to date?"}
-  <div class="row">
-    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-      <h4 id="maker-nudge"><a href="https://twitter.com/share?text={$tweet_body|urlencode}" onclick="javascript:window.open(this.href,\'\', \'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600\');return false;" class="btn btn-xs btn-link btn-default"><i class="fa fa-twitter"></i> Ask @{$maker->twitter_username} to update this page</a></h4>
-    </div>
-  </div>
-{/if}
-
 
 <div class="row" id="roles">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
