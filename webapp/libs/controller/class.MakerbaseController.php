@@ -67,6 +67,10 @@ class MakerbaseController extends Controller {
         }
     }
 
+    protected function prepareJSON($indent = true, $stripslashes = true, $convert_numeric_strings = false) {
+        parent::prepareJSON($indent, $stripslashes, $convert_numeric_strings);
+    }
+
     protected function sendImageThruProxy($image_url, $type, $image_proxy_sig) {
         if (empty($image_url)) {
             if ($type == 'm' || $type == 'u') {
