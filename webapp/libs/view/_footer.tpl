@@ -256,6 +256,10 @@
         $(".alert").addClass("in")
       })
 
+      $(function () {
+        $('#nav-typeahead').focus();
+      });
+
     </script>
 
     <script>

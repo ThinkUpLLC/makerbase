@@ -115,7 +115,7 @@
 
           {if isset($logged_in_user)}
 
-            <button class="btn btn-info pull-right" type="submit" id="add-role" data-toggle="collapse" data-target="#add-project-form" onclick="$('#add-role').toggle();" ><i class="fa fa-plus"></i> Add a{if $roles}nother{/if} project</button>
+            <button class="btn btn-info pull-right" type="submit" id="add-role" data-toggle="collapse" data-target="#add-project-form" onclick="$('#add-role').toggle();$('#product-name').focus();" ><i class="fa fa-plus"></i> Add a{if $roles}nother{/if} project</button>
 
 
             <form method="post" action="/add/role/" class="form-horizontal col-xs-12 collapse" id="add-project-form">
