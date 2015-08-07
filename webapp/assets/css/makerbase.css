@@ -5551,7 +5551,8 @@ h6 {
   top: 42px;
 }
 #signout-button #signin-button {
-  margin-left: -50px;
+  margin-left: -36px;
+  padding: 7px;
 }
 .media-footer {
   display: none;
