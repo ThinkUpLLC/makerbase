@@ -154,11 +154,7 @@ class AddController extends MakerbaseAuthController {
         $search_params = array();
         $search_params['index'] = $index.'_index';
         $search_params['type']  = $index.'_type';
-        if ($index == 'product') {
-            $search_params['body']['query']['multi_match']['fields'] = array('slug', 'name', 'description', 'url');
-        } elseif ($index == 'maker') {
-            $search_params['body']['query']['multi_match']['fields'] = array('slug', 'name', 'url');
-        }
+        $search_params['body']['query']['multi_match']['fields'] = array('name');
         $search_params['body']['query']['multi_match']['query'] = urlencode($term);
         $search_params['body']['query']['multi_match']['type'] = 'phrase_prefix';
 
