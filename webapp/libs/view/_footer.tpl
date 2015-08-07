@@ -115,6 +115,8 @@
             '</div>',
           ].join('\n')
         }
+      }).on('typeahead:selected', function (e, suggestion, data) {
+          document.location = '/' + suggestion.type + '/' + suggestion.uid + '/' + suggestion.slug;
       });
 
       //Autocomplete makers
