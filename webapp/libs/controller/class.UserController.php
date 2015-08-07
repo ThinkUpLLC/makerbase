@@ -70,6 +70,9 @@ class UserController extends MakerbaseController {
                     // Transfer cached user messages to the view
                     $this->setUserMessages();
                 }
+
+                //Bust the cache
+                CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
             } else {
                 if (isset($_GET['verify'])) {
                     if ($_GET['verify'] == $user->email_verification_code) {
@@ -84,11 +87,17 @@ class UserController extends MakerbaseController {
                         // Transfer cached user messages to the view
                         $this->setUserMessages();
                     }
+
+                    //Bust the cache
+                    CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
                 }
 
                 if (isset($_POST['resend'])) {
                     // Send confirmation email
                     $this->sendConfirmationEmail($user);
+
+                    //Bust the cache
+                    CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
                 }
             }
             // Assign email_capture_state
