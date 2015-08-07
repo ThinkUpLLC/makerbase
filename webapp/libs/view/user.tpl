@@ -104,6 +104,12 @@ $email_capture_state either 'need email', 'confirmation_pending' or 'confirmatio
 {else}
 
     {** NOT LOGGED IN **}
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+      <h4 id="maker-page-reminder">This is {$user->twitter_username}'s editor page. See also <a href="/search/maker/?q={$user->twitter_username}">{$user->twitter_username}'s Maker page</a>.</h4>
+    </div>
+  </div>
+
     {include file="_actions.tpl" object=$user object_type='user'}
 
 {/if}
