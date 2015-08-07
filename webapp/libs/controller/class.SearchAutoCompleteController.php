@@ -55,20 +55,4 @@ class SearchAutoCompleteController extends MakerbaseController {
         $this->setJsonData($results);
         return $this->generateView();
     }
-
-    private function sendImageThruProxy($image_url, $type, $image_proxy_sig) {
-        if (empty($image_url)) {
-            if ($type == 'm' || $type == 'u') {
-                return 'https://makerba.se/assets/img/blank-maker.png';
-            } else {
-                return 'https://makerba.se/assets/img/blank-project.png';
-            }
-        } else {
-            if (!empty($image_proxy_sig)) {
-                return 'https://makerba.se/img.php?url='.$image_url."&t=".$type."&s=".$image_proxy_sig;
-            } else {
-                return $image_url;
-            }
-        }
-    }
 }
