@@ -13,7 +13,7 @@
           <a href="{$sign_in_with_twttr_link}" class="btn btn-default btn-link pull-right">edit</a>
         {/if}
         <h1 {if $product->is_archived}class="archived"{/if}>We made <strong>{$product->name|escape}</strong></h1>
-        <h3>{$product->description|escape}</h3>
+        <h3>{$product->description|escape|atnames:'/search/?q='}</h3>
         <h5><a href="{if $product->uid eq 'm348b6'}https://slack.com/?cvosrc=general%20promotion.makerbase.slack%20page&amp;utm_source=makerbase&amp;utm_medium=general%20promotion&amp;utm_campaign=slack%20page{else}{$product->url}{/if}" class="text-muted">{$product->url}</a></h5>
       </div>
     </div>
