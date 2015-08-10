@@ -42,6 +42,7 @@
               <li><a href="/about/terms/">Terms</a></li>
               <li><a href="/about/privacy/">Privacy</a></li>
               <li><a href="mailto:team@makerba.se?subject=sponsorship">Become a sponsor</a></li>
+              <li><a href="mailto:team@makerba.se">Contact us</a></li>
             </ul>
           </div>
 
