@@ -111,6 +111,13 @@
 
 <div class="row">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+    <h4 id="maker-page-reminder">This page is community-edited and may be incomplete. You can help fill it in!</h4>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <div id="projects">
 
           {if isset($logged_in_user)}
