@@ -8,113 +8,138 @@
 
 // First featured Maker
 $featured_maker_1_array = array(
-    'name' => 'Tracy Chou',
-    //'avatar_url' => 'http://pbs.twimg.com/profile_images/576147637151215617/Rxm_J6SH.jpg',
-    'avatar_url' => 'https://makerba.se/assets/img/featured/tracy-chou.jpeg',
-    'uid' => 'foevj5',
-    'slug' => 'triketora'
+    'name' => 'Tina Roth Eisenberg',
+    //'avatar_url' => 'https://pbs.twimg.com/profile_images/596779047134199808/IBpBry99_400x400.jpg',
+    'avatar_url' => '/assets/img/featured/swissmiss.jpeg',
+    'uid' => '3uz13w',
+    'slug' => 'swissmiss'
 );
 
 $featured_maker_1_products = array();
 $featured_maker_1_products[] = array(
-    'name' => 'Pinterest',
-    'uid' => '60ul92',
-    'slug' => 'pinterest',
-    //'avatar_url' => 'http://pbs.twimg.com/profile_images/552515711403175936/kEOy5T7L.png'
-    'avatar_url' => 'https://makerba.se/assets/img/featured/pinterest.png',
+    'name' => 'Tattly',
+    'uid' => 'dxmz5k',
+    'slug' => 'tattlytemporarytattos',
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/443644067075723264/QJc2IfUa.png'
+    'avatar_url' => '/assets/img/featured/tattly.png',
 );
 
 $featured_maker_1_products[] = array(
-    'name' => 'Quora',
-    'uid' => 'nq4s03',
-    'slug' => 'quora',
-    //'avatar_url' => 'https://pbs.twimg.com/profile_images/615648367943651328/51pM5n5v.png'
-    'avatar_url' => 'https://makerba.se/assets/img/featured/quora.png',
+    'name' => 'TeuxDeux',
+    'uid' => '7901c6',
+    'slug' => 'teuxdeux',
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/1196619760/43thingsLogo_square.gif'
+    'avatar_url' => '/assets/img/featured/teuxdeux.png',
 );
 
 $featured_maker_1_products[] = array(
-    'name' => 'Women in Software Engineering',
-    'uid' => '75z949',
-    'slug' => 'womeninsoftwareengineering',
-    'avatar_url' => 'https://makerba.se/assets/img/blank-project.png'
+    'name' => 'CreativeMornings',
+    'uid' => '6c748k',
+    'slug' => 'creativemorning',
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/1136999397/track_meals.400.png'
+    'avatar_url' => '/assets/img/featured/creativemornings.png',
 );
 
 // Second featured Maker
 $featured_maker_2_array = array(
-    'name' => 'Buster Benson',
-    //'avatar_url' => 'https://pbs.twimg.com/profile_images/596779047134199808/IBpBry99_400x400.jpg',
-    'avatar_url' => 'https://makerba.se/assets/img/featured/buster-benson.jpeg',
-    'uid' => 'u438n4',
-    'slug' => 'buster'
+    'name' => 'Louie Mantia',
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/576147637151215617/Rxm_J6SH.jpg',
+    'avatar_url' => '/assets/img/featured/louie-mantia.png',
+    'uid' => '8lm09z',
+    'slug' => 'mantia'
 );
 
 $featured_maker_2_products = array();
 $featured_maker_2_products[] = array(
-    'name' => '750 Words',
-    'uid' => '3v53xr',
-    'slug' => '750words',
-    //'avatar_url' => 'http://pbs.twimg.com/profile_images/443644067075723264/QJc2IfUa.png'
-    'avatar_url' => 'https://makerba.se/assets/img/featured/750words.png',
+    'name' => 'Twitterific',
+    'uid' => 'rb5616',
+    'slug' => 'twitterrific',
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/552515711403175936/kEOy5T7L.png'
+    'avatar_url' => '/assets/img/featured/twitterrific.png',
 );
 
 $featured_maker_2_products[] = array(
-    'name' => '43 Things',
-    'uid' => 'sthl3c',
-    'slug' => '43things',
-    //'avatar_url' => 'http://pbs.twimg.com/profile_images/1196619760/43thingsLogo_square.gif'
-    'avatar_url' => 'https://makerba.se/assets/img/featured/43things.gif',
+    'name' => 'Square Register',
+    'uid' => '5n9v26',
+    'slug' => 'squareregister',
+    //'avatar_url' => 'https://pbs.twimg.com/profile_images/615648367943651328/51pM5n5v.png'
+    'avatar_url' => '/assets/img/featured/squareregister.png',
 );
 
 $featured_maker_2_products[] = array(
-    'name' => 'Health Month',
-    'uid' => 'dk2x9t',
-    'slug' => 'healthmonth',
-    //'avatar_url' => 'http://pbs.twimg.com/profile_images/1136999397/track_meals.400.png'
-    'avatar_url' => 'https://makerba.se/assets/img/featured/healthmonth.png',
+    'name' => 'Meh',
+    'uid' => '29k3nr',
+    'slug' => 'wearemeh',
+    'avatar_url' => '/assets/img/featured/meh.png'
 );
 
-$featured_maker_2_products[] = array(
-    'name' => 'Locavore',
-    'uid' => '2dd6xe',
-    'slug' => 'locavore',
-    //'avatar_url' => 'http://is3.mzstatic.com/image/pf/us/r30/Purple/v4/19/a4/2d/19a42def-3e28-b8af-4310-cbb6a145ff60/mzl.evvvtiux.jpg'
-    'avatar_url' => 'https://makerba.se/assets/img/featured/locavore.jpeg',
-);
 
 // Third featured Maker
 $featured_maker_3_array = array(
-    'name' => 'Marques Brownlee',
+    'name' => 'Jenn Schiffer',
     //'avatar_url' => 'http://pbs.twimg.com/profile_images/590305718151970816/kk7QHF2q.jpg',
-    'avatar_url' => 'https://makerba.se/assets/img/featured/marques-brownlee.jpeg',
-    'uid' => 'nu9z3w',
-    'slug' => 'mkbhd'
+    'avatar_url' => '/assets/img/featured/jenn-schiffer.jpeg',
+    'uid' => 'ug8k11',
+    'slug' => 'jennschiffer'
 );
 
 $featured_maker_3_products = array();
 $featured_maker_3_products[] = array(
-    'name' => 'MKBHD',
-    'uid' => '7kviq5',
-    'slug' => 'mkbhd',
+    'name' => 'var t;',
+    'uid' => 'm6306x',
+    'slug' => 'vart',
     //'avatar_url' => 'https://lh6.ggpht.com/61Gh4hjz3u0ZmrZvu6w2uODGdlahHy-_316PNgKtUsIQqi27r9J1sY5OiVffvR9hPdw=w300'
-    'avatar_url' => 'https://makerba.se/assets/img/featured/mkbhd.png',
+    'avatar_url' => '/assets/img/featured/vart.png',
+);
+
+$featured_maker_3_products[] = array(
+    'name' => 'Clear Health Costs',
+    'uid' => 'c6131s',
+    'slug' => 'chcosts',
+    //'avatar_url' => 'https://lh6.ggpht.com/61Gh4hjz3u0ZmrZvu6w2uODGdlahHy-_316PNgKtUsIQqi27r9J1sY5OiVffvR9hPdw=w300'
+    'avatar_url' => '/assets/img/featured/chcosts.jpeg',
+);
+
+$featured_maker_3_products[] = array(
+    'name' => 'Apache CouchDB',
+    'uid' => 'ug8k11',
+    'slug' => 'couchdb',
+    //'avatar_url' => 'https://lh6.ggpht.com/61Gh4hjz3u0ZmrZvu6w2uODGdlahHy-_316PNgKtUsIQqi27r9J1sY5OiVffvR9hPdw=w300'
+    'avatar_url' => '/assets/img/featured/couchdb.png',
 );
 
 // Fourth featured Maker
 $featured_maker_4_array = array(
-    'name' => 'Ayah Bdeir',
+    'name' => 'Maurice Cherry',
     //'avatar_url' => 'http://pbs.twimg.com/profile_images/1251593795/ayah_bdeir_cropped_lowres.jpg',
-    'avatar_url' => 'https://makerba.se/assets/img/featured/ayah-bdeir.jpeg',
-    'uid' => 'g4414b',
-    'slug' => 'ayahbdeir'
+    'avatar_url' => '/assets/img/featured/maurice-cherry.jpeg',
+    'uid' => 'r03057',
+    'slug' => 'mauricecherry'
 );
 
 $featured_maker_4_products = array();
 $featured_maker_4_products[] = array(
-    'name' => 'littleBits',
-    'uid' => '1e2224',
-    'slug' => 'littlebits',
+    'name' => 'Revision Path',
+    'uid' => '96c42z',
+    'slug' => 'revisionpath',
     //'avatar_url' => 'http://pbs.twimg.com/profile_images/467301645009690624/l3sT7gHv.png'
-    'avatar_url' => 'https://makerba.se/assets/img/featured/littlebits.png',
+    'avatar_url' => '/assets/img/featured/revisionpath.jpeg',
+);
+
+$featured_maker_4_products[] = array(
+    'name' => 'The Year of Tea',
+    'uid' => '6079ma',
+    'slug' => 'theyearoftea',
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/467301645009690624/l3sT7gHv.png'
+    'avatar_url' => '/assets/img/featured/theyearoftea.png',
+);
+
+$featured_maker_4_products[] = array(
+    'name' => 'Black Weblog Awards',
+    'uid' => '7cg8qn',
+    'slug' => 'blkweblogawards',
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/467301645009690624/l3sT7gHv.png'
+    'avatar_url' => '/assets/img/featured/blkweblogawards.jpeg',
 );
 
 
@@ -122,129 +147,130 @@ $featured_maker_4_products[] = array(
 
 // First featured Product
 $featured_product_1_array = array(
-    'name' => 'Detroit Water Project',
+    'name' => 'Oyster',
     //'avatar_url' => 'http://pbs.twimg.com/profile_images/513416804165619712/YiMgw-U3.png',
-    'avatar_url' => 'https://makerba.se/assets/img/featured/detroit-water-project.png',
-    'uid' => '104y4n',
-    'slug' => 'detwaterproject'
+    'avatar_url' => '/assets/img/featured/oyster.png',
+    'uid' => 'az475u',
+    'slug' => 'oyster'
 );
 
 $featured_product_1_makers = array();
+
 $featured_product_1_makers[] = array(
-    'name' => 'Tiffani Ashley Bell',
-    'uid' => '8b04i1',
-    'slug' => 'tiffani',
-    //'avatar_url' => 'http://pbs.twimg.com/profile_images/476859378281095169/5b0SzaZm.jpeg'
-    'avatar_url' => 'https://makerba.se/assets/img/featured/tiffaniashleybell.jpeg',
+    'name' => 'Eric Stromberg',
+    'uid' => 'w6250q',
+    'slug' => 'ericstromberg',
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/538342171704049664/x4h_BHV1.jpeg'
+    'avatar_url' => '/assets/img/featured/ericstromberg.jpeg',
 );
 
 $featured_product_1_makers[] = array(
-    'name' => 'Kristy Tillman',
-    'uid' => '8vciz8',
-    'slug' => 'kristyt',
-    //'avatar_url' => 'http://pbs.twimg.com/profile_images/538342171704049664/x4h_BHV1.jpeg'
-    'avatar_url' => 'https://makerba.se/assets/img/featured/kristytillman.jpeg',
+    'name' => 'Cameron Spickert',
+    'uid' => 'tl0bfu',
+    'slug' => 'cameronspickert',
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/476859378281095169/5b0SzaZm.jpeg'
+    'avatar_url' => '/assets/img/featured/cameronspickert.jpeg',
+);
+
+$featured_product_1_makers[] = array(
+    'name' => 'Sara Forster',
+    'uid' => '0sz94g',
+    'slug' => 'saralaila',
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/476859378281095169/5b0SzaZm.jpeg'
+    'avatar_url' => '/assets/img/featured/saralaila.jpeg',
+);
+
+$featured_product_1_makers[] = array(
+    'name' => 'Jeannie Mun',
+    'uid' => 'xs5tk2',
+    'slug' => 'jeanniemun',
+    //'avatar_url' => 'http://pbs.twimg.com/profile_images/476859378281095169/5b0SzaZm.jpeg'
+    'avatar_url' => '/assets/img/featured/jeanniemun.png',
 );
 
 // Second featured Product
 $featured_product_2_array = array(
-    'name' => 'Google Reader',
+    'name' => '#WOCinTech Chat',
     //'avatar_url' => 'http://pbs.twimg.com/profile_images/71187612/reader.png',
-    'avatar_url' => 'https://makerba.se/assets/img/featured/google-reader.png',
-    'uid' => '50807q',
-    'slug' => 'googlereader'
+    'avatar_url' => '/assets/img/featured/wocintechchat.jpeg',
+    'uid' => 'b77f93',
+    'slug' => 'wocintechchat'
 );
 
 $featured_product_2_makers = array();
 $featured_product_2_makers[] = array(
-    'name' => 'Jason Shellen',
-    'uid' => 'q8yji8',
-    'slug' => 'shellen',
+    'name' => 'Christina Morillo',
+    'uid' => '217os5',
+    'slug' => 'divinetechygirl',
     //'avatar_url' => 'http://pbs.twimg.com/profile_images/563212823962980353/EEDscIja.jpeg'
-    'avatar_url' => 'https://makerba.se/assets/img/featured/jasonshellen.jpeg',
+    'avatar_url' => '/assets/img/featured/divinetechygirl.jpeg',
 );
 
 $featured_product_2_makers[] = array(
-    'name' => 'Chris Wetherell',
-    'uid' => '11r2z0',
-    'slug' => 'cw',
+    'name' => 'Stephanie Morillo',
+    'uid' => '9alm3b',
+    'slug' => 'radiomorillo',
     //'avatar_url' => 'http://pbs.twimg.com/profile_images/564649912764076033/LeSnVk-r.png'
-    'avatar_url' => 'https://makerba.se/assets/img/featured/chriswetherell.png',
-);
-
-$featured_product_2_makers[] = array(
-    'name' => 'Mihai Parparita',
-    'uid' => 'e50b37',
-    'slug' => 'mihai',
-    //'avatar_url' => 'http://pbs.twimg.com/profile_images/761082162/badge-twitter.png'
-    'avatar_url' => 'https://makerba.se/assets/img/featured/mihaiparparita.png',
-);
-
-$featured_product_2_makers[] = array(
-    'name' => 'Jenna Bilotta',
-    'uid' => '1r08h6',
-    'slug' => 'jenna',
-    //'avatar_url' => 'http://pbs.twimg.com/profile_images/509904021961056257/8FtQSD1L.jpeg'
-    'avatar_url' => 'https://makerba.se/assets/img/featured/jennabilotta.jpeg',
+    'avatar_url' => '/assets/img/featured/radiomorillo.jpeg',
 );
 
 // Third featured Product
 $featured_product_3_array = array(
-    'name' => 'What is Code?',
-    'avatar_url' => 'https://makerba.se/assets/img/featured/whatiscode-featured-logo.jpg',
-    'uid' => '15js4s',
-    'slug' => 'whatiscode'
+    'name' => 'Blogger',
+    'avatar_url' => '/assets/img/featured/blogger.jpeg',
+    'uid' => '4ew3tb',
+    'slug' => 'blogger'
 );
 
 $featured_product_3_makers = array();
 $featured_product_3_makers[] = array(
-    'name' => 'Paul Ford',
-    'uid' => '5lav62',
-    'slug' => 'ftrain',
+    'name' => 'Ev Williams',
+    'uid' => 'w5290u',
+    'slug' => 'ev',
     //'avatar_url' => 'http://pbs.twimg.com/profile_images/3363818792/c90e33ccf22e3146d5cd871ce561795a.png'
-    'avatar_url' => 'https://makerba.se/assets/img/featured/paulford.png',
+    'avatar_url' => '/assets/img/featured/ev.jpeg',
 );
 
 $featured_product_3_makers[] = array(
-    'name' => 'Jim Aley',
-    'uid' => 'btdsg5',
-    'slug' => 'jimaley',
+    'name' => 'Meg Hourihan',
+    'uid' => '1io7t3',
+    'slug' => 'megnut',
     //'avatar_url' => 'http://pbs.twimg.com/profile_images/2928401560/7b981209a02e8019819973226d5c07ed.png'
-    'avatar_url' => 'https://makerba.se/assets/img/featured/jimaley.png',
+    'avatar_url' => '/assets/img/featured/megnut.jpeg',
 );
 
 $featured_product_3_makers[] = array(
-    'name' => 'Toph Tucker',
-    'uid' => 'bjb48n',
-    'slug' => 'tophtucker',
+    'name' => 'Jason Goldman',
+    'uid' => 'xn63er',
+    'slug' => 'goldman',
     //'avatar_url' => 'http://pbs.twimg.com/profile_images/587137703025762304/WYq1-qus.jpg'
-    'avatar_url' => 'https://makerba.se/assets/img/featured/tophtucker.jpeg',
+    'avatar_url' => '/assets/img/featured/goldman.jpeg',
 );
 
 // Fourth featured Product
 $featured_product_4_array = array(
-    'name' => 'The Standesk 2200',
+    'name' => 'Yahoo Weather',
     //'avatar_url' => 'http://www.wired.com/images_blogs/wiredscience/2012/09/mf-standing-desk_ikeab.jpg',
-    'avatar_url' => 'https://makerba.se/assets/img/featured/standesk2200.jpeg',
-    'uid' => '227405',
-    'slug' => 'thestandesk2200'
+    'avatar_url' => '/assets/img/featured/yahooweather.png',
+    'uid' => 'gpqz9y',
+    'slug' => 'yahooweather'
 );
 
 $featured_product_4_makers = array();
 $featured_product_4_makers[] = array(
-    'name' => 'Colin Nederkoorn',
-    'uid' => '2k53m4',
-    'slug' => 'alphacolin',
+    'name' => 'Adam Mathes',
+    'uid' => '26oce3',
+    'slug' => 'adammathes',
     //'avatar_url' => 'http://pbs.twimg.com/profile_images/593215937219670016/mDRLFYEd.jpg'
-    'avatar_url' => 'https://makerba.se/assets/img/featured/colinn.jpeg',
+    'avatar_url' => '/assets/img/featured/adammathes.jpeg',
 );
 
 $featured_product_4_makers[] = array(
-    'name' => 'Ryan Witt',
-    'uid' => 'z49b24',
-    'slug' => 'onecreativenerd',
+    'name' => 'Marco Wirasinghe',
+    'uid' => '69lw1a',
+    'slug' => 'marcowirasinghe',
     //'avatar_url' => 'http://pbs.twimg.com/profile_images/461721229292875776/v6shxhsp.jpeg'
-    'avatar_url' => 'https://makerba.se/assets/img/featured/ryanwitt.jpeg'
+    'avatar_url' => '/assets/img/featured/marcowirasinghe.jpeg'
 );
 
 class FeatureHelper {
@@ -339,6 +365,6 @@ $ISOSCELES_CFG['featured_products'] = FeatureHelper::getFeaturedProducts($featur
     $featured_product_1_makers, $featured_product_2_array, $featured_product_2_makers, $featured_product_3_array,
     $featured_product_3_makers, $featured_product_4_array, $featured_product_4_makers);
 
-$ISOSCELES_CFG['featured_users'] = array('24ul5k', 'cq2i35', 'xrqyy7', 'g78e07');
+$ISOSCELES_CFG['featured_users'] = array('pv1169', 'u03fq0', '7p5ycf', 'f6h9y4');
 
 
