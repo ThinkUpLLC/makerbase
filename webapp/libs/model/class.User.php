@@ -64,6 +64,18 @@ class User {
      * @var bool Whether or not email is verified.
      */
     var $is_email_verified = false;
+    /**
+     * @var bool Whether user has added a maker.
+     */
+    var $has_added_maker = false;
+    /**
+     * @var bool Whether user has added a product.
+     */
+    var $has_added_product = false;
+    /**
+     * @var bool Whether user has added a role.
+     */
+    var $has_added_role = false;
     public function __construct($row = false) {
         if ($row) {
             $this->id = $row['id'];
@@ -82,6 +94,9 @@ class User {
             $this->email = $row['email'];
             $this->email_verification_code = $row['email_verification_code'];
             $this->is_email_verified = PDODAO::convertDBToBool($row['is_email_verified']);
+            $this->has_added_maker = PDODAO::convertDBToBool($row['has_added_maker']);
+            $this->has_added_product = PDODAO::convertDBToBool($row['has_added_product']);
+            $this->has_added_role = PDODAO::convertDBToBool($row['has_added_role']);
         }
     }
 }
