@@ -224,6 +224,45 @@ EOD;
         $ps = $this->execute($q, $vars);
         return ($this->getUpdateCount($ps) > 0);
     }
+
+    public function hasAddedMaker(User $user) {
+        $q = <<<EOD
+UPDATE users SET has_added_maker = 1 WHERE uid = :uid
+EOD;
+        $vars = array (
+            ':uid' => $user->uid
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        return ($this->getUpdateCount($ps) > 0);
+    }
+
+    public function hasAddedProduct(User $user) {
+        $q = <<<EOD
+UPDATE users SET has_added_product = 1 WHERE uid = :uid
+EOD;
+        $vars = array (
+            ':uid' => $user->uid
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        return ($this->getUpdateCount($ps) > 0);
+    }
+
+    public function hasAddedRole(User $user) {
+        $q = <<<EOD
+UPDATE users SET has_added_role = 1 WHERE uid = :uid
+EOD;
+        $vars = array (
+            ':uid' => $user->uid
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        return ($this->getUpdateCount($ps) > 0);
+    }
 }
 
 
