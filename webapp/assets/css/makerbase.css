@@ -5605,6 +5605,11 @@ form.form-inline {
   max-width: 5%;
   padding-right: .5em;
 }
+@media (max-width: 768px) {
+  #activity h3 {
+    font-size: 1.5em;
+  }
+}
 #activity #pager {
   margin-top: 1em;
 }
@@ -5661,32 +5666,21 @@ form.form-inline {
 #user-profile h1.archived {
   text-decoration: line-through;
 }
-@media (max-width: 768px) {
-  #project-info h1,
-  #project-info-edit h1,
-  #maker-info h1,
-  #maker-info-edit h1,
-  #user-profile h1 {
-    font-size: 1.2em;
-  }
-}
 #project-info h3,
 #project-info-edit h3,
 #maker-info h3,
 #maker-info-edit h3,
 #user-profile h3 {
-  font-size: 1.1em;
+  font-size: 1.5em;
   font-weight: 200;
-  margin: 2px 0;
 }
 #project-info h5,
 #project-info-edit h5,
 #maker-info h5,
 #maker-info-edit h5,
 #user-profile h5 {
-  font-size: 0.8em;
   font-weight: 200;
-  margin: 6px 0;
+  font-size: 1.3em;
 }
 #project-info .btn,
 #project-info-edit .btn,
@@ -5708,6 +5702,31 @@ form.form-inline {
 #maker-info-edit .img-responsive,
 #user-profile .img-responsive {
   background-color: #fff;
+}
+@media (max-width: 768px) {
+  #project-info h1,
+  #project-info-edit h1,
+  #maker-info h1,
+  #maker-info-edit h1,
+  #user-profile h1 {
+    font-size: 1.2em;
+  }
+  #project-info h3,
+  #project-info-edit h3,
+  #maker-info h3,
+  #maker-info-edit h3,
+  #user-profile h3 {
+    font-size: 0.8em;
+    margin: 2px 0;
+  }
+  #project-info h5,
+  #project-info-edit h5,
+  #maker-info h5,
+  #maker-info-edit h5,
+  #user-profile h5 {
+    font-size: 0.8em;
+    margin: 6px 0;
+  }
 }
 #project-info a,
 #maker-info a,
@@ -5804,6 +5823,11 @@ form.form-inline {
 #roles .role-archive-form {
   display: none;
 }
+@media (max-width: 768px) {
+  #roles h2 {
+    font-size: 1.5em;
+  }
+}
 #makers #add-role-form,
 #projects #add-role-form {
   display: none;
@@ -5878,19 +5902,20 @@ form.form-inline {
   clear: both;
 }
 #maker-page-reminder {
-  text-align: center;
-  background-color: #fff;
-  padding: 1em;
-  margin-top: 1em;
-  font-size: 12px;
-  line-height: 1.5;
-  font-weight: normal;
-  color: #198a9c;
-}
-@media (max-width: 992px) {
-  #maker-page-reminder {
-    font-size: 0.8em;
-  }
+  font-weight: 200;
+  /*
+	text-align: center;
+	background-color: #fff;
+	padding: 1em;
+	margin-top: 1em;
+	font-size: 12px;
+	line-height: 1.5;
+	font-weight:normal;
+	color: @color-seabreeze-dark;
+	@media (max-width: @screen-md-min) {
+		font-size: 0.8em;
+	}
+	*/
 }
 #homepage-search {
   padding: 0;

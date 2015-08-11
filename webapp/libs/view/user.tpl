@@ -15,9 +15,18 @@ $email_capture_state either 'need email', 'confirmation_pending' or 'confirmatio
     <img class="img-responsive" src="{insert name='user_image' image_url=$user->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" alt="{$user->name}" width="100%">
   </div>
   <div class="col-xs-8 col-sm-8">
-    <h1><strong>{$user->twitter_username}</strong> makes Makerbase</h1>
+    <h1><strong>{$user->twitter_username}</strong>'s Makerbase contributions</h1>
+    <!--
     <h5><a href="{$user->url}">{$user->url}</a></h5>
     <h5><a href="https://twitter.com/intent/user?user_id={$user->twitter_user_id}">@{$user->twitter_username}</a></h5>
+    -->
+    {if isset($logged_in_user)}
+      {if $logged_in_user->twitter_user_id neq $user->twitter_user_id}
+        <h3><a href="/search/maker/?q={$user->twitter_username}" class="btn btn-xl btn-primary">See what {$user->twitter_username} makes <i class="fa fa-arrow-right"></i></a></h3>
+      {/if}
+    {else}
+        <h3><a href="/search/maker/?q={$user->twitter_username}" class="btn btn-xl btn-primary">See what {$user->twitter_username} makes <i class="fa fa-arrow-right"></i></a></h3>
+    {/if}
   </div>
 </div>
 
@@ -91,11 +100,6 @@ $email_capture_state either 'need email', 'confirmation_pending' or 'confirmatio
   {else}
 
     {** LOGGED IN AS ANOTHER USER **}
-  <div class="row">
-    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-      <h4 id="maker-page-reminder">This is {$user->twitter_username}'s editor page. See also <a href="/search/maker/?q={$user->twitter_username}">{$user->twitter_username}'s Maker page</a>.</h4>
-    </div>
-  </div>
 
     {include file="_actions.tpl" object=$user object_type='user'}
 
@@ -104,11 +108,6 @@ $email_capture_state either 'need email', 'confirmation_pending' or 'confirmatio
 {else}
 
     {** NOT LOGGED IN **}
-  <div class="row">
-    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-      <h4 id="maker-page-reminder">This is {$user->twitter_username}'s editor page. See also <a href="/search/maker/?q={$user->twitter_username}">{$user->twitter_username}'s Maker page</a>.</h4>
-    </div>
-  </div>
 
     {include file="_actions.tpl" object=$user object_type='user'}
 

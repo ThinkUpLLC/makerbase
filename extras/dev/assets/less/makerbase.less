@@ -421,6 +421,11 @@ form.form-inline {
 			}
 		}
 	}
+	@media (max-width: @screen-sm-min) {
+		h3 {
+			font-size: 1.5em;
+		}
+	}
 	#pager {
 		margin-top: 1em;
 	}
@@ -481,21 +486,13 @@ form.form-inline {
 	h1.archived {
 		text-decoration:line-through;
 	}
-
-	@media (max-width: @screen-sm-min) {
-		h1 {
-			font-size: 1.2em;
-		}
-	}
 	h3 {
-		font-size: 1.1em;
+		font-size: 1.5em;
 		font-weight: 200;
-		margin: 2px 0;
 	}
 	h5 {
-		font-size: 0.8em;
 		font-weight: 200;
-		margin: 6px 0;
+		font-size: 1.3em;
 	}
 	.btn {
 		font-size: 0.8em;
@@ -505,6 +502,19 @@ form.form-inline {
 	}
 	.img-responsive {
 		background-color: #fff;
+	}
+	@media (max-width: @screen-sm-min) {
+		h1 {
+			font-size: 1.2em;
+		}
+		h3 {
+			font-size: 0.8em;
+			margin: 2px 0;
+		}
+		h5 {
+			font-size: 0.8em;
+			margin: 6px 0;
+		}
 	}
 }
 
@@ -602,6 +612,11 @@ form.form-inline {
 	.role-archive-form {
 		display: none;
 	}
+	@media (max-width: @screen-sm-min) {
+		h2 {
+			font-size: 1.5em;
+		}
+	}
 }
 
 #makers,
@@ -696,6 +711,8 @@ form.form-inline {
 }
 
 #maker-page-reminder {
+	font-weight: 200;
+	/*
 	text-align: center;
 	background-color: #fff;
 	padding: 1em;
@@ -707,6 +724,7 @@ form.form-inline {
 	@media (max-width: @screen-md-min) {
 		font-size: 0.8em;
 	}
+	*/
 }
 
 // LANDING PAGE ************************************

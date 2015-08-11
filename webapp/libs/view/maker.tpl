@@ -104,14 +104,23 @@
           {include file="_role.tpl"}
       </li>
     {/foreach}
+
+      <li>
+        <div class="list-group-item style-transparent" id="role-ghost">
+            <div class="media-left media-top">
+              <img class="media-object" src="/assets/img/blank-project.png" alt="logo" width="50" height="50">
+            </div>
+            <div class="media-body">
+                <h3>What's missing?</h3>
+                <div id="role-description-ghost">
+                  <p>Makerbase is edited by our community, and might be incomplete&mdash;you can help fill it in!</p>
+               </div>
+            </div>
+        </div>
+      </li>
+
     </ul>
 
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-    <h4 id="maker-page-reminder">This page is community-edited and may be incomplete. You can help fill it in!</h4>
   </div>
 </div>
 
@@ -122,10 +131,11 @@
 
           {if isset($logged_in_user)}
 
-            <button class="btn btn-info pull-right" type="submit" id="add-role" data-toggle="collapse" data-target="#add-project-form" onclick="$('#add-role').toggle();$('#product-name').focus();" ><i class="fa fa-plus"></i> Add a{if $roles}nother{/if} project</button>
-
+            <button class="btn btn-info pull-right" type="submit" id="add-role" data-toggle="collapse" data-target="#add-project-form" onclick="$('#add-role').toggle();$('#product-name').focus();$('#add-role-cancel').show();" ><i class="fa fa-plus"></i> Add a{if $roles}nother{/if} project</button>
 
             <form method="post" action="/add/role/" class="form-horizontal col-xs-12 collapse" id="add-project-form">
+
+            <a class="btn btn-link btn-sm pull-right" id="add-role-cancel" data-toggle="collapse" data-target="#add-project-form" onclick="$('#add-role-cancel').hide();$('#add-role').toggle();" >cancel</a>
 
             <h2>What {if $roles}else {/if}did {$maker->name|escape} make?</h2>
               <input type="hidden" name="maker_uid" value="{$maker->uid}">
@@ -155,7 +165,6 @@
 
                 <div class="form-group col-xs-12">
                   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                    <a class="btn btn-link btn-sm pull-right" data-toggle="collapse" data-target="#add-project-form" onclick="$('#add-role').toggle();" >cancel</a>
                     <button class="btn btn-primary" type="submit">Add project</button>
                   </div>
                 </div>
