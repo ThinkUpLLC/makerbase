@@ -8,6 +8,10 @@ class SearchAutoCompleteController extends MakerbaseController {
         $results = array();
 
         if (isset($_GET['q'])) {
+            $query = $_GET['q'];
+            if (substr( $query, 0, 1 ) === "@") {
+                $query = substr($query, 1);
+            }
             $start_time = microtime(true);
             $client = new Elasticsearch\Client();
 
@@ -28,7 +32,7 @@ class SearchAutoCompleteController extends MakerbaseController {
                 $search_params['type']  = 'maker_product_type';
             }
             $search_params['body']['query']['multi_match']['fields'] = array('slug', 'name', 'url');
-            $search_params['body']['query']['multi_match']['query'] = urlencode($_GET['q']);
+            $search_params['body']['query']['multi_match']['query'] = urlencode($query);
             $search_params['body']['query']['multi_match']['type'] = 'phrase_prefix';
 
             $return_document = $client->search($search_params);
