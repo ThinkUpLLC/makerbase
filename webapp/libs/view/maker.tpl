@@ -16,7 +16,7 @@
           <h1 {if $maker->is_archived}class="archived"{/if}>
             <strong>{$maker->name|escape}</strong> is a maker
           </h1>
-          <h5><a href="{$maker->url}" class="text-muted">{$maker->url}</a></h5>
+          <h5><a href="{$maker->url}" class="text-muted" rel="nofollow">{$maker->url}</a></h5>
           {if isset($maker->twitter_username)}<h5><a href="https://twitter.com/intent/user?screen_name={$maker->twitter_username}">@{$maker->twitter_username}</a></h5>{/if}
         </div>
       </div>

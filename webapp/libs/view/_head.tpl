@@ -120,7 +120,7 @@
             {/if}
           {else}
             <div class=" col-xs-2 col-sm-1" role="signout" id="signout-button">
-              {if isset($sign_in_with_twttr_link)}<a href="{$sign_in_with_twttr_link}" class="btn btn-default btn-sm navbar-btn" id="signin-button"><i class="fa fa-twitter"></i> Sign in</a>{/if}
+              {if isset($sign_in_with_twttr_link)}<a href="{$sign_in_with_twttr_link}" class="btn btn-default btn-sm navbar-btn" id="signin-button" rel="nofollow"><i class="fa fa-twitter"></i> Sign in</a>{/if}
             </div>
           {/if}
         </div>
