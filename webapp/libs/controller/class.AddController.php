@@ -284,6 +284,12 @@ class AddController extends MakerbaseAuthController {
             $action_dao = new ActionMySQLDAO();
             $action_dao->insert($action);
 
+            //User has added a role
+            if (!$this->logged_in_user->has_added_role) {
+                $user_dao = new UserMySQLDAO();
+                $user_dao->hasAddedRole($this->logged_in_user);
+            }
+
             //Force cache refresh
             CacheHelper::expireCache('product.tpl', $product->uid, $product->slug);
             CacheHelper::expireCache('maker.tpl', $maker->uid, $maker->slug);
@@ -388,6 +394,12 @@ class AddController extends MakerbaseAuthController {
             $action_dao = new ActionMySQLDAO();
             $action_dao->insert($action);
 
+            //User has added a maker
+            if (!$this->logged_in_user->has_added_maker) {
+                $user_dao = new UserMySQLDAO();
+                $user_dao->hasAddedMaker($this->logged_in_user);
+            }
+
             //Add autofill
             if (isset($_POST['network_id']) && isset($_POST['network'])
                 && !empty($_POST['network_id']) && !empty($_POST['network'])) {
@@ -428,6 +440,12 @@ class AddController extends MakerbaseAuthController {
 
                     //Add new action for role
                     $this->insertActionForRole($maker, $product, $role);
+
+                    //User has added a role
+                    if (!$this->logged_in_user->has_added_role) {
+                        $user_dao = new UserMySQLDAO();
+                        $user_dao->hasAddedRole($this->logged_in_user);
+                    }
 
                     SessionCache::put('success_message', 'You added '.htmlspecialchars($maker->name).' to '
                         .htmlspecialchars($product->name).'.'.$tweet_link);
@@ -518,6 +536,12 @@ class AddController extends MakerbaseAuthController {
             $action_dao = new ActionMySQLDAO();
             $action_dao->insert($action);
 
+            //User has added a product
+            if (!$this->logged_in_user->has_added_product) {
+                $user_dao = new UserMySQLDAO();
+                $user_dao->hasAddedProduct($this->logged_in_user);
+            }
+
             //Add autofill
             if (isset($_POST['network_id']) && isset($_POST['network'])
                 && !empty($_POST['network_id']) && !empty($_POST['network'])) {
@@ -542,6 +566,12 @@ class AddController extends MakerbaseAuthController {
 
                     //Add new action for role
                     $this->insertActionForRole($maker, $product, $role);
+
+                    //User has added a role
+                    if (!$this->logged_in_user->has_added_role) {
+                        $user_dao = new UserMySQLDAO();
+                        $user_dao->hasAddedRole($this->logged_in_user);
+                    }
 
                     SessionCache::put('success_message', 'You added '.htmlspecialchars($product->name).' to '
                         .htmlspecialchars($maker->name).'.');
