@@ -108,7 +108,7 @@
       <li>
         <div class="list-group-item style-transparent" id="role-ghost">
             <div class="media-left media-top">
-              <img class="media-object" src="/assets/img/blank-project.png" alt="logo" width="50" height="50">
+              <img class="media-object" src="/assets/img/ghost-object.png" alt="logo" width="50" height="50">
             </div>
             <div class="media-body">
                 <h3>What's missing?</h3>

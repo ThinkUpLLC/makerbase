@@ -154,6 +154,20 @@
           {include file="_role.tpl"}
       </li>
     {/foreach}
+      <li>
+        <div class="list-group-item style-transparent" id="role-ghost">
+            <div class="media-left media-top">
+              <img class="media-object" src="/assets/img/ghost-object.png" alt="logo" width="50" height="50">
+            </div>
+            <div class="media-body">
+                <h3>What's missing?</h3>
+                <div id="role-description-ghost">
+                  <p>Makerbase is edited by our community, and might be incomplete&mdash;you can help fill it in!</p>
+               </div>
+            </div>
+        </div>
+      </li>
+
     </ul>
 
   </div>
