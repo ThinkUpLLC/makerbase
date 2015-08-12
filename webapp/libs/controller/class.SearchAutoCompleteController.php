@@ -52,6 +52,7 @@ class SearchAutoCompleteController extends MakerbaseController {
                     }
                     $hit['_source']['avatar_url'] = $this->sendImageThruProxy($hit['_source']['avatar_url'],
                         $search_autocomplete_type, $image_proxy_sig);
+                    $hit['_source']['name'] = htmlentities($hit['_source']['name']);
                     $results[] = $hit['_source'];
                 }
             }
