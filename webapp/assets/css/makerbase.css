@@ -5522,7 +5522,6 @@ h6 {
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.15);
   box-shadow: 0 1px 0px rgba(0, 0, 0, 0.175);
-  min-width: 312px;
   padding: 4px 0 4px 4px;
   z-index: 1000;
 }
@@ -5917,14 +5916,19 @@ form.form-inline {
 	}
 	*/
 }
+#add-panels .media {
+  margin-top: auto;
+}
 #homepage-search {
   padding: 0;
-  margin-top: 1em;
+  margin-top: 2em;
 }
 #homepage-search .twitter-typeahead {
   padding-top: 1em;
 }
 #homepage-search #nav-typeahead,
+#homepage-search #product-name,
+#homepage-search #maker-name,
 #homepage-search .tt-hint {
   padding: 1.2em;
   width: 100%;
@@ -5932,11 +5936,15 @@ form.form-inline {
 }
 @media (min-width: 768px) {
   #homepage-search #nav-typeahead,
+  #homepage-search #product-name,
+  #homepage-search #maker-name,
   #homepage-search .tt-hint {
     font-size: 2em;
   }
 }
-#homepage-search #nav-typeahead {
+#homepage-search #nav-typeahead,
+#homepage-search #product-name,
+#homepage-search #maker-name {
   margin-top: -14px;
 }
 #landing-header h1 {
@@ -6187,6 +6195,67 @@ body.landing-not-signed-in .pager {
 @media (max-width: 992px) {
   #landing-sponsors h1 {
     font-size: 1.5em;
+  }
+}
+.new-user .popover {
+  max-width: 90%;
+  text-align: center;
+  padding: 1em;
+}
+.new-user .popover .popover-content {
+  display: none;
+}
+.new-user h3.popover-title {
+  color: #41dab3;
+  background-color: #fff;
+  font-size: 1.5em;
+  padding: 4px 6px;
+  border: none;
+}
+body.landing .jumbotron {
+  padding: 2em;
+  margin-bottom: 0;
+  border-radius: 20px 2px;
+}
+body.landing .jumbotron h1 {
+  font-size: 2em;
+  margin-top: 0;
+  color: #d0f2f5;
+  font-weight: 200;
+  margin-bottom: 1em;
+}
+body.landing .jumbotron p,
+body.landing .jumbotron li {
+  font-size: 1.3em;
+}
+body.landing .jumbotron li {
+  padding-bottom: 0.5em;
+}
+body.landing .jumbotron li.completed {
+  color: #198a9c;
+  list-style-type: none;
+  margin-left: -20px;
+}
+body.landing .jumbotron li.completed:before {
+  content: "\2713\0020";
+}
+@media (max-width: 768px) {
+  body.landing .jumbotron {
+    padding: 1.5em;
+  }
+  body.landing .jumbotron h1 {
+    font-size: 1.4em;
+  }
+  body.landing .jumbotron ul {
+    padding-left: 1.4em;
+  }
+  body.landing .jumbotron ul li.completed {
+    padding-left: 20px;
+  }
+  body.landing .jumbotron ul li.completed:before {
+    content: "\2713\0020";
+    position: absolute;
+    left: 30px;
   }
 }
 .about-page {

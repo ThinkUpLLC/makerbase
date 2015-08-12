@@ -3,6 +3,28 @@
 {** BEGIN SIGNED-IN LANDING PAGE **}
 {include file="_head.tpl" suppress_search='true' body_class='landing'}
 
+
+{if !$logged_in_user->has_added_product || !$logged_in_user->has_added_maker || !$logged_in_user->has_added_role}
+
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-xs-12">
+      <div class="jumbotron style-seabreeze">
+        <h1><strong>Welcome to Makerbase!</strong> Let's make amazing things.</h1>
+        <ul>
+          <li {if $logged_in_user->has_added_maker}class="completed"{/if}><strong>Create a maker</strong> for anybody who makes cool stuff. (Including yourself!)</li>
+          <li {if $logged_in_user->has_added_product}class="completed"{/if}><strong>Create projects</strong> for anything on the Internet&mdash;even old stuff from the past.</li>
+          <li {if $logged_in_user->has_added_role}class="completed"{/if}>Describe the role a maker had on a project, including when the work was done.</li>
+        </ul>
+        {if !$logged_in_user->has_added_product && !$logged_in_user->has_added_maker}
+        <p>Everything starts with search. Find what you're looking for, and add anything that's missing!</p>
+        {/if}
+      </div>
+    </div>
+  </div>
+
+{/if}
+
+
 <div class="row">
    <div class="col-sm-10 col-sm-offset-1 col-xs-12">
 

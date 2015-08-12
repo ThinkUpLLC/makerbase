@@ -27,14 +27,14 @@
                 <form method="post" action="/adminedit/maker/" class="" style="padding: 10px 20px;">
                     <input type="hidden" name="uid" value="{$maker->uid}" />
                     <input type="hidden" name="freeze" value="{if $maker->is_frozen}0{else}1{/if}"/>
-                    <button class="btn {if $maker->is_frozen}btn-success{else}btn-warning{/if} btn-sm" type="submit">{if $maker->is_frozen}Unf{else}F{/if}reeze {$maker->name}</button>
+                    <button class="btn {if $maker->is_frozen}btn-success{else}btn-warning{/if} btn-sm" type="submit">{if $maker->is_frozen}Unf{else}F{/if}reeze {$maker->name|escape}</button>
                 </form>
             </li>
             <li>
                 <form method="post" action="/adminedit/maker/" class="" style="padding: 10px 20px;">
                     <input type="hidden" name="uid" value="{$maker->uid}" />
                     <input type="hidden" name="delete" value="1"/>
-                    <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Are you sure? This cannot be undone.');">DELETE {$maker->name}</button>
+                    <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Are you sure? This cannot be undone.');">DELETE {$maker->name|escape}</button>
                 </form>
             </li>
             {/if}
@@ -44,14 +44,14 @@
                 <form method="post" action="/adminedit/product/" class="" style="padding: 10px 20px;">
                     <input type="hidden" name="uid" value="{$product->uid}" />
                     <input type="hidden" name="freeze" value="{if $product->is_frozen}0{else}1{/if}"/>
-                    <button class="btn {if $product->is_frozen}btn-success{else}btn-warning{/if} btn-sm" type="submit">{if $product->is_frozen}Unf{else}F{/if}reeze {$product->name}</button>
+                    <button class="btn {if $product->is_frozen}btn-success{else}btn-warning{/if} btn-sm" type="submit">{if $product->is_frozen}Unf{else}F{/if}reeze {$product->name|escape}</button>
                 </form>
             </li>
             <li>
                 <form method="post" action="/adminedit/product/" class="" style="padding: 10px 20px;">
                     <input type="hidden" name="uid" value="{$product->uid}" />
                     <input type="hidden" name="delete" value="1"/>
-                    <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Are you sure? This cannot be undone.');">DELETE {$product->name}</button>
+                    <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Are you sure? This cannot be undone.');">DELETE {$product->name|escape}</button>
                 </form>
             </li>
             {/if}

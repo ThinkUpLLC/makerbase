@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{if isset($maker)}{$maker->name} on {elseif isset($product)}{$product->name} on {/if}{$app_title}</title>
+    <title>{if isset($maker)}{$maker->name|escape} on {elseif isset($product)}{$product->name|escape} on {/if}{$app_title}</title>
 
 
     <link rel="stylesheet" href="{$site_root_path}assets/css/makerbase.css">
@@ -36,12 +36,12 @@
     {if isset($maker) || isset($product)}
       {if isset($maker)}
         {assign var="url" value="/m/{$maker->uid}/{$maker->slug}"}
-        {assign var="title" value="{$maker->name} on Makerbase"}
-        {assign var="description" value="{$maker->name} is a maker"}
+        {assign var="title" value="{$maker->name|escape} on Makerbase"}
+        {assign var="description" value="{$maker->name|escape} is a maker"}
         {assign var="image" value=$maker->avatar_url}
       {else}
         {assign var="url" value="/p/{$product->uid}/{$product->slug}"}
-        {assign var="title" value="{$product->name} on Makerbase"}
+        {assign var="title" value="{$product->name|escape} on Makerbase"}
         {assign var="description" value=$product->description}
         {assign var="image" value=$product->avatar_url}
       {/if}
@@ -120,7 +120,7 @@
             {/if}
           {else}
             <div class=" col-xs-2 col-sm-1" role="signout" id="signout-button">
-              {if isset($sign_in_with_twttr_link)}<a href="{$sign_in_with_twttr_link}" class="btn btn-default btn-sm navbar-btn" id="signin-button"><i class="fa fa-twitter"></i> Sign in</a>{/if}
+              {if isset($sign_in_with_twttr_link)}<a href="{$sign_in_with_twttr_link}" class="btn btn-default btn-sm navbar-btn" id="signin-button" rel="nofollow"><i class="fa fa-twitter"></i> Sign in</a>{/if}
             </div>
           {/if}
         </div>
