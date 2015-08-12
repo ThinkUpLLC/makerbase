@@ -4,7 +4,7 @@
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <div class="media">
       <div class="media-left media-top">
-        <img class="img-responsive" src="{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" alt="{$maker->name}">
+        <img class="img-responsive" src="{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" alt="{$maker->name|escape}">
       </div>
       <div class="media-body">
         <div id="maker-info-profile">
@@ -31,7 +31,7 @@
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <div class="media">
       <div class="media-left media-top">
-        <img class="img-responsive" src="{if isset($maker->avatar_url)}{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='p'}{else}{$site_root_path}assets/img/blank-maker.png{/if}" alt="{$maker->name}">
+        <img class="img-responsive" src="{if isset($maker->avatar_url)}{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='p'}{else}{$site_root_path}assets/img/blank-maker.png{/if}" alt="{$maker->name|escape}">
 
         <form method="post" action="/edit/maker/" id="maker-profile-archive" class="">
           <div class="form-group">
@@ -60,7 +60,7 @@
           <div class="form-group">
             <label for="name" class="col-sm-2 hidden-xs control-label">Name</label>
             <div class="col-xs-12 col-sm-10">
-              <input type="text" class="form-control input-lg" autocomplete="off" name="name" id="name" value="{$maker->name}">
+              <input type="text" class="form-control input-lg" autocomplete="off" name="name" id="name" value="{$maker->name|escape}">
             </div>
           </div>
 

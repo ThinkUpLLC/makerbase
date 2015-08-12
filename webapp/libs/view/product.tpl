@@ -4,7 +4,7 @@
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <div class="media">
       <div class="media-left media-top">
-        <img class="img-responsive" src="{insert name='user_image' image_url=$product->avatar_url image_proxy_sig=$image_proxy_sig type='p'}" alt="{$product->name}">
+        <img class="img-responsive" src="{insert name='user_image' image_url=$product->avatar_url image_proxy_sig=$image_proxy_sig type='p'}" alt="{$product->name|escape}">
       </div>
       <div class="media-body">
         {if isset($logged_in_user)}
@@ -26,7 +26,7 @@
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <div class="media">
       <div class="media-left media-top">
-        <img class="img-responsive" src="{if isset($product->avatar_url)}{insert name='user_image' image_url=$product->avatar_url image_proxy_sig=$image_proxy_sig type='p'}{else}{$site_root_path}assets/img/blank-project.png{/if}" alt="{$product->name}">
+        <img class="img-responsive" src="{if isset($product->avatar_url)}{insert name='user_image' image_url=$product->avatar_url image_proxy_sig=$image_proxy_sig type='p'}{else}{$site_root_path}assets/img/blank-project.png{/if}" alt="{$product->name|escape}">
 
         <form method="post" action="/edit/product/" id="project-profile-archive" class="">
           <div class="form-group">
@@ -55,7 +55,7 @@
           <div class="form-group">
             <label for="name" class="col-sm-2 hidden-xs control-label">Name</label>
             <div class="col-xs-12 col-sm-10">
-              <input type="text" class="form-control input-lg" autocomplete="off" name="name" id="name" value="{$product->name}">
+              <input type="text" class="form-control input-lg" autocomplete="off" name="name" id="name" value="{$product->name|escape}">
             </div>
           </div>
 
@@ -103,7 +103,7 @@
 <div class="row" id="made-with">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <ul class="list-inline list-unstyled">
-      <li class="">{if sizeof($madewiths) < 3}{$product->name} was {/if}made with </li>
+      <li class="">{if sizeof($madewiths) < 3}{$product->name|escape} was {/if}made with </li>
       {foreach $madewiths as $madewith}
       <li class="" >
         <form method="post" action="/edit/madewith/" class="form-inline madewith-archive pull-left">
@@ -124,7 +124,7 @@
 {if isset($used_by_madewiths) && sizeof($used_by_madewiths) > 0}
 <div class="row" id="usedby">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-    <h2><a href="#usedby"><strong>{$product->name}</strong> is used by</a></h2>
+    <h2><a href="#usedby"><strong>{$product->name|escape}</strong> is used by</a></h2>
 
     {foreach $used_by_madewiths as $used_by_madewith}
     <div class="list-group-item col-xs-12 col-md-6" id="usedby-madewith-{$used_by_madewith->uid}">
@@ -145,7 +145,7 @@
 <div class="row" id="roles">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     {if isset($roles) && count($roles) > 0}
-    <h2><a href="#roles"><strong>{$product->name}</strong> is made by</a></h2>
+    <h2><a href="#roles"><strong>{$product->name|escape}</strong> is made by</a></h2>
     {/if}
 
     <ul class="list-unstyled" id="role-list">
@@ -234,7 +234,7 @@
 <div class="row" id="use-these">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <div id="use-these-actions">
-      <h4>Use any of these tools to make {$product->name}?</h4>
+      <h4>Use any of these tools to make {$product->name|escape}?</h4>
 
 
       {if isset($logged_in_user)}
@@ -246,7 +246,7 @@
               <input type="hidden" name="product_used_uid" value="{$uses_with_button.uid}">
               <input type="hidden" name="originate_slug" value="{$product->slug}">
               <input type="hidden" name="originate_uid" value="{$product->uid}">
-              <button class=" btn btn btn-default" type="submit" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="{$uses_with_button.name} sponsors Makerbase" data-content="If {$product->name} uses {$uses_with_button.name}, you can support Makerbase by saying so."><img src="{$uses_with_button.avatar_url}" style="width: 16px;"/>&nbsp;{$uses_with_button.name}</button>
+              <button class=" btn btn btn-default" type="submit" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="{$uses_with_button.name} sponsors Makerbase" data-content="If {$product->name|escape} uses {$uses_with_button.name}, you can support Makerbase by saying so."><img src="{$uses_with_button.avatar_url}" style="width: 16px;"/>&nbsp;{$uses_with_button.name}</button>
             </div>
           </form>
           {/foreach}
@@ -255,7 +255,7 @@
       {else}
 
         {foreach $uses_this_buttons as $uses_with_button}
-          <a class=" btn btn-sm btn-default" href="{$sign_in_with_twttr_link}" style="margin-right: 10px;" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="{$uses_with_button.name} sponsors Makerbase" data-content="If {$product->name} uses {$uses_with_button.name}, you can support Makerbase by saying so."><img src="{$uses_with_button.avatar_url}" style="width: 16px"/>{$uses_with_button.name}</a>
+          <a class=" btn btn-sm btn-default" href="{$sign_in_with_twttr_link}" style="margin-right: 10px;" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="{$uses_with_button.name} sponsors Makerbase" data-content="If {$product->name|escape} uses {$uses_with_button.name}, you can support Makerbase by saying so."><img src="{$uses_with_button.avatar_url}" style="width: 16px"/>{$uses_with_button.name}</a>
         {/foreach}
       {/if}
     </div>

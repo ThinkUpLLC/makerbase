@@ -36,12 +36,12 @@
     {if isset($maker) || isset($product)}
       {if isset($maker)}
         {assign var="url" value="/m/{$maker->uid}/{$maker->slug}"}
-        {assign var="title" value="{$maker->name} on Makerbase"}
-        {assign var="description" value="{$maker->name} is a maker"}
+        {assign var="title" value="{$maker->name|escape} on Makerbase"}
+        {assign var="description" value="{$maker->name|escape} is a maker"}
         {assign var="image" value=$maker->avatar_url}
       {else}
         {assign var="url" value="/p/{$product->uid}/{$product->slug}"}
-        {assign var="title" value="{$product->name} on Makerbase"}
+        {assign var="title" value="{$product->name|escape} on Makerbase"}
         {assign var="description" value=$product->description}
         {assign var="image" value=$product->avatar_url}
       {/if}
