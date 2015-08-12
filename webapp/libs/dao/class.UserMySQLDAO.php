@@ -148,7 +148,9 @@ EOD;
 
     public function update(User $user) {
         $q = <<<EOD
-UPDATE users SET twitter_username = :twitter_username, name = :name, url = :url, avatar_url = :avatar_url
+UPDATE users SET twitter_username = :twitter_username, name = :name, url = :url, avatar_url = :avatar_url,
+twitter_oauth_access_token = :twitter_oauth_access_token,
+twitter_oauth_access_token_secret = :twitter_oauth_access_token_secret
 WHERE twitter_user_id = :twitter_user_id
 EOD;
         $vars = array (
@@ -157,6 +159,8 @@ EOD;
             ':url' => $user->url,
             ':avatar_url' => $user->avatar_url,
             ':twitter_user_id' => $user->twitter_user_id,
+            ':twitter_oauth_access_token' => $user->twitter_oauth_access_token,
+            ':twitter_oauth_access_token_secret' => $user->twitter_oauth_access_token_secret
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         //echo self::mergeSQLVars($q, $vars);
