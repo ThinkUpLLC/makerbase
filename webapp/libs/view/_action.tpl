@@ -103,7 +103,7 @@
 
       <div class="media-left">
         <a href="{$object_url}" class="avatar">
-          <img class="media-object img-responsive img-rounded" src="{insert name='user_image' image_url=$object_avatar_url image_proxy_sig=$image_proxy_sig type=$object_type}" alt="{$object_name}">
+          <img class="media-object img-responsive img-rounded" src="{insert name='user_image' image_url=$object_avatar_url image_proxy_sig=$image_proxy_sig type=$object_type}" alt="{$object_name|escape}">
         </a>
       </div>
       <div class="media-body">
