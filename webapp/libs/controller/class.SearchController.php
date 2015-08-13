@@ -34,6 +34,7 @@ class SearchController extends MakerbaseController {
 
             $return_document = $client->search($search_params);
 
+            $results = array();
             if (isset($return_document['hits']['hits'])) {
                 $image_proxy_sig = Config::getInstance()->getValue('image_proxy_sig');
                 foreach ($return_document['hits']['hits'] as $hit) {
