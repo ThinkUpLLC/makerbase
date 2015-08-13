@@ -90,12 +90,14 @@ https://makerba.se/u/{$logged_in_user->uid}
                 {$object->name|escape} is great and should be a featured {if $object_type eq 'user'}contributor{else}{$object_type}{/if}.
               </label>
             </div>
+            {if $object_type neq 'user'}
             <div class="radio">
               <label>
                 <input type="radio" name="flag-form-option" id="flag-duplicate" value="mailto:team@makerba.se?subject={$report_subject_duplicate|escape:'url'}&amp;body={$report_body_duplicate|escape:'url'}{$report_footer|escape:'url'}">
-                {$object->name|escape} is a duplicate.{if $object_type neq 'user'} (Hint: Click on "Edit" and press the "Archive" button to remove a duplicate.){/if}
+                {$object->name|escape} is a duplicate. (Hint: Click on "Edit" and press the "Archive" button to remove a duplicate.)
               </label>
             </div>
+            {/if}
             <div class="radio">
               <label>
                 <input type="radio" name="flag-form-option" id="flag-vandalized" value="mailto:team@makerba.se?subject={$report_subject_vandalized|escape:'url'}&amp;body={$report_body_vandalized|escape:'url'}{$report_footer|escape:'url'}">
