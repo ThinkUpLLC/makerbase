@@ -400,6 +400,7 @@ class AddController extends MakerbaseAuthController {
                 $user_dao->hasAddedMaker($this->logged_in_user);
             }
 
+            $tweet_link = '';
             //Add autofill
             if (isset($_POST['network_id']) && isset($_POST['network'])
                 && !empty($_POST['network_id']) && !empty($_POST['network'])) {
@@ -421,8 +422,6 @@ class AddController extends MakerbaseAuthController {
                             .'scrollbars=yes,height=600,width=600\');return false;">Let '
                             .$twitter_username.' know</a>.';
                     }
-                } else {
-                    $tweet_link = '';
                 }
             }
 
