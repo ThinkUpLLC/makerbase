@@ -5866,12 +5866,23 @@ form.form-inline {
     margin: 6px 0;
   }
 }
+#project-info .flag:hover,
+#project-info-edit .flag:hover,
+#maker-info .flag:hover,
+#maker-info-edit .flag:hover,
+#user-profile .flag:hover {
+  color: #7d888c;
+}
 #project-info a,
 #maker-info a,
 #project-info .btn,
 #maker-info .btn {
   padding: 0;
   color: #198a9c;
+}
+#project-info .flag:hover,
+#maker-info .flag:hover {
+  color: #7d888c;
 }
 #project-info #maker-info-edit-cancel,
 #maker-info #maker-info-edit-cancel,
