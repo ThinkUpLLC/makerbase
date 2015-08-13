@@ -6197,21 +6197,6 @@ body.landing-not-signed-in .pager {
     font-size: 1.5em;
   }
 }
-.new-user .popover {
-  max-width: 90%;
-  text-align: center;
-  padding: 1em;
-}
-.new-user .popover .popover-content {
-  display: none;
-}
-.new-user h3.popover-title {
-  color: #41dab3;
-  background-color: #fff;
-  font-size: 1.5em;
-  padding: 4px 6px;
-  border: none;
-}
 body.landing .jumbotron {
   padding: 2em;
   margin-top: 1em;
