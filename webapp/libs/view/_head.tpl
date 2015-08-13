@@ -70,7 +70,7 @@
       <meta name="description" content="A directory of people who make things." />
       <meta name="twitter:description" content="A directory of people who make things." />
 
-      {assign var="image" value="https://makerba.se/img/makerbase-logo-horizontal.png"}
+      {assign var="image" value="https://makerba.se/assets/img/makerbase-logo-horizontal.png"}
       <meta itemprop="image" content="{$image}">
       <meta property="og:image" content="{$image}" />
       <meta property="og:image:secure" content="{$image}" />
