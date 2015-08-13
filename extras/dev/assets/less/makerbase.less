@@ -283,6 +283,27 @@ h6 {
 	box-shadow: none;
 }
 
+#flagform {
+	background-color: rgba(0, 0, 0, .25);
+	.modal-dialog {
+		.modal-content {
+			border-radius: 20px 3px;
+		}
+		.modal-title {
+			font-weight: 200;
+		}
+		.modal-body {
+			font-size: 1em;
+		}
+		.modal-footer {
+			.btn {
+				padding: 6px 12px;
+				color: #fff;
+				font-size: 1em;
+			}
+		}
+	}
+}
 .navbar .navbar-brand {
 
 		width: 200%;
@@ -494,9 +515,6 @@ form.form-inline {
 		font-weight: 200;
 		font-size: 1.3em;
 	}
-	.btn {
-		font-size: 0.8em;
-	}
 	.media-left {
 		width: 25%;
 	}
@@ -543,6 +561,14 @@ form.form-inline {
 	display: none;
 }
 
+#project-info-profile,
+#maker-info-profile {
+	> button.btn {
+		padding: 0;
+		font-size: 0.8em;
+		color: @color-seabreeze-dark;
+	}
+}
 
 #made-with{
 	margin-top: 2em;
@@ -707,6 +733,12 @@ form.form-inline {
 			display: block;
 			clear: both;
 		}
+	}
+}
+
+#user-profile {
+	.media-top>button.btn {
+		padding: 0;
 	}
 }
 

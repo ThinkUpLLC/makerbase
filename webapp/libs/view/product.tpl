@@ -5,6 +5,9 @@
     <div class="media">
       <div class="media-left media-top">
         <img class="img-responsive" src="{insert name='user_image' image_url=$product->avatar_url image_proxy_sig=$image_proxy_sig type='p'}" alt="{$product->name|escape}">
+
+        {include file="_reportpage.tpl" object=$product object_type='project'}
+
       </div>
       <div class="media-body">
         {if isset($logged_in_user)}

@@ -12,7 +12,8 @@ $object either the Product or Maker or User
 
 <div class="row" id="activity">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-    <h3>recent activity{if isset($object_type)}            {include file="_reportpage.tpl"  object=$object object_type=$object_type}{/if}</h3>
+
+    <h3>recent activity</h3>
 
     {foreach $actions as $action}
 
@@ -58,12 +59,6 @@ $object either the Product or Maker or User
       </ul>
     </nav>
 
-  </div>
-</div>
-{else}
-<div class="row" id="activity">
-  <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-    <h3>{include file="_reportpage.tpl" object=$product object_type='project'}</h3>
   </div>
 </div>
 {/if}
