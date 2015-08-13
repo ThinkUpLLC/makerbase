@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /twittersignin/
+Disallow: /signin/
+Disallow: /signout/
+Disallow: /add/
+Disallow: /edit/
+Disallow: /search/
+Disallow: /autocomplete/
+Disallow: /*?
