@@ -69,6 +69,7 @@
     {literal}
     <script type='text/javascript'>
 
+      //Smart suggestions autofills
       $('.add-autofill').click(function(){
           $('#name').val($(this).data('name'));
           $('#avatar-url').val($(this).data('avatar'));
@@ -252,18 +253,21 @@
           }
       });
 
+      //Handle subjects on flagging form
+      $('#flagform input[name="flag-form-option"]').change(function(){
+        $('#flagform #flag-form-action').attr("href", $(this).val())
+      });
+
+
+      //Initialize popovers, alerts and searchbox
       $(function () {
         $('[data-toggle="popover"]').popover();
-        $(".alert").addClass("in")
-      })
-
-      $(function () {
+        $(".alert").addClass("in");
         $('#nav-typeahead').focus();
       });
 
-    </script>
+      //Analytics tracking
 
-    <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)

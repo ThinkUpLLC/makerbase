@@ -5,6 +5,9 @@
     <div class="media">
       <div class="media-left media-top">
         <img class="img-responsive" src="{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" alt="{$maker->name|escape}">
+
+        {include file="_reportpage.tpl"  object=$maker object_type='maker'}
+
       </div>
       <div class="media-body">
         <div id="maker-info-profile">
