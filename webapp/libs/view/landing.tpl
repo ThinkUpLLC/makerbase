@@ -11,12 +11,12 @@
       <div class="jumbotron style-seabreeze">
         <h1><strong>Welcome to Makerbase!</strong> Let's make amazing things.</h1>
         <ul>
-          <li {if $logged_in_user->has_added_maker}class="completed"{/if}><strong>Create a maker</strong> for anybody who makes cool stuff. (Including yourself!)</li>
-          <li {if $logged_in_user->has_added_product}class="completed"{/if}><strong>Create projects</strong> for anything on the Internet&mdash;even old stuff from the past.</li>
-          <li {if $logged_in_user->has_added_role}class="completed"{/if}>Describe the role a maker had on a project, including when the work was done.</li>
+          <li {if $logged_in_user->has_added_maker}class="completed"{/if}><strong>Create a maker.</strong> Enter your name, or the name of anyone who makes cool stuff.</li>
+          <li {if $logged_in_user->has_added_product}class="completed"{/if}><strong>Create a project.</strong> Enter anything on the internet&mdash;even old stuff from the past.</li>
+          <li {if $logged_in_user->has_added_role}class="completed"{/if}>Describe the tasks a maker completed on a project, including when the work was done.</li>
         </ul>
         {if !$logged_in_user->has_added_product && !$logged_in_user->has_added_maker}
-        <p>Everything starts with search. Find what you're looking for, and add anything that's missing!</p>
+        <p>Everything starts with search. Find what you're looking for, and press the "Create" button for anything that's missing.</p>
         {/if}
       </div>
     </div>
