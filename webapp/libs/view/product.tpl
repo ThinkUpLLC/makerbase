@@ -180,8 +180,9 @@
           <!-- add a maker -->
           {if isset($logged_in_user)}
 
-            <button class="btn btn-info pull-right" type="submit" id="add-role" data-toggle="collapse" data-target="#add-role-form" onclick="$('#add-role-form').toggle();$('#maker-name').focus();" ><i class="fa fa-plus"></i> Add a{if $roles}nother{/if} maker</button>
+            <button class="btn btn-info pull-right" type="submit" id="add-role" data-toggle="collapse" data-target="#add-role-form" onclick="$('#maker-name').focus();$('#add-role').toggle();$('#add-role-cancel').toggle();" ><i class="fa fa-plus"></i> Add a{if $roles}nother{/if} maker</button>
 
+            <button class="btn btn-link pull-right" type="submit" id="add-role-cancel" data-toggle="collapse" data-target="#add-role-form" onclick="$('#add-role-cancel').toggle();$('#add-role').toggle();" > Cancel </button>
 
             <form method="post" action="/add/role/" class="form-horizontal col-xs-12 collapse" id="add-role-form">
 
@@ -213,7 +214,6 @@
 
                 <div class="form-group col-xs-12">
                   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                    <a class="btn btn-link btn-sm pull-right" data-toggle="collapse" data-target="#add-maker-form" onclick="$('#add-role-form').toggle();" >cancel</a>
                     <button class="btn btn-primary" type="submit">Add maker</button>
                   </div>
                 </div>

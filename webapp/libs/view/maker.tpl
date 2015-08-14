@@ -125,17 +125,17 @@
 </div>
 
 
-<div class="row">
+<div class="row" id="projects">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-    <div id="projects">
+    <div>
 
           {if isset($logged_in_user)}
 
-            <button class="btn btn-info pull-right" type="submit" id="add-role" data-toggle="collapse" data-target="#add-project-form" onclick="$('#add-role').toggle();$('#product-name').focus();$('#add-role-cancel').show();" ><i class="fa fa-plus"></i> Add a{if $roles}nother{/if} project</button>
+            <button class="btn btn-info pull-right" type="submit" id="add-role" data-toggle="collapse" data-target="#add-role-form" onclick="$('#product-name').focus();$('#add-role').toggle();$('#add-role-cancel').toggle();" ><i class="fa fa-plus"></i> Add a{if $roles}nother{/if} project</button>
 
-            <form method="post" action="/add/role/" class="form-horizontal col-xs-12 collapse" id="add-project-form">
+            <button class="btn btn-link pull-right" type="submit" id="add-role-cancel" data-toggle="collapse" data-target="#add-role-form" onclick="$('#add-role-cancel').toggle();$('#add-role').toggle();" > Cancel </button>
 
-            <a class="btn btn-link btn-sm pull-right" id="add-role-cancel" data-toggle="collapse" data-target="#add-project-form" onclick="$('#add-role-cancel').hide();$('#add-role').toggle();" >cancel</a>
+            <form method="post" action="/add/role/" class="form-horizontal col-xs-12 collapse" id="add-role-form">
 
             <h2>What {if $roles}else {/if}did {$maker->name|escape} make?</h2>
               <input type="hidden" name="maker_uid" value="{$maker->uid}">

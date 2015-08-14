@@ -5827,8 +5827,8 @@ form.form-inline {
     font-size: 1.5em;
   }
 }
-#makers #add-role-form,
-#projects #add-role-form {
+#makers #add-role-cancel,
+#projects #add-role-cancel {
   display: none;
 }
 #usedby {
