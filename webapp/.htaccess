@@ -12,7 +12,20 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php/$1 [L]
 
-# AuthType Basic
-# AuthUserFile /var/www/.htpasswd
-# AuthName "Oh hello"
-# require valid-user
+# ----------------------------------------------------------------------
+# Password protect staging server
+# Use one .htaccess file across multiple environments
+# (e.g. local, dev, staging, production)
+# but only password protect a specific environment.
+# https://gist.github.com/siffring/1974022
+# ----------------------------------------------------------------------
+
+SetEnvIf Host stage.makerba.se passreq
+AuthType Basic
+AuthName "Password required"
+AuthUserFile /local/www/callbax/webapp/.htpasswd
+Require valid-user
+Order allow,deny
+Allow from all
+Deny from env=passreq
+Satisfy any
