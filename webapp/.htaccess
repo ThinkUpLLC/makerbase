@@ -4,6 +4,9 @@ RewriteEngine On
 RewriteRule ^ginatrapani$ /m/583wg3/ginatrapani? [R=301,L]
 RewriteRule ^anildash$ /m/psw2ud/anildash? [R=301,L]
 
+# Enable versioned CSS and JS for smart browser caching
+RewriteRule ^(.*)\.[\d]{10}\.(css|js)$ $1.$2 [L]
+
 # Enable URL routing
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
