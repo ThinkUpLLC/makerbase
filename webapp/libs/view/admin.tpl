@@ -58,7 +58,7 @@
       <ul class="list-group">
       {foreach $top_users as $user}
           <li class="list-group-item col-xs-12">
-          <a href="/u/{$user->uid}">{$user->name}</a> made {$user->total_actions} changes in last 30 days
+          <a href="/u/{$user->uid}">{$user->name}</a> made {$user->total_actions} changes in last 7 days
           </li>
       {/foreach}
       </ul>
