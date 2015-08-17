@@ -183,8 +183,9 @@
           <!-- add a maker -->
           {if isset($logged_in_user)}
 
-            <button class="btn btn-info pull-right" type="submit" id="add-role" data-toggle="collapse" data-target="#add-role-form" onclick="$('#add-role-form').toggle();$('#maker-name').focus();" ><i class="fa fa-plus"></i> Add a{if $roles}nother{/if} maker</button>
+            <button class="btn btn-info pull-right" type="submit" id="add-role" data-toggle="collapse" data-target="#add-role-form" onclick="$('#maker-name').focus();$('#add-role').toggle();$('#add-role-cancel').toggle();" ><i class="fa fa-plus"></i> Add a{if $roles}nother{/if} maker</button>
 
+            <button class="btn btn-link pull-right" type="submit" id="add-role-cancel" data-toggle="collapse" data-target="#add-role-form" onclick="$('#add-role-cancel').toggle();$('#add-role').toggle();" > Cancel </button>
 
             <form method="post" action="/add/role/" class="form-horizontal col-xs-12 collapse" id="add-role-form">
 
@@ -216,7 +217,6 @@
 
                 <div class="form-group col-xs-12">
                   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                    <a class="btn btn-link btn-sm pull-right" data-toggle="collapse" data-target="#add-maker-form" onclick="$('#add-role-form').toggle();" >cancel</a>
                     <button class="btn btn-primary" type="submit">Add maker</button>
                   </div>
                 </div>
@@ -238,29 +238,27 @@
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <div id="use-these-actions">
       <h4>Use any of these tools to make {$product->name|escape}?</h4>
-
-
-      {if isset($logged_in_user)}
         <div class="use-these-actions-buttons" style="">
-          {foreach $uses_this_buttons as $uses_with_button}
-          <form method="post" action="/add/madewith/" class="form-inline">
-            <div class=" form-group">
-              <input type="hidden" name="product_uid" value="{$product->uid}">
-              <input type="hidden" name="product_used_uid" value="{$uses_with_button.uid}">
-              <input type="hidden" name="originate_slug" value="{$product->slug}">
-              <input type="hidden" name="originate_uid" value="{$product->uid}">
-              <button class=" btn btn btn-default" type="submit" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="{$uses_with_button.name} sponsors Makerbase" data-content="If {$product->name|escape} uses {$uses_with_button.name}, you can support Makerbase by saying so."><img src="{$uses_with_button.avatar_url}" style="width: 16px;"/>&nbsp;{$uses_with_button.name}</button>
-            </div>
-          </form>
-          {/foreach}
+          {if isset($logged_in_user)}
+              {foreach $uses_this_buttons as $uses_with_button}
+              <form method="post" action="/add/madewith/" class="form-inline">
+                <div class=" form-group">
+                  <input type="hidden" name="product_uid" value="{$product->uid}">
+                  <input type="hidden" name="product_used_uid" value="{$uses_with_button.uid}">
+                  <input type="hidden" name="originate_slug" value="{$product->slug}">
+                  <input type="hidden" name="originate_uid" value="{$product->uid}">
+                  <button class=" btn btn btn-default" type="submit" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="{$uses_with_button.name} sponsors Makerbase" data-content="If {$product->name|escape} uses {$uses_with_button.name}, you can support Makerbase by saying so."><img src="{$uses_with_button.avatar_url}" style="width: 16px;"/>&nbsp;{$uses_with_button.name}</button>
+                </div>
+              </form>
+              {/foreach}
+
+          {else}
+
+            {foreach $uses_this_buttons as $uses_with_button}
+              <a class=" btn btn-sm btn-default" href="{$sign_in_with_twttr_link}" style="margin-right: 10px;" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="{$uses_with_button.name} sponsors Makerbase" data-content="If {$product->name|escape} uses {$uses_with_button.name}, you can support Makerbase by saying so."><img src="{$uses_with_button.avatar_url}" style="width: 16px"/>{$uses_with_button.name}</a>
+            {/foreach}
+          {/if}
         </div>
-
-      {else}
-
-        {foreach $uses_this_buttons as $uses_with_button}
-          <a class=" btn btn-sm btn-default" href="{$sign_in_with_twttr_link}" style="margin-right: 10px;" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="{$uses_with_button.name} sponsors Makerbase" data-content="If {$product->name|escape} uses {$uses_with_button.name}, you can support Makerbase by saying so."><img src="{$uses_with_button.avatar_url}" style="width: 16px"/>{$uses_with_button.name}</a>
-        {/foreach}
-      {/if}
     </div>
   </div>
 </div>
