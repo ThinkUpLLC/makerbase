@@ -370,6 +370,17 @@ class AddController extends MakerbaseAuthController {
             $maker->name = $_POST['name'];
             $maker->url = $_POST['url'];
             $maker->avatar_url = $_POST['avatar_url'];
+            if (isset($_POST['network_id']) && isset($_POST['network']) && isset($_POST['network_username'])
+                && !empty($_POST['network_id']) && !empty($_POST['network']) && !empty($_POST['network_username']) ) {
+
+                $maker->autofill_network = $_POST['network'];
+                $maker->autofill_network_id = $_POST['network_id'];
+                $maker->autofill_network_username = $_POST['network_username'];
+            } else {
+                $maker->autofill_network = null;
+                $maker->autofill_network_id = null;
+                $maker->autofill_network_username = null;
+            }
 
             $maker_dao = new MakerMySQLDAO();
             $maker = $maker_dao->insert($maker);
@@ -401,28 +412,16 @@ class AddController extends MakerbaseAuthController {
             }
 
             $tweet_link = '';
-            //Add autofill
-            if (isset($_POST['network_id']) && isset($_POST['network'])
-                && !empty($_POST['network_id']) && !empty($_POST['network'])) {
-                $autofill_dao = new AutofillMySQLDAO();
-                $network_username = (isset($_POST['network_username']) && !empty($_POST['network_username']))?
-                    $_POST['network_username']:null;
-                $autofill_dao->insertMakerAutofill($_POST['network_id'], $_POST['network'], $network_username,
-                    $maker->id);
-
-                //Set up tweet link in success message
-                if ($_POST['network'] == 'twitter') {
-                    if (isset($network_username))  {
-                        $twitter_username = '@'.$_POST['network_username'];
-                        $tweet_body = $twitter_username
-                            .' Hey, I just added you to Makerbase.'
-                            .' Now you can edit your page & list projects/makers who inspire you';
-                        $tweet_link = ' <a href="https://twitter.com/share?text='.urlencode($tweet_body)
-                            .'" onclick="javascript:window.open(this.href,\'\', \'menubar=no,toolbar=no,resizable=yes,'
-                            .'scrollbars=yes,height=600,width=600\');return false;">Let '
-                            .$twitter_username.' know</a>.';
-                    }
-                }
+            //Add tweet link
+            if (isset($maker->autofill_network_id) && isset($maker->autofill_network)
+                && $maker->autofill_network == 'twitter') {
+                $tweet_body = '@'.$maker->autofill_network_username
+                    .' Hey, I just added you to Makerbase.'
+                    .' Add your projects & the makers who inspire you';
+                $tweet_link = ' <a href="https://twitter.com/share?text='.urlencode($tweet_body)
+                    .'" onclick="javascript:window.open(this.href,\'\', \'menubar=no,toolbar=no,resizable=yes,'
+                    .'scrollbars=yes,height=600,width=600\');return false;">Let @'
+                    .$maker->autofill_network_username.' know</a>.';
             }
 
             // If adding from a product page, insert a role and redirect back to product
@@ -509,6 +508,17 @@ class AddController extends MakerbaseAuthController {
             $product->description = $_POST['description'];
             $product->url = $_POST['url'];
             $product->avatar_url = $_POST['avatar_url'];
+            if (isset($_POST['network_id']) && isset($_POST['network']) && isset($_POST['network_username'])
+                && !empty($_POST['network_id']) && !empty($_POST['network']) && !empty($_POST['network_username']) ) {
+
+                $product->autofill_network = $_POST['network'];
+                $product->autofill_network_id = $_POST['network_id'];
+                $product->autofill_network_username = $_POST['network_username'];
+            } else {
+                $product->autofill_network = null;
+                $product->autofill_network_id = null;
+                $product->autofill_network_username = null;
+            }
 
             $product_dao = new ProductMySQLDAO();
 
@@ -539,16 +549,6 @@ class AddController extends MakerbaseAuthController {
             if (!$this->logged_in_user->has_added_product) {
                 $user_dao = new UserMySQLDAO();
                 $user_dao->hasAddedProduct($this->logged_in_user);
-            }
-
-            //Add autofill
-            if (isset($_POST['network_id']) && isset($_POST['network'])
-                && !empty($_POST['network_id']) && !empty($_POST['network'])) {
-                $autofill_dao = new AutofillMySQLDAO();
-                $network_username = (isset($_POST['network_username']) && !empty($_POST['network_username']))?
-                    $_POST['network_username']:null;
-                $autofill_dao->insertProductAutofill($_POST['network_id'], $_POST['network'], $network_username,
-                    $product->id);
             }
 
             // If adding from a maker page, insert a role and redirect back to maker

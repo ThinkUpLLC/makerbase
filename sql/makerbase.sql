@@ -32,23 +32,6 @@ CREATE TABLE actions (
 -- --------------------------------------------------------
 
 --
--- Table structure for table 'autofills'
---
-
-CREATE TABLE autofills (
-  network_id varchar(100) CHARACTER SET utf8 NOT NULL COMMENT 'ID of the object on source network.',
-  network varchar(25) CHARACTER SET utf8 NOT NULL COMMENT 'Source network of the autofill.',
-  network_username varchar(255) DEFAULT NULL COMMENT 'Network username.',
-  creation_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Time of autofill.',
-  maker_id int(11) DEFAULT NULL COMMENT 'Maker ID.',
-  product_id int(11) DEFAULT NULL COMMENT 'Product ID.',
-  UNIQUE KEY network_id (network_id,network),
-  KEY maker_id (maker_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Third-party users that autofilled makers and projects.';
-
--- --------------------------------------------------------
-
---
 -- Table structure for table 'connections'
 --
 
@@ -97,6 +80,9 @@ CREATE TABLE makers (
   creation_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation time.',
   is_archived int(1) NOT NULL DEFAULT '0' COMMENT 'Has maker been archived, 1 yes, 0 no.',
   is_frozen int(1) NOT NULL DEFAULT '0' COMMENT 'Whether or not object is frozen (locked from changes).',
+  autofill_network_id varchar(100) CHARACTER SET utf8 DEFAULT NULL COMMENT 'Network ID of the maker from autofill.',
+  autofill_network varchar(25) CHARACTER SET utf8 DEFAULT NULL COMMENT 'Source network of the autofill.',
+  autofill_network_username varchar(255) CHARACTER SET utf8 DEFAULT NULL COMMENT 'Network username of the maker from autofill.',
   PRIMARY KEY (id),
   UNIQUE KEY uid (uid),
   KEY creation_time (creation_time),
@@ -120,6 +106,9 @@ CREATE TABLE products (
   creation_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation time.',
   is_archived int(1) NOT NULL DEFAULT '0' COMMENT 'Has product been archived, 1 yes, 0 no.',
   is_frozen int(1) NOT NULL DEFAULT '0' COMMENT 'Whether or not object is frozen (locked from changes).',
+  autofill_network_id varchar(100) CHARACTER SET utf8 DEFAULT NULL COMMENT 'Network ID of the product from autofill.',
+  autofill_network varchar(25) CHARACTER SET utf8 DEFAULT NULL COMMENT 'Source network of the autofill.',
+  autofill_network_username varchar(255) CHARACTER SET utf8 DEFAULT NULL COMMENT 'Network username of the product from autofill.',
   PRIMARY KEY (id),
   UNIQUE KEY uid (uid),
   KEY creation_time (creation_time),
@@ -203,6 +192,11 @@ CREATE TABLE waitlist (
   KEY is_verified (is_verified)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Waitlisted users.';
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table 'waitlist_follows'
+--
 
 CREATE TABLE waitlist_follows (
   user_id varchar(30) NOT NULL COMMENT 'User ID on a particular service who has been followed.',

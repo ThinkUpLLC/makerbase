@@ -226,7 +226,8 @@ class FeatureHelper {
 
         $featured_makers = array();
 
-        $defaults = array('id'=>null, 'creation_time'=>null, 'url'=>null, 'is_archived'=>0, 'is_frozen'=>0);
+        $defaults = array('id'=>null, 'creation_time'=>null, 'url'=>null, 'is_archived'=>0, 'is_frozen'=>0,
+            'autofill_network_id'=>null, 'autofill_network'=>null, 'autofill_network_username'=>null);
         $product_defaults = array_merge(array('description'=>null), $defaults);
 
         $featured_maker_1 = new Maker(array_merge($featured_maker_1_array, $defaults));
@@ -267,7 +268,8 @@ class FeatureHelper {
         $featured_products = array();
 
         $defaults = array('id'=>null, 'creation_time'=>null, 'url'=>null, 'is_archived'=>0, 'is_frozen'=>0,
-            'description'=>null);
+            'description'=>null, 'autofill_network_id'=>null, 'autofill_network'=>null,
+            'autofill_network_username'=>null);
         $maker_defaults = $defaults;
 
         $featured_product_1 = new Product(array_merge($featured_product_1_array, $defaults));

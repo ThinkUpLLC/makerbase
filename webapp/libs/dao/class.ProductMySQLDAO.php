@@ -88,9 +88,9 @@ EOD;
         $product->uid = self::generateRandomString(6);
         $q = <<<EOD
 INSERT INTO products (
-uid, slug, name, description, url, avatar_url
+uid, slug, name, description, url, avatar_url, autofill_network_id, autofill_network, autofill_network_username
 ) VALUES (
-:uid, :slug, :name, :description, :url, :avatar_url
+:uid, :slug, :name, :description, :url, :avatar_url, :autofill_network_id, :autofill_network, :autofill_network_username
 )
 EOD;
         $vars = array (
@@ -99,7 +99,10 @@ EOD;
             ':name' => $product->name,
             ':description' => $product->description,
             ':url' => $product->url,
-            ':avatar_url' => $product->avatar_url
+            ':avatar_url' => $product->avatar_url,
+            ':autofill_network_id' => $product->autofill_network_id,
+            ':autofill_network_username' => $product->autofill_network_username,
+            ':autofill_network' => $product->autofill_network
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         //echo self::mergeSQLVars($q, $vars);

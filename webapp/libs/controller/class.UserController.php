@@ -19,6 +19,11 @@ class UserController extends MakerbaseController {
             try {
                 $user = $user_dao->get($_GET['uid']);
                 $user = $this->processSettings($user, $user_dao);
+                if (isset($user->maker_id)) {
+                    $maker_dao = new MakerMySQLDAO();
+                    $maker = $maker_dao->getById($user->maker_id);
+                    $user->maker = $maker;
+                }
                 $this->addToView('user', $user);
 
                 // Get actions

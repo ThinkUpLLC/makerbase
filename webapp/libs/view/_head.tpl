@@ -10,7 +10,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{if isset($maker)}{$maker->name|escape} on {elseif isset($product)}{$product->name|escape} on {/if}{$app_title}</title>
 
 
     <link rel="stylesheet" href="{"/assets/css/makerbase.css"|autoversion}">
@@ -33,18 +32,25 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{$site_root_path}assets/img/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="{$site_root_path}assets/img/apple-touch-icon-57-precomposed.png">
 
-    {if isset($maker) || isset($product)}
+    {if isset($maker) || isset($product) || isset($user)}
       {if isset($maker)}
         {assign var="url" value="/m/{$maker->uid}/{$maker->slug}"}
         {assign var="title" value="{$maker->name|escape} on Makerbase"}
         {assign var="description" value="{$maker->name|escape} is a maker"}
         {assign var="image" value=$maker->avatar_url}
-      {else}
+      {elseif isset($product)}
         {assign var="url" value="/p/{$product->uid}/{$product->slug}"}
         {assign var="title" value="{$product->name|escape} on Makerbase"}
         {assign var="description" value=$product->description}
         {assign var="image" value=$product->avatar_url}
+      {elseif isset($user)}
+        {assign var="url" value="/u/{$user->uid}"}
+        {assign var="title" value="{$user->twitter_username|escape}'s Makerbase activity"}
+        {assign var="description" value="{$user->twitter_username|escape}'s Makerbase activity"}
+        {assign var="image" value=$user->avatar_url}
       {/if}
+
+      <title>{$title}</title>
       <meta property="og:url" content="{$url}" />
       <meta itemprop="name" content="{$title}" />
       <meta name="twitter:title" content="{$title}" />
@@ -62,6 +68,7 @@
 
       <meta property="og:image:type" content="image/jpg">
     {else}
+      <title>{$app_title}</title>
       <meta property="og:url" content="{$site_root_path}" />
       <meta itemprop="name" content="Makerbase" />
       <meta name="twitter:title" content="Makerbase" />

@@ -29,20 +29,20 @@ $email_capture_state either 'need email', 'confirmation_pending' or 'confirmatio
               <h1>
                 <strong>{$user->twitter_username}</strong>'s Makerbase contributions
               </h1>
-              <h3><a href="/search/maker/?q={$user->twitter_username}" class="btn btn-xl btn-primary">See what {$user->name} makes <i class="fa fa-arrow-right"></i></a></h3>
+              <h3><a href="{if isset($user->maker)}/m/{$user->maker->uid}/{$user->maker->slug}{else}/search/maker/?q={'@'|urlencode}{$user->twitter_username}{/if}" class="btn btn-xl btn-primary">See what {$user->name} makes <i class="fa fa-arrow-right"></i></a></h3>
               <h5><a href="{$user->url}">{$user->url}</a></h5>
               <h5><a href="https://twitter.com/intent/user?user_id={$user->twitter_user_id}">@{$user->twitter_username}</a></h5>
             {else}
                 <h1>
                   <strong>Your</strong> Makerbase account
                 </h1>
-                <h3><a href="/search/maker/?q={$user->twitter_username}" class="btn btn-xl btn-success">See what you&apos;ve made <i class="fa fa-arrow-right"></i></a></h3>
+                <h3><a href="{if isset($user->maker)}/m/{$user->maker->uid}/{$user->maker->slug}{else}/search/maker/?q={'@'|urlencode}{$user->twitter_username}{/if}" class="btn btn-xl btn-success">See what you&apos;ve made <i class="fa fa-arrow-right"></i></a></h3>
             {/if}
           {else}
               <h1>
                 <strong>{$user->twitter_username}</strong>'s Makerbase contributions
               </h1>
-              <h3><a href="/search/maker/?q={$user->twitter_username}" class="btn btn-xl btn-primary">See what {$user->name} makes <i class="fa fa-arrow-right"></i></a></h3>
+              <h3><a href="{if isset($user->maker)}/m/{$user->maker->uid}/{$user->maker->slug}{else}/search/maker/?q={'@'|urlencode}{$user->twitter_username}{/if}" class="btn btn-xl btn-primary">See what {$user->name} makes <i class="fa fa-arrow-right"></i></a></h3>
               <h5><a href="{$user->url}">{$user->url}</a></h5>
               <h5><a href="https://twitter.com/intent/user?user_id={$user->twitter_user_id}">@{$user->twitter_username}</a></h5>
           {/if}

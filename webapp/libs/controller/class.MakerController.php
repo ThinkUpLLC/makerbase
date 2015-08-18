@@ -43,25 +43,6 @@ class MakerController extends MakerbaseController {
 
                 // Set up Tweet button
                 $tweet_maker_link = '';
-                // Get autofill
-                $autofill_dao = new AutofillMySQLDAO();
-                $autofill = $autofill_dao->getByMakerID($maker->id);
-                if (isset($autofill)) {
-                    //If autofill was from Twitter
-                    if ($autofill['network'] == 'twitter') {
-                        //Get user by that Twitter ID
-                        $user_dao = new UserMySQLDAO();
-                        try {
-                            $user = $user_dao->getByTwitterUserId($autofill['network_id']);
-                        } catch (UserDoesNotExistException $e) {
-                            $user = null;
-                        }
-                        if (!isset($user)) {
-                            //User doesn't exist, so add Twitter username to maker
-                            $maker->twitter_username = $autofill['network_username'];
-                        }
-                    }
-                }
                 $this->addToView('maker', $maker);
 
                 $this->addToView('placeholder', Role::getRandoPlaceholder());

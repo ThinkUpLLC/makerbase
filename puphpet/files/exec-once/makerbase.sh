@@ -44,7 +44,6 @@ chmod -R 777 /home/vagrant/data/
 
 # Load sample data
 mysql -u makerbase -pnice2bnice -D makerbase_web < /var/www/puphpet/files/makerbase-setup/sample-data/actions.sql
-mysql -u makerbase -pnice2bnice -D makerbase_web < /var/www/puphpet/files/makerbase-setup/sample-data/autofills.sql
 mysql -u makerbase -pnice2bnice -D makerbase_web < /var/www/puphpet/files/makerbase-setup/sample-data/connections.sql
 mysql -u makerbase -pnice2bnice -D makerbase_web < /var/www/puphpet/files/makerbase-setup/sample-data/makers.sql
 mysql -u makerbase -pnice2bnice -D makerbase_web < /var/www/puphpet/files/makerbase-setup/sample-data/madewiths.sql

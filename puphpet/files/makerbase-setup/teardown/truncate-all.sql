@@ -1,5 +1,4 @@
 TRUNCATE TABLE actions;
-TRUNCATE TABLE autofills;
 TRUNCATE TABLE connections;
 TRUNCATE TABLE madewiths;
 TRUNCATE TABLE makers;

@@ -88,9 +88,9 @@ EOD;
         $maker->uid = self::generateRandomString(6);
         $q = <<<EOD
 INSERT INTO makers (
-uid, slug, name, url, avatar_url
+uid, slug, name, url, avatar_url, autofill_network_id, autofill_network, autofill_network_username
 ) VALUES (
-:uid, :slug, :name, :url, :avatar_url
+:uid, :slug, :name, :url, :avatar_url, :autofill_network_id, :autofill_network, :autofill_network_username
 )
 EOD;
         $vars = array (
@@ -98,7 +98,10 @@ EOD;
             ':slug' => $maker->slug,
             ':name' => $maker->name,
             ':url' => $maker->url,
-            ':avatar_url' => $maker->avatar_url
+            ':avatar_url' => $maker->avatar_url,
+            ':autofill_network_id' => $maker->autofill_network_id,
+            ':autofill_network_username' => $maker->autofill_network_username,
+            ':autofill_network' => $maker->autofill_network
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         //echo self::mergeSQLVars($q, $vars);
