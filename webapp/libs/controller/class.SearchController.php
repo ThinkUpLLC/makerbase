@@ -8,6 +8,10 @@ class SearchController extends MakerbaseController {
         $this->disableCaching();
 
         if (isset($_GET['q'])) {
+            $query = $_GET['q'];
+            if (substr( $query, 0, 1 ) === "@") {
+                $query = substr($query, 1);
+            }
             $search_params = array();
             $search_type = 'm';
             if ( isset($_GET['type'])) {
@@ -29,7 +33,7 @@ class SearchController extends MakerbaseController {
             $client = new Elasticsearch\Client();
 
             $search_params['body']['query']['multi_match']['fields'] = array('slug', 'name', 'url');
-            $search_params['body']['query']['multi_match']['query'] = urlencode($_GET['q']);
+            $search_params['body']['query']['multi_match']['query'] = urlencode($query);
             $search_params['body']['query']['multi_match']['type'] = 'phrase_prefix';
 
             $return_document = $client->search($search_params);
