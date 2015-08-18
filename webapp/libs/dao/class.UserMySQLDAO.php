@@ -59,6 +59,18 @@ EOD;
         return $user;
     }
 
+    public function setMaker(User $user, Maker $maker) {
+        $q = "UPDATE users SET maker_id = :maker_id WHERE id = :user_id";
+        $vars = array (
+            ':user_id' => $user->id,
+            ':maker_id' => $maker->id
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        return $this->getUpdateCount($ps);
+    }
+
     public function getByTwitterUserId($twitter_user_id) {
         $q = "SELECT * FROM users WHERE twitter_user_id = :twitter_user_id";
         $vars = array ( ':twitter_user_id' => $twitter_user_id);

@@ -385,6 +385,18 @@ class AddController extends MakerbaseAuthController {
             $maker_dao = new MakerMySQLDAO();
             $maker = $maker_dao->insert($maker);
 
+            //If there is a Makerbase user for this Twitter-autofilled user, set users.maker_id
+            if (isset($maker->autofill_network_id) && isset($maker->autofill_network)
+                && $maker->autofill_network === 'twitter') {
+                $user_dao = new UserMySQLDAO();
+                try {
+                    $user = $user_dao->getByTwitterUserId($_POST['network_id']);
+                    $user_dao->setMaker($user, $maker);
+                } catch (UserDoesNotExistException $e) {
+                    //do nothing, user doesn't exist
+                }
+            }
+
             // Add new maker to Elasticsearch
             SearchHelper::indexMaker($maker);
 
