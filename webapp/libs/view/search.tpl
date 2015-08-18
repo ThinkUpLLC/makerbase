@@ -1,21 +1,26 @@
 {include file="_head.tpl"}
 
 {if isset($query)}
-<h1>{$query} returned {$return_document.hits.total} result{if $return_document.hits.total neq 1}s{/if}</h1>
+  {if $return_document.hits.total eq 0 && isset($search_type)}
+    <h1>{$query|escape} isn't a {if $search_type eq 'product'}project{else}{$search_type}{/if} yet.</h1>
+  {else}
+    {if isset($search_type)}
+      <h1>{$query|escape} returned {$return_document.hits.total} {if $search_type eq 'product'}project{else}{$search_type}{/if}{if $return_document.hits.total neq 1}s{/if}</h1>
+    {else}
+      <h1>Your search for {$query|escape} returned {$return_document.hits.total} result{if $return_document.hits.total neq 1}s{/if}.</h1>
+    {/if}
+  {/if}
 {/if}
 
 {if !isset($return_document) || $return_document.hits.total eq 0}
 
 <div class="row">
   <div class="col-xs-6">
-          <form class="form" role="search" action="/search/">
-            <div class="input-group input-group-sm">
-              <input type="search" class="form-control" placeholder="Search" value="{$query}" name="q">
-              <span class="input-group-btn">
-                <button type="submit" class="btn btn-default">Search again</button>
-              </span>
-            </div>
-          </form>
+    {if isset($search_type)}
+        <h3><a href="/add/{$search_type}/?q={$query|urlencode}" class="btn btn-xl btn-primary">Add this {if $search_type eq 'product'}project{else}{$search_type}{/if}</a></h3>
+    {else}
+    <p>Please try again.</p>
+    {/if}
   </div>
 </div>
 

@@ -52,6 +52,9 @@ class SearchController extends MakerbaseController {
             $this->addToView('return_document', $return_document);
             $this->addToView('results', $results);
             $this->addToView('query', $_GET['q']);
+            if (isset($_GET['type']) && ($_GET['type'] == 'maker' || $_GET['type'] == 'product')) {
+                $this->addToView('search_type', $_GET['type']);
+            }
 
             $end_time = microtime(true);
 
