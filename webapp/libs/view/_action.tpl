@@ -111,13 +111,10 @@
         <h4 class="media-heading">{$actor} {if $is_says}said{else}{$verbed}{/if} <a href="{$object_url}">{$object_name|escape}</a>{if isset($action->object2_id)} {if $is_says}{$verbed}{else}on{/if} <a href="{$object2_url}">{$object2_name|escape}</a>{/if}</a></h4>
           {if isset($object2_avatar_url)}
           <div class="activity-attachment">
-            <a href="{$object2_url}" class="action-avatar pull-left">
+            <a href="{$object2_url}" class="action-avatar">
               <img src="{insert name='user_image' image_url=$object2_avatar_url image_proxy_sig=$image_proxy_sig type=$object2_type}" alt="{$object2_name}" class="img-responsive img-rounded">
+              <h5>{$object2_name|escape}</h5>
             </a>
-            <div class="">
-              <h5><a href="{$object2_url}">{$object2_name|escape}</a></h5>
-              <p></p>
-            </div>
           </div>
           {/if}
           {if $action->action_type eq 'update'}
