@@ -13,45 +13,62 @@ $email_capture_state either 'need email', 'confirmation_pending' or 'confirmatio
 <div class="row" id="user-profile">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <div class="media">
-      <div class="media-left media-top">
-        <img class="img-responsive" src="{insert name='user_image' image_url=$user->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" alt="{$user->name|escape}">
-
-            {if (isset($logged_in_user) && $logged_in_user->twitter_user_id neq $user->twitter_user_id) || !isset($logged_in_user)}
-              {include file="_reportpage.tpl"  object=$user object_type='user'}
-            {/if}
-
-      </div>
       <div class="media-body">
-        <div id="user-info-profile">
+        <div id="user-info">
 
           {if isset($logged_in_user)}
             {if $logged_in_user->twitter_user_id neq $user->twitter_user_id}
               <h1>
-                <strong>{$user->twitter_username}</strong>'s Makerbase contributions
+                <strong>{$user->twitter_username}</strong> edits Makerbase
               </h1>
-              <h3><a href="{if isset($user->maker)}/m/{$user->maker->uid}/{$user->maker->slug}{else}/search/maker/?q={'@'|urlencode}{$user->twitter_username}{/if}" class="btn btn-xl btn-primary">See what {$user->name} makes <i class="fa fa-arrow-right"></i></a></h3>
-              <h5><a href="{$user->url}">{$user->url}</a></h5>
-              <h5><a href="https://twitter.com/intent/user?user_id={$user->twitter_user_id}">@{$user->twitter_username}</a></h5>
+              <h5><a href="{$user->url}" class="text-muted" rel="nofollow">{$user->url}</a></h5>
+        </div>
+              {if isset($user->maker)}
+                <h3><a href="/m/{$user->maker->uid}/{$user->maker->slug}" class="btn btn-xl btn-primary">See what {$user->maker->name|escape} makes <i class="fa fa-arrow-right"></i></a></h3>
+              {else}
+                <p class="text-muted"><a href="/add/maker/?q={'@'|urlencode}{$user->twitter_username|urlencode}">Add this maker</a></p>
+              {/if}
             {else}
                 <h1>
-                  <strong>Your</strong> Makerbase account
+                  <strong>You</strong> edit Makerbase
                 </h1>
-                <h3><a href="{if isset($user->maker)}/m/{$user->maker->uid}/{$user->maker->slug}{else}/search/maker/?q={'@'|urlencode}{$user->twitter_username}{/if}" class="btn btn-xl btn-success">See what you&apos;ve made <i class="fa fa-arrow-right"></i></a></h3>
+        </div>
+                {if isset($user->maker)}
+                  <h3><a href="/m/{$user->maker->uid}/{$user->maker->slug}" class="btn btn-xl btn-primary">See what you make <i class="fa fa-arrow-right"></i></a></h3>
+                {else}
+                  <p class="text-muted"><a href="/add/maker/?q={'@'|urlencode}{$user->twitter_username|urlencode}">Add yourself as a maker</a></p>
+                {/if}
             {/if}
           {else}
               <h1>
-                <strong>{$user->twitter_username}</strong>'s Makerbase contributions
+                <strong>{$user->twitter_username}</strong> edits Makerbase
               </h1>
-              <h3><a href="{if isset($user->maker)}/m/{$user->maker->uid}/{$user->maker->slug}{else}/search/maker/?q={'@'|urlencode}{$user->twitter_username}{/if}" class="btn btn-xl btn-primary">See what {$user->name} makes <i class="fa fa-arrow-right"></i></a></h3>
-              <h5><a href="{$user->url}">{$user->url}</a></h5>
-              <h5><a href="https://twitter.com/intent/user?user_id={$user->twitter_user_id}">@{$user->twitter_username}</a></h5>
-          {/if}
+              <h5><a href="{$user->url}" class="text-muted" rel="nofollow">{$user->url}</a></h5>
         </div>
+              {if isset($user->maker)}
+                  <h3><a href="/m/{$user->maker->uid}/{$user->maker->slug}" class="btn btn-xl btn-primary">See what {$user->maker->name|escape} makes <i class="fa fa-arrow-right"></i></a></h3>
+              {else}
+                <p class="text-muted"><a href="/add/maker/?q={'@'|urlencode}{$user->twitter_username|urlencode}">Add this maker</a></p>
+              {/if}
+          {/if}
+
+          {if isset($logged_in_user)}
+            {if $logged_in_user->twitter_user_id neq $user->twitter_user_id}
+              {include file="_twitterprofile.tpl"  twitter_user_id=$user->twitter_user_id}
+              {include file="_reportpage.tpl"  object=$user object_type='user'}
+            {/if}
+          {else}
+              {include file="_twitterprofile.tpl"  twitter_user_id=$user->twitter_user_id}
+              {include file="_reportpage.tpl"  object=$user object_type='user'}
+          {/if}
+
       </div>
     </div>
 
   </div>
 </div>
+
+
 
 {if isset($logged_in_user)}
   {if $logged_in_user->twitter_user_id eq $user->twitter_user_id}

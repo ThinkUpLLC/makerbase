@@ -71,7 +71,7 @@ https://makerba.se/u/{$logged_in_user->uid}
 {/capture}
 
 <button type="button" class="btn btn-default btn-link flag" data-toggle="modal" data-target="#flagform" data-backdrop="static">
-  <i class="fa fa-flag text-muted"></i><span class="hidden-xs hidden-sm text-muted"> Flag this {$object_type}</span>
+  <i class="fa fa-flag text-muted"></i><span class="hidden-xs hidden-sm text-muted"> Flag</span>
 </button>
 
     <!-- Flag form -->

@@ -6,6 +6,9 @@
       <div class="media-left media-top">
         <img class="img-responsive" src="{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" alt="{$maker->name|escape}">
 
+        {if isset($maker->autofill_network_username) && $maker->autofill_network eq 'twitter'}
+          {include file="_twitterprofile.tpl"  twitter_user_id=$maker->autofill_network_id}
+        {/if}
         {include file="_reportpage.tpl"  object=$maker object_type='maker'}
 
       </div>
@@ -20,7 +23,11 @@
             <strong>{$maker->name|escape}</strong> is a maker
           </h1>
           <h5><a href="{$maker->url}" class="text-muted" rel="nofollow">{$maker->url}</a></h5>
-          {if isset($maker->autofill_network_username) && $maker->autofill_network eq 'twitter'}<h5><a href="https://twitter.com/intent/user?screen_name={$maker->autofill_network_username}">@{$maker->autofill_network_username}</a></h5>{/if}
+          {if isset($maker->user)}
+            <p class="text-muted"><span class="fa fa-certificate"></span> {$maker->user->twitter_username|escape} also <a class="text-muted" href="/u/{$maker->user->uid}">edits Makerbase</a></p>
+          {else}
+            <p class="text-muted">Our community added {$maker->name|escape} to Makerbase.</p>
+          {/if}
         </div>
       </div>
     </div>
@@ -97,6 +104,7 @@
   </div>
 </div>
 {/if}
+
 
 <div class="row" id="roles">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">

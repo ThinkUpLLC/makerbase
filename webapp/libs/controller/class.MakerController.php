@@ -12,9 +12,23 @@ class MakerController extends MakerbaseController {
             try {
                 $maker = $maker_dao->get($_GET['uid']);
 
+                // Get roles
                 $role_dao = new RoleMySQLDAO();
                 $roles = $role_dao->getByMaker($maker->id);
                 $this->addToView('roles', $roles);
+
+                // Get user
+                $maker->user = null;
+                if (isset($maker->autofill_network_id) && isset($maker->autofill_network)
+                    && $maker->autofill_network == 'twitter' ) {
+                    $user_dao = new UserMySQLDAO();
+                    try {
+                        $user = $user_dao->getByTwitterUserId($maker->autofill_network_id);
+                        $maker->user = $user;
+                    } catch (UserDoesNotExistException $e) {
+                        // No user; do nothing
+                    }
+                }
 
                 // Get actions
                 $page_number = (isset($_GET['p']) && is_numeric($_GET['p']))?$_GET['p']:1;
@@ -41,8 +55,6 @@ class MakerController extends MakerbaseController {
                 }
                 $this->addToView('collaborators', $collaborators_with_projects);
 
-                // Set up Tweet button
-                $tweet_maker_link = '';
                 $this->addToView('maker', $maker);
 
                 $this->addToView('placeholder', Role::getRandoPlaceholder());
