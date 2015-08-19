@@ -253,20 +253,25 @@
           }
       });
 
-      //Handle subjects on flagging form
+      // Handle subjects on flagging form
       $('#flagform input[name="flag-form-option"]').change(function(){
         $('#flagform #flag-form-action').attr("href", $(this).val())
       });
 
+      // Trigger wait-states on slow adding actions
+      $( "form.add-form" ).submit(function() {
+        $("form.add-form #add-action").prop('disabled', function (_, val) { return ! val; });
+      });
 
-      //Initialize popovers, alerts and searchbox
+
+      // Initialize popovers, alerts and searchbox
       $(function () {
         $('[data-toggle="popover"]').popover();
         $(".alert").addClass("in");
         $('#nav-typeahead').focus();
       });
 
-      //Analytics tracking
+      // Analytics tracking
 
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

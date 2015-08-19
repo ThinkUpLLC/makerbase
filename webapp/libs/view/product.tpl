@@ -188,7 +188,7 @@
 
             <button class="btn btn-link pull-right" type="submit" id="add-role-cancel" data-toggle="collapse" data-target="#add-role-form" onclick="$('#add-role-cancel').toggle();$('#add-role').toggle();" > Cancel </button>
 
-            <form method="post" action="/add/role/" class="form-horizontal col-xs-12 collapse" id="add-role-form">
+            <form method="post" action="/add/role/" class="form-horizontal col-xs-12 collapse add-form" id="add-role-form">
 
             <h2>Who {if $roles}else {/if} made {$product->name|escape}?</h2>
               <input type="hidden" name="product_uid" value="{$product->uid}">
@@ -218,7 +218,7 @@
 
                 <div class="form-group col-xs-12">
                   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                    <button class="btn btn-primary" type="submit">Add maker</button>
+                    <button class="btn btn-primary" type="submit" id="add-action">Add maker</button>
                   </div>
                 </div>
               </div>

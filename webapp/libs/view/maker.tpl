@@ -36,7 +36,7 @@
       <div class="media-left media-top">
         <img class="img-responsive" src="{if isset($maker->avatar_url)}{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='p'}{else}{$site_root_path}assets/img/blank-maker.png{/if}" alt="{$maker->name|escape}">
 
-        <form method="post" action="/edit/maker/" id="maker-profile-archive" class="">
+        <form method="post" action="/edit/maker/" id="maker-profile-archive" class="add-form">
           <div class="form-group">
             <input type="hidden" name="uid" value="{$maker->uid}" />
             <input type="hidden" name="slug" value="{$maker->slug}" />
@@ -138,7 +138,7 @@
 
             <button class="btn btn-link pull-right" type="submit" id="add-role-cancel" data-toggle="collapse" data-target="#add-role-form" onclick="$('#add-role-cancel').toggle();$('#add-role').toggle();" > Cancel </button>
 
-            <form method="post" action="/add/role/" class="form-horizontal col-xs-12 collapse" id="add-role-form">
+            <form method="post" action="/add/role/" class="form-horizontal col-xs-12 collapse add-form" id="add-role-form">
 
             <h2>What {if $roles}else {/if}did {$maker->name|escape} make?</h2>
               <input type="hidden" name="maker_uid" value="{$maker->uid}">
@@ -168,7 +168,7 @@
 
                 <div class="form-group col-xs-12">
                   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                    <button class="btn btn-primary" type="submit">Add project</button>
+                    <button class="btn btn-primary" type="submit" id="add-action">Add project</button>
                   </div>
                 </div>
               </div>
