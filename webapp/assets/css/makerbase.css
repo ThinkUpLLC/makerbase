@@ -5400,6 +5400,7 @@ button.close {
 .img-rounded {
   border-radius: 12%;
   max-height: 100px;
+  min-width: 16px;
 }
 .fade {
   opacity: 0;
@@ -5743,12 +5744,10 @@ form.form-inline {
   margin: 0;
   color: #333333;
 }
-#activity .media .activity-attachment a.avatar {
-  max-width: 5%;
-}
-#activity .media .activity-attachment a.action-avatar {
-  max-width: 5%;
-  padding-right: .5em;
+#activity .media .activity-attachment h5,
+#activity .media .activity-attachment img {
+  display: inline;
+  max-height: 2em;
 }
 @media (max-width: 768px) {
   #activity h3 {
