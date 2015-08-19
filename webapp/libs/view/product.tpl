@@ -6,6 +6,10 @@
       <div class="media-left media-top">
         <img class="img-responsive" src="{insert name='user_image' image_url=$product->avatar_url image_proxy_sig=$image_proxy_sig type='p'}" alt="{$product->name|escape}">
 
+        {if isset($product->autofill_network_username) && $product->autofill_network eq 'twitter'}
+          {include file="_twitterprofile.tpl"  twitter_user_id=$product->autofill_network_id}
+        {/if}
+
         {include file="_reportpage.tpl" object=$product object_type='project'}
 
       </div>
@@ -18,8 +22,6 @@
         <h1 {if $product->is_archived}class="archived"{/if}>We made <strong>{$product->name|escape}</strong></h1>
         <h3>{$product->description|escape|atnames:'/search/?q='}</h3>
         <h5><a href="{if $product->uid eq 'm348b6'}https://slack.com/?cvosrc=general%20promotion.makerbase.slack%20page&amp;utm_source=makerbase&amp;utm_medium=general%20promotion&amp;utm_campaign=slack%20page{else}{$product->url}{/if}" class="text-muted"  rel="nofollow">{$product->url}</a></h5>
-        {if isset($product->autofill_network_username) && $product->autofill_network eq 'twitter'}<h5><a href="https://twitter.com/intent/user?screen_name={$product->autofill_network_username}">@{$product->autofill_network_username}</a></h5>{/if}
-          
       </div>
     </div>
 
