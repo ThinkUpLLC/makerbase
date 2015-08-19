@@ -6,7 +6,7 @@
 
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns#" itemscope itemtype="http://schema.org/Article">
-  <head>
+  <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,8 +20,7 @@
     {/literal}
 
     <meta property="og:site_name" content="Makerbase" />
-    <meta property="og:type" content="article" />
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@makerbase" />
     <meta name="twitter:domain" content="makerba.se" />
     <meta name="twitter:creator" content="@makerbase" />
@@ -38,16 +37,19 @@
         {assign var="title" value="{$maker->name|escape} on Makerbase"}
         {assign var="description" value="{$maker->name|escape} is a maker"}
         {assign var="image" value=$maker->avatar_url}
+        {assign var="type" value="profile"}
       {elseif isset($product)}
         {assign var="url" value="/p/{$product->uid}/{$product->slug}"}
         {assign var="title" value="{$product->name|escape} on Makerbase"}
         {assign var="description" value=$product->description}
         {assign var="image" value=$product->avatar_url}
+        {assign var="type" value="product"}
       {elseif isset($user)}
         {assign var="url" value="/u/{$user->uid}"}
         {assign var="title" value="{$user->twitter_username|escape}'s Makerbase activity"}
         {assign var="description" value="{$user->twitter_username|escape}'s Makerbase activity"}
         {assign var="image" value=$user->avatar_url}
+        {assign var="type" value="profile"}
       {/if}
 
       <title>{$title}</title>
@@ -55,6 +57,7 @@
       <meta itemprop="name" content="{$title}" />
       <meta name="twitter:title" content="{$title}" />
       <meta property="og:title" content="{$title}" />
+      <meta property="og:type" content="{$type}" />
 
       <meta itemprop="description" content="{$description}" />
       <meta name="description" content="{$description}" />
@@ -62,14 +65,12 @@
 
       <meta itemprop="image" content="{$image}">
       <meta property="og:image" content="{$image}" />
-      <meta property="og:image:secure" content="{$image}" />
-      <meta name="twitter:image:src" content="{$image}" />
-      <meta name="twitter:image:width" content="540" />
 
       <meta property="og:image:type" content="image/jpg">
     {else}
       <title>{$app_title}</title>
       <meta property="og:url" content="{$site_root_path}" />
+      <meta property="og:type" content="website" />
       <meta itemprop="name" content="Makerbase" />
       <meta name="twitter:title" content="Makerbase" />
       <meta property="og:title" content="Makerbase" />
