@@ -40,7 +40,7 @@
 			</a>
 
 			{if isset($to_product)}
-            <form method="post" action="/add/role/" id="add-maker-form-{$hit._source.uid}">
+            <form method="post" class="add-form" action="/add/role/" id="add-maker-form-{$hit._source.uid}">
               <input type="hidden" name="product_uid" value="{$to_product->uid}">
               <input type="hidden" name="originate_slug" value="{$to_product->slug}">
               <input type="hidden" name="originate_uid" value="{$to_product->uid}">
@@ -52,7 +52,7 @@
             </form>
             {/if}
 			{if isset($to_maker)}
-            <form method="post" action="/add/role/" id="add-product-form-{$hit._source.uid}">
+            <form method="post" class="add-form" action="/add/role/" id="add-product-form-{$hit._source.uid}">
               <input type="hidden" name="maker_uid" value="{$to_maker->uid}">
               <input type="hidden" name="originate_slug" value="{$to_maker->slug}">
               <input type="hidden" name="originate_uid" value="{$to_maker->uid}">
@@ -75,7 +75,7 @@
 
 <div id="add-interface" {if isset($existing_objects)}style="display:none;"{/if}>
 
-	<div class="row" id="add-form">
+	<div class="row add-form">
 
 		<h2 class="col-xs-12">
 			Add a {$addtype}{if isset($to_product)} to {$to_product->name|escape}{/if}{if isset($to_maker)} to {$to_maker->name|escape}{/if}<br />
@@ -84,7 +84,7 @@
 			{/if}
 		</h2>
 
-		<form method="post" action="/add/{$object}/" class="form-horizontal">
+		<form method="post" action="/add/{$object}/" class="form-horizontal add-form">
 
 			<div class="col-xs-2">
 					<img src="{if isset($avatar_url)}{$avatar_url}{else}{$site_root_path}assets/img/blank-{if $object eq 'product'}project{else}maker{/if}.png{/if}" id="avatar-img" class="img-responsive">
@@ -130,7 +130,7 @@
 						<input type="hidden" name="network_username" id="network-username" value="{if isset($network_username)}{$network_username}{/if}">
 						{if isset($to_product)}<input type="hidden" name="add_role_to_product_uid" value="{$to_product->uid}">{/if}
 						{if isset($to_maker)}<input type="hidden" name="add_role_to_maker_uid" value="{$to_maker->uid}">{/if}
-						<button class="btn btn-info pull-right" type="submit">{if $object eq 'product'}Make it!{else}Add this maker!{/if}</button>
+						<button class="btn btn-info pull-right" type="submit" id="add-action">{if $object eq 'product'}Make it!{else}Add this maker!{/if}</button>
 					</div>
 		    </div>
 
