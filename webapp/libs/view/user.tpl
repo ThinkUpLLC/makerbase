@@ -13,6 +13,10 @@ $email_capture_state either 'need email', 'confirmation_pending' or 'confirmatio
 <div class="row" id="user-profile">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <div class="media">
+      <div class="media-left media-top">
+        <img class="img-responsive" id="user-profile-avatar" src="{insert name='user_image' image_url=$user->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" alt="{$user->name|escape}">
+
+      </div>
       <div class="media-body">
         <div id="user-info">
 
@@ -51,6 +55,7 @@ $email_capture_state either 'need email', 'confirmation_pending' or 'confirmatio
                 <p class="text-muted"><a href="/add/maker/?q={'@'|urlencode}{$user->twitter_username|urlencode}">Add this maker</a></p>
               {/if}
           {/if}
+
 
           {if isset($logged_in_user)}
             {if $logged_in_user->twitter_user_id neq $user->twitter_user_id}
