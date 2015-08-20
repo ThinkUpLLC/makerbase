@@ -401,6 +401,9 @@ form.form-inline {
 			}
 
 		}
+		&.text-muted {
+			opacity: 0.25;
+		}
 	}
 	h4 {
 		font-weight: 200;
@@ -412,9 +415,11 @@ form.form-inline {
 			color: @gray-dark;
 		}
 	}
-	h5,
-	h6 {
+	h5 {
 		margin: 0;
+	}
+	h6 {
+		margin: 0.5em 0 0 0;
 	}
 	.media {
 		padding: 12px;
@@ -435,18 +440,35 @@ form.form-inline {
 				color: @gray-dark;
 			}
 		}
-		.activity-attachment {
-			a {
+		img {
+			display: inline;
+			height: 2em;
+			@media (min-width: @screen-md-min) {
+				height: 3em;
 			}
-			a.action-avatar {
+		}
+		.media-heading {
+
+		}
+		.media-attachment {
+			small,
+			p {
+				img {
+					height: 1.5em;
+				}
 			}
-			h5,
-			img {
-				display: inline;
-				max-height: 2em;
+			.media-attachment-detail {
+				@media (min-width: @screen-md-min) {
+					margin-left: -15px;
+				}
+				@media (min-width: @screen-lg-min) {
+					margin-left: -15px;
+					padding-left: 4px;
+				}
 			}
 		}
 	}
+
 	@media (max-width: @screen-sm-min) {
 		h3 {
 			font-size: 1.5em;
