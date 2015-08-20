@@ -5865,6 +5865,13 @@ form.form-inline {
     margin: 6px 0;
   }
 }
+#project-info .flag,
+#project-info-edit .flag,
+#maker-info .flag,
+#maker-info-edit .flag,
+#user-profile .flag {
+  padding-left: 0;
+}
 #project-info .flag:hover,
 #project-info-edit .flag:hover,
 #maker-info .flag:hover,
@@ -6055,8 +6062,20 @@ form.form-inline {
   display: block;
   clear: both;
 }
+#user-profile .media-left {
+  width: 10%;
+}
 #user-profile .media-top > button.btn {
   padding: 0;
+}
+#user-profile #user-profile-avatar {
+  margin-top: -25%;
+  mask-image: url(../img/makerbase-mark-wb-square.png);
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%;
+  -webkit-mask-image: url(../img/makerbase-mark-wb-square.png);
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
 }
 #maker-page-reminder {
   font-weight: 200;

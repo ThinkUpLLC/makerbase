@@ -542,6 +542,7 @@ form.form-inline {
 	.btn {
 		}
 		.flag {
+			padding-left: 0;
 			&:hover {
 				color: @gray-light;
 			}
@@ -758,8 +759,22 @@ form.form-inline {
 }
 
 #user-profile {
+
+	.media-left {
+		width: 10%;
+	}
 	.media-top>button.btn {
 		padding: 0;
+	}
+	#user-profile-avatar {
+		margin-top: -25%;
+	  mask-image: url(../img/makerbase-mark-wb-square.png);
+	  mask-repeat: no-repeat;
+	  mask-size: 100% 100%;
+
+	  -webkit-mask-image: url(../img/makerbase-mark-wb-square.png);
+	  -webkit-mask-repeat: no-repeat;
+	  -webkit-mask-size: 100% 100%;
 	}
 }
 
