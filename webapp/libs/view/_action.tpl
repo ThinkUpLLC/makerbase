@@ -111,11 +111,18 @@
             fa-exchange
           {elseif $action->action_type eq 'update'}
             fa-edit
+          {elseif $action->action_type eq 'archive' || $action->action_type eq 'unarchive'}
+            fa-briefcase
+          {elseif $action->action_type eq 'delete'}
+            fa-close
+          {elseif $action->action_type eq 'freeze'}
+            fa-lock
+          {elseif $action->action_type eq 'unfreeze'}
+            fa-unlock
           {/if}
         text-muted fa-3x"></a>
       </div>
       <div class="media-body">
-        <h6>{$action->time_performed|relative_datetime} ago &bull; {$actor} </h6>
         <h4 class="media-heading">
             {if $is_says}{else}{$verbed|capitalize}{/if}
             <a href="{$object_url}">
@@ -131,13 +138,13 @@
         </h4>
         <div class="media-attachment row">
           <div class="col-xs-1">
-          <a href="{$object_url}"><img src="{insert name='user_image' image_url=$object_avatar_url image_proxy_sig=$image_proxy_sig type=$object_type}" alt="{$object_name}" class="img-rounded"></a>
+          <a href="{$object_url}"><img src="{insert name='user_image' image_url=$object_avatar_url image_proxy_sig=$image_proxy_sig type=$object_type}" alt="{$object_name|escape}" class="img-rounded"></a>
           </div>
           <div class="col-xs-10 media-attachment-detail">
             {if isset($action->object2_id)}
               <small>
                 <a href="{$object2_url}">
-                    <img src="{insert name='user_image' image_url=$object2_avatar_url image_proxy_sig=$image_proxy_sig type=$object2_type}" alt="{$object2_name}" class="img-rounded">
+                    <img src="{insert name='user_image' image_url=$object2_avatar_url image_proxy_sig=$image_proxy_sig type=$object2_type}" alt="{$object2_name|escape}" class="img-rounded">
                     {$object2_name|escape}
                 </a>
               </small>
@@ -145,8 +152,10 @@
 
             {if $action->action_type eq 'update'}{include file='_diff.tpl'}{/if}
             </div>
+
         </div>
 
+        <h6>{$action->time_performed|relative_datetime} ago &bull; {$actor} </h6>
       </div>
 
 {* Clear vars for next loop iteration *}
