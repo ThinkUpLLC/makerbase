@@ -5712,6 +5712,9 @@ form.form-inline {
 #activity a.avatar img {
   min-width: 70px;
 }
+#activity a.text-muted {
+  opacity: 0.25;
+}
 #activity h4 {
   font-weight: 200;
 }
@@ -5722,9 +5725,11 @@ form.form-inline {
   font-weight: normal;
   color: #333333;
 }
-#activity h5,
-#activity h6 {
+#activity h5 {
   margin: 0;
+}
+#activity h6 {
+  margin: 0.5em 0 0 0;
 }
 #activity .media {
   padding: 12px;
@@ -5744,10 +5749,29 @@ form.form-inline {
   margin: 0;
   color: #333333;
 }
-#activity .media .activity-attachment h5,
-#activity .media .activity-attachment img {
+#activity .media img {
   display: inline;
-  max-height: 2em;
+  height: 2em;
+}
+@media (min-width: 992px) {
+  #activity .media img {
+    height: 3em;
+  }
+}
+#activity .media .media-attachment small img,
+#activity .media .media-attachment p img {
+  height: 1.5em;
+}
+@media (min-width: 992px) {
+  #activity .media .media-attachment .media-attachment-detail {
+    margin-left: -15px;
+  }
+}
+@media (min-width: 1200px) {
+  #activity .media .media-attachment .media-attachment-detail {
+    margin-left: -15px;
+    padding-left: 4px;
+  }
 }
 @media (max-width: 768px) {
   #activity h3 {

@@ -14,24 +14,38 @@
 
 {* Verb: What was the action, and is actor saying so or doing it *}
 {assign var="is_says" value=false}
+{assign var="fa_icon" value="fa-edit"}
 
 {if $action->action_type eq 'freeze'} {* User froze Project/Maker *}
     {assign var="verbed" value="froze"}
+    {assign var="fa_icon" value="fa-lock"}
 {elseif $action->action_type eq 'unfreeze'} {* User unfroze Project/Maker *}
     {assign var="verbed" value="unfroze"}
+    {assign var="fa_icon" value="fa-unlock"}
 {elseif $action->action_type eq 'made with'} {* User said Project uses Project *}
     {assign var="is_says" value=true}
     {assign var="verbed" value="uses"}
+    {assign var="fa_icon" value="fa-wrench"}
 {elseif $action->action_type eq 'not made with'} {* User said Project does not use Project *}
     {assign var="is_says" value=true}
     {assign var="verbed" value="doesn't use"}
+    {assign var="fa_icon" value="fa-wrench"}
 {elseif $action->action_type eq 'associate'} {* User said Maker made Project *}
     {assign var="is_says" value=true}
     {assign var="verbed" value="made"}
+    {assign var="fa_icon" value="fa-exchange"}
 {elseif $action->action_type eq 'create'} {* User added Maker/Project *}
     {assign var="verbed" value="added"}
+    {assign var="fa_icon" value="fa-plus"}
 {else} {* default *}
     {assign var="verbed" value="`$action->action_type`d"}
+      {if $action->action_type eq 'update'}
+        {assign var="fa_icon" value="fa-edit"}
+      {elseif $action->action_type eq 'archive' || $action->action_type eq 'unarchive'}
+        {assign var="fa_icon" value="fa-briefcase"}
+      {elseif $action->action_type eq 'delete'}
+        {assign var="fa_icon" value="fa-close"}
+      {/if}
 {/if}
 
 {* Object(s): What was created or changed, etc. Set object and object2 avatar_url, url, and name here *}
@@ -101,33 +115,49 @@
     {assign var="object2_type" value='p'}
 {/if}
 
-      <div class="media-left">
-        <a href="{$object_url}" class="avatar">
-          <img class="media-object img-responsive img-rounded" src="{insert name='user_image' image_url=$object_avatar_url image_proxy_sig=$image_proxy_sig type=$object_type}" alt="{$object_name|escape}">
-        </a>
+      <div class="media-left {$action->action_type}">
+        <a class="fa {$fa_icon} text-muted fa-3x"></a>
       </div>
       <div class="media-body">
-        <h6>{$action->time_performed|relative_datetime} ago</h6>
-        <h4 class="media-heading">{$actor} {if $is_says}said{else}{$verbed}{/if} <a href="{$object_url}">{$object_name|escape}</a>{if isset($action->object2_id)} {if $is_says}{$verbed}{else}on{/if} <a href="{$object2_url}">{$object2_name|escape}</a>{/if}</a></h4>
-          {if isset($object2_avatar_url)}
-          <div class="activity-attachment">
-            <a href="{$object2_url}" class="action-avatar">
-              <img src="{insert name='user_image' image_url=$object2_avatar_url image_proxy_sig=$image_proxy_sig type=$object2_type}" alt="{$object2_name}" class="img-responsive img-rounded">
-              <h5>{$object2_name|escape}</h5>
+        <h4 class="media-heading">
+            {if $is_says}{else}{$verbed|capitalize}{/if}
+            <a href="{$object_url}">
+                {$object_name|escape}
             </a>
-          </div>
-          {/if}
-          {if $action->action_type eq 'update'}
-          <blockquote>
-            {include file='_diff.tpl'}
-          </blockquote>
-          {/if}
 
+            {if isset($action->object2_id)}
+                {if $is_says}{$verbed}{else}on{/if}
+                <a href="{$object2_url}">
+                    {$object2_name|escape}
+                </a>
+            {/if}
+        </h4>
+        <div class="media-attachment row">
+          <div class="col-xs-1">
+          <a href="{$object_url}"><img src="{insert name='user_image' image_url=$object_avatar_url image_proxy_sig=$image_proxy_sig type=$object_type}" alt="{$object_name|escape}" class="img-rounded"></a>
+          </div>
+          <div class="col-xs-10 media-attachment-detail">
+            {if isset($action->object2_id)}
+              <small>
+                <a href="{$object2_url}">
+                    <img src="{insert name='user_image' image_url=$object2_avatar_url image_proxy_sig=$image_proxy_sig type=$object2_type}" alt="{$object2_name|escape}" class="img-rounded">
+                    {$object2_name|escape}
+                </a>
+              </small>
+            {/if}
+
+            {if $action->action_type eq 'update'}{include file='_diff.tpl'}{/if}
+            </div>
+
+        </div>
+
+        <h6>{$action->time_performed|relative_datetime} ago &bull; {$actor} </h6>
       </div>
 
 {* Clear vars for next loop iteration *}
 {assign var="actor" value=null}
 {assign var="verbed" value=null}
+{assign var="fa_icon" value=null}
 {assign var="is_says" value=null}
 
 {assign var="object_avatar_url" value=null}
