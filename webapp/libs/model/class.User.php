@@ -80,6 +80,18 @@ class User {
      * @var str Last network friends fetch time.
      */
     var $last_loaded_friends;
+    /**
+     * @var bool Whether or not user gets maker change email notifications.
+     */
+    var $is_subscribed_maker_change_email = true;
+    /**
+     * @var str Last time an email notification of a maker change was sent.
+     */
+    var $last_maker_change_email_sent;
+    /**
+     * @var bool Whether or not user should get friend activity email notifications.
+     */
+    var $is_subscribed_friend_activity_email = true;
     public function __construct($row = false) {
         if ($row) {
             $this->id = $row['id'];
@@ -102,6 +114,10 @@ class User {
             $this->has_added_product = PDODAO::convertDBToBool($row['has_added_product']);
             $this->has_added_role = PDODAO::convertDBToBool($row['has_added_role']);
             $this->last_loaded_friends = $row['last_loaded_friends'];
+            $this->is_subscribed_maker_change_email = PDODAO::convertDBToBool($row['is_subscribed_maker_change_email']);
+            $this->last_maker_change_email_sent = $row['last_maker_change_email_sent'];
+            $this->is_subscribed_friend_activity_email =
+                PDODAO::convertDBToBool($row['is_subscribed_friend_activity_email']);
         }
     }
 }

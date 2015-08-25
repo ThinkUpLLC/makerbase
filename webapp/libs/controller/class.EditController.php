@@ -399,6 +399,12 @@ class EditController extends MakerbaseAuthController {
                 $action->metadata = json_encode($maker);
                 $action_dao = new ActionMySQLDAO();
                 $action_dao->insert($action);
+
+                // Send email notification
+                $email_notifier = new EmailNotifier($this->logged_in_user);
+                if ($email_notifier->shouldSendMakerChangeEmailNotification($maker)) {
+                    $email_notifier->sendMakerChangeEmailNotification();
+                }
             }
             CacheHelper::expireCache('maker.tpl', $maker->uid, $maker->slug);
         }
@@ -457,9 +463,13 @@ class EditController extends MakerbaseAuthController {
 
                 //Update search index
                 SearchHelper::updateIndexMaker($maker);
-            }
 
-            if ($has_been_updated) {
+                // Send email notification
+                $email_notifier = new EmailNotifier($this->logged_in_user);
+                if ($email_notifier->shouldSendMakerChangeEmailNotification($maker)) {
+                    $email_notifier->sendMakerChangeEmailNotification();
+                }
+
                 SessionCache::put('success_message', "Updated ".htmlspecialchars($maker->name));
             } else {
                 SessionCache::put('error_message', "Looks like there were no changes to save.");
@@ -619,9 +629,13 @@ class EditController extends MakerbaseAuthController {
                 $action->metadata = json_encode($versions);
                 $action_dao = new ActionMySQLDAO();
                 $action_dao->insert($action);
-            }
 
-            if ($has_been_updated) {
+                // Send email notification
+                $email_notifier = new EmailNotifier($this->logged_in_user);
+                if ($email_notifier->shouldSendMakerChangeEmailNotification($maker)) {
+                    $email_notifier->sendMakerChangeEmailNotification();
+                }
+
                 SessionCache::put('success_message', "Okay! The role was updated.");
             } else {
                 SessionCache::put('error_message', "Looks like there were no changes to save.");

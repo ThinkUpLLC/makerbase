@@ -78,6 +78,17 @@ class UserController extends MakerbaseController {
 
                 //Bust the cache
                 CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
+            } elseif (isset($_POST['email_subs_updated'])) {
+                if (isset($_POST['maker_change_email'])) {
+                    $has_changed_sub = $user_dao->subscribeToMakerChangeEmail($user);
+                    $user->is_subscribed_maker_change_email = true;
+                } else {
+                    $has_changed_sub = $user_dao->unsubscribeFromMakerChangeEmail($user);
+                    $user->is_subscribed_maker_change_email = false;
+                }
+                if ($has_changed_sub) {
+                    SessionCache::put('success_message', "Great! You're all set.");
+                }
             } else {
                 if (isset($_GET['verify'])) {
                     if ($_GET['verify'] == $user->email_verification_code) {
