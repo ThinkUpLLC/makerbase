@@ -114,6 +114,47 @@ EOD;
         return $update_count;
     }
 
+    public function subscribeToMakerChangeEmail(User $user) {
+        return $this->updateIsSubscribedToMakerChangeEmail($user, true);
+    }
+
+    public function unsubscribeFromMakerChangeEmail(User $user) {
+        return $this->updateIsSubscribedToMakerChangeEmail($user, false);
+    }
+
+    private function updateIsSubscribedToMakerChangeEmail(User $user, $is_subscribed) {
+        $q = <<<EOD
+UPDATE users SET is_subscribed_maker_change_email = :is_subscribed WHERE id = :id
+EOD;
+        $vars = array (
+            ':id' => $user->id,
+            ':is_subscribed' => PDODAO::convertBoolToDB($is_subscribed)
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        $update_count = $this->getUpdateCount($ps);
+        if ($update_count == 0) {
+            throw new UserDoesNotExistException('User '.$user->twitter_user_id.' does not exist.');
+        }
+        return ($update_count > 0);
+    }
+
+    public function updateLastMakerChangeEmailNotificationSentTime(User $user) {
+        $q = <<<EOD
+UPDATE users SET last_maker_change_email_sent = CURRENT_TIMESTAMP WHERE twitter_user_id = :twitter_user_id
+EOD;
+        $vars = array ( ':twitter_user_id' => $user->twitter_user_id);
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        $update_count = $this->getUpdateCount($ps);
+        if ($update_count == 0) {
+            throw new UserDoesNotExistException('User '.$user->twitter_user_id.' does not exist.');
+        }
+        return $update_count;
+    }
+
     public function updateEmail(User $user) {
         $email_verification_code = rand(1000, 9999);
         $q = <<<EOD

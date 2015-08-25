@@ -305,6 +305,12 @@ class AddController extends MakerbaseAuthController {
                 $user_dao->hasAddedRole($this->logged_in_user);
             }
 
+            // Send email notification
+            $email_notifier = new EmailNotifier($this->logged_in_user);
+            if ($email_notifier->shouldSendMakerChangeEmailNotification($maker)) {
+                $email_notifier->sendMakerChangeEmailNotification();
+            }
+
             //Force cache refresh
             CacheHelper::expireCache('product.tpl', $product->uid, $product->slug);
             CacheHelper::expireCache('maker.tpl', $maker->uid, $maker->slug);

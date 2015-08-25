@@ -118,9 +118,27 @@ $email_capture_state either 'need email', 'confirmation_pending' or 'confirmatio
             <a href="#" onClick="$('#user-email-capture').toggle();" class="btn btn-sm btn-link pull-right">Change your email address</a>
           </h3>
 
-            {include file="_user.email-form.tpl" is_collapsed=true}
+          {include file="_user.email-form.tpl" is_collapsed=true}
 
-            <p></p>
+          <form id="send-notifications" method="post" class="col-xs-12 col-sm-10 col-sm-offset-1">
+            <input type="hidden" name="email_subs_updated" value="1">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" onchange="this.form.submit()"{if ($user->is_subscribed_maker_change_email eq true) } checked="true"{/if} name="maker_change_email"> Email me when someone changes my stuff
+              </label>
+              {**
+               * Comment this back in when Makerbase starts sending friend activity digests
+               *
+              <br />
+              <label>
+                <input type="checkbox" onchange="this.form.submit()"> Email me when my friends update their stuff
+              </label>
+              **}
+            </div>
+          </form>
+
+          <p></p>
+
         {/if}
 
         </div>
