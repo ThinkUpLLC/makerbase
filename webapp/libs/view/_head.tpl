@@ -2,6 +2,8 @@
   {assign var='suppress_search' value=false}
 {/if}
 
+{assign var="application_url" value="https://makerba.se"}
+
 {include file="_reusablecopy.tpl"}
 
 <!DOCTYPE html>
@@ -53,7 +55,7 @@
       {/if}
 
       <title>{$title}</title>
-      <meta property="og:url" content="{$url}" />
+      <meta property="og:url" content="{$application_url}{$url}" />
       <meta itemprop="name" content="{$title}" />
       <meta name="twitter:title" content="{$title}" />
       <meta property="og:title" content="{$title}" />
@@ -67,9 +69,11 @@
       <meta property="og:image" content="{$image}" />
 
       <meta property="og:image:type" content="image/jpg">
+
+      <link rel="canonical" href="{$application_url}{$url}" />
     {else}
       <title>{$app_title}</title>
-      <meta property="og:url" content="{$site_root_path}" />
+      <meta property="og:url" content="{$application_url}" />
       <meta property="og:type" content="website" />
       <meta itemprop="name" content="Makerbase" />
       <meta name="twitter:title" content="Makerbase" />
@@ -84,6 +88,8 @@
       <meta property="og:image:secure" content="{$image}" />
       <meta name="twitter:image:src" content="{$image}" />
       <meta name="twitter:image:width" content="524" />
+
+      <link rel="canonical" href="{$application_url}" />
     {/if}
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
