@@ -184,4 +184,22 @@ EOD;
         $ps = $this->execute($q, $vars);
         return $this->getDataRowsAsObjects($ps, "Maker");
     }
+
+    /**
+     * @TODO Optimize this query! It is slow and does not use indexes.
+     */
+    public function getEventMakers($event) {
+        $q = <<<EOD
+SELECT DISTINCT m.* FROM makers m INNER JOIN event_makers em ON em.twitter_username = m.autofill_network_username
+INNER JOIN roles r ON r.maker_id = m.id
+WHERE m.autofill_network = 'twitter' and em.event = :event ORDER BY r.creation_time DESC;
+EOD;
+        $vars = array (
+            ':event' => $event
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        return $this->getDataRowsAsObjects($ps, "Maker");
+    }
 }

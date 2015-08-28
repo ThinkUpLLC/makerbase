@@ -62,6 +62,17 @@ CREATE TABLE connections (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table event_makers
+--
+
+CREATE TABLE event_makers (
+  event varchar(10) NOT NULL COMMENT 'Event slug.',
+  twitter_username varchar(255) NOT NULL COMMENT 'Twitter username'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Makers attending an event.';
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table 'made_withs'
 --
 
