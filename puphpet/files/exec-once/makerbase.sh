@@ -43,15 +43,9 @@ cp /var/www/webapp/assets/img/blank-project.png /home/vagrant/data/image-cache/.
 chmod -R 777 /home/vagrant/data/
 
 # Load sample data
-mysql -u makerbase -pnice2bnice -D makerbase_web < /var/www/puphpet/files/makerbase-setup/sample-data/actions.sql
-mysql -u makerbase -pnice2bnice -D makerbase_web < /var/www/puphpet/files/makerbase-setup/sample-data/connections.sql
-mysql -u makerbase -pnice2bnice -D makerbase_web < /var/www/puphpet/files/makerbase-setup/sample-data/makers.sql
-mysql -u makerbase -pnice2bnice -D makerbase_web < /var/www/puphpet/files/makerbase-setup/sample-data/madewiths.sql
-mysql -u makerbase -pnice2bnice -D makerbase_web < /var/www/puphpet/files/makerbase-setup/sample-data/products.sql
-mysql -u makerbase -pnice2bnice -D makerbase_web < /var/www/puphpet/files/makerbase-setup/sample-data/roles.sql
-mysql -u makerbase -pnice2bnice -D makerbase_web < /var/www/puphpet/files/makerbase-setup/sample-data/users.sql
-mysql -u makerbase -pnice2bnice -D makerbase_web < /var/www/puphpet/files/makerbase-setup/sample-data/waitlist-follows.sql
-mysql -u makerbase -pnice2bnice -D makerbase_web < /var/www/puphpet/files/makerbase-setup/sample-data/waitlist.sql
+unzip -o /var/www/puphpet/files/makerbase-setup/sample-data/makerbase_web.sql.zip -d /var/www/puphpet/files/makerbase-setup/sample-data/
+mysql -u makerbase -pnice2bnice -D makerbase_web < /var/www/puphpet/files/makerbase-setup/sample-data/makerbase_web.sql
+rm -f /var/www/puphpet/files/makerbase-setup/sample-data/makerbase_web.sql
 
 # Create makers index in Elasticsearch
 curl -XPUT 'localhost:9200/_river/my_jdbc_river_makers/_meta' -d '{
