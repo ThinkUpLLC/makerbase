@@ -1,24 +1,33 @@
-
+{**
+* Display sections of featured makers, products, users.
+*
+* $maker_section_title Like 'featured makers'
+* $product_section_title Like 'featured projects'
+* $user_section_title Like 'top contributors'
+* $makers Array of Maker objects with a products attribute that is an array of Products
+* $products Array of Product objects with a makers attribute that is an array of Makers
+* $users Array of User objects
+*}
 <div class="row" id="landing-featured">
 
   <div class="col-xs-12 col-sm-5 col-sm-offset-1">
-    <h3>featured makers</h3>
+    <h3>{$maker_section_title}</h3>
 
-    {foreach $featured_makers as $featured_maker}
+    {foreach $makers as $maker}
     <div class="media row">
       <div class="media-left media-top col-xs-3">
-        <a href="/m/{$featured_maker->uid}/{$featured_maker->slug}" class="avatar">
-          <img class="media-object img-responsive img-rounded" src="{insert name='user_image' image_url=$featured_maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" alt="{$featured_maker->name}">
+        <a href="/m/{$maker->uid}/{$maker->slug}" class="avatar">
+          <img class="media-object img-responsive img-rounded" src="{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" alt="{$maker->name}">
         </a>
       </div>
       <div class="col-xs-9">
-        <h4 class="media-heading"><a href="/m/{$featured_maker->uid}/{$featured_maker->slug}">{$featured_maker->name}</a></h4>
+        <h4 class="media-heading"><a href="/m/{$maker->uid}/{$maker->slug}">{$maker->name}</a></h4>
         <p class="media-body">
 
-          {foreach $featured_maker->products as $featured_maker_product}
-            <a href="/p/{$featured_maker_product->uid}/{$featured_maker_product->slug}">
-              <img src="{insert name='user_image' image_url=$featured_maker_product->avatar_url image_proxy_sig=$image_proxy_sig type='m'}">
-              {$featured_maker_product->name}
+          {foreach $maker->products as $maker_product}
+            <a href="/p/{$maker_product->uid}/{$maker_product->slug}">
+              <img src="{insert name='user_image' image_url=$maker_product->avatar_url image_proxy_sig=$image_proxy_sig type='m'}">
+              {$maker_product->name}
             </a>
           {/foreach}
 
@@ -30,22 +39,22 @@
   </div>
 
   <div class="col-xs-12 col-sm-5">
-    <h3>featured projects</h3>
+    <h3>{$product_section_title}</h3>
 
-    {foreach $featured_products as $featured_product}
+    {foreach $products as $product}
     <div class="media row">
       <div class="media-left media-top col-xs-3">
-        <a href="/p/{$featured_product->uid}/{$featured_product->slug}" class="avatar">
-          <img class="media-object img-responsive img-rounded" src="{insert name='user_image' image_url=$featured_product->avatar_url image_proxy_sig=$image_proxy_sig type='p'}" alt="{$featured_product->name}">
+        <a href="/p/{$product->uid}/{$product->slug}" class="avatar">
+          <img class="media-object img-responsive img-rounded" src="{insert name='user_image' image_url=$product->avatar_url image_proxy_sig=$image_proxy_sig type='p'}" alt="{$product->name}">
         </a>
       </div>
       <div class="col-xs-9">
-        <h4 class="media-heading"><a href="/p/{$featured_product->uid}/{$featured_product->slug}">{$featured_product->name}</a></h4>
+        <h4 class="media-heading"><a href="/p/{$product->uid}/{$product->slug}">{$product->name}</a></h4>
         <p class="media-body">
-          {foreach $featured_product->makers as $featured_product_maker}
-            <a href="/m/{$featured_product_maker->uid}/{$featured_product_maker->slug}">
-              <img src="{insert name='user_image' image_url=$featured_product_maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}">
-              {$featured_product_maker->name}
+          {foreach $product->makers as $product_maker}
+            <a href="/m/{$product_maker->uid}/{$product_maker->slug}">
+              <img src="{insert name='user_image' image_url=$product_maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}">
+              {$product_maker->name}
             </a>
           {/foreach}
         </p>
@@ -60,10 +69,10 @@
 
 <div class="row" id="landing-top-contributors">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-    <h3>today&#39;s top contributors</h3>
+    <h3>{$users_section_title}</h3>
     <ul class="list-inline">
 
-      {foreach $featured_users as $featured_user}
+      {foreach $users as $user}
 
       {assign var='color_num' value=1|mt_rand:9}
 
@@ -81,10 +90,10 @@
       {/if}
 
       <li class="col-xs-6 col-sm-3">
-        <a href="/u/{$featured_user->uid}" class="top-contributor style-{$color}">
-            <img class="img-rounded avatar pull-left" src="{insert name='user_image' image_url=$featured_user->avatar_url image_proxy_sig=$image_proxy_sig type='u'}" alt="{$featured_user->name}">
+        <a href="/u/{$user->uid}" class="top-contributor style-{$color}">
+            <img class="img-rounded avatar pull-left" src="{insert name='user_image' image_url=$user->avatar_url image_proxy_sig=$image_proxy_sig type='u'}" alt="{$user->name}">
             <buttton class="pull-right contrib-meet">meet <i class="fa fa-arrow-right"></i></buttton>
-            <h4>{$featured_user->name}</h4>
+            <h4>{$user->name}</h4>
           </a>
       </li>
 

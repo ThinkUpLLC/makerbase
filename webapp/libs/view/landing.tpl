@@ -39,7 +39,14 @@
 
 {include file="_actions.tpl"}
 
-{include file="_featured.tpl"}
+{include file="_featured.tpl"
+maker_section_title='featured makers'
+product_section_title='featured projects'
+users_section_title='top contributors'
+makers=$featured_makers
+products=$featured_products
+users=$featured_users
+}
 
 {** END SIGNED-IN LANDING PAGE **}
 
@@ -94,7 +101,14 @@
 
 {/if}
 
-{include file="_featured.tpl"}
+{include file="_featured.tpl"
+maker_section_title='featured makers'
+product_section_title='featured projects'
+users_section_title='top contributors'
+makers=$featured_makers
+products=$featured_products
+users=$featured_users
+}
 
 {include file="_actions.tpl"}
 
