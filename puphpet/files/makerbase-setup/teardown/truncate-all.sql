@@ -1,4 +1,5 @@
 TRUNCATE TABLE actions;
+TRUNCATE TABLE action_objects;
 TRUNCATE TABLE connections;
 TRUNCATE TABLE madewiths;
 TRUNCATE TABLE makers;

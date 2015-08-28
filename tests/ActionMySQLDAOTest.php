@@ -37,10 +37,12 @@ class ActionMySQLDAOTest extends MakerbaseUnitTestCase {
 
     public function testDelete() {
         $builders = array();
-        $builders[] = FixtureBuilder::build('actions', array('uid'=>'delete1', 'object_id'=>'100',
+        $builders[] = FixtureBuilder::build('actions', array('id'=>300, 'uid'=>'delete1', 'object_id'=>'100',
             'object_type'=>'Product'));
-        $builders[] = FixtureBuilder::build('actions', array('uid'=>'delete2', 'object2_id'=>'100',
+        $builders[] = FixtureBuilder::build('actions', array('id'=>303, 'uid'=>'delete2', 'object2_id'=>'100',
             'object2_type'=>'Product'));
+        $builders[] = FixtureBuilder::build('action_objects', array('id'=>303, 'object_id'=>'100',
+            'object_type'=>'Product'));
 
         $action_dao = new ActionMySQLDAO();
         //Actions exist, should be deleted

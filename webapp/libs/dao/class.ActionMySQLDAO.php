@@ -50,6 +50,11 @@ EOD;
                 $ps = $this->execute($q, $vars);
                 $try_insert = false;
                 $action->id = $this->getInsertId($ps);
+                self::insertActionObject($action->id, $action->user_id, 'User');
+                self::insertActionObject($action->id, $action->object_id, $action->object_type);
+                if (isset($action->object2_id) && isset($action->object2_type)) {
+                    self::insertActionObject($action->id, $action->object2_id, $action->object2_type);
+                }
                 return $action;
             } catch (PDOException $e) {
                 $message = $e->getMessage();
@@ -62,19 +67,36 @@ EOD;
         }
     }
 
-    public function getUserConnectionsActivities($user_uid, $page=1, $limit=10) {
+    private function insertActionObject($action_id, $object_id, $object_type) {
+        $q = <<<EOD
+INSERT INTO action_objects (
+action_id, object_id, object_type
+) VALUES (
+:action_id, :object_id, :object_type
+)
+EOD;
+        $vars = array (
+            ':action_id' => $action_id,
+            ':object_id' => $object_id,
+            ':object_type' => $object_type
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $this->execute($q, $vars);
+    }
+
+    public function getUserConnectionsActivities($user_id, $page=1, $limit=10) {
         $start = $limit * ($page - 1);
         $limit++;
         $q = <<<EOD
 SELECT a.*, uactor.name, uactor.uid AS user_uid, uactor.twitter_username as username FROM actions a
-INNER JOIN connections c ON c.object_type = a.object_type and c.object_id = a.object_id
-INNER JOIN users u ON c.user_id = u.id
+INNER JOIN action_objects ao ON a.id = ao.action_id
+INNER JOIN connections c ON c.object_type = ao.object_type and c.object_id = ao.object_id
 INNER JOIN users uactor ON a.user_id = uactor.id
-WHERE u.uid = :user_uid AND is_admin = 0 AND a.user_id != u.id
-ORDER BY id DESC LIMIT :start, :limit;
+WHERE c.user_id = :user_id AND is_admin = 0
+ORDER BY a.id DESC LIMIT :start, :limit;
 EOD;
         $vars = array (
-            ':user_uid' => $user_uid,
+            ':user_id' => $user_id,
             ':start' => $start,
             ':limit' => $limit
         );
@@ -278,7 +300,7 @@ EOD;
     }
 
     private function deleteActionsForObject($object_type, $object_id) {
-        //Delete object 1
+        //Delete from actions where object is object 1
         $q = <<<EOD
 DELETE FROM actions WHERE object_id = :object_id AND object_type = :object_type;
 EOD;
@@ -290,13 +312,25 @@ EOD;
         $ps = $this->execute($q, $vars);
         $have_actions_been_deleted = ($this->getUpdateCount($ps) > 0);
 
-        //Delete object 2
+        //Delete from actions where object is object 2
         $q = <<<EOD
 DELETE FROM actions WHERE object2_id = :object2_id AND object2_type = :object2_type;
 EOD;
         $vars = array (
             ':object2_id' => $object_id,
             ':object2_type' => $object_type
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $ps = $this->execute($q, $vars);
+        $have_actions_been_deleted = $have_actions_been_deleted && ($this->getUpdateCount($ps) > 0);
+
+        //Delete object from action_objects
+        $q = <<<EOD
+DELETE FROM action_objects WHERE object_id = :object_id AND object_type = :object_type;
+EOD;
+        $vars = array (
+            ':object_id' => $object_id,
+            ':object_type' => $object_type
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         $ps = $this->execute($q, $vars);

@@ -32,6 +32,21 @@ CREATE TABLE actions (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table 'action_objects'
+--
+
+CREATE TABLE action_objects (
+    id INT(11) NOT NULL AUTO_INCREMENT COMMENT 'Internal unique ID.' ,
+    action_id INT(11) NOT NULL COMMENT 'Action ID.' ,
+    object_id INT(11) NOT NULL COMMENT 'Product, maker, user ID.' ,
+    object_type VARCHAR(20) NOT NULL COMMENT 'Type of object (Maker, Product, User).' ,
+    PRIMARY KEY (id),
+    KEY object_id (object_id, object_type)
+) ENGINE=InnoDB COMMENT='Objects involved in each action.';
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table 'connections'
 --
 
