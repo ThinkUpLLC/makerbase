@@ -24,13 +24,14 @@
         <h4 class="media-heading"><a href="/m/{$maker->uid}/{$maker->slug}">{$maker->name}</a></h4>
         <p class="media-body">
 
+        {if isset($maker->products)}
           {foreach $maker->products as $maker_product}
             <a href="/p/{$maker_product->uid}/{$maker_product->slug}">
               <img src="{insert name='user_image' image_url=$maker_product->avatar_url image_proxy_sig=$image_proxy_sig type='m'}">
               {$maker_product->name}
             </a>
           {/foreach}
-
+          {/if}
         </p>
       </div>
     </div>
@@ -51,12 +52,14 @@
       <div class="col-xs-9">
         <h4 class="media-heading"><a href="/p/{$product->uid}/{$product->slug}">{$product->name}</a></h4>
         <p class="media-body">
+          {if isset($product->makers)}
           {foreach $product->makers as $product_maker}
             <a href="/m/{$product_maker->uid}/{$product_maker->slug}">
               <img src="{insert name='user_image' image_url=$product_maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}">
               {$product_maker->name}
             </a>
           {/foreach}
+          {/if}
         </p>
       </div>
     </div>

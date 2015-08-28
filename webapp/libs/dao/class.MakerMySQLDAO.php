@@ -151,4 +151,37 @@ EOD;
         $result = $this->getDataRowAsArray($ps);
         return $result['total'];
     }
+
+    public function getTrendingMakers($in_last_x_days = 3, $limit = 4) {
+        $q = <<<EOD
+SELECT m.*, count(*) as total_edits FROM action_objects ao
+INNER JOIN actions a ON a.id = ao.action_id
+INNER JOIN makers m ON ao.object_id = m.id
+WHERE DATE(a.time_performed) > DATE_SUB(NOW(), INTERVAL $in_last_x_days DAY)
+AND ao.object_type = 'Maker' AND m.is_archived = 0
+GROUP BY ao.object_id, ao.object_type
+ORDER BY total_edits DESC
+LIMIT :limit
+EOD;
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $vars = array (
+            ':limit' => $limit
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        return ($this->getDataRowsAsObjects($ps, 'Maker'));
+    }
+
+    public function getNewestMakers($limit = 4) {
+        $q = <<<EOD
+SELECT DISTINCT m.* FROM makers m INNER JOIN roles r ON r.maker_id = m.id
+WHERE m.is_archived = 0 ORDER BY m.creation_time DESC LIMIT :limit
+EOD;
+        $vars = array ( ':limit' => $limit);
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        return $this->getDataRowsAsObjects($ps, "Maker");
+    }
 }

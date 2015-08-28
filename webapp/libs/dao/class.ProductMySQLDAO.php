@@ -153,4 +153,37 @@ EOD;
         $result = $this->getDataRowAsArray($ps);
         return $result['total'];
     }
+
+    public function getTrendingProducts($in_last_x_days = 3, $limit = 4) {
+        $q = <<<EOD
+SELECT p.*, count(*) as total_edits FROM action_objects ao
+INNER JOIN actions a ON a.id = ao.action_id
+INNER JOIN products p ON ao.object_id = p.id
+WHERE DATE(a.time_performed) > DATE_SUB(NOW(), INTERVAL $in_last_x_days DAY)
+AND ao.object_type = 'Product' AND p.is_archived = 0
+GROUP BY ao.object_id, ao.object_type
+ORDER BY total_edits DESC
+LIMIT :limit
+EOD;
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $vars = array (
+            ':limit' => $limit
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        return ($this->getDataRowsAsObjects($ps, 'Maker'));
+    }
+
+    public function getNewestProducts($limit = 4) {
+        $q = <<<EOD
+SELECT DISTINCT p.* FROM products p INNER JOIN roles r ON r.product_id = p.id
+WHERE p.is_archived = 0 ORDER BY p.creation_time DESC LIMIT :limit
+EOD;
+        $vars = array ( ':limit' => $limit);
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        return $this->getDataRowsAsObjects($ps, "Product");
+    }
 }

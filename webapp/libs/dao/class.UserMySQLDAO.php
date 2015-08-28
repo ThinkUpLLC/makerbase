@@ -275,6 +275,38 @@ EOD;
         $ps = $this->execute($q, $vars);
         return ($this->getUpdateCount($ps) > 0);
     }
+
+    public function getTrendingUsers($in_last_x_days = 3, $limit = 4) {
+        $q = <<<EOD
+SELECT u.*, count(*) as total_edits FROM action_objects ao
+INNER JOIN actions a ON a.id = ao.action_id
+INNER JOIN users u ON ao.object_id = u.id
+WHERE DATE(a.time_performed) > DATE_SUB(NOW(), INTERVAL $in_last_x_days DAY)
+AND ao.object_type = 'User'
+GROUP BY ao.object_id, ao.object_type
+ORDER BY total_edits DESC
+LIMIT :limit
+EOD;
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $vars = array (
+            ':limit' => $limit
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        return ($this->getDataRowsAsObjects($ps, 'User'));
+    }
+
+    public function getNewestUsers($limit = 4) {
+        $q = <<<EOD
+SELECT u.* FROM users u ORDER BY creation_time DESC LIMIT :limit
+EOD;
+        $vars = array ( ':limit' => $limit);
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        return $this->getDataRowsAsObjects($ps, "User");
+    }
 }
 
 
