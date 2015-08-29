@@ -1,14 +1,13 @@
 <?php
 
-class EventMakerController extends MakerbaseController {
+class EventMakerController extends MakerbaseAdminController {
     /**
      * How many projects to display per maker.
      * @var integer
      */
     var $projects_per_maker = 4;
 
-    public function control() {
-        parent::control();
+    public function authControl() {
         $this->setViewTemplate('xoxo2015.tpl');
 
         if ($this->shouldRefreshCache() ) {
