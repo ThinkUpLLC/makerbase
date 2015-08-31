@@ -12,11 +12,6 @@ class LandingController extends MakerbaseController {
         parent::control();
         $this->setViewTemplate('landing.tpl');
 
-        //TODO Remove this after the Product Hunt launch
-        if (isset($_GET['producthunt'])) {
-            $_GET['producthunt'] = 'producthunt';
-        }
-
         if ($this->shouldRefreshCache() ) {
             if (Session::isLoggedIn()) {
                 $page_number = (isset($_GET['p']) && is_numeric($_GET['p']))?$_GET['p']:1;

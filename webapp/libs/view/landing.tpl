@@ -82,25 +82,6 @@ users=$featured_users
   </div>
 </div>
 
-{if isset($smarty.get.producthunt)}
-
-<!-- begin quote -->
-</div>
-<div class="container-fluud">
-
-  <div class="row" id="testimonial-quote">
-    <h2 class="col-xs-12">Welcome, Product Hunters!<br />
-    <small><i>Add your projects &amp; the ones that inspire you.</i></small></h2>
-  </div>
-
-</div>
-
-<div class="container">
-
-<!-- end quote -->
-
-{/if}
-
 {include file="_featured.tpl"
 maker_section_title='featured makers'
 product_section_title='featured projects'
