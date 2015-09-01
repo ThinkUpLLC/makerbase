@@ -36,56 +36,61 @@ class LoadNetworkFriendsController extends MakerbaseController {
                 // echo "<pre>";
                 // print_r($twitter_oauth);
                 // echo "</pre>";
+                try {
+                    $friend_ids = $api_accessor->get5KFriends($user->twitter_user_id, $twitter_oauth);
 
-                $friend_ids = $api_accessor->get5KFriends($user->twitter_user_id, $twitter_oauth);
+                    $new_friend_count = 0;
+                    // Populate network friends
+                    foreach ($friend_ids->ids as $friend_id) {
+                        if ($friend_id != $user->twitter_user_id) {
+                            $new_friend_count += $network_friend_dao->insert($user->twitter_user_id, $friend_id,
+                                'twitter');
 
-                $new_friend_count = 0;
-                // Populate network friends
-                foreach ($friend_ids->ids as $friend_id) {
-                    if ($friend_id != $user->twitter_user_id) {
-                        $new_friend_count += $network_friend_dao->insert($user->twitter_user_id, $friend_id, 'twitter');
-
+                        }
                     }
-                }
-                $results[] = $user->twitter_username.": Added ".number_format($new_friend_count). " user friends";
-                $user_dao->updateLastRefreshedFriends($user);
+                    $results[] = $user->twitter_username.": Added ".number_format($new_friend_count). " user friends";
+                    $user_dao->updateLastRefreshedFriends($user);
 
-                // Create connections based on friendships
-                // Set connections who are users
-                $friend_users = $user_dao->getUsersWhoAreFriends($user->twitter_user_id);
-                $new_connection_count = 0;
-                foreach ($friend_users as $friend) {
-                    if ($connection_dao->insert($user, $friend)) {
-                        $new_connection_count++;
+                    // Create connections based on friendships
+                    // Set connections who are users
+                    $friend_users = $user_dao->getUsersWhoAreFriends($user->twitter_user_id);
+                    $new_connection_count = 0;
+                    foreach ($friend_users as $friend) {
+                        if ($connection_dao->insert($user, $friend)) {
+                            $new_connection_count++;
+                        }
                     }
-                }
-                $results[] = $user->twitter_username.": Added ".$new_connection_count. " user connections";
+                    $results[] = $user->twitter_username.": Added ".$new_connection_count. " user connections";
 
-                // Set connections who are makers
-                $maker_dao = new MakerMySQLDAO();
-                $friend_makers = $maker_dao->getMakersWhoAreFriends($user->twitter_user_id);
-                $new_connection_count = 0;
-                foreach ($friend_makers as $maker) {
-                    if ($connection_dao->insert($user, $maker)) {
-                        $new_connection_count++;
+                    // Set connections who are makers
+                    $maker_dao = new MakerMySQLDAO();
+                    $friend_makers = $maker_dao->getMakersWhoAreFriends($user->twitter_user_id);
+                    $new_connection_count = 0;
+                    foreach ($friend_makers as $maker) {
+                        if ($connection_dao->insert($user, $maker)) {
+                            $new_connection_count++;
+                        }
                     }
-                }
-                $results[] = $user->twitter_username.": Added ".$new_connection_count. " maker connections";
+                    $results[] = $user->twitter_username.": Added ".$new_connection_count. " maker connections";
 
-                // Set connections which are products
-                $product_dao = new ProductMySQLDAO();
-                $friend_products = $product_dao->getProductsThatAreFriends($user->twitter_user_id);
-                $new_connection_count = 0;
-                foreach ($friend_products as $product) {
-                    if ($connection_dao->insert($user, $product)) {
-                        $new_connection_count++;
+                    // Set connections which are products
+                    $product_dao = new ProductMySQLDAO();
+                    $friend_products = $product_dao->getProductsThatAreFriends($user->twitter_user_id);
+                    $new_connection_count = 0;
+                    foreach ($friend_products as $product) {
+                        if ($connection_dao->insert($user, $product)) {
+                            $new_connection_count++;
+                        }
                     }
-                }
-                $results[] = $user->twitter_username.": Added ".$new_connection_count. " product connections";
+                    $results[] = $user->twitter_username.": Added ".$new_connection_count. " product connections";
 
-                $friend_ids = null;
-                $oauth_token = null;
-                $oauth_secret = null;
+                    $friend_ids = null;
+                    $oauth_token = null;
+                    $oauth_secret = null;
+                } catch (APIErrorException $e) {
+                    //If API credentials are incorrect, just mark and done and move on
+                    $user_dao->updateLastRefreshedFriends($user);
+                }
             }
 
             $this->setJsonData($results);
