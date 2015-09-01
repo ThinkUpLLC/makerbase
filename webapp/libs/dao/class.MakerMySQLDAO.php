@@ -202,4 +202,17 @@ EOD;
         $ps = $this->execute($q, $vars);
         return $this->getDataRowsAsObjects($ps, "Maker");
     }
+
+    public function getMakersWhoAreFriends($twitter_user_id) {
+        $q = <<<EOD
+SELECT m.* FROM makers m
+INNER JOIN network_friends nf ON m.autofill_network_id = nf.friend_id
+WHERE nf.user_id = :twitter_user_id AND m.autofill_network = 'twitter'
+EOD;
+        $vars = array ( ':twitter_user_id' => $twitter_user_id);
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        return $this->getDataRowsAsObjects($ps, 'Maker');
+    }
 }

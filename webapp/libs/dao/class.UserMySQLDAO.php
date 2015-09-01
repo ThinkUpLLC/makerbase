@@ -84,17 +84,17 @@ EOD;
         return $user;
     }
 
-    public function getFollowersWhoAreUsers($twitter_user_id) {
+    public function getUsersWhoAreFriends($twitter_user_id) {
         $q = <<<EOD
-SELECT u.twitter_username AS follower_username FROM users u INNER JOIN waitlist_follows f ON u.twitter_user_id = f.follower_id
-WHERE f.user_id = :twitter_user_id
+SELECT u.* FROM users u
+INNER JOIN network_friends nf ON u.twitter_user_id = nf.friend_id
+WHERE nf.user_id = :twitter_user_id
 EOD;
         $vars = array ( ':twitter_user_id' => $twitter_user_id);
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         //echo self::mergeSQLVars($q, $vars);
         $ps = $this->execute($q, $vars);
-        $users = $this->getDataRowsAsArrays($ps);
-        return $users;
+        return $this->getDataRowsAsObjects($ps, 'User');
     }
 
     public function updateLastLogin(User $user) {
@@ -187,6 +187,16 @@ EOD;
     public function getTotal() {
         $q = <<<EOD
 SELECT count(*) AS total FROM users u;
+EOD;
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $ps = $this->execute($q);
+        $result = $this->getDataRowAsArray($ps);
+        return $result['total'];
+    }
+
+    public function getTotalUsersWithFriends() {
+        $q = <<<EOD
+SELECT count(*) AS total FROM users u WHERE last_loaded_friends IS NOT NULL;
 EOD;
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         $ps = $this->execute($q);
@@ -306,6 +316,30 @@ EOD;
         //echo self::mergeSQLVars($q, $vars);
         $ps = $this->execute($q, $vars);
         return $this->getDataRowsAsObjects($ps, "User");
+    }
+
+    public function getUsersWithoutFriends($limit = 5) {
+        $q = <<<EOD
+SELECT u.* FROM users u WHERE last_loaded_friends IS NULL LIMIT :limit
+EOD;
+        $vars = array ( ':limit' => $limit);
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        return $this->getDataRowsAsObjects($ps, "User");
+    }
+
+    public function updateLastRefreshedFriends(User $user) {
+        $q = "UPDATE users SET last_loaded_friends = CURRENT_TIMESTAMP WHERE twitter_user_id = :twitter_user_id";
+        $vars = array ( ':twitter_user_id' => $user->twitter_user_id);
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        $update_count = $this->getUpdateCount($ps);
+        if ($update_count == 0) {
+            throw new UserDoesNotExistException('User '.$user->twitter_user_id.' does not exist.');
+        }
+        return $update_count;
     }
 }
 

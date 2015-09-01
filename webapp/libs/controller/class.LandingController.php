@@ -18,9 +18,12 @@ class LandingController extends MakerbaseController {
                 $limit = 10;
                 $action_dao = new ActionMySQLDAO();
 
-                // $actions = $action_dao->getUserConnectionsActivities($this->logged_in_user->uid, $page_number, $limit);
-                // right now, let's just show global actions
                 $actions = array();
+                //Test personalized activity stream with separate link /new/connections/
+                if (isset($_GET['stream']) && $_GET['stream'] == 'friends') {
+                    $actions = $action_dao->getUserConnectionsActivities($this->logged_in_user->id, $page_number,
+                        $limit);
+                }
 
                 if (count($actions) == 0) {
                     $actions = $action_dao->getActivities($page_number, $limit);

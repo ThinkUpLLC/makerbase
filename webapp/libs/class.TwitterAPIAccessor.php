@@ -83,6 +83,29 @@ class TwitterAPIAccessor {
         }
     }
     /**
+     * Get 5,000 friend IDs for a Twitter user.
+     * @param  str $twitter_user_id
+     * @param  TwitterOAuth $toa
+     * @return array
+     * @throws APIErrorException
+     */
+    public function get5KFriends($twitter_user_id, TwitterOAuth $toa) {
+        $endpoint = 'friends/ids';
+        $payload = $toa->OAuthRequest($endpoint, 'GET', array('stringify_ids'=>true, 'count'=>5000,
+            'user_id'=>$twitter_user_id));
+        $http_status = $toa->lastStatusCode();
+        // echo '<pre>';
+        // print_r($payload);
+        // echo '</pre>';
+
+        if ($http_status == 200) {
+            $follower_ids = JSONDecoder::decode($payload);
+            return $follower_ids;
+        } else {
+            throw new APIErrorException(self::translateErrorCode($http_status, true));
+        }
+    }
+    /**
      * Get Twitter user by username.
      * @param  str       $search_term
      * @param  TwitterOAuth $toa

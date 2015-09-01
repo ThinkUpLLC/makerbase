@@ -76,6 +76,10 @@ class User {
      * @var bool Whether user has added a role.
      */
     var $has_added_role = false;
+    /**
+     * @var str Last network friends fetch time.
+     */
+    var $last_loaded_friends;
     public function __construct($row = false) {
         if ($row) {
             $this->id = $row['id'];
@@ -97,6 +101,7 @@ class User {
             $this->has_added_maker = PDODAO::convertDBToBool($row['has_added_maker']);
             $this->has_added_product = PDODAO::convertDBToBool($row['has_added_product']);
             $this->has_added_role = PDODAO::convertDBToBool($row['has_added_role']);
+            $this->last_loaded_friends = $row['last_loaded_friends'];
         }
     }
 }

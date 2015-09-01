@@ -1,0 +1,6 @@
+AuthType Basic
+AuthName "Password required"
+AuthUserFile /local/www/callbax/webapp/.htpasswd
+Require valid-user
+Order allow,deny
+Allow from all

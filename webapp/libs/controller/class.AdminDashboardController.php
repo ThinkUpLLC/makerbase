@@ -37,6 +37,8 @@ class AdminDashboardController extends MakerbaseAdminController {
         $user_dao = new UserMySQLDAO();
         $total_users = $user_dao->getTotal();
         $this->addToView('total_users', $total_users);
+        $total_users_with_friends = $user_dao->getTotalUsersWithFriends();
+        $this->addToView('total_users_with_friends', $total_users_with_friends);
         $total_emails = $user_dao->getTotalEmails();
         $this->addToView('total_emails', $total_emails);
 

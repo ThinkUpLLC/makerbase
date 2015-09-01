@@ -112,8 +112,22 @@ CREATE TABLE makers (
   PRIMARY KEY (id),
   UNIQUE KEY uid (uid),
   KEY creation_time (creation_time),
-  KEY is_archived (is_archived)
+  KEY is_archived (is_archived),
+  KEY autofill_network_id (autofill_network_id,autofill_network)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='People who make products.';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table 'network_friends'
+--
+
+CREATE TABLE network_friends (
+  user_id varchar(30) NOT NULL COMMENT 'User ID on a particular service who has followed friend_id.',
+  friend_id varchar(30) NOT NULL COMMENT 'User ID on a particular service who has been followed by user_id.',
+  network varchar(20) NOT NULL DEFAULT 'twitter' COMMENT 'Originating network in lower case, i.e., twitter or github.',
+  UNIQUE KEY network_user_friend (network,user_id,friend_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='User friends on a given network.';
 
 -- --------------------------------------------------------
 
@@ -138,7 +152,8 @@ CREATE TABLE products (
   PRIMARY KEY (id),
   UNIQUE KEY uid (uid),
   KEY creation_time (creation_time),
-  KEY is_archived (is_archived)
+  KEY is_archived (is_archived),
+  KEY autofill_network_id (autofill_network_id,autofill_network)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Products made by people.';
 
 -- --------------------------------------------------------
@@ -190,6 +205,7 @@ CREATE TABLE users (
   has_added_maker int(1) NOT NULL DEFAULT '0' COMMENT 'Whether user has added a maker.',
   has_added_product int(1) NOT NULL DEFAULT '0' COMMENT 'Whether user has added a product.',
   has_added_role int(1) NOT NULL DEFAULT '0' COMMENT 'Whether user has added a role.',
+  last_refreshed_friends timestamp NULL DEFAULT NULL COMMENT 'Last network friends fetch time.',
   PRIMARY KEY (id),
   UNIQUE KEY uid (uid),
   UNIQUE KEY twitter_user_id (twitter_user_id),
@@ -217,17 +233,4 @@ CREATE TABLE waitlist (
   KEY follower_count (follower_count),
   KEY is_verified (is_verified)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Waitlisted users.';
-
--- --------------------------------------------------------
-
---
--- Table structure for table 'waitlist_follows'
---
-
-CREATE TABLE waitlist_follows (
-  user_id varchar(30) NOT NULL COMMENT 'User ID on a particular service who has been followed.',
-  follower_id varchar(30) NOT NULL COMMENT 'User ID on a particular service who has followed user_id.',
-  network varchar(20) NOT NULL DEFAULT 'twitter' COMMENT 'Originating network in lower case, i.e., twitter or facebook.',
-  UNIQUE KEY network_follower_user (network,follower_id,user_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Waitlister followers.';
 

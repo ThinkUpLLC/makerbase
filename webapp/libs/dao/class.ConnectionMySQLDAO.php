@@ -38,7 +38,7 @@ EOD;
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         //echo self::mergeSQLVars($q, $vars);
         $ps = $this->execute($q, $vars);
-        return $this->getUpdateCount($ps);
+        return ($this->getUpdateCount($ps) > 0);
     }
 
     private function deleteConnectionsToObject($object_type, $object_id) {

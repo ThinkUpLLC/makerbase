@@ -51,10 +51,10 @@ $object either the Product or Maker or User
     <nav id="pager">
       <ul class="list-inline">
         {if isset($next_page)}
-          <li class="previous"><a href="{$paging_path}/{$next_page}#activity" class="btn btn-info"><span aria-hidden="true"><i class="fa fa-arrow-left"></i></span> Older</a></li>
+          <li class="previous"><a href="{$paging_path}/{$next_page}{if isset($smarty.get.stream) && $smarty.get.stream eq 'friends'}/friends{/if}#activity" class="btn btn-info"><span aria-hidden="true"><i class="fa fa-arrow-left"></i></span> Older</a></li>
         {/if}
         {if isset($prev_page)}
-          <li class="next pull-right"><a href="{$paging_path}/{if $prev_page neq 1}{$prev_page}{/if}#activity" class="btn btn-info">Newer <span aria-hidden="true"><i class="fa fa-arrow-right"></i></span></a></li>
+          <li class="next pull-right"><a href="{$paging_path}/{if $prev_page neq 1}{$prev_page}{/if}{if isset($smarty.get.stream) && $smarty.get.stream eq 'friends'}/friends{/if}#activity" class="btn btn-info">Newer <span aria-hidden="true"><i class="fa fa-arrow-right"></i></span></a></li>
         {/if}
       </ul>
     </nav>

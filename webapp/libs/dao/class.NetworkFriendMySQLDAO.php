@@ -1,17 +1,18 @@
 <?php
-class WaitlistFollowMySQLDAO extends MakerbasePDODAO {
 
-    public function insert($follower_id, $user_id, $network) {
+class NetworkFriendMySQLDAO extends MakerbasePDODAO {
+
+    public function insert($user_id, $friend_id, $network) {
         $q = <<<EOD
-INSERT IGNORE INTO waitlist_follows (
-user_id, follower_id, network
+INSERT IGNORE INTO network_friends (
+user_id, friend_id, network
 ) VALUES (
-:user_id, :follower_id, :network
+:user_id, :friend_id, :network
 )
 EOD;
         $vars = array (
             ':user_id' => $user_id,
-            ':follower_id' => $follower_id,
+            ':friend_id' => $friend_id,
             ':network' => $network
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }

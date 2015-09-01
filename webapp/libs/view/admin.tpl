@@ -14,7 +14,7 @@
   </ul>
 </div>
 
-<h3 class="pull-right"><small><i class="fa fa-inbox"></i> Email addresses:</small> {$total_emails|number_format}</h3>
+<h3 class="pull-right"><small><i class="fa fa-inbox"></i> Emails:</small> {$total_emails|number_format} <small><i class="fa fa-connectdevelop"></i> Friend lists:</small> {(($total_users_with_friends/$total_users) * 100)|round}%</h3>
 
     <ul class="nav nav-tabs">
       <li role="presentation"{if isset($sort_view)}{if $sort_view eq 'all-actions'}class="active"{/if}{/if}><a href="/s3cr3t/all-actions">All Actions</a></li>
