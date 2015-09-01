@@ -184,7 +184,6 @@ $featured_product_2_makers[] = array(
     'avatar_url' => 'https://pbs.twimg.com/profile_images/3430627954/4321ccd48f767deeae9c735e5ca43ed2.jpeg',
 );
 
-$featured_product_2_makers = array();
 $featured_product_2_makers[] = array(
     'name' => 'Julie Basque',
     'uid' => '7380b3',
@@ -192,7 +191,6 @@ $featured_product_2_makers[] = array(
     'avatar_url' => 'https://pbs.twimg.com/profile_images/463149525759062016/KirBDDy2.jpeg',
 );
 
-$featured_product_2_makers = array();
 $featured_product_2_makers[] = array(
     'name' => 'Robert Gorell',
     'uid' => 'k0ze9r',
@@ -240,7 +238,6 @@ $featured_product_4_makers[] = array(
     'avatar_url' => 'http://pbs.twimg.com/profile_images/539094743133614080/cj8fsBZE.png',
 );
 
-$featured_product_4_makers = array();
 $featured_product_4_makers[] = array(
     'name' => 'Jeffrey Zeldman',
     'uid' => '1b4kyn',
@@ -248,7 +245,6 @@ $featured_product_4_makers[] = array(
     'avatar_url' => 'http://pbs.twimg.com/profile_images/556907824723161088/6pEAR3vw.jpeg',
 );
 
-$featured_product_4_makers = array();
 $featured_product_4_makers[] = array(
     'name' => 'Tim Murtaugh',
     'uid' => '2wm067',
@@ -256,7 +252,6 @@ $featured_product_4_makers[] = array(
     'avatar_url' => 'http://pbs.twimg.com/profile_images/464520516095979520/cWqJJYuR.jpeg',
 );
 
-$featured_product_4_makers = array();
 $featured_product_4_makers[] = array(
     'name' => 'Mike Pick',
     'uid' => '79zr99',
