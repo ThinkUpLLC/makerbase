@@ -37,6 +37,9 @@ class EventMakerController extends MakerbaseController {
                 $this->addToView('makers_col2', $makers_col2);
             }
         }
+        // Transfer cached user messages to the view
+        $this->setUserMessages();
+
         return $this->generateView();
     }
 }

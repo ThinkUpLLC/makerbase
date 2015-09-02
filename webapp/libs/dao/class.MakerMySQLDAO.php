@@ -207,6 +207,22 @@ EOD;
         return (count($results) > 0);
     }
 
+    public function setIsAttendingEvent(Maker $maker, $event_slug) {
+        $q = <<<EOD
+INSERT IGNORE INTO event_makers (maker_id, event_slug, is_speaker, speak_date)
+VALUES (:maker_id, :event_slug, 0, null);
+EOD;
+        $vars = array (
+            ':maker_id' => $maker->id,
+            ':event_slug' => $event_slug
+
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        return ($this->getUpdateCount($ps) > 0);
+    }
+
     public function getNewestMakers($limit = 4) {
         $q = <<<EOD
 SELECT DISTINCT m.* FROM makers m INNER JOIN roles r ON r.maker_id = m.id

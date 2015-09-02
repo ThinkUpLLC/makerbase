@@ -134,6 +134,8 @@
         {/foreach}
     </div>
 </div>
+{else}
+    <h1><a href="/gotoxoxo/">I'm going!</a></h1>
 {/if}
 
 {include file="_footer.tpl"}

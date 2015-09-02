@@ -39,5 +39,6 @@ $router->addRoute('explore', 'ExploreController');
 $router->addRoute('s3cr3t', 'AdminDashboardController', array('v', 'p'));
 $router->addRoute('adminedit', 'AdminEditController', array('object'));
 $router->addRoute('xoxo2015', 'EventMakerController');
+$router->addRoute('gotoxoxo', 'AttendEventController');
 
 echo $router->route();

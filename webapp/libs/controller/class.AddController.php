@@ -598,7 +598,7 @@ class AddController extends MakerbaseAuthController {
         }
     }
 
-    private function getSlug($slug, $name) {
+    public static function getSlug($slug, $name) {
         if (empty($slug)) {
             return strtolower(preg_replace("/[^A-Za-z0-9]/", "", $name));
         } else {
