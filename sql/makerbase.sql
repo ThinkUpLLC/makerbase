@@ -66,8 +66,24 @@ CREATE TABLE connections (
 --
 
 CREATE TABLE event_makers (
+  event_slug varchar(10) NOT NULL COMMENT 'Event slug.',
+  maker_id int(11) NOT NULL COMMENT 'Maker ID.',
+  is_speaker int(1) NOT NULL DEFAULT '0' COMMENT 'Whether or not maker is a speaker.',
+  speak_date date DEFAULT NULL COMMENT 'Day speaker is speaking.',
+  UNIQUE KEY event_slug (event_slug,maker_id),
+  KEY is_speaker (is_speaker)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Makers attending an event.';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table event_permissions
+--
+
+CREATE TABLE event_permissions (
   event varchar(10) NOT NULL COMMENT 'Event slug.',
-  twitter_username varchar(255) NOT NULL COMMENT 'Twitter username'
+  twitter_username varchar(100) NOT NULL COMMENT 'Twitter username',
+  KEY event (event,twitter_username)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Makers attending an event.';
 
 -- --------------------------------------------------------

@@ -1,44 +1,41 @@
 <?php
 
-class EventMakerController extends MakerbaseAdminController {
+class EventMakerController extends MakerbaseController {
     /**
      * How many projects to display per maker.
      * @var integer
      */
-    var $projects_per_maker = 4;
+    var $projects_per_maker = 5;
 
-    public function authControl() {
+    public function control() {
+        parent::control();
         $this->setViewTemplate('xoxo2015.tpl');
 
         if ($this->shouldRefreshCache() ) {
-            // XOXO 2015 makers
+            // XOXO 2015 speakers
             $maker_dao = new MakerMySQLDAO();
-            $makers = $maker_dao->getEventMakers('xoxo2015');
+            $speakers = $maker_dao->getEventSpeakers('xoxo2015', $this->projects_per_maker);
 
-            // Get each maker's projects
-            // @TODO Optimize this!
-            $role_dao = new RoleMySQLDAO();
-            foreach ($makers as $maker) {
-                $roles = $role_dao->getByMaker($maker->id);
-                if (count($roles) > 0 ) {
-                    $maker->products = array();
-                    $i = 0;
-                    foreach ($roles as $role) {
-                        if ($i < $this->projects_per_maker) {
-                            $maker->products[] = $role->product;
-                            $i++;
-                        }
-                    }
-                }
+            $halfway_mark = round(count($speakers)/2);
+
+            $speakers_col1 = array_slice($speakers, 0, ($halfway_mark));
+            $this->addToView('speakers_col1', $speakers_col1);
+
+            $speakers_col2 = array_slice($speakers, ($halfway_mark), count($speakers));
+            $this->addToView('speakers_col2', $speakers_col2);
+
+            if (Session::isLoggedIn() && $maker_dao->isAttendingEvent('xoxo2015', $this->logged_in_user) ) {
+                // XOXO 2015 attendees
+                $makers = $maker_dao->getEventMakers('xoxo2015', $this->projects_per_maker);
+
+                $halfway_mark = round(count($makers)/2);
+
+                $makers_col1 = array_slice($makers, 0, ($halfway_mark));
+                $this->addToView('makers_col1', $makers_col1);
+
+                $makers_col2 = array_slice($makers, $halfway_mark, count($makers));
+                $this->addToView('makers_col2', $makers_col2);
             }
-
-            $halfway_mark = round(count($makers)/2);
-
-            $makers_col1 = array_slice($makers, 0, ($halfway_mark-1));
-            $this->addToView('makers_col1', $makers_col1);
-
-            $makers_col2 = array_slice($makers, $halfway_mark, $halfway_mark);
-            $this->addToView('makers_col2', $makers_col2);
         }
         return $this->generateView();
     }

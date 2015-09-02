@@ -173,6 +173,40 @@ EOD;
         return ($this->getDataRowsAsObjects($ps, 'Maker'));
     }
 
+    public function hasEventPermission($event_slug, User $user) {
+        $q = <<<EOD
+SELECT * FROM event_permissions
+WHERE twitter_username = :twitter_username AND event = :event;
+EOD;
+        $vars = array (
+            ':twitter_username' => $user->twitter_username,
+            ':event' => $event_slug
+
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        $results = $this->getDataRowsAsArrays($ps);
+        return (count($results) > 0);
+    }
+
+    public function isAttendingEvent($event_slug, User $user) {
+        $q = <<<EOD
+SELECT * FROM event_makers
+WHERE maker_id = :maker_id AND event_slug = :event;
+EOD;
+        $vars = array (
+            ':maker_id' => $user->maker_id,
+            ':event' => $event_slug
+
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        $results = $this->getDataRowsAsArrays($ps);
+        return (count($results) > 0);
+    }
+
     public function getNewestMakers($limit = 4) {
         $q = <<<EOD
 SELECT DISTINCT m.* FROM makers m INNER JOIN roles r ON r.maker_id = m.id
@@ -185,22 +219,110 @@ EOD;
         return $this->getDataRowsAsObjects($ps, "Maker");
     }
 
-    /**
-     * @TODO Optimize this query! It is slow and does not use indexes.
-     */
-    public function getEventMakers($event) {
+    public function getEventMakers($event_slug, $projects_per_maker) {
         $q = <<<EOD
-SELECT DISTINCT m.* FROM makers m INNER JOIN event_makers em ON em.twitter_username = m.autofill_network_username
+SELECT m.uid AS maker_uid, m.slug AS maker_slug, m.avatar_url AS maker_avatar_url, m.name AS maker_name,
+p.uid AS product_uid, p.slug AS product_slug, p.avatar_url AS product_avatar_url, p.name AS product_name
+FROM makers m INNER JOIN event_makers em ON em.maker_id = m.id
 INNER JOIN roles r ON r.maker_id = m.id
-WHERE m.autofill_network = 'twitter' and em.event = :event ORDER BY r.creation_time DESC;
+INNER JOIN products p ON r.product_id = p.id
+WHERE em.event_slug = :event_slug AND em.is_speaker = 0
+ORDER BY m.id,
+ISNULL(r.start) ASC, ISNULL(r.end) DESC, end DESC, start ASC;
 EOD;
         $vars = array (
-            ':event' => $event
+            ':event_slug' => $event_slug
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         //echo self::mergeSQLVars($q, $vars);
         $ps = $this->execute($q, $vars);
-        return $this->getDataRowsAsObjects($ps, "Maker");
+        $rows = $this->getDataRowsAsArrays($ps);
+
+        $makers = array();
+        $current_maker = null;
+        $defaults = array('id'=>null, 'creation_time'=>null, 'url'=>null, 'is_archived'=>0, 'is_frozen'=>0,
+            'autofill_network_id'=>null, 'autofill_network'=>null, 'autofill_network_username'=>null,
+            'description'=>'');
+
+        foreach ($rows as $row) {
+            if (!isset($current_maker) || $current_maker->uid !== $row['maker_uid']) {
+                if (isset($current_maker)) {
+                    $makers[] = $current_maker;
+                }
+                $maker_vals = array(
+                    'uid'=>$row['maker_uid'],
+                    'slug'=>$row['maker_slug'],
+                    'avatar_url'=>$row['maker_avatar_url'],
+                    'name'=>$row['maker_name']
+                );
+                $current_maker = new Maker(array_merge($maker_vals, $defaults));
+                $current_maker->products = array();
+            }
+            $product_vals = array(
+                'uid'=>$row['product_uid'],
+                'slug'=>$row['product_slug'],
+                'avatar_url'=>$row['product_avatar_url'],
+                'name'=>$row['product_name']
+            );
+            if (count($current_maker->products) < $projects_per_maker) {
+                $current_maker->products[] = new Product(array_merge($product_vals, $defaults));
+            }
+        }
+        $makers[] = $current_maker;
+        return $makers;
+    }
+
+    public function getEventSpeakers($event_slug, $projects_per_speaker) {
+        $q = <<<EOD
+SELECT m.uid AS maker_uid, m.slug AS maker_slug, m.avatar_url AS maker_avatar_url, m.name AS maker_name,
+p.uid AS product_uid, p.slug AS product_slug, p.avatar_url AS product_avatar_url, p.name AS product_name
+FROM makers m INNER JOIN event_makers em ON em.maker_id = m.id
+INNER JOIN roles r ON r.maker_id = m.id
+INNER JOIN products p ON r.product_id = p.id
+WHERE em.event_slug = :event_slug AND em.is_speaker = 1
+ORDER BY m.id,
+ISNULL(r.start) ASC, ISNULL(r.end) DESC, end DESC, start ASC;
+EOD;
+        $vars = array (
+            ':event_slug' => $event_slug
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        $rows = $this->getDataRowsAsArrays($ps);
+
+        $makers = array();
+        $current_maker = null;
+        $defaults = array('id'=>null, 'creation_time'=>null, 'url'=>null, 'is_archived'=>0, 'is_frozen'=>0,
+            'autofill_network_id'=>null, 'autofill_network'=>null, 'autofill_network_username'=>null,
+            'description'=>'');
+
+        foreach ($rows as $row) {
+            if (!isset($current_maker) || $current_maker->uid !== $row['maker_uid']) {
+                if (isset($current_maker)) {
+                    $makers[] = $current_maker;
+                }
+                $maker_vals = array(
+                    'uid'=>$row['maker_uid'],
+                    'slug'=>$row['maker_slug'],
+                    'avatar_url'=>$row['maker_avatar_url'],
+                    'name'=>$row['maker_name']
+                );
+                $current_maker = new Maker(array_merge($maker_vals, $defaults));
+                $current_maker->products = array();
+            }
+            $product_vals = array(
+                'uid'=>$row['product_uid'],
+                'slug'=>$row['product_slug'],
+                'avatar_url'=>$row['product_avatar_url'],
+                'name'=>$row['product_name']
+            );
+            if (count($current_maker->products) < $projects_per_speaker) {
+                $current_maker->products[] = new Product(array_merge($product_vals, $defaults));
+            }
+        }
+        $makers[] = $current_maker;
+        return $makers;
     }
 
     public function getMakersWhoAreFriends($twitter_user_id) {
