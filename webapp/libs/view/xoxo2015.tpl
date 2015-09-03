@@ -19,18 +19,18 @@
     <div class="media row">
       <div class="media-left media-top col-xs-3">
         <a href="/m/{$maker->uid}/{$maker->slug}" class="avatar">
-          <img class="media-object img-responsive img-rounded" src="{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" alt="{$maker->name}">
+          <img class="media-object img-responsive img-rounded" src="{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" alt="{$maker->name|escape}">
         </a>
       </div>
       <div class="col-xs-9">
-        <h4 class="media-heading"><a href="/m/{$maker->uid}/{$maker->slug}">{$maker->name}</a></h4>
+        <h4 class="media-heading"><a href="/m/{$maker->uid}/{$maker->slug}">{$maker->name|escape}</a></h4>
         <p class="media-body">
 
         {if isset($maker->products)}
           {foreach $maker->products as $maker_product}
             <a href="/p/{$maker_product->uid}/{$maker_product->slug}">
               <img src="{insert name='user_image' image_url=$maker_product->avatar_url image_proxy_sig=$image_proxy_sig type='p'}">
-              {$maker_product->name}
+              {$maker_product->name|escape}
             </a>
           {/foreach}
           {/if}
@@ -45,18 +45,18 @@
         <div class="media row">
           <div class="media-left media-top col-xs-3">
             <a href="/m/{$maker->uid}/{$maker->slug}" class="avatar">
-              <img class="media-object img-responsive img-rounded" src="{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" alt="{$maker->name}">
+              <img class="media-object img-responsive img-rounded" src="{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" alt="{$maker->name|escape}">
             </a>
           </div>
           <div class="col-xs-9">
-            <h4 class="media-heading"><a href="/m/{$maker->uid}/{$maker->slug}">{$maker->name}</a></h4>
+            <h4 class="media-heading"><a href="/m/{$maker->uid}/{$maker->slug}">{$maker->name|escape}</a></h4>
             <p class="media-body">
 
             {if isset($maker->products)}
               {foreach $maker->products as $maker_product}
                 <a href="/p/{$maker_product->uid}/{$maker_product->slug}">
                   <img src="{insert name='user_image' image_url=$maker_product->avatar_url image_proxy_sig=$image_proxy_sig type='p'}">
-                  {$maker_product->name}
+                  {$maker_product->name|escape}
                 </a>
               {/foreach}
               {/if}
@@ -87,18 +87,18 @@
     <div class="media row">
       <div class="media-left media-top col-xs-3">
         <a href="/m/{$maker->uid}/{$maker->slug}" class="avatar">
-          <img class="media-object img-responsive img-rounded" src="{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" alt="{$maker->name}">
+          <img class="media-object img-responsive img-rounded" src="{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" alt="{$maker->name|escape}">
         </a>
       </div>
       <div class="col-xs-9">
-        <h4 class="media-heading"><a href="/m/{$maker->uid}/{$maker->slug}">{$maker->name}</a></h4>
+        <h4 class="media-heading"><a href="/m/{$maker->uid}/{$maker->slug}">{$maker->name|escape}</a></h4>
         <p class="media-body">
 
         {if isset($maker->products)}
           {foreach $maker->products as $maker_product}
             <a href="/p/{$maker_product->uid}/{$maker_product->slug}">
               <img src="{insert name='user_image' image_url=$maker_product->avatar_url image_proxy_sig=$image_proxy_sig type='p'}">
-              {$maker_product->name}
+              {$maker_product->name|escape}
             </a>
           {/foreach}
           {/if}
@@ -113,18 +113,18 @@
         <div class="media row">
           <div class="media-left media-top col-xs-3">
             <a href="/m/{$maker->uid}/{$maker->slug}" class="avatar">
-              <img class="media-object img-responsive img-rounded" src="{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" alt="{$maker->name}">
+              <img class="media-object img-responsive img-rounded" src="{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" alt="{$maker->name|escape}">
             </a>
           </div>
           <div class="col-xs-9">
-            <h4 class="media-heading"><a href="/m/{$maker->uid}/{$maker->slug}">{$maker->name}</a></h4>
+            <h4 class="media-heading"><a href="/m/{$maker->uid}/{$maker->slug}">{$maker->name|escape}</a></h4>
             <p class="media-body">
 
             {if isset($maker->products)}
               {foreach $maker->products as $maker_product}
                 <a href="/p/{$maker_product->uid}/{$maker_product->slug}">
                   <img src="{insert name='user_image' image_url=$maker_product->avatar_url image_proxy_sig=$image_proxy_sig type='p'}">
-                  {$maker_product->name}
+                  {$maker_product->name|escape}
                 </a>
               {/foreach}
               {/if}
