@@ -29,9 +29,16 @@ class AttendEventController extends MakerbaseAuthController {
             }
             $maker_dao->setIsAttendingEvent($users_maker, 'xoxo2015');
 
-            // @TODO Expire cache for xoxo 2015 page
+            // Expire cache for xoxo 2015 page
+            // not logged in
+            self::expireCache('xoxo2015.tpl', false);
+            // logged in
+            self::expireCache('xoxo2015.tpl', true);
             SessionCache::put('success_message', 'You are going to XOXO 2015!');
         } else {
+            // Expire cache for xoxo 2015 page
+            // logged in only
+            self::expireCache('xoxo2015.tpl', true);
             SessionCache::put('error_message', 'Sorry, there was a problem adding you to the XOXO attendee list');
         }
         $this->redirect('/xoxo2015/');
@@ -76,5 +83,21 @@ class AttendEventController extends MakerbaseAuthController {
         $action_dao = new ActionMySQLDAO();
         $action_dao->insert($action);
         return $maker;
+    }
+
+    private static function expireCache($view_tpl) {
+        $view_mgr = new ViewManager();
+        //Clear logged in cached page
+        $view_mgr->clearCache($view_tpl, self::getCacheKeyStringForReload($view_tpl, true));
+        //Clear non-logged-in cache page
+        $view_mgr->clearCache($view_tpl, self::getCacheKeyStringForReload($view_tpl, false));
+    }
+
+    private static function getCacheKeyStringForReload($template, $include_logged_in_user = true) {
+        $view_cache_key = array();
+        if ($include_logged_in_user && Session::isLoggedIn()) {
+            array_push($view_cache_key, Session::getLoggedInUser());
+        }
+        return '.ht'.$template.self::KEY_SEPARATOR.(implode($view_cache_key, self::KEY_SEPARATOR));
     }
 }
