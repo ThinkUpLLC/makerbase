@@ -8,6 +8,15 @@
         XOXO Festival 2015 Speakers<br />
         <small>Meet the makers slated to speak at <a href="http://2015.xoxofest.com/">XOXO Festival in Portland, Oregon</a>, September 2015.</small>
       </h3>
+    {if !isset($makers_col1) && !isset($makers_col2) }
+      {if isset($sign_in_with_twttr_link)}
+          <a class="btn btn-primary" href="{$sign_in_with_twttr_link}">Sign in to add yourself</a>
+      {else}
+          <a class="btn btn-primary" href="/gotoxoxo/">I'm going!</a>
+      {/if}
+    {else}
+      You're going! Make sure you <a href="#">list all your projects</a>.
+    {/if}
     </div>
   </div>
 </div>
@@ -134,8 +143,6 @@
         {/foreach}
     </div>
 </div>
-{else}
-    <h1><a href="{if isset($sign_in_with_twttr_link)}{$sign_in_with_twttr_link}{else}/gotoxoxo/{/if}">I'm going!</a></h1>
 {/if}
 
 {include file="_footer.tpl"}
