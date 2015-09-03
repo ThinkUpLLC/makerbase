@@ -1,5 +1,5 @@
 
-{include file="_head.tpl" body_class='landing'
+{include file="_head.tpl" body_class='landing-not-signed-in'
 title="XOXO Festival 2015"
 url="https://makerba.se/xoxo2015"
 description="Meet the makers of XOXO Festival 2015."
@@ -15,13 +15,13 @@ description="Meet the makers of XOXO Festival 2015."
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <div class=" style-seabreeze" style="padding: 2em; margin-top: 1em;">
       <h1 style="margin-top: 0;">
-        <a href="http://2015.xoxofest.com/"><strong>XOXO</strong></a> Meet your makers
+        <a href="http://2015.xoxofest.com/"><strong>XOXO</strong></a>: Meet your makers
       </h1>
       {if !$is_going}
         {if isset($sign_in_with_twttr_link)}
           <p style="padding-bottom: 1em;"><strong>Makerbase is like IMDb for apps, websites, games, and podcasts.</strong><br/>
           Add projects you've made and discover what the XOXO community has created.</p>
-            <a class="btn btn-lg btn-default" href="{$sign_in_with_twttr_link}">Sign in to add yourself</a>
+            <a class="btn btn-lg btn-default" href="{$sign_in_with_twttr_link}"><i class="fa fa-twitter"></i> Sign in to add yourself</a>
         {else}
           <p style="padding-bottom: 1em;"><strong>Are you going?</strong> Add yourself to the attendee list.</p>
             <a class="btn btn-lg btn-default" href="/gotoxoxo/">I'm going!</a>
@@ -244,11 +244,11 @@ description="Meet the makers of XOXO Festival 2015."
 
 <div class="row" id="promo-boxes">
 
-    <div class="feature-box col-xs-12 col-sm-10 col-sm-offset-1" id="landing-sponsors">
-      <h3 class="col-xs-12">makerbase is brought to you by sponsors that makers <em>love to use</em>.</h3>
-      <p class="col-xs-12 col-sm-4">See which projects that inspire you rely on these great products.</p>
+    <div class="feature-box col-xs-12 col-sm-10 col-sm-offset-1" id="landing-sponsors" style="min-height: 75px;">
+      <h3 class="col-xs-12">brought to you by sponsors that makers <em>really love</em>.</h3>
+      <p class="col-xs-12 col-sm-2"><small>See who's using these great services:<small></p>
 
-      <ul class="list-inline col-sm-8">
+      <ul class="list-inline col-sm-10">
         <li class="col-xs-12 col-sm-4">
           <a href="/p/9u0s6y/mailchimp" class="sponsor">
               <img class="img-rounded avatar pull-left" src="/assets/img/sponsors/logo-square-mailchimp.jpg" alt="MailChimp">
