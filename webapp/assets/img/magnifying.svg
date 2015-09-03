@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="28px" height="27px" viewBox="0 0 28 27" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch Beta 3.4 (15009) - http://www.bohemiancoding.com/sketch -->
+    <title>Slice 1</title>
+    <desc>Created with Sketch Beta.</desc>
+    <defs>
+        <path id="path-1" d="M0.793,10.256 L17.522,26.985 L27.492,17.015 L10.763,0.286"></path>
+        <path id="path-3" d="M0.793,10.256 L17.522,26.985 L27.492,17.015 L10.763,0.286"></path>
+    </defs>
+    <g id="Page-12" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="makerbase-logo-styleguide-072915" sketch:type="MSLayerGroup" transform="translate(0.000000, -147.000000)">
+            <g id="Group-1207" transform="translate(0.000000, 147.000000)">
+                <g id="Group-1203">
+                    <mask id="mask-2" sketch:name="Clip 1202" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <g id="Clip-1202"></g>
+                    <path d="M14.4316,13.9246 C12.4056,15.9506 9.1206,15.9506 7.0946,13.9246 C5.0686,11.8986 5.0676,8.6136 7.0946,6.5876 C9.1206,4.5606 12.4056,4.5616 14.4316,6.5876 C16.4566,8.6136 16.4576,11.8986 14.4316,13.9246 M5.7776,5.2706 C3.0246,8.0236 3.0246,12.4876 5.7786,15.2406 C8.5316,17.9936 12.9946,17.9946 15.7476,15.2406 C18.5016,12.4876 18.5006,8.0236 15.7486,5.2706 C12.9946,2.5176 8.5316,2.5176 5.7776,5.2706" id="Fill-1201" fill="#000000" sketch:type="MSShapeGroup" mask="url(#mask-2)"></path>
+                </g>
+                <g id="Group-1206">
+                    <mask id="mask-4" sketch:name="Clip 1205" fill="white">
+                        <use xlink:href="#path-3"></use>
+                    </mask>
+                    <g id="Clip-1205"></g>
+                    <path d="M21,22 L14.953,15.953 C14.537,15.537 14.537,14.862 14.953,14.446 C15.369,14.03 16.044,14.03 16.46,14.446 L22.507,20.493 C22.923,20.909 22.923,21.584 22.507,22 C22.091,22.416 21.416,22.416 21,22" id="Fill-1204" fill="#000000" sketch:type="MSShapeGroup" mask="url(#mask-4)"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

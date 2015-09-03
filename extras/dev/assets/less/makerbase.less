@@ -822,12 +822,18 @@ form.form-inline {
 	#product-name,
 	#maker-name,
 	.tt-hint {
-		padding: 1.2em;
+		padding: 1.2em 1.2em 1.2em 2.4em;
 		width: 100%;
 		@media (min-width: @screen-sm-min) {
 			font-size: 2em;
 		}
 		border: 1px solid @color-lightslate;
+
+    background-image: url(../img/magnifying.svg);
+    background-repeat: no-repeat;
+    background-position: 12px 8px;
+    background-size: auto 80%;
+
 	}
 	#nav-typeahead,
 	#product-name,
@@ -867,9 +873,13 @@ form.form-inline {
 		margin: 2em 0 0 0;
 		font-size: 1em;
 		width: 100%;
-		i {
-			display: inline-block;
-		}
+    background-image: url(../img/arrow-right-white.svg);
+    background-repeat: no-repeat;
+    background-position: 95% 45%;
+    background-size: auto 50%;
+    &:hover {
+	    background-position: 95% 45%;
+    }
 	}
 
 	@media (min-width: @screen-sm-min) {
@@ -938,21 +948,37 @@ form.form-inline {
 }
 
 #landing-top-contributors {
+	li {
+		height: 10em;
+		margin-bottom: 1em;
+	}
 	a.top-contributor {
+		height: 100%;
+		width: 100%;
 		display: inline-block;
 		margin-bottom: 8px;
-		padding: 8px 0 8px 20px;
-		img.avatar {
-			width: 50%;
-			margin-bottom: 8px;
+		padding: 8px 0 8px 12px;
+
+		img {
+			max-width: 50%;
+			max-height: 75%;
 		}
+
 		.contrib-meet {
 			color: white;
 			background-color: hsla(0, 0%, 0%, 0.3);
-			padding: 2px 4px 0 6px;
+			padding: 2px 16px 0 6px;
 			margin-top: 15%;
+
+	    background-image: url(../img/arrow-right-white.svg);
+	    background-repeat: no-repeat;
+	    background-position: 92% 45%;
+	    background-size: auto 50%;
+
+
 		}
 		h4 {
+			padding-top: 0.6em;
 			clear: both;
 			color: black;
 			font-weight: 200;
@@ -961,8 +987,9 @@ form.form-inline {
 	}
 	@media (min-width: @screen-sm-min) {
 		a.top-contributor {
+			padding: 8px 0 8px 20px;
 			.contrib-meet {
-				padding: 4px 12px;
+				padding: 4px 20px;
 			}
 		}
 	}
@@ -1064,13 +1091,18 @@ body.landing-not-signed-in {
 		img.avatar {
 			width: 40%;
 			margin-bottom: 8px;
-			margin-left: 16px;
+			margin-left: 8px;
 		}
 		.sponsor-projects {
 			color: white;
 			background-color: @color-seabreeze;
-			padding: 4px 4px 4px 8px;
+			padding: 4px 20px 4px 8px;
 			margin-top: 12%;
+
+	    background-image: url(../img/arrow-right-white.svg);
+	    background-repeat: no-repeat;
+	    background-position: 92% 45%;
+	    background-size: auto 50%;
 		}
 		&:hover	{
 			.sponsor-projects {
