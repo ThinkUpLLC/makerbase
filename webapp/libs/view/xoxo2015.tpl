@@ -26,8 +26,9 @@ description="Meet the makers of XOXO Festival 2015."
           <p style="padding-bottom: 1em;"><strong>Are you going?</strong> Add yourself to the attendee list.</p>
             <a class="btn btn-lg btn-default" href="/gotoxoxo/">I'm going!</a>
             <p style="padding-top: 1em;">Only XOXO attendees can see the list. Everything else on Makerbase is public.</p>
-
         {/if}
+      {else}
+        <p>This unofficial <a href="http://2015.xoxofest.com/">XOXO 2015</a> attendee directory is an incomplete work-in-progress, edited by the community. See you in Portland!</p>
       {/if}
     </div>
   </div>
