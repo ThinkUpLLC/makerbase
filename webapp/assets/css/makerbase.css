@@ -6115,6 +6115,10 @@ form.form-inline {
   padding: 1.2em;
   width: 100%;
   border: 1px solid #c9dae1;
+  background-image: url(../img/magnifying.svg);
+  background-repeat: no-repeat;
+  background-position: 12px 8px;
+  background-size: auto 80%;
 }
 @media (min-width: 768px) {
   #homepage-search #nav-typeahead,
@@ -6154,6 +6158,10 @@ form.form-inline {
   margin: 2em 0 0 0;
   font-size: 1em;
   width: 100%;
+  background-image: url(../img/arrow-right-white.svg);
+  background-repeat: no-repeat;
+  background-position: 92% 45%;
+  background-size: auto 50%;
 }
 #landing-header #join-button:hover,
 #landing-header #join-button:focus {
@@ -6246,30 +6254,44 @@ fieldset[disabled] #landing-header #join-button.active {
   height: 12px;
   margin-top: -3px;
 }
+#landing-top-contributors li {
+  height: 10em;
+  margin-bottom: 1em;
+}
 #landing-top-contributors a.top-contributor {
+  height: 100%;
+  width: 100%;
   display: inline-block;
   margin-bottom: 8px;
-  padding: 8px 0 8px 20px;
+  padding: 8px 0 8px 12px;
 }
-#landing-top-contributors a.top-contributor img.avatar {
-  width: 50%;
-  margin-bottom: 8px;
+#landing-top-contributors a.top-contributor img {
+  max-width: 50%;
+  max-height: 75%;
 }
 #landing-top-contributors a.top-contributor .contrib-meet {
   color: white;
   background-color: rgba(0, 0, 0, 0.3);
-  padding: 2px 4px 0 6px;
+  padding: 2px 16px 0 6px;
   margin-top: 15%;
+  background-image: url(../img/arrow-right-white.svg);
+  background-repeat: no-repeat;
+  background-position: 92% 45%;
+  background-size: auto 50%;
 }
 #landing-top-contributors a.top-contributor h4 {
+  padding-top: 0.6em;
   clear: both;
   color: black;
   font-weight: 200;
   font-size: 1.2em;
 }
 @media (min-width: 768px) {
+  #landing-top-contributors a.top-contributor {
+    padding: 8px 0 8px 20px;
+  }
   #landing-top-contributors a.top-contributor .contrib-meet {
-    padding: 4px 12px;
+    padding: 4px 20px;
   }
 }
 body.landing #activity blockquote {
@@ -6363,13 +6385,17 @@ body.landing-not-signed-in .pager {
 #landing-sponsors a.sponsor img.avatar {
   width: 40%;
   margin-bottom: 8px;
-  margin-left: 16px;
+  margin-left: 8px;
 }
 #landing-sponsors a.sponsor .sponsor-projects {
   color: white;
   background-color: #44c9d7;
-  padding: 4px 4px 4px 8px;
+  padding: 4px 20px 4px 8px;
   margin-top: 12%;
+  background-image: url(../img/arrow-right-white.svg);
+  background-repeat: no-repeat;
+  background-position: 92% 45%;
+  background-size: auto 50%;
 }
 #landing-sponsors a.sponsor:hover .sponsor-projects {
   background-color: #198a9c;

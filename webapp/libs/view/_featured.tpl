@@ -94,8 +94,10 @@
 
       <li class="col-xs-6 col-sm-3">
         <a href="/u/{$user->uid}" class="top-contributor style-{$color}">
+
             <img class="img-rounded avatar pull-left" src="{insert name='user_image' image_url=$user->avatar_url image_proxy_sig=$image_proxy_sig type='u'}" alt="{$user->name}">
-            <buttton class="pull-right contrib-meet">meet <i class="fa fa-arrow-right"></i></buttton>
+
+            <buttton class="pull-right contrib-meet">meet</buttton>
             <h4>{$user->name}</h4>
           </a>
       </li>
