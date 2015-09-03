@@ -95,7 +95,6 @@ users=$featured_users
 
 <div class="row" id="promo-boxes">
 
-
     <div class="feature-box col-xs-12 col-sm-10 col-sm-offset-1" id="landing-sponsors">
       <h1 class="col-xs-12">brought to you by sponsors that makers <em>love to use</em>.</h1>
       <p class="col-xs-12 col-sm-3 col-lg-4">See which projects that inspire you rely on these great products.</p>
