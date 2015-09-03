@@ -5,7 +5,7 @@ class EventMakerController extends MakerbaseController {
      * How many projects to display per maker.
      * @var integer
      */
-    var $projects_per_maker = 5;
+    var $projects_per_maker = 3;
 
     public function control() {
         parent::control();

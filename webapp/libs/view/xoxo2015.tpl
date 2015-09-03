@@ -29,7 +29,7 @@
         {if isset($maker->products)}
           {foreach $maker->products as $maker_product}
             <a href="/p/{$maker_product->uid}/{$maker_product->slug}">
-              <img src="{insert name='user_image' image_url=$maker_product->avatar_url image_proxy_sig=$image_proxy_sig type='m'}">
+              <img src="{insert name='user_image' image_url=$maker_product->avatar_url image_proxy_sig=$image_proxy_sig type='p'}">
               {$maker_product->name}
             </a>
           {/foreach}
@@ -55,7 +55,7 @@
             {if isset($maker->products)}
               {foreach $maker->products as $maker_product}
                 <a href="/p/{$maker_product->uid}/{$maker_product->slug}">
-                  <img src="{insert name='user_image' image_url=$maker_product->avatar_url image_proxy_sig=$image_proxy_sig type='m'}">
+                  <img src="{insert name='user_image' image_url=$maker_product->avatar_url image_proxy_sig=$image_proxy_sig type='p'}">
                   {$maker_product->name}
                 </a>
               {/foreach}
@@ -97,7 +97,7 @@
         {if isset($maker->products)}
           {foreach $maker->products as $maker_product}
             <a href="/p/{$maker_product->uid}/{$maker_product->slug}">
-              <img src="{insert name='user_image' image_url=$maker_product->avatar_url image_proxy_sig=$image_proxy_sig type='m'}">
+              <img src="{insert name='user_image' image_url=$maker_product->avatar_url image_proxy_sig=$image_proxy_sig type='p'}">
               {$maker_product->name}
             </a>
           {/foreach}
@@ -123,7 +123,7 @@
             {if isset($maker->products)}
               {foreach $maker->products as $maker_product}
                 <a href="/p/{$maker_product->uid}/{$maker_product->slug}">
-                  <img src="{insert name='user_image' image_url=$maker_product->avatar_url image_proxy_sig=$image_proxy_sig type='m'}">
+                  <img src="{insert name='user_image' image_url=$maker_product->avatar_url image_proxy_sig=$image_proxy_sig type='p'}">
                   {$maker_product->name}
                 </a>
               {/foreach}
