@@ -40,9 +40,9 @@ class AttendEventController extends MakerbaseAuthController {
     private function addMaker() {
         // Populate maker object with user values
         $maker = new Maker();
-        $maker->slug = AddController::getSlug($this->logged_in_user->twitter_username);
+        $maker->slug = AddController::getSlug($this->logged_in_user->twitter_username, $this->logged_in_user->name);
         $maker->name = $this->logged_in_user->name;
-        $maker->url = $this->logged_in_user->url;
+        $maker->url = (isset($this->logged_in_user->url))?$this->logged_in_user->url:'';
         $maker->avatar_url = $this->logged_in_user->avatar_url;
         $maker->autofill_network = 'twitter';
         $maker->autofill_network_id = $this->logged_in_user->twitter_user_id;
