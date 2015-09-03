@@ -135,7 +135,7 @@
     </div>
 </div>
 {else}
-    <h1><a href="/gotoxoxo/">I'm going!</a></h1>
+    <h1><a href="{if isset($sign_in_with_twttr_link)}{$sign_in_with_twttr_link}{else}/gotoxoxo/{/if}">I'm going!</a></h1>
 {/if}
 
 {include file="_footer.tpl"}
