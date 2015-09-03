@@ -240,8 +240,8 @@ EOD;
 SELECT m.uid AS maker_uid, m.slug AS maker_slug, m.avatar_url AS maker_avatar_url, m.name AS maker_name,
 p.uid AS product_uid, p.slug AS product_slug, p.avatar_url AS product_avatar_url, p.name AS product_name
 FROM makers m INNER JOIN event_makers em ON em.maker_id = m.id
-INNER JOIN roles r ON r.maker_id = m.id
-INNER JOIN products p ON r.product_id = p.id
+LEFT JOIN roles r ON r.maker_id = m.id
+LEFT JOIN products p ON r.product_id = p.id
 WHERE em.event_slug = :event_slug AND em.is_speaker = 0
 ORDER BY m.id,
 ISNULL(r.start) ASC, ISNULL(r.end) DESC, end DESC, start ASC;
@@ -274,14 +274,16 @@ EOD;
                 $current_maker = new Maker(array_merge($maker_vals, $defaults));
                 $current_maker->products = array();
             }
-            $product_vals = array(
-                'uid'=>$row['product_uid'],
-                'slug'=>$row['product_slug'],
-                'avatar_url'=>$row['product_avatar_url'],
-                'name'=>$row['product_name']
-            );
-            if (count($current_maker->products) < $projects_per_maker) {
-                $current_maker->products[] = new Product(array_merge($product_vals, $defaults));
+            if (isset($row['product_uid'])) {
+                $product_vals = array(
+                    'uid'=>$row['product_uid'],
+                    'slug'=>$row['product_slug'],
+                    'avatar_url'=>$row['product_avatar_url'],
+                    'name'=>$row['product_name']
+                );
+                if (count($current_maker->products) < $projects_per_maker) {
+                    $current_maker->products[] = new Product(array_merge($product_vals, $defaults));
+                }
             }
         }
         $makers[] = $current_maker;
@@ -293,8 +295,8 @@ EOD;
 SELECT m.uid AS maker_uid, m.slug AS maker_slug, m.avatar_url AS maker_avatar_url, m.name AS maker_name,
 p.uid AS product_uid, p.slug AS product_slug, p.avatar_url AS product_avatar_url, p.name AS product_name
 FROM makers m INNER JOIN event_makers em ON em.maker_id = m.id
-INNER JOIN roles r ON r.maker_id = m.id
-INNER JOIN products p ON r.product_id = p.id
+LEFT JOIN roles r ON r.maker_id = m.id
+LEFT JOIN products p ON r.product_id = p.id
 WHERE em.event_slug = :event_slug AND em.is_speaker = 1
 ORDER BY m.id,
 ISNULL(r.start) ASC, ISNULL(r.end) DESC, end DESC, start ASC;
@@ -327,14 +329,16 @@ EOD;
                 $current_maker = new Maker(array_merge($maker_vals, $defaults));
                 $current_maker->products = array();
             }
-            $product_vals = array(
-                'uid'=>$row['product_uid'],
-                'slug'=>$row['product_slug'],
-                'avatar_url'=>$row['product_avatar_url'],
-                'name'=>$row['product_name']
-            );
-            if (count($current_maker->products) < $projects_per_speaker) {
-                $current_maker->products[] = new Product(array_merge($product_vals, $defaults));
+            if (isset($row['product_uid'])) {
+                $product_vals = array(
+                    'uid'=>$row['product_uid'],
+                    'slug'=>$row['product_slug'],
+                    'avatar_url'=>$row['product_avatar_url'],
+                    'name'=>$row['product_name']
+                );
+                if (count($current_maker->products) < $projects_per_speaker) {
+                    $current_maker->products[] = new Product(array_merge($product_vals, $defaults));
+                }
             }
         }
         $makers[] = $current_maker;
