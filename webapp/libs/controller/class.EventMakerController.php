@@ -35,6 +35,10 @@ class EventMakerController extends MakerbaseController {
 
                 $makers_col2 = array_slice($makers, $halfway_mark, count($makers));
                 $this->addToView('makers_col2', $makers_col2);
+
+                // Get user's maker
+                $users_maker = $maker_dao->getByID($this->logged_in_user->maker_id);
+                $this->addToView('users_maker', $users_maker);
             }
         }
         // Transfer cached user messages to the view

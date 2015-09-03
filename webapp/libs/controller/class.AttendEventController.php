@@ -34,12 +34,14 @@ class AttendEventController extends MakerbaseAuthController {
             self::expireCache('xoxo2015.tpl', false);
             // logged in
             self::expireCache('xoxo2015.tpl', true);
-            SessionCache::put('success_message', 'You are going to XOXO 2015!');
+            SessionCache::put('success_message', 'You are going to XOXO 2015! <a href="/m/'.
+                $users_maker->uid.'/'.$users_maker->slug.'">Update your project list.</a>');
         } else {
             // Expire cache for xoxo 2015 page
             // logged in only
             self::expireCache('xoxo2015.tpl', true);
-            SessionCache::put('error_message', 'Sorry, there was a problem adding you to the XOXO attendee list');
+            SessionCache::put('error_message', 'Oops! Sorry, unable to add you to the attendee list. '.
+                '<a href="mailto:team@makerba.se">Contact us</a> to get help.');
         }
         $this->redirect('/xoxo2015/');
     }

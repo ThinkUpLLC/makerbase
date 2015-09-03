@@ -5,24 +5,30 @@ url="https://makerba.se/xoxo2015"
 description="Meet the makers of XOXO Festival 2015."
 }
 
+{if isset($makers_col1) && isset($makers_col2)}
+  {assign var="is_going" value=true}
+{else}
+  {assign var="is_going" value=false}
+{/if}
+
 <div class="row">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <div class=" style-seabreeze" style="padding: 2em; margin-top: 1em;">
       <h1 style="margin-top: 0;">
-        <a href="http://2015.xoxofest.com/"><strong>XOXO</strong></a> Meet your makers!
+        <a href="http://2015.xoxofest.com/"><strong>XOXO</strong></a> Meet your makers
       </h1>
-      <p style="padding-bottom: 1em;"><strong>Makerbase is kinda like IMDb for apps or websites</strong><br/>
-      Add Internet projects you've made and discover what the XOXO community has created.</p>
-    {if !isset($makers_col1) && !isset($makers_col2) }
-      {if isset($sign_in_with_twttr_link)}
-          <a class="btn btn-lg btn-default" href="{$sign_in_with_twttr_link}">Sign in to add yourself</a>
-      {else}
-          <a class="btn btn-lg btn-default" href="/gotoxoxo/">I'm going!</a>
+      {if !$is_going}
+        {if isset($sign_in_with_twttr_link)}
+          <p style="padding-bottom: 1em;"><strong>Makerbase is like IMDb for apps, websites, games, and podcasts.</strong><br/>
+          Add projects you've made and discover what the XOXO community has created.</p>
+            <a class="btn btn-lg btn-default" href="{$sign_in_with_twttr_link}">Sign in to add yourself</a>
+        {else}
+          <p style="padding-bottom: 1em;"><strong>Are you going?</strong> Add yourself to the attendee list.</p>
+            <a class="btn btn-lg btn-default" href="/gotoxoxo/">I'm going!</a>
+            <p style="padding-top: 1em;">Only XOXO attendees can see the list. Everything else on Makerbase is public.</p>
+
+        {/if}
       {/if}
-    {else}
-        <a class="btn btn-lg btn-default" href="#">Add your projects</a>
-        <h6>Everybody wants to know what you made!</h6>
-    {/if}
     </div>
   </div>
 </div>
@@ -30,7 +36,7 @@ description="Meet the makers of XOXO Festival 2015."
 <div class="row" id="landing-featured">
 
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-      <h3>Speakers</h3>
+    <a name="speakers" href="#speakers"><h3>Speakers</h3>
   </div>
 
   <div class="col-xs-12 col-sm-5 col-sm-offset-1">
@@ -88,10 +94,13 @@ description="Meet the makers of XOXO Festival 2015."
 
 <div class="row" id="landing-featured">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-    <h3>Attendees</h3>
+    <a name="attendees" href="#attendees"><h3>Attendees</h3></a>
+    {if $is_going}
+      <p class="text-muted"><span class="fa fa-certificate"></span> You're going! Everybody wants to know what you made. <a href="/m/{$users_maker->uid}/{$users_maker->slug}">Update your project list.</a></p>
+      {/if}
   </div>
 
-{if isset($sign_in_with_twttr_link)}
+{if isset($sign_in_with_twttr_link) || !$is_going}
 
   <div class="col-xs-12 col-sm-5 col-sm-offset-1">
     <div class="media row">
@@ -153,9 +162,12 @@ description="Meet the makers of XOXO Festival 2015."
 
 <div class="row" style="padding-top: 15px;">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-    <a class="btn btn-lg btn-primary" href="{$sign_in_with_twttr_link}">
-    Sign in with Twitter</a>
-    <h5 class="">XOXO attendees can see the full list.</h5>
+    {if isset($sign_in_with_twttr_link)}
+    <a class="btn btn-lg btn-primary" href="{$sign_in_with_twttr_link}">Sign in with Twitter</a>
+    {else}
+    <a class="btn btn-lg btn-primary" href="/gotoxoxo/">Get on the list</a>
+    {/if}
+    <p style="padding-top:1em;"><strong>Only XOXO attendees can see the list.</strong> Everything else on Makerbase is public.</p>
   </div>
 {/if}
 
@@ -164,7 +176,8 @@ description="Meet the makers of XOXO Festival 2015."
 <!--ATTENDEES-->
 <div class="row" id="landing-featured">
 
-{if isset($makers_col1) && isset($makers_col2)}
+{if $is_going}
+
   <div class="col-xs-12 col-sm-5 col-sm-offset-1">
     {foreach $makers_col1 as $maker}
     <div class="media row">
@@ -217,6 +230,13 @@ description="Meet the makers of XOXO Festival 2015."
         {/foreach}
     </div>
 {/if}
+  </div>
+
+<div class="row" id="landing-featured">
+  <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+    <p><a href="http://2015.xoxofest.com/" style="text-decoration:underline">XOXO</a> is an experimental festival that celebrates independent art and technology from September 10-13 in Portland, Oregon. This unofficial XOXO 2015 attendee directory is an incomplete work-in-progress, edited by the community.</p>
+
+  </div>
 
 </div>
 
@@ -224,8 +244,8 @@ description="Meet the makers of XOXO Festival 2015."
 <div class="row" id="promo-boxes">
 
     <div class="feature-box col-xs-12 col-sm-10 col-sm-offset-1" id="landing-sponsors">
-      <h1 class="col-xs-12">brought to you by sponsors that makers <em>love to use</em>.</h1>
-      <p class="col-xs-12 col-sm-4">Don't take our word for it. See which of the projects that inspire you rely on these great products.</p>
+      <h3 class="col-xs-12">makerbase is brought to you by sponsors that makers <em>love to use</em>.</h3>
+      <p class="col-xs-12 col-sm-4">See which projects that inspire you rely on these great products.</p>
 
       <ul class="list-inline col-sm-8">
         <li class="col-xs-12 col-sm-4">
