@@ -30,7 +30,7 @@
 
     <form class="navbar-form" role="search" action="/search/" id="homepage-search">
       <div class="" id="remote-search">
-          <input type="search" class="form-control typeahead" placeholder="Search or add..." name="q" autocomplete="off" id="nav-typeahead">
+          <input type="search" class="form-control typeahead" placeholder="search or add..." name="q" autocomplete="off" id="nav-typeahead">
       </div>
     </form>
   </div>
@@ -75,7 +75,7 @@ users=$featured_users
 
     <form class="navbar-form" role="search" action="/search/" id="homepage-search">
       <div class="" id="remote-search">
-        <input type="search" class="form-control input-lg typeahead" placeholder="     search by maker or project..." name="q" autocomplete="off" id="nav-typeahead">
+        <input type="search" class="form-control input-lg typeahead" placeholder="search by maker or project..." name="q" autocomplete="off" id="nav-typeahead">
       </div>
     </form>
 

@@ -6112,7 +6112,7 @@ form.form-inline {
 #homepage-search #product-name,
 #homepage-search #maker-name,
 #homepage-search .tt-hint {
-  padding: 1.2em;
+  padding: 1.2em 1.2em 1.2em 2.4em;
   width: 100%;
   border: 1px solid #c9dae1;
   background-image: url(../img/magnifying.svg);
@@ -6160,7 +6160,7 @@ form.form-inline {
   width: 100%;
   background-image: url(../img/arrow-right-white.svg);
   background-repeat: no-repeat;
-  background-position: 92% 45%;
+  background-position: 95% 45%;
   background-size: auto 50%;
 }
 #landing-header #join-button:hover,
@@ -6194,8 +6194,8 @@ fieldset[disabled] #landing-header #join-button.active {
   background-color: #24ba94;
   background-image: none;
 }
-#landing-header #join-button i {
-  display: inline-block;
+#landing-header #join-button:hover {
+  background-position: 95% 45%;
 }
 @media (min-width: 768px) {
   #landing-header h1 {
