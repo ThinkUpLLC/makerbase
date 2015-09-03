@@ -221,7 +221,7 @@ CREATE TABLE users (
   has_added_maker int(1) NOT NULL DEFAULT '0' COMMENT 'Whether user has added a maker.',
   has_added_product int(1) NOT NULL DEFAULT '0' COMMENT 'Whether user has added a product.',
   has_added_role int(1) NOT NULL DEFAULT '0' COMMENT 'Whether user has added a role.',
-  last_refreshed_friends timestamp NULL DEFAULT NULL COMMENT 'Last network friends fetch time.',
+  last_loaded_friends timestamp NULL DEFAULT NULL COMMENT 'Last network friends fetch time.',
   PRIMARY KEY (id),
   UNIQUE KEY uid (uid),
   UNIQUE KEY twitter_user_id (twitter_user_id),
