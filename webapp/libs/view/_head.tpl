@@ -1,3 +1,11 @@
+<!--
+#      __  ___        __                __                          __
+#     /  |/  /____ _ / /__ ___   _____ / /_   ____ _ _____ ___     / /____  _   __ ___   _____   __  __ ____   __  __
+#    / /|_/ // __ `// //_// _ \ / ___// __ \ / __ `// ___// _ \   / // __ \| | / // _ \ / ___/  / / / // __ \ / / / /
+#   / /  / // /_/ // ,<  /  __// /   / /_/ // /_/ /(__  )/  __/  / // /_/ /| |/ //  __/(__  )  / /_/ // /_/ // /_/ /
+#  /_/  /_/ \__,_//_/|_| \___//_/   /_.___/ \__,_//____/ \___/  /_/ \____/ |___/ \___//____/   \__, / \____/ \__,_/
+#                                                                                             /____/
+-->
 {if !isset($suppress_search)}
   {assign var='suppress_search' value=false}
 {/if}
@@ -72,15 +80,31 @@
 
       <link rel="canonical" href="{$application_url}{$url}" />
     {else}
-      <title>{$app_title}</title>
-      <meta property="og:url" content="{$application_url}" />
+      {if isset($title)}
+        {assign var="title" value="`$title` on `$app_title`"}
+      {else}
+        {assign var="title" value="{$app_title}"}
+      {/if}
+      {if isset($url)}
+        {assign var="url" value="{$url}"}
+      {else}
+        {assign var="url" value="{$application_url}"}
+      {/if}
+      {if isset($description)}
+        {assign var="description" value="{$description}"}
+      {else}
+        {assign var="description" value="A directory of people who make things."}
+      {/if}
+
+      <title>{$title}</title>
+      <meta property="og:url" content="{$url}" />
       <meta property="og:type" content="website" />
-      <meta itemprop="name" content="Makerbase" />
-      <meta name="twitter:title" content="Makerbase" />
-      <meta property="og:title" content="Makerbase" />
-      <meta itemprop="description" content="A directory of people who make things." />
-      <meta name="description" content="A directory of people who make things." />
-      <meta name="twitter:description" content="A directory of people who make things." />
+      <meta itemprop="name" content="{$title}" />
+      <meta name="twitter:title" content="{$title}" />
+      <meta property="og:title" content="{$title}" />
+      <meta itemprop="description" content="{$description}" />
+      <meta name="description" content="{$description}" />
+      <meta name="twitter:description" content="{$description}" />
 
       {assign var="image" value="https://makerba.se/assets/img/makerbase-logo-horizontal.png"}
       <meta itemprop="image" content="{$image}">
@@ -89,7 +113,7 @@
       <meta name="twitter:image:src" content="{$image}" />
       <meta name="twitter:image:width" content="524" />
 
-      <link rel="canonical" href="{$application_url}" />
+      <link rel="canonical" href="{$url}" />
     {/if}
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->

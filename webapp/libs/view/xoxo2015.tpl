@@ -1,5 +1,9 @@
 
-{include file="_head.tpl" body_class='landing'}
+{include file="_head.tpl" body_class='landing'
+title="XOXO Festival 2015"
+url="https://makerba.se/xoxo2015"
+description="Meet the makers of XOXO Festival 2015."
+}
 
 <div class="row">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
