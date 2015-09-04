@@ -14,14 +14,10 @@ class EventMakerController extends MakerbaseController {
         if ($this->shouldRefreshCache() ) {
             // XOXO 2015 speakers
             $maker_dao = new MakerMySQLDAO();
-            $speakers = $maker_dao->getEventSpeakers('xoxo2015', $this->projects_per_maker);
+            $speakers_col1 = $maker_dao->getEventSpeakers('xoxo2015', $this->projects_per_maker, '2015-09-12');
+            $speakers_col2 = $maker_dao->getEventSpeakers('xoxo2015', $this->projects_per_maker, '2015-09-13');
 
-            $halfway_mark = round(count($speakers)/2);
-
-            $speakers_col1 = array_slice($speakers, 0, ($halfway_mark));
             $this->addToView('speakers_col1', $speakers_col1);
-
-            $speakers_col2 = array_slice($speakers, ($halfway_mark), count($speakers));
             $this->addToView('speakers_col2', $speakers_col2);
 
             if (Session::isLoggedIn() && $maker_dao->isAttendingEvent('xoxo2015', $this->logged_in_user) ) {

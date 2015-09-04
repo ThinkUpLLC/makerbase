@@ -41,6 +41,7 @@ description="Meet the makers of XOXO Festival 2015."
   </div>
 
   <div class="col-xs-12 col-sm-5 col-sm-offset-1">
+  <p>Saturday, September 12th</p>
     {foreach $speakers_col1 as $maker}
     <div class="media row">
       <div class="media-left media-top col-xs-3">
@@ -67,6 +68,8 @@ description="Meet the makers of XOXO Festival 2015."
     </div>
 
     <div class="col-xs-12 col-sm-5">
+      <p>Sunday, September 13th</p>
+
         {foreach $speakers_col2 as $maker}
         <div class="media row">
           <div class="media-left media-top col-xs-3">

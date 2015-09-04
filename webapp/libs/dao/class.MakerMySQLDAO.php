@@ -291,7 +291,7 @@ EOD;
         return $makers;
     }
 
-    public function getEventSpeakers($event_slug, $projects_per_speaker) {
+    public function getEventSpeakers($event_slug, $projects_per_speaker, $day_speaking) {
         $q = <<<EOD
 SELECT m.uid AS maker_uid, m.slug AS maker_slug, m.avatar_url AS maker_avatar_url, m.name AS maker_name,
 p.uid AS product_uid, p.slug AS product_slug, p.avatar_url AS product_avatar_url, p.name AS product_name
@@ -300,11 +300,13 @@ LEFT JOIN roles r ON r.maker_id = m.id
 LEFT JOIN products p ON r.product_id = p.id
 WHERE m.is_archived = 0 AND (r.is_archived = 0 OR r.is_archived IS NULL)
 AND em.event_slug = :event_slug AND em.is_speaker = 1
-ORDER BY m.id DESC,
+AND DATE(em.speak_date) = :day_speaking
+ORDER BY em.speak_date ASC,
 ISNULL(r.start) ASC, ISNULL(r.end) DESC, end DESC, start ASC;
 EOD;
         $vars = array (
-            ':event_slug' => $event_slug
+            ':event_slug' => $event_slug,
+            ':day_speaking' => $day_speaking
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         //echo self::mergeSQLVars($q, $vars);
