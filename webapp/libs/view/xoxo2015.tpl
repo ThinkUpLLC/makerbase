@@ -56,7 +56,7 @@ description="Meet the makers of XOXO Festival 2015."
           {foreach $maker->products as $maker_product}
             <a href="/p/{$maker_product->uid}/{$maker_product->slug}">
               <img src="{insert name='user_image' image_url=$maker_product->avatar_url image_proxy_sig=$image_proxy_sig type='p'}">
-              {$maker_product->name|escape}
+              {$maker_product->name|truncate:20|escape}
             </a>
           {/foreach}
           {/if}
@@ -82,7 +82,7 @@ description="Meet the makers of XOXO Festival 2015."
               {foreach $maker->products as $maker_product}
                 <a href="/p/{$maker_product->uid}/{$maker_product->slug}">
                   <img src="{insert name='user_image' image_url=$maker_product->avatar_url image_proxy_sig=$image_proxy_sig type='p'}">
-                  {$maker_product->name|escape}
+                  {$maker_product->name|truncate:20|escape}
                 </a>
               {/foreach}
               {/if}
@@ -195,7 +195,7 @@ description="Meet the makers of XOXO Festival 2015."
           {foreach $maker->products as $maker_product}
             <a href="/p/{$maker_product->uid}/{$maker_product->slug}">
               <img src="{insert name='user_image' image_url=$maker_product->avatar_url image_proxy_sig=$image_proxy_sig type='p'}">
-              {$maker_product->name|escape}
+              {$maker_product->name|truncate:20|escape}
             </a>
           {/foreach}
           {/if}
@@ -221,7 +221,7 @@ description="Meet the makers of XOXO Festival 2015."
               {foreach $maker->products as $maker_product}
                 <a href="/p/{$maker_product->uid}/{$maker_product->slug}">
                   <img src="{insert name='user_image' image_url=$maker_product->avatar_url image_proxy_sig=$image_proxy_sig type='p'}">
-                  {$maker_product->name|escape}
+                  {$maker_product->name|truncate:20|escape}
                 </a>
               {/foreach}
               {/if}
