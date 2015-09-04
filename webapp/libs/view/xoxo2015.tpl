@@ -37,7 +37,7 @@ description="Meet the makers of XOXO Festival 2015."
 <div class="row" id="landing-featured">
 
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-    <a name="speakers" href="#speakers"><h3>Speakers</h3>
+    <a name="speakers" href="#speakers"><h3>Speakers</h3></a>
   </div>
 
   <div class="col-xs-12 col-sm-5 col-sm-offset-1">
@@ -249,7 +249,7 @@ description="Meet the makers of XOXO Festival 2015."
 
     <div class="feature-box col-xs-12 col-sm-10 col-sm-offset-1" id="landing-sponsors" style="min-height: 75px;">
       <h3 class="col-xs-12">brought to you by sponsors that makers <em>really love</em>.</h3>
-      <p class="col-xs-12 col-sm-2"><small>See who's using these great services:<small></p>
+      <p class="col-xs-12 col-sm-2"><small>See who's using these great services:</small></p>
 
       <ul class="list-inline col-sm-10">
         <li class="col-xs-12 col-sm-4">
