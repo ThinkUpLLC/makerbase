@@ -242,7 +242,8 @@ p.uid AS product_uid, p.slug AS product_slug, p.avatar_url AS product_avatar_url
 FROM makers m INNER JOIN event_makers em ON em.maker_id = m.id
 LEFT JOIN roles r ON r.maker_id = m.id
 LEFT JOIN products p ON r.product_id = p.id
-WHERE m.is_archived = 0 AND r.is_archived = 0 AND em.event_slug = :event_slug AND em.is_speaker = 0
+WHERE m.is_archived = 0 AND (r.is_archived = 0 OR r.is_archived IS NULL)
+AND em.event_slug = :event_slug AND em.is_speaker = 0
 ORDER BY m.id DESC,
 ISNULL(r.start) ASC, ISNULL(r.end) DESC, end DESC, start ASC;
 EOD;
@@ -297,7 +298,8 @@ p.uid AS product_uid, p.slug AS product_slug, p.avatar_url AS product_avatar_url
 FROM makers m INNER JOIN event_makers em ON em.maker_id = m.id
 LEFT JOIN roles r ON r.maker_id = m.id
 LEFT JOIN products p ON r.product_id = p.id
-WHERE m.is_archived = 0 AND r.is_archived = 0 AND em.event_slug = :event_slug AND em.is_speaker = 1
+WHERE m.is_archived = 0 AND (r.is_archived = 0 OR r.is_archived IS NULL)
+AND em.event_slug = :event_slug AND em.is_speaker = 1
 ORDER BY m.id DESC,
 ISNULL(r.start) ASC, ISNULL(r.end) DESC, end DESC, start ASC;
 EOD;
