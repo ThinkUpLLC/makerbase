@@ -85,13 +85,16 @@ EOD;
         return $user;
     }
 
-    public function getUsersWhoAreFriends($twitter_user_id) {
+    public function getUsersWhoAreFriends(User $user) {
         $q = <<<EOD
 SELECT u.* FROM users u
 INNER JOIN network_friends nf ON u.twitter_user_id = nf.friend_id
-WHERE nf.user_id = :twitter_user_id
+WHERE nf.user_id = :twitter_user_id AND u.creation_time >= :since_time
 EOD;
-        $vars = array ( ':twitter_user_id' => $twitter_user_id);
+        $vars = array (
+            ':twitter_user_id' => $user->twitter_user_id,
+            ':since_time' => $user->last_loaded_friends
+        );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         //echo self::mergeSQLVars($q, $vars);
         $ps = $this->execute($q, $vars);
@@ -196,8 +199,10 @@ EOD;
     }
 
     public function getTotalUsersWithFriends() {
+        $day_interval = LoadNetworkFriendsController::$number_days_till_friend_refresh;
         $q = <<<EOD
-SELECT count(*) AS total FROM users u WHERE last_loaded_friends IS NOT NULL;
+SELECT count(*) AS total FROM users u WHERE last_loaded_friends IS NOT NULL AND
+last_loaded_friends < DATE_SUB(NOW(), INTERVAL $day_interval DAY);
 EOD;
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         $ps = $this->execute($q);
@@ -319,11 +324,15 @@ EOD;
         return $this->getDataRowsAsObjects($ps, "User");
     }
 
-    public function getUsersWithoutFriends($limit = 5) {
+    public function getUsersWhoNeedFriendRefresh($limit = 5) {
+        $day_interval = LoadNetworkFriendsController::$number_days_till_friend_refresh;
         $q = <<<EOD
-SELECT u.* FROM users u WHERE last_loaded_friends IS NULL LIMIT :limit
+SELECT u.* FROM users u WHERE last_loaded_friends IS NULL
+OR last_loaded_friends < DATE_SUB(NOW(), INTERVAL $day_interval DAY) LIMIT :limit
 EOD;
-        $vars = array ( ':limit' => $limit);
+        $vars = array (
+            ':limit' => $limit
+        );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         //echo self::mergeSQLVars($q, $vars);
         $ps = $this->execute($q, $vars);

@@ -1,14 +1,18 @@
 <?php
 
 class LoadNetworkFriendsController extends MakerbaseController {
+    /**
+     * @var int Number days to wait till next friend refresh
+     */
+    static $number_days_till_friend_refresh = 5;
 
     public function control() {
         $this->disableCaching();
 
         $user_dao = new UserMySQLDAO();
-        $friendless_users = $user_dao->getUsersWithoutFriends(5);
+        $users_to_refresh = $user_dao->getUsersWhoNeedFriendRefresh();
 
-        if (count($friendless_users) > 0) {
+        if (count($users_to_refresh) > 0) {
             // Instantiate needed objects
             $api_accessor = new TwitterAPIAccessor();
             $cfg = Config::getInstance();
@@ -19,7 +23,7 @@ class LoadNetworkFriendsController extends MakerbaseController {
             $results = array();
 
             //Loop through friendless users and get their friends
-            foreach ($friendless_users as $user) {
+            foreach ($users_to_refresh as $user) {
                 //Get user's auth tokens
                 $oauth_token = $user->twitter_oauth_access_token;
                 $oauth_secret = $user->twitter_oauth_access_token_secret;
@@ -48,12 +52,13 @@ class LoadNetworkFriendsController extends MakerbaseController {
 
                         }
                     }
-                    $results[] = $user->twitter_username.": Added ".number_format($new_friend_count). " user friends";
+                    $results[] = $user->twitter_username.": Added ".number_format($new_friend_count)
+                        . " Twitter friends";
                     $user_dao->updateLastRefreshedFriends($user);
 
                     // Create connections based on friendships
                     // Set connections who are users
-                    $friend_users = $user_dao->getUsersWhoAreFriends($user->twitter_user_id);
+                    $friend_users = $user_dao->getUsersWhoAreFriends($user);
                     $new_connection_count = 0;
                     foreach ($friend_users as $friend) {
                         if ($connection_dao->insert($user, $friend)) {
@@ -64,7 +69,7 @@ class LoadNetworkFriendsController extends MakerbaseController {
 
                     // Set connections who are makers
                     $maker_dao = new MakerMySQLDAO();
-                    $friend_makers = $maker_dao->getMakersWhoAreFriends($user->twitter_user_id);
+                    $friend_makers = $maker_dao->getMakersWhoAreFriends($user);
                     $new_connection_count = 0;
                     foreach ($friend_makers as $maker) {
                         if ($connection_dao->insert($user, $maker)) {
@@ -75,7 +80,7 @@ class LoadNetworkFriendsController extends MakerbaseController {
 
                     // Set connections which are products
                     $product_dao = new ProductMySQLDAO();
-                    $friend_products = $product_dao->getProductsThatAreFriends($user->twitter_user_id);
+                    $friend_products = $product_dao->getProductsThatAreFriends($user);
                     $new_connection_count = 0;
                     foreach ($friend_products as $product) {
                         if ($connection_dao->insert($user, $product)) {
@@ -89,6 +94,7 @@ class LoadNetworkFriendsController extends MakerbaseController {
                     $oauth_secret = null;
                 } catch (APIErrorException $e) {
                     //If API credentials are incorrect, just mark and done and move on
+                    //TODO Capture/indicate somewhere that there was an error, right now this fails silently
                     $user_dao->updateLastRefreshedFriends($user);
                 }
             }

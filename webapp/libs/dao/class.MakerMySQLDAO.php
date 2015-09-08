@@ -367,13 +367,17 @@ EOD;
         return $makers;
     }
 
-    public function getMakersWhoAreFriends($twitter_user_id) {
+    public function getMakersWhoAreFriends(User $user) {
         $q = <<<EOD
 SELECT m.* FROM makers m
 INNER JOIN network_friends nf ON m.autofill_network_id = nf.friend_id
 WHERE nf.user_id = :twitter_user_id AND m.autofill_network = 'twitter'
+AND m.creation_time >= :since_time
 EOD;
-        $vars = array ( ':twitter_user_id' => $twitter_user_id);
+        $vars = array (
+            ':twitter_user_id' => $user->twitter_user_id,
+            ':since_time' => $user->last_loaded_friends
+        );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         //echo self::mergeSQLVars($q, $vars);
         $ps = $this->execute($q, $vars);

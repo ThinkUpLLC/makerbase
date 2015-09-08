@@ -66,6 +66,7 @@
             </li>
             <li><a>Logged in {$user->last_login_time|relative_datetime} ago</a></li>
             <li><a>Joined {$user->creation_time|relative_datetime} ago</a></li>
+            <li><a>Fetched friends {$user->last_loaded_friends|relative_datetime} ago</a></li>
             {/if}
 
           </ul>
