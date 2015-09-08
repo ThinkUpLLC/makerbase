@@ -6,10 +6,10 @@ class UserMySQLDAO extends MakerbasePDODAO {
         $q = <<<EOD
 INSERT INTO users (
 uid, name, url, avatar_url, twitter_user_id, twitter_username, twitter_oauth_access_token,
-twitter_oauth_access_token_secret, last_login_time
+twitter_oauth_access_token_secret, last_login_time, maker_id
 ) VALUES (
 :uid, :name, :url, :avatar_url, :twitter_user_id, :twitter_username, :twitter_oauth_access_token,
-:twitter_oauth_access_token_secret, NOW()
+:twitter_oauth_access_token_secret, NOW(), :maker_id
 )
 EOD;
         $vars = array (
@@ -20,7 +20,8 @@ EOD;
             ':twitter_user_id' => $user->twitter_user_id,
             ':twitter_username' => $user->twitter_username,
             'twitter_oauth_access_token' => $user->twitter_oauth_access_token,
-            ':twitter_oauth_access_token_secret' => $user->twitter_oauth_access_token_secret
+            ':twitter_oauth_access_token_secret' => $user->twitter_oauth_access_token_secret,
+            ':maker_id' => $user->maker_id
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         //echo self::mergeSQLVars($q, $vars);

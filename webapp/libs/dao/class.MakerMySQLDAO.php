@@ -84,6 +84,24 @@ EOD;
         return $maker;
     }
 
+    public function getByAutofill($autofill_network, $autofill_network_id) {
+        $q = <<<EOD
+SELECT * FROM makers WHERE autofill_network = :autofill_network AND autofill_network_id = :autofill_network_id
+EOD;
+        $vars = array (
+            ':autofill_network' => $autofill_network,
+            ':autofill_network_id' => $autofill_network_id,
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        $maker = $this->getDataRowAsObject($ps, "Maker");
+        if (!isset($maker)) {
+            throw new MakerDoesNotExistException('Maker does not exist.');
+        }
+        return $maker;
+    }
+
     public function insert(Maker $maker) {
         $maker->uid = self::generateRandomString(6);
         $q = <<<EOD

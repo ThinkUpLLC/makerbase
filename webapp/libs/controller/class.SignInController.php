@@ -49,6 +49,17 @@ class SignInController extends MakerbaseController {
                             $user->twitter_oauth_access_token_secret = $token_array['oauth_token_secret'];
                             $user_dao->update($user);
                         }
+                        if (!isset($user->maker_id)) {
+                            //Get maker by twitter user id and set id
+                            $maker_dao = new MakerMySQLDAO();
+                            try {
+                                $maker = $maker_dao->getByAutofill('twitter', $user->twitter_user_id);
+                                $user->maker_id = $maker->id;
+                                $user_dao->setMaker($user, $maker);
+                            } catch (MakerDoesNotExistException $e) {
+                                //there's no maker for this user; do nothing
+                            }
+                        }
                     } catch (UserDoesNotExistException $e) {
                         $user = new User();
                         $user->name = $authed_twitter_user['full_name'];
@@ -58,6 +69,15 @@ class SignInController extends MakerbaseController {
                         $user->twitter_username = $authed_twitter_user['user_name'];
                         $user->twitter_oauth_access_token = $token_array['oauth_token'];
                         $user->twitter_oauth_access_token_secret = $token_array['oauth_token_secret'];
+                        //Get maker by twitter user id and set id
+                        $maker_dao = new MakerMySQLDAO();
+                        try {
+                            $maker = $maker_dao->getByAutofill('twitter', $user->twitter_user_id);
+                            $user->maker_id = $maker->id;
+                        } catch (MakerDoesNotExistException $e) {
+                            //there's no maker for this user; set to null
+                            $user->maker_id = null;
+                        }
                         $new_user = $user_dao->insert($user);
                         $user->id = $new_user->id;
                         $user->uid = $new_user->uid;
