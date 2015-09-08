@@ -6391,7 +6391,7 @@ body.landing-not-signed-in .pager {
   width: 100%;
 }
 #landing-sponsors a.sponsor img.avatar {
-  width: 40%;
+  max-width: 40%;
   margin-bottom: 8px;
   margin-left: 8px;
 }
