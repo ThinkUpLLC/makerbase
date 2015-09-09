@@ -19,15 +19,27 @@ class LandingController extends MakerbaseController {
                 $action_dao = new ActionMySQLDAO();
 
                 $actions = array();
-                //Test personalized activity stream with separate link /new/connections/
-                if (isset($_GET['stream']) && $_GET['stream'] == 'friends') {
+
+                if (isset($_GET['stream']) ) {
+                    if ($_GET['stream'] == 'friends') {
+                        $actions = $action_dao->getUserConnectionsActivities($this->logged_in_user->id, $page_number,
+                            $limit);
+                        $this->addToView('friends_activity', 'true');
+                    } else {
+                        $actions = $action_dao->getActivities($page_number, $limit);
+                        $this->addToView('friends_activity', 'false');
+                    }
+                } else {
                     $actions = $action_dao->getUserConnectionsActivities($this->logged_in_user->id, $page_number,
                         $limit);
+                    if (count($actions) > 0) {
+                        $this->addToView('friends_activity', 'true');
+                    } else {
+                        $actions = $action_dao->getActivities($page_number, $limit);
+                        $this->addToView('friends_activity', 'false');
+                    }
                 }
 
-                if (count($actions) == 0) {
-                    $actions = $action_dao->getActivities($page_number, $limit);
-                }
                 if (count($actions) > $limit) {
                     array_pop($actions);
                     $this->addToView('next_page', $page_number+1);

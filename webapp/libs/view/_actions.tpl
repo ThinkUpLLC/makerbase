@@ -8,13 +8,23 @@ $object either the Product or Maker or User
 
 
 {if isset($actions)}
-  {if sizeof($actions) > 0}
 
 <div class="row" id="activity">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
 
+  {if isset($friends_activity)}
+    {if $friends_activity eq 'true'}
+      <h3>your friends' activity <small>(see <a href="/activity/1/all">all activity</a>)</small></h3>
+    {else}
+      <h3>all activity <small>(see <a href="/activity/1/friends">your friends' activity</a>)</small></h3>
+    {/if}
+  {else}
     <h3>recent activity</h3>
 
+  {/if}
+  {if sizeof($actions) eq 0}
+  <p>No {if $friends_activity eq 'true'}friend {/if}activity found!{if $friends_activity eq 'true'} Try <a href="/activity/1/all">all activity</a>.{/if}</p>
+  {/if}
     {foreach $actions as $action}
 
       {assign var='color_num' value=($action->id|substr:-1)}
@@ -51,15 +61,14 @@ $object either the Product or Maker or User
     <nav id="pager">
       <ul class="list-inline">
         {if isset($next_page)}
-          <li class="previous"><a href="{$paging_path}/{$next_page}{if isset($smarty.get.stream) && $smarty.get.stream eq 'friends'}/friends{/if}#activity" class="btn btn-info"><span aria-hidden="true"><i class="fa fa-arrow-left"></i></span> Older</a></li>
+          <li class="previous"><a href="{$paging_path}/{$next_page}/{if isset($friends_activity) && $friends_activity eq 'true'}friends{/if}{if isset($friends_activity) && $friends_activity eq 'false'}all{/if}#activity" class="btn btn-info"><span aria-hidden="true"><i class="fa fa-arrow-left"></i></span> Older</a></li>
         {/if}
         {if isset($prev_page)}
-          <li class="next pull-right"><a href="{$paging_path}/{if $prev_page neq 1}{$prev_page}{/if}{if isset($smarty.get.stream) && $smarty.get.stream eq 'friends'}/friends{/if}#activity" class="btn btn-info">Newer <span aria-hidden="true"><i class="fa fa-arrow-right"></i></span></a></li>
+          <li class="next pull-right"><a href="{$paging_path}/{$prev_page}/{if isset($friends_activity) && $friends_activity eq 'true'}friends{/if}{if isset($friends_activity) && $friends_activity eq 'false'}all{/if}#activity" class="btn btn-info">Newer <span aria-hidden="true"><i class="fa fa-arrow-right"></i></span></a></li>
         {/if}
       </ul>
     </nav>
 
   </div>
 </div>
-{/if}
 {/if}
