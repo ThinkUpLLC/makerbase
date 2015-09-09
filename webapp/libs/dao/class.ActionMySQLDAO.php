@@ -88,7 +88,7 @@ EOD;
         $start = $limit * ($page - 1);
         $limit++;
         $q = <<<EOD
-SELECT a.*, uactor.name, uactor.uid AS user_uid, uactor.twitter_username as username FROM actions a
+SELECT DISTINCT a.*, uactor.name, uactor.uid AS user_uid, uactor.twitter_username as username FROM actions a
 INNER JOIN action_objects ao ON a.id = ao.action_id
 INNER JOIN connections c ON c.object_type = ao.object_type and c.object_id = ao.object_id
 INNER JOIN users uactor ON a.user_id = uactor.id
