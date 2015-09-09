@@ -82,6 +82,10 @@
 	filter: blur(3px);
 }
 
+.active {
+	font-weight: 600;
+}
+
 .popover {
 }
 
@@ -430,6 +434,26 @@ form.form-inline {
 	h6 {
 		margin: 0.5em 0 0 0;
 	}
+	.nav-tabs {
+		li {
+			a{
+				&:hover,
+				&:focus {
+					background-color: @color-lightslate;
+				}
+			}
+			&.active {
+				a {
+					border: 1px solid @color-lightslate;
+					border-bottom-color: transparent;
+					color: black;
+					border-radius: 8px 3px 0 0;
+				}
+			}
+		}
+	}
+
+
 	.media {
 		padding: 12px;
 		a {

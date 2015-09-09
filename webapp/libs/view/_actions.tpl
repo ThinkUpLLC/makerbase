@@ -8,12 +8,33 @@ $object either the Product or Maker or User
 
 
 {if isset($actions)}
-  {if sizeof($actions) > 0}
 
 <div class="row" id="activity">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
 
     <h3>recent activity</h3>
+
+    {if isset($friends_activity)}
+
+      <!-- activity tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" {if $friends_activity eq 'true'}class="active"{/if}><a href="/activity/1/friends" aria-controls="friends" role="tab" >friends</a></li>
+        <li role="presentation" {if $friends_activity neq 'true'}class="active"{/if}><a href="/activity/1/all" aria-controls="everyone" role="tab">everyone</a></li>
+      </ul>
+
+    {/if}
+
+    {if sizeof($actions) eq 0}
+
+      <div class="media">
+        <div class="media-body">
+          <h4 class="media-heading">
+           Sorry, there's no {if $friends_activity eq 'true'}friend {/if}activity{if $friends_activity eq 'true'} in your network yet. Try <a href="/activity/1/all">all activity</a>{/if}.
+          </h4>
+        </div>
+      </div>
+
+    {/if}
 
     {foreach $actions as $action}
 
@@ -51,15 +72,14 @@ $object either the Product or Maker or User
     <nav id="pager">
       <ul class="list-inline">
         {if isset($next_page)}
-          <li class="previous"><a href="{$paging_path}/{$next_page}{if isset($smarty.get.stream) && $smarty.get.stream eq 'friends'}/friends{/if}#activity" class="btn btn-info"><span aria-hidden="true"><i class="fa fa-arrow-left"></i></span> Older</a></li>
+          <li class="previous"><a href="{$paging_path}/{$next_page}/{if isset($friends_activity) && $friends_activity eq 'true'}friends{/if}{if isset($friends_activity) && $friends_activity eq 'false'}all{/if}#activity" class="btn btn-info"><span aria-hidden="true"><i class="fa fa-arrow-left"></i></span> Older</a></li>
         {/if}
         {if isset($prev_page)}
-          <li class="next pull-right"><a href="{$paging_path}/{if $prev_page neq 1}{$prev_page}{/if}{if isset($smarty.get.stream) && $smarty.get.stream eq 'friends'}/friends{/if}#activity" class="btn btn-info">Newer <span aria-hidden="true"><i class="fa fa-arrow-right"></i></span></a></li>
+          <li class="next pull-right"><a href="{$paging_path}/{$prev_page}/{if isset($friends_activity) && $friends_activity eq 'true'}friends{/if}{if isset($friends_activity) && $friends_activity eq 'false'}all{/if}#activity" class="btn btn-info">Newer <span aria-hidden="true"><i class="fa fa-arrow-right"></i></span></a></li>
         {/if}
       </ul>
     </nav>
 
   </div>
 </div>
-{/if}
 {/if}
