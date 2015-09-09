@@ -24,9 +24,18 @@ $object either the Product or Maker or User
 
     {/if}
 
-  {if sizeof($actions) eq 0}
-  <p>No {if $friends_activity eq 'true'}friend {/if}activity found!{if $friends_activity eq 'true'} Try <a href="/activity/1/all">all activity</a>.{/if}</p>
-  {/if}
+    {if sizeof($actions) eq 0}
+
+      <div class="media">
+        <div class="media-body">
+          <h4 class="media-heading">
+            Sorry, we don't show any {if $friends_activity eq 'true'}friend {/if}activity in your network yet.
+          </h4>
+        </div>
+      </div>
+
+    {/if}
+
     {foreach $actions as $action}
 
       {assign var='color_num' value=($action->id|substr:-1)}
