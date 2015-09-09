@@ -12,16 +12,18 @@ $object either the Product or Maker or User
 <div class="row" id="activity">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
 
-  {if isset($friends_activity)}
-    {if $friends_activity eq 'true'}
-      <h3>your friends' activity <small>(see <a href="/activity/1/all">all activity</a>)</small></h3>
-    {else}
-      <h3>all activity <small>(see <a href="/activity/1/friends">your friends' activity</a>)</small></h3>
-    {/if}
-  {else}
     <h3>recent activity</h3>
 
-  {/if}
+    {if isset($friends_activity)}
+
+      <!-- activity tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" {if $friends_activity eq 'true'}class="active"{/if}><a href="/activity/1/friends" aria-controls="friends" role="tab" >friends</a></li>
+        <li role="presentation" {if $friends_activity neq 'true'}class="active"{/if}><a href="/activity/1/all" aria-controls="everyone" role="tab">everyone</a></li>
+      </ul>
+
+    {/if}
+
   {if sizeof($actions) eq 0}
   <p>No {if $friends_activity eq 'true'}friend {/if}activity found!{if $friends_activity eq 'true'} Try <a href="/activity/1/all">all activity</a>.{/if}</p>
   {/if}
