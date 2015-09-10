@@ -199,10 +199,8 @@ EOD;
     }
 
     public function getTotalUsersWithFriends() {
-        $day_interval = LoadNetworkFriendsController::$number_days_till_friend_refresh;
         $q = <<<EOD
-SELECT count(*) AS total FROM users u WHERE last_loaded_friends IS NOT NULL AND
-last_loaded_friends < DATE_SUB(NOW(), INTERVAL $day_interval DAY);
+SELECT count(*) AS total FROM users u WHERE last_loaded_friends IS NOT NULL;
 EOD;
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         $ps = $this->execute($q);
