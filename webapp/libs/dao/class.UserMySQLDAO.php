@@ -328,7 +328,9 @@ EOD;
         $day_interval = LoadNetworkFriendsController::$number_days_till_friend_refresh;
         $q = <<<EOD
 SELECT u.* FROM users u WHERE last_loaded_friends IS NULL
-OR last_loaded_friends < DATE_SUB(NOW(), INTERVAL $day_interval DAY) LIMIT :limit
+OR last_loaded_friends < DATE_SUB(NOW(), INTERVAL $day_interval DAY)
+ORDER BY last_loaded_friends ASC
+LIMIT :limit
 EOD;
         $vars = array (
             ':limit' => $limit
