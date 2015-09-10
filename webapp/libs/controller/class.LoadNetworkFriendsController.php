@@ -10,7 +10,7 @@ class LoadNetworkFriendsController extends MakerbaseController {
         $this->disableCaching();
 
         $user_dao = new UserMySQLDAO();
-        $users_to_refresh = $user_dao->getUsersWhoNeedFriendRefresh();
+        $users_to_refresh = $user_dao->getUsersWhoNeedFriendRefresh(20);
 
         if (count($users_to_refresh) > 0) {
             // Instantiate needed objects
