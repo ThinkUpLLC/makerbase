@@ -33,24 +33,25 @@ class UserMySQLDAOTest extends MakerbaseUnitTestCase {
         $this->assertEquals($result->id, 1);
     }
 
-    //@TODO Figure out why this test hangs
-    //  * @expectedException DuplicateUserException
-    // public function testInsertDuplicate() {
-    //     $builders[] = FixtureBuilder::build('users', array('uid'=>'uniqueny', 'twitter_user_id'=>'930061'));
-    //     $user_dao = new UserMySQLDAO();
-    //     $user = new User();
-    //     $user->twitter_user_id = '930061';
-    //     $user->name = "Giant Airnap";
-    //     $user->twitter_username = "giantairnap";
-    //     $user->url = 'http://example.com';
-    //     $user->avatar_url = 'http://example.com/avatar.jpg';
-    //     $user->twitter_oauth_access_token = 'token';
-    //     $user->twitter_oauth_access_token_secret = 'secret';
+    /**
+     * @expectedException DuplicateUserException
+     */
+    public function testInsertDuplicate() {
+        $builders[] = FixtureBuilder::build('users', array('uid'=>'uniqueny', 'twitter_user_id'=>'930061'));
+        $user_dao = new UserMySQLDAO();
+        $user = new User();
+        $user->twitter_user_id = '930061';
+        $user->name = "Giant Airnap";
+        $user->twitter_username = "giantairnap";
+        $user->url = 'http://example.com';
+        $user->avatar_url = 'http://example.com/avatar.jpg';
+        $user->twitter_oauth_access_token = 'token';
+        $user->twitter_oauth_access_token_secret = 'secret';
 
-    //     $result = $user_dao->insert($user);
-    //     $this->assertInstanceOf('User', $result);
-    //     $this->assertEquals($result->id, 1);
-    // }
+        $result = $user_dao->insert($user);
+        $this->assertInstanceOf('User', $result);
+        $this->assertEquals($result->id, 1);
+    }
 
     public function testGetAndUpdateLastLogin() {
         $user_dao = new UserMySQLDAO();

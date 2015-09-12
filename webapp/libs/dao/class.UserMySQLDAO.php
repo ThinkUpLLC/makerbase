@@ -35,10 +35,10 @@ EOD;
                 return $user;
             } catch (PDOException $e) {
                 $message = $e->getMessage();
-                if (strpos($message,'Duplicate entry') !== false && strpos($message,'uid') !== false) {
+                if (strpos($message,'Duplicate entry') !== false && strpos($message,"for key 'uid'") !== false) {
                     $try_insert = true;
                 } elseif (strpos($message,'Duplicate entry') !== false
-                    && strpos($message,'twitter_user_id') !== false) {
+                    && strpos($message,"for key 'twitter_user_id'") !== false) {
                     throw new DuplicateUserException($message);
                 } else {
                     throw new PDOException($message);
