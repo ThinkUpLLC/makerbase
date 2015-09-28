@@ -89,7 +89,7 @@ EOD;
         $q = <<<EOD
 SELECT u.* FROM users u
 INNER JOIN network_friends nf ON u.twitter_user_id = nf.friend_id
-WHERE nf.user_id = :twitter_user_id AND u.creation_time >= :since_time
+WHERE nf.user_id = :twitter_user_id AND nf.network =  'twitter' AND u.creation_time >= :since_time
 EOD;
         $vars = array (
             ':twitter_user_id' => $user->twitter_user_id,
