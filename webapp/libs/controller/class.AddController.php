@@ -19,6 +19,7 @@ class AddController extends MakerbaseAuthController {
                 if ($_GET['object'] == 'product') {
                     $this->addiOSAppsToView($_GET['q']);
                     $this->addSearchResultsToView($_GET['q'], 'product');
+                    $this->addGitHubReposToView($_GET['q'], 'product');
                 } elseif ($_GET['object'] == 'maker') {
                     $this->addSearchResultsToView($_GET['q'], 'maker');
                 }
@@ -185,6 +186,20 @@ class AddController extends MakerbaseAuthController {
             $profiler->add($total_time, "App Store search", false);
         }
         $this->addToView('ios_apps', $ios_apps);
+    }
+
+    private function addGitHubReposToView($term) {
+        $start_time = microtime(true);
+        $api_accessor = new GitHubSearchAPIAccessor();
+        $repos = $api_accessor->searchRepos($term);
+        $end_time = microtime(true);
+
+        if (Profiler::isEnabled()) {
+            $total_time = $end_time - $start_time;
+            $profiler = Profiler::getInstance();
+            $profiler->add($total_time, "GitHub repo search", false);
+        }
+        $this->addToView('github_repos', $repos);
     }
 
     private function addTargetToView() {

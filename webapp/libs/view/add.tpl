@@ -141,7 +141,8 @@
 	</div>
 
 {if isset($smarty.get.q)}
-	{if (isset($twitter_users) && count($twitter_users) > 0) || (isset($ios_apps) && count($ios_apps) > 0)}
+	{if (isset($twitter_users) && count($twitter_users) > 0) || (isset($ios_apps) && count($ios_apps) > 0)
+	|| (isset($github_repos) && count($github_repos) > 0)}
 	<h4>{if $object eq 'product'}Is it one of these?{else}Looking for one of these?{/if}</h4>
 	{/if}
 
@@ -205,6 +206,35 @@
 				</div>
 			{/if}
 
+			{if isset($github_repos) && count($github_repos) > 0}
+				<h6 class="text-muted"><i class="fa fa-github"></i> From GitHub</h6>
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="list-group">
+						<!-- begin auto-fill loop here -->
+						{foreach $github_repos as $github_repo}
+							<a class="list-group-item media add-autofill" data-name="{if isset($github_repo.full_name)}{$github_repo.full_name}{/if}" data-avatar="{if isset($github_repo.avatar)}{$github_repo.avatar}{/if}" data-url="{if isset($github_repo.url)}{$github_repo.url}{/if}" data-description="{if isset($github_repo.description)}{$github_repo.description}{/if}" data-slug="{if isset($github_repo.user_name)}{$github_repo.user_name}{/if}">
+								<div class="media-left media-top">
+									{if isset($github_repo.avatar)}<img src="{$github_repo.avatar}" id="avatar-img" width="40">{/if}
+								</div>
+
+							  <div class="media-body">
+							    <h4 class="media-heading">
+							    	{if isset($github_repo.user_name)}{$github_repo.user_name}{/if}
+							    	{if isset($github_repo.url)} <small class="text-muted">{$github_repo.url}</small>{/if}
+							    </h4>
+							    <p>{if isset($github_repo.description)}{$github_repo.description}{/if}</p>
+							  </div>
+							</a>
+						{/foreach}
+
+						</div><!-- end list group -->
+					</div>
+					<div class="col-xs-2">
+
+					</div>
+				</div>
+			{/if}
 
 	</div>
 {/if}

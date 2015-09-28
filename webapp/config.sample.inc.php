@@ -16,6 +16,10 @@ $ISOSCELES_CFG['twitter_oauth_consumer_secret'] = '8u1501QjvKUNVCxpyp6pYnbyCNVBn
 $ISOSCELES_CFG['twitter_makerbase_oauth_access_token']    = '3093491501-Q0cTtgFrRgbn3Slvn1aM2wX0DvnFlzgiYrH5M4G';
 $ISOSCELES_CFG['twitter_makerbase_oauth_access_token_secret'] = 'A4CYpcG79wcdmJpLzoeNTZ9tzjwfYHDCSzwbVLTm1lkON';
 
+// GitHub
+$ISOSCELES_CFG['github_username'] = 'ginatrapani';
+$ISOSCELES_CFG['github_personal_access_token'] = '7495a63997ae14b8b5cffd88b40ea81fd7112a41';
+
 // Rando
 $ISOSCELES_CFG['thinkup_uid']    = '38523i';
 $ISOSCELES_CFG['admins']         = array('makerbase', 'anildash');
