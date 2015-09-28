@@ -40,7 +40,7 @@ class GitHubSearchAPIAccessor {
         curl_setopt($c, CURLOPT_USERAGENT, $chrome_user_agent);
         curl_setopt($c, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         curl_setopt($c, CURLOPT_USERPWD, $username.":".$password);
-        curl_setopt($c, CURLOPT_TIMEOUT, 1); // don't wait more than 1 second
+        //curl_setopt($c, CURLOPT_TIMEOUT, 1); // don't wait more than 1 second
         $contents = curl_exec($c);
         $status = curl_getinfo($c, CURLINFO_HTTP_CODE);
         curl_close($c);
