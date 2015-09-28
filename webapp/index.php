@@ -38,7 +38,12 @@ $router->addRoute('about', 'AboutPageController', array('p'));
 $router->addRoute('explore', 'ExploreController');
 $router->addRoute('s3cr3t', 'AdminDashboardController', array('v', 'p'));
 $router->addRoute('adminedit', 'AdminEditController', array('object'));
-$router->addRoute('xoxo2015', 'EventMakerController');
-$router->addRoute('gotoxoxo', 'AttendEventController');
+
+//Event landing pages
+$router->addRoute('xoxo2015', 'EventXOXOController');
+$router->addRoute('gotoxoxo', 'AttendEventXOXOController');
+
+$router->addRoute('universe', 'EventGitHubUniverseController');
+$router->addRoute('gotoghuniverse', 'AttendEventGitHubUniverseController');
 
 echo $router->route();

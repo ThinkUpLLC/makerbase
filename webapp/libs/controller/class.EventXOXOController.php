@@ -1,6 +1,6 @@
 <?php
 
-class EventMakerController extends MakerbaseController {
+class EventXOXOController extends MakerbaseController {
     /**
      * How many projects to display per maker.
      * @var integer
@@ -9,7 +9,7 @@ class EventMakerController extends MakerbaseController {
 
     public function control() {
         parent::control();
-        $this->setViewTemplate('xoxo2015.tpl');
+        $this->setViewTemplate('event-xoxo2015.tpl');
 
         if ($this->shouldRefreshCache() ) {
             // XOXO 2015 speakers
