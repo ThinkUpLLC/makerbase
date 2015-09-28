@@ -191,7 +191,7 @@ EOD;
         $q = <<<EOD
 SELECT p.* FROM products p
 INNER JOIN network_friends nf ON p.autofill_network_id = nf.friend_id
-WHERE nf.user_id = :twitter_user_id AND p.autofill_network = 'twitter'
+WHERE nf.user_id = :twitter_user_id AND nf.network = 'twitter' AND p.autofill_network = 'twitter'
 AND p.creation_time >= :since_time
 EOD;
         $vars = array (
