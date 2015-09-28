@@ -36,6 +36,12 @@
   </div>
 </div>
 
+<div class="row">
+  <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+    <br />
+    <a class="btn btn-info pull-right" href="/explore/"> New! Explore &nbsp;<img src="/assets/img/arrow-right-white.svg"></a>
+  </div>
+</div>
 
 {include file="_actions.tpl"}
 
@@ -82,6 +88,13 @@ users=$featured_users
   </div>
 </div>
 
+<div class="row">
+  <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+    <br />
+    <a class="btn btn-info pull-right" href="/explore/"> New! Explore &nbsp;<img src="/assets/img/arrow-right-white.svg"></a>
+  </div>
+</div>
+
 {include file="_featured.tpl"
 maker_section_title='featured makers'
 product_section_title='featured projects'
@@ -103,19 +116,19 @@ users=$featured_users
         <li class="col-xs-12 col-sm-4">
           <a href="/p/9u0s6y/mailchimp" class="sponsor">
               <img class="img-rounded avatar pull-left" src="/assets/img/sponsors/logo-square-mailchimp.jpg" alt="MailChimp">
-              <buttton class="pull-right sponsor-projects">projects </buttton>
+              <button class="btn pull-right sponsor-projects">projects </button>
             </a>
         </li>
         <li class="col-xs-12 col-sm-4">
           <a href="/p/m348b6/slackhq" class="sponsor">
               <img class="img-rounded avatar pull-left" src="/assets/img/sponsors/logo-square-slack.png" alt="Slack">
-              <buttton class="pull-right sponsor-projects">projects </buttton>
+              <button class="btn pull-right sponsor-projects">projects </button>
             </a>
         </li>
         <li class="col-xs-12 col-sm-4">
           <a href="/p/7p97ga/hover" class="sponsor">
               <img class="img-rounded avatar pull-left" src="/assets/img/sponsors/logo-square-hover.png" alt="Hover">
-              <buttton class="pull-right sponsor-projects">projects </buttton>
+              <button class="btn pull-right sponsor-projects">projects </button>
             </a>
         </li>
       </ul>

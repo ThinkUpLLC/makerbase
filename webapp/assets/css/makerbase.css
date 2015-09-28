@@ -6413,6 +6413,7 @@ body.landing-not-signed-in .pager {
   background-color: #44c9d7;
   padding: 4px 20px 4px 8px;
   margin-top: 12%;
+  border-radius: 0;
   background-image: url(../img/arrow-right-white.svg);
   background-repeat: no-repeat;
   background-position: 92% 45%;
