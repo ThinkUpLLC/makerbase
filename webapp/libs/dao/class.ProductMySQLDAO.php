@@ -155,6 +155,13 @@ EOD;
     }
 
     public function getTrendingProducts($in_last_x_days = 3, $limit = 4, $makers_per_product = 4) {
+        // Don't include sponsors
+        $sponsors = Config::getInstance()->getValue('sponsors');
+        $exclude_sponsors = '';
+        foreach ($sponsors as $key=>$val) {
+            $exclude_sponsors .= " p.uid != '".$val['uid']."' AND ";
+        }
+
         $q = <<<EOD
 SELECT m.uid AS maker_uid, m.slug AS maker_slug, m.avatar_url AS maker_avatar_url, m.name AS maker_name,
 p.uid AS product_uid, p.slug AS product_slug, p.avatar_url AS product_avatar_url, p.name AS product_name,
@@ -163,8 +170,9 @@ INNER JOIN actions a ON a.id = ao.action_id
 INNER JOIN products p ON ao.object_id = p.id
 INNER JOIN roles r ON r.product_id = p.id
 LEFT JOIN makers m ON r.maker_id = m.id
-WHERE DATE(a.time_performed) > DATE_SUB(NOW(), INTERVAL $in_last_x_days DAY)
-AND ao.object_type = 'Product' AND p.is_archived = 0
+WHERE DATE(a.time_performed) > DATE_SUB(NOW(), INTERVAL $in_last_x_days DAY) AND
+$exclude_sponsors
+ao.object_type = 'Product' AND p.is_archived = 0
 GROUP BY ao.object_id, ao.object_type
 ORDER BY total_edits DESC
 LIMIT :limit
