@@ -154,11 +154,15 @@ EOD;
         return $result['total'];
     }
 
-    public function getTrendingProducts($in_last_x_days = 3, $limit = 4) {
+    public function getTrendingProducts($in_last_x_days = 3, $limit = 4, $makers_per_product = 4) {
         $q = <<<EOD
-SELECT p.*, count(*) as total_edits FROM action_objects ao
+SELECT m.uid AS maker_uid, m.slug AS maker_slug, m.avatar_url AS maker_avatar_url, m.name AS maker_name,
+p.uid AS product_uid, p.slug AS product_slug, p.avatar_url AS product_avatar_url, p.name AS product_name,
+count(*) as total_edits FROM action_objects ao
 INNER JOIN actions a ON a.id = ao.action_id
 INNER JOIN products p ON ao.object_id = p.id
+INNER JOIN roles r ON r.product_id = p.id
+LEFT JOIN makers m ON r.maker_id = m.id
 WHERE DATE(a.time_performed) > DATE_SUB(NOW(), INTERVAL $in_last_x_days DAY)
 AND ao.object_type = 'Product' AND p.is_archived = 0
 GROUP BY ao.object_id, ao.object_type
@@ -172,19 +176,92 @@ EOD;
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         //echo self::mergeSQLVars($q, $vars);
         $ps = $this->execute($q, $vars);
-        return ($this->getDataRowsAsObjects($ps, 'Maker'));
+        $rows = $this->getDataRowsAsArrays($ps);
+
+        $products = array();
+        $current_product = null;
+        $defaults = array('id'=>null, 'creation_time'=>null, 'url'=>null, 'is_archived'=>0, 'is_frozen'=>0,
+            'autofill_network_id'=>null, 'autofill_network'=>null, 'autofill_network_username'=>null,
+            'description'=>'');
+
+        foreach ($rows as $row) {
+            if (!isset($current_product) || $current_product->uid !== $row['product_uid']) {
+                if (isset($current_product)) {
+                    $products[] = $current_product;
+                }
+                $product_vals = array(
+                    'uid'=>$row['product_uid'],
+                    'slug'=>$row['product_slug'],
+                    'avatar_url'=>$row['product_avatar_url'],
+                    'name'=>$row['product_name']
+                );
+                $current_product = new Product(array_merge($product_vals, $defaults));
+                $current_product->makers = array();
+            }
+            if (isset($row['maker_uid'])) {
+                $maker_vals = array(
+                    'uid'=>$row['maker_uid'],
+                    'slug'=>$row['maker_slug'],
+                    'avatar_url'=>$row['maker_avatar_url'],
+                    'name'=>$row['maker_name']
+                );
+                if (count($current_product->makers) < $makers_per_product) {
+                    $current_product->makers[] = new  Maker(array_merge($maker_vals, $defaults));
+                }
+            }
+        }
+        $products[] = $current_product;
+        return $products;
     }
 
-    public function getNewestProducts($limit = 4) {
+    public function getNewestProducts($limit = 4, $makers_per_product = 4) {
         $q = <<<EOD
-SELECT DISTINCT p.* FROM products p INNER JOIN roles r ON r.product_id = p.id
+SELECT DISTINCT m.uid AS maker_uid, m.slug AS maker_slug, m.avatar_url AS maker_avatar_url, m.name AS maker_name,
+p.uid AS product_uid, p.slug AS product_slug, p.avatar_url AS product_avatar_url, p.name AS product_name
+FROM products p INNER JOIN roles r ON r.product_id = p.id
+LEFT JOIN makers m ON r.maker_id = m.id
 WHERE p.is_archived = 0 ORDER BY p.creation_time DESC LIMIT :limit
 EOD;
         $vars = array ( ':limit' => $limit);
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         //echo self::mergeSQLVars($q, $vars);
         $ps = $this->execute($q, $vars);
-        return $this->getDataRowsAsObjects($ps, "Product");
+        $rows = $this->getDataRowsAsArrays($ps);
+
+        $products = array();
+        $current_product = null;
+        $defaults = array('id'=>null, 'creation_time'=>null, 'url'=>null, 'is_archived'=>0, 'is_frozen'=>0,
+            'autofill_network_id'=>null, 'autofill_network'=>null, 'autofill_network_username'=>null,
+            'description'=>'');
+
+        foreach ($rows as $row) {
+            if (!isset($current_product) || $current_product->uid !== $row['product_uid']) {
+                if (isset($current_product)) {
+                    $products[] = $current_product;
+                }
+                $product_vals = array(
+                    'uid'=>$row['product_uid'],
+                    'slug'=>$row['product_slug'],
+                    'avatar_url'=>$row['product_avatar_url'],
+                    'name'=>$row['product_name']
+                );
+                $current_product = new Product(array_merge($product_vals, $defaults));
+                $current_product->makers = array();
+            }
+            if (isset($row['maker_uid'])) {
+                $maker_vals = array(
+                    'uid'=>$row['maker_uid'],
+                    'slug'=>$row['maker_slug'],
+                    'avatar_url'=>$row['maker_avatar_url'],
+                    'name'=>$row['maker_name']
+                );
+                if (count($current_product->makers) < $makers_per_product) {
+                    $current_product->makers[] = new  Maker(array_merge($maker_vals, $defaults));
+                }
+            }
+        }
+        $products[] = $current_product;
+        return $products;
     }
 
     public function getProductsThatAreFriends(User $user) {

@@ -170,11 +170,15 @@ EOD;
         return $result['total'];
     }
 
-    public function getTrendingMakers($in_last_x_days = 3, $limit = 4) {
+    public function getTrendingMakers($in_last_x_days = 3, $limit = 4, $projects_per_maker = 4) {
         $q = <<<EOD
-SELECT m.*, count(*) as total_edits FROM action_objects ao
+SELECT m.uid AS maker_uid, m.slug AS maker_slug, m.avatar_url AS maker_avatar_url, m.name AS maker_name,
+p.uid AS product_uid, p.slug AS product_slug, p.avatar_url AS product_avatar_url, p.name AS product_name,
+count(*) as total_edits FROM action_objects ao
 INNER JOIN actions a ON a.id = ao.action_id
 INNER JOIN makers m ON ao.object_id = m.id
+LEFT JOIN roles r ON r.maker_id = m.id
+LEFT JOIN products p ON r.product_id = p.id
 WHERE DATE(a.time_performed) > DATE_SUB(NOW(), INTERVAL $in_last_x_days DAY)
 AND ao.object_type = 'Maker' AND m.is_archived = 0
 GROUP BY ao.object_id, ao.object_type
@@ -188,7 +192,42 @@ EOD;
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         //echo self::mergeSQLVars($q, $vars);
         $ps = $this->execute($q, $vars);
-        return ($this->getDataRowsAsObjects($ps, 'Maker'));
+        $rows = $this->getDataRowsAsArrays($ps);
+
+        $makers = array();
+        $current_maker = null;
+        $defaults = array('id'=>null, 'creation_time'=>null, 'url'=>null, 'is_archived'=>0, 'is_frozen'=>0,
+            'autofill_network_id'=>null, 'autofill_network'=>null, 'autofill_network_username'=>null,
+            'description'=>'');
+
+        foreach ($rows as $row) {
+            if (!isset($current_maker) || $current_maker->uid !== $row['maker_uid']) {
+                if (isset($current_maker)) {
+                    $makers[] = $current_maker;
+                }
+                $maker_vals = array(
+                    'uid'=>$row['maker_uid'],
+                    'slug'=>$row['maker_slug'],
+                    'avatar_url'=>$row['maker_avatar_url'],
+                    'name'=>$row['maker_name']
+                );
+                $current_maker = new Maker(array_merge($maker_vals, $defaults));
+                $current_maker->products = array();
+            }
+            if (isset($row['product_uid'])) {
+                $product_vals = array(
+                    'uid'=>$row['product_uid'],
+                    'slug'=>$row['product_slug'],
+                    'avatar_url'=>$row['product_avatar_url'],
+                    'name'=>$row['product_name']
+                );
+                if (count($current_maker->products) < $projects_per_maker) {
+                    $current_maker->products[] = new Product(array_merge($product_vals, $defaults));
+                }
+            }
+        }
+        $makers[] = $current_maker;
+        return $makers;
     }
 
     public function hasEventPermission($event_slug, User $user) {
@@ -241,16 +280,54 @@ EOD;
         return ($this->getUpdateCount($ps) > 0);
     }
 
-    public function getNewestMakers($limit = 4) {
+    public function getNewestMakers($limit = 4, $projects_per_maker = 4) {
         $q = <<<EOD
-SELECT DISTINCT m.* FROM makers m INNER JOIN roles r ON r.maker_id = m.id
+SELECT DISTINCT m.uid AS maker_uid, m.slug AS maker_slug, m.avatar_url AS maker_avatar_url, m.name AS maker_name,
+p.uid AS product_uid, p.slug AS product_slug, p.avatar_url AS product_avatar_url, p.name AS product_name FROM makers m
+INNER JOIN roles r ON r.maker_id = m.id
+LEFT JOIN products p ON r.product_id = p.id
 WHERE m.is_archived = 0 ORDER BY m.creation_time DESC LIMIT :limit
 EOD;
         $vars = array ( ':limit' => $limit);
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         //echo self::mergeSQLVars($q, $vars);
         $ps = $this->execute($q, $vars);
-        return $this->getDataRowsAsObjects($ps, "Maker");
+        $rows = $this->getDataRowsAsArrays($ps);
+
+        $makers = array();
+        $current_maker = null;
+        $defaults = array('id'=>null, 'creation_time'=>null, 'url'=>null, 'is_archived'=>0, 'is_frozen'=>0,
+            'autofill_network_id'=>null, 'autofill_network'=>null, 'autofill_network_username'=>null,
+            'description'=>'');
+
+        foreach ($rows as $row) {
+            if (!isset($current_maker) || $current_maker->uid !== $row['maker_uid']) {
+                if (isset($current_maker)) {
+                    $makers[] = $current_maker;
+                }
+                $maker_vals = array(
+                    'uid'=>$row['maker_uid'],
+                    'slug'=>$row['maker_slug'],
+                    'avatar_url'=>$row['maker_avatar_url'],
+                    'name'=>$row['maker_name']
+                );
+                $current_maker = new Maker(array_merge($maker_vals, $defaults));
+                $current_maker->products = array();
+            }
+            if (isset($row['product_uid'])) {
+                $product_vals = array(
+                    'uid'=>$row['product_uid'],
+                    'slug'=>$row['product_slug'],
+                    'avatar_url'=>$row['product_avatar_url'],
+                    'name'=>$row['product_name']
+                );
+                if (count($current_maker->products) < $projects_per_maker) {
+                    $current_maker->products[] = new Product(array_merge($product_vals, $defaults));
+                }
+            }
+        }
+        $makers[] = $current_maker;
+        return $makers;
     }
 
     public function getEventMakers($event_slug, $projects_per_maker) {
