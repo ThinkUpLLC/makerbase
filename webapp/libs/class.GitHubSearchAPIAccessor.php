@@ -101,7 +101,7 @@ class GitHubSearchAPIAccessor {
             'full_name'       => (string)$json_repo->name,
             'avatar'          => 'https://github.com/fluidicon.png',
             'description'     => substr((string)$json_repo->description, 0, 140),
-            'url'             => (string)$json_repo->url,
+            'url'             => (string)$json_repo->html_url,
             'network'         => 'github'
         );
         return $result;
