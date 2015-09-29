@@ -126,7 +126,8 @@
   <body {if isset($body_class)}class="{$body_class}"{/if}>
 
 
-    <nav class="navbar navbar-default" {if isset($suppress_navbar)}{if $suppress_navbar eq true}style="display: none;"{/if}{/if}>
+  {if (isset($suppress_navbar) && $suppress_navbar eq false) || !(isset($suppress_navbar))}
+    <nav class="navbar navbar-default">
       <div class="container">
         <div class="row">
           <div class="col-xs-2 col-sm-1">
@@ -164,7 +165,7 @@
         </div>
       </div>
     </nav>
-
+  {/if}
 
 {include file="_usermessage.tpl"}
 
