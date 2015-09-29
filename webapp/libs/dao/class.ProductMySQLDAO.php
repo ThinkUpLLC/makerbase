@@ -171,7 +171,7 @@ LIMIT :limit
 EOD;
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         $vars = array (
-            ':limit' => $limit
+            ':limit' => ($limit * $makers_per_product)
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         //echo self::mergeSQLVars($q, $vars);
@@ -211,7 +211,7 @@ EOD;
             }
         }
         $products[] = $current_product;
-        return $products;
+        return array_slice($products, 0, $limit);
     }
 
     public function getNewestProducts($limit = 4, $makers_per_product = 4) {
@@ -222,7 +222,7 @@ FROM products p INNER JOIN roles r ON r.product_id = p.id
 LEFT JOIN makers m ON r.maker_id = m.id
 WHERE p.is_archived = 0 ORDER BY p.creation_time DESC LIMIT :limit
 EOD;
-        $vars = array ( ':limit' => $limit);
+        $vars = array ( ':limit' => ($limit * $makers_per_product));
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         //echo self::mergeSQLVars($q, $vars);
         $ps = $this->execute($q, $vars);
@@ -261,7 +261,7 @@ EOD;
             }
         }
         $products[] = $current_product;
-        return $products;
+        return array_slice($products, 0, $limit);
     }
 
     public function getProductsThatAreFriends(User $user) {

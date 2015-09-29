@@ -187,7 +187,7 @@ LIMIT :limit
 EOD;
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         $vars = array (
-            ':limit' => $limit
+            ':limit' => ($limit * $projects_per_maker)
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         //echo self::mergeSQLVars($q, $vars);
@@ -227,7 +227,7 @@ EOD;
             }
         }
         $makers[] = $current_maker;
-        return $makers;
+        return array_slice($makers, 0, $limit);
     }
 
     public function hasEventPermission($event_slug, User $user) {
@@ -288,7 +288,7 @@ INNER JOIN roles r ON r.maker_id = m.id
 LEFT JOIN products p ON r.product_id = p.id
 WHERE m.is_archived = 0 ORDER BY m.creation_time DESC LIMIT :limit
 EOD;
-        $vars = array ( ':limit' => $limit);
+        $vars = array ( ':limit' => ($limit * $projects_per_maker));
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         //echo self::mergeSQLVars($q, $vars);
         $ps = $this->execute($q, $vars);
@@ -327,7 +327,7 @@ EOD;
             }
         }
         $makers[] = $current_maker;
-        return $makers;
+        return array_slice($makers, 0, $limit);
     }
 
     public function getEventMakers($event_slug, $projects_per_maker) {
