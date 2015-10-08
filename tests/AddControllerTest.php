@@ -35,6 +35,29 @@ class AddControllerTest extends MakerbaseUnitTestCase {
         $this->assertRegexp('/Sign into Makerbase/', $results);
     }
 
+    public function testAddInspirationSignedInAsMaker() {
+        $builders = $this->buildData();
+        $builders[] = FixtureBuilder::build('users', array('twitter_username'=>'airnapgiant', 'uid'=>'la1i',
+            'is_frozen'=>0, 'twitter_user_id'=>'1001'));
+        $builders[] = FixtureBuilder::build('makers', array('uid'=>'123', 'autofill_network_id'=>'1001',
+            'autofill_network'=>'twitter'));
+        $builders[] = FixtureBuilder::build('makers', array('uid'=>'124', 'autofill_network_id'=>'1004',
+            'autofill_network'=>'twitter'));
+
+        Session::completeLogin('la1i');
+
+        $_GET['object'] = 'inspiration';
+        $_POST['maker_uid'] = '124';
+        $_POST['inspiration_description'] = "heylo";
+        $_POST['originate_uid'] = '123';
+        $_POST['originate_slug'] = 'slug';
+
+        $controller = new AddController(true);
+        $results = $controller->go();
+        //print_r($controller);
+        //sleep(1000);
+    }
+
     //TODO testAddSignedInNoParams
 
     //TODO testAddInvalidObject

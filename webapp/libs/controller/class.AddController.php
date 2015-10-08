@@ -11,7 +11,7 @@ class AddController extends MakerbaseAuthController {
         parent::authControl();
         $this->setViewTemplate('add.tpl');
 
-        $valid_objects = array('maker', 'product', 'role', 'madewith');
+        $valid_objects = array('maker', 'product', 'role', 'madewith', 'inspiration');
         if (in_array($_GET['object'], $valid_objects)) {
             $this->addToView('object', $_GET['object']);
 
@@ -62,6 +62,14 @@ class AddController extends MakerbaseAuthController {
                     SessionCache::put('error_message', $this->frozen_user_message);
                 }
                 $this->redirect('/p/'.$_POST['originate_uid'].'/'.$_POST['originate_slug']);
+            } elseif ($_GET['object'] == 'inspiration' && $this->hasSubmittedInspirationForm()) {
+                if (!$this->logged_in_user->is_frozen) {
+                    CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
+                    $this->addInspiration();
+                } else {
+                    SessionCache::put('error_message', $this->frozen_user_message);
+                }
+                $this->redirect('/m/'.$_POST['originate_uid'].'/'.$_POST['originate_slug']);
             }
         } else {
             $this->redirect(Config::getInstance()->getValue('site_root_path'));
@@ -106,6 +114,15 @@ class AddController extends MakerbaseAuthController {
             && isset($_POST['description'])
             && isset($_POST['url'])
             && isset($_POST['avatar_url'])
+            );
+    }
+
+    private function hasSubmittedInspirationForm() {
+        return (
+            isset($_POST['maker_uid'])
+            && isset($_POST['inspiration_description'])
+            && isset($_POST['originate_uid'])
+            && isset($_POST['originate_slug'])
             );
     }
 
@@ -223,6 +240,63 @@ class AddController extends MakerbaseAuthController {
                     //do nothing, move along
                 }
             }
+        }
+    }
+
+    private function addInspiration() {
+        $maker_dao = new MakerMySQLDAO();
+        try {
+            $inspirer_maker = $maker_dao->get($_POST['maker_uid']);
+            $maker = $maker_dao->get($_POST['originate_uid']);
+
+            // Is the logged in user looking at zer own maker page?
+            if (isset($maker->autofill_network_id) && isset($maker->autofill_network)
+                && $maker->autofill_network == 'twitter'
+                && $this->logged_in_user->twitter_user_id == $maker->autofill_network_id) {
+
+                //Add inspiration
+                $inspiration = new Inspiration();
+                $inspiration->inspirer_maker_id = $inspirer_maker->id;
+                $inspiration->description = $_POST['inspiration_description'];
+                $inspiration->maker_id = $maker->id;
+
+                $inspiration_dao = new InspirationMySQLDAO();
+                $inspiration_dao->insert($inspiration);
+
+                //Add new connection
+                $connection_dao = new ConnectionMySQLDAO();
+                $connection_dao->insert($this->logged_in_user, $inspirer_maker);
+
+                //Add new action
+                $action = new Action();
+                $action->user_id = $this->logged_in_user->id;
+                $action->severity = Action::SEVERITY_NORMAL;
+                $action->object_id = $inspirer_maker->id;
+                $action->object_type = get_class($inspirer_maker);
+                $action->object2_id = $maker->id;
+                $action->object2_type = get_class($maker);
+                $action->ip_address = $_SERVER['REMOTE_ADDR'];
+                $action->action_type = 'inspire';
+
+                // Add extra metadata to inspiration
+                $inspiration->maker = $maker;
+                $inspiration->inspirer_maker = $inspirer_maker;
+                $action->metadata = json_encode($inspiration);
+
+                $action_dao = new ActionMySQLDAO();
+                $action_dao->insert($action);
+
+                //Force cache refresh
+                CacheHelper::expireCache('maker.tpl', $maker->uid, $maker->slug);
+
+                SessionCache::put('success_message', 'You said '.htmlspecialchars($inspirer_maker->name).
+                    ' inspires you.');
+
+            } else {
+                SessionCache::put('error_message', 'Sorry, cannot add that inspiration.');
+            }
+        } catch (MakerDoesNotExistException $e) {
+            SessionCache::put('error_message', 'That maker does not exist.');
         }
     }
 

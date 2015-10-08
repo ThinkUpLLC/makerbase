@@ -167,7 +167,7 @@
                 <div class="form-group col-xs-12">
                   <label for="role" class="col-sm-1 control-label hidden-xs">Role</label>
                   <div class="col-xs-12 col-sm-10">
-                    <input type="text" class="form-control" autocomplete="off" id="role" name="role" placeholder="{$placeholder}">
+                    <input type="text" class="form-control" autocomplete="off" id="role" name="role" placeholder="{$role_placeholder}">
                     <small>{$role_guidance}</small>
                   </div>
                 </div>
@@ -193,6 +193,121 @@
         </div>
   </div>
 </div>
+
+{* INSPIRATIONS *}
+
+{if sizeof($inspirations) > 0}
+<div class="row" id="inspirations">
+  <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+
+    <h2><a href="#inspirations">{$maker->name|escape}'s <strong>Inspirations</strong></a></h2>
+    <ul class="list-group" id="collaborator-list">
+      {foreach $inspirations as $inspiration}
+      <li class="list-group-item">
+        <div class="media-left media-top"><a href="/m/{$inspiration->uid}/{$inspiration->slug}"><img class="media-object" src="{insert name='user_image' image_url=$inspiration->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" width="50" height="50"></a>
+        </div>
+
+        <div class="media-body">
+          <h3><a href="/m/{$inspiration->uid}/{$inspiration->slug}">{$inspiration->name|escape}</a></h3>
+          <p>{$inspiration->description|escape}</p>
+        </div>
+        <div>
+        {if $is_maker_user eq true}
+            <form method="post" action="/edit/inspiration/" class="form-horizontal col-xs-12 add-form" id="add-inspiration-form">
+              <input type="hidden" name="originate_slug" value="{$maker->slug}">
+              <input type="hidden" name="originate_uid" value="{$maker->uid}">
+              <input type="hidden" name="uid" value="{$inspiration->inspiration_uid}">
+              <input type="hidden" name="delete" value="1">
+              <button type="submit" name="Delete">Archive</button>
+            </form>
+        {/if}
+      </li>
+      {/foreach}
+    </ul>
+  </div>
+</div>
+{/if}
+
+{if sizeof($inspired_makers) > 0}
+<div class="row" id="inspirations">
+  <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+
+    <h2><a href="#inspirations">{$maker->name|escape} <strong> inspires:</strong></a></h2>
+    <ul class="list-group" id="collaborator-list">
+      {foreach $inspired_makers as $inspired_maker}
+      <li class="list-group-item">
+        <div class="media-left media-top"><a href="/m/{$inspired_maker->uid}/{$inspired_maker->slug}"><img class="media-object" src="{insert name='user_image' image_url=$inspired_maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" width="50" height="50"></a>
+
+          {if $is_maker_user eq true}
+            <form method="post" action="/edit/inspiration/" class="form-horizontal col-xs-12 add-form" id="add-inspiration-form">
+              <input type="hidden" name="originate_slug" value="{$maker->slug}">
+              <input type="hidden" name="originate_uid" value="{$maker->uid}">
+              <input type="hidden" name="uid" value="{$inspired_maker->inspiration_uid}">
+              <input type="hidden" name="hide" value="1">
+              <button type="submit">Hide</button>
+            </form>
+          {/if}
+
+        </div>
+      </li>
+      {/foreach}
+    </ul>
+  </div>
+</div>
+{/if}
+
+{if $is_maker_user eq true}
+<div class="row" id="inspirations">
+  <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+    <div>
+        <!-- TODO add in data-toggle="collapse"  -->
+            <button class="btn btn-info pull-right" type="submit" id="add-inspiration"
+
+            data-target="#add-inspiration-form" onclick="$('#inspiration-name').focus();$('#add-inspiration').toggle();$('#add-inspiration-cancel').toggle();" ><i class="fa fa-plus"></i> Add an{if $inspirations}other{/if} inspiration</button>
+
+            <!-- TODO add in data-toggle="collapse"  -->
+            <button class="btn btn-link pull-right" type="submit" id="add-inspiration-cancel" data-target="#add-inspiration-form" onclick="$('#add-inspiration-cancel').toggle();$('#add-inspiration').toggle();" > Cancel </button>
+
+            <!-- TODO add in class collapse -->
+            <form method="post" action="/add/inspiration/" class="form-horizontal col-xs-12 add-form" id="add-inspiration-form">
+
+            <h2>Who {if $inspirations}else {/if}inspires you?</h2>
+              <input type="hidden" name="originate_slug" value="{$maker->slug}">
+              <input type="hidden" name="originate_uid" value="{$maker->uid}">
+              <input type="hidden" name="maker_uid" id="maker-uid">
+
+              <div class="form-group col-xs-12">
+                <label for="product_name" class="col-sm-1 control-label hidden-xs">Name</label>
+                <div class="col-xs-12 col-sm-10" id="remote-search-makers">
+                  <input type="text" class="typeahead form-control input-lg" placeholder="Maker's name" name="maker_name" id="maker-name">
+                  <small>{$inspiring_maker_guidance}</small>
+                </div>
+              </div>
+
+              <!-- TODO add in class collapse -->
+              <div id="inspiration-extended-form">
+                <div class="form-group col-xs-12">
+                  <label for="description" class="col-sm-1 control-label hidden-xs">How</label>
+                  <div class="col-xs-12 col-sm-10">
+                    <input type="text" class="form-control" autocomplete="off" id="inspiration-description" name="inspiration_description" placeholder="{$inspiration_placeholder}">
+                    <small>{$inspiration_guidance}</small>
+                  </div>
+                </div>
+
+                <div class="form-group col-xs-12">
+                  <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                    <button class="btn btn-primary" type="submit" id="add-action">Add inspiration</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+        </div>
+  </div>
+</div>
+
+{/if}
+
+{* /INSPIRATIONS *}
 
 {if sizeof($collaborators) > 0}
 <div class="row" id="collaborators">
