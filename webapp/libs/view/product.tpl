@@ -15,9 +15,9 @@
       </div>
       <div class="media-body">
         {if isset($logged_in_user)}
-          <button onclick="$('#project-info-edit').toggle();$('#project-info').toggle();" class="btn btn-default btn-link pull-right">edit</button>
+          <button onclick="$('#project-info-edit').toggle();$('#project-info').toggle();" class="btn btn-default btn-link pull-right">Edit</button>
         {else}
-          <a href="{$sign_in_with_twttr_link}" class="btn btn-default btn-link pull-right">edit</a>
+          <a href="{$sign_in_with_twttr_link}" class="btn btn-default btn-link pull-right">Edit</a>
         {/if}
         <h1 {if $product->is_archived}class="archived"{/if}>We made <strong>{$product->name|escape}</strong></h1>
         <h3>{$product->description|escape|atnames:'/search/?q='}</h3>
@@ -56,7 +56,7 @@
       <div class="media-body">
 
         <div class="col-xs-12">
-          <button onclick="$('#project-info-edit').toggle();$('#project-info').toggle();" class="btn btn-default btn-link pull-right" id="project-info-edit-cancel">cancel</button>
+          <button onclick="$('#project-info-edit').toggle();$('#project-info').toggle();" class="btn btn-default btn-link pull-right" id="project-info-edit-cancel">Cancel</button>
         </div>
         <form method="post" action="/edit/product/" id="project-profile-edit-form">
           <div class="form-group">
@@ -268,6 +268,6 @@
 </div>
 {/if}
 
-  {include file="_actions.tpl" object=$product object_type='project'}
+  {include file="_actions.tpl"}
 
 {include file="_footer.tpl"}

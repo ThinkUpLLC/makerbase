@@ -167,6 +167,9 @@
             {/if}
 
             {if $action->action_type eq 'update'}{include file='_diff.tpl'}{/if}
+            {if $action->action_type eq 'inspire'}
+                <p>{$action->metadata->description|escape}</p>
+            {/if}
             </div>
 
         </div>

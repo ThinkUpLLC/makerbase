@@ -68,6 +68,22 @@ class EditController extends MakerbaseAuthController {
 
             CacheHelper::expireCache('product.tpl', $_POST['originate_uid'], $_POST['originate_slug']);
             $this->redirect('/p/'.$_POST['originate_uid'].'/'.$_POST['originate_slug']);
+        } elseif ($this->hasDeletedInspiration()) {
+            if (!$this->logged_in_user->is_frozen) {
+                CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
+                $this->deleteInspiration();
+            } else {
+                SessionCache::put('error_message', $this->frozen_user_message);
+            }
+            $this->redirect('/m/'.$_POST['originate_uid'].'/'.$_POST['originate_slug'].'/inspirations');
+        } elseif ($this->hasHiddenInspiration()) {
+            if (!$this->logged_in_user->is_frozen) {
+                CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
+                $this->hideInspiration();
+            } else {
+                SessionCache::put('error_message', $this->frozen_user_message);
+            }
+            $this->redirect('/m/'.$_POST['originate_uid'].'/'.$_POST['originate_slug'].'/inspirations');
         } else {
             //print_r($_POST);
             $this->redirect(Config::getInstance()->getValue('site_root_path'));
@@ -147,6 +163,130 @@ class EditController extends MakerbaseAuthController {
             && isset($_POST['url'])
             && isset($_POST['avatar_url'])
         );
+    }
+
+    private function hasDeletedInspiration() {
+        return (
+            (isset($_GET['object']) && $_GET['object'] == 'inspiration')
+            && isset($_POST['uid'])
+            && isset($_POST['originate_uid'])
+            && isset($_POST['originate_slug'])
+            && isset($_POST['delete']) && ($_POST['delete'] == 1)
+            );
+    }
+
+    private function hasHiddenInspiration() {
+        return (
+            (isset($_GET['object']) && $_GET['object'] == 'inspiration')
+            && isset($_POST['uid'])
+            && isset($_POST['originate_uid'])
+            && isset($_POST['originate_slug'])
+            && isset($_POST['hide']) && ($_POST['hide'] == 1)
+            );
+    }
+
+    private function hideInspiration() {
+        $maker_dao = new MakerMySQLDAO();
+        $inspiration_dao = new InspirationMySQLDAO();
+        try {
+            $inspiration = $inspiration_dao->get($_POST['uid']);
+            $inspirer_maker = $maker_dao->getById($inspiration->inspirer_maker_id);
+            $maker = $maker_dao->getById($inspiration->maker_id);
+
+            // Is the logged in user looking at zer own maker page?
+            if (isset($inspirer_maker->autofill_network_id) && isset($inspirer_maker->autofill_network)
+                && $inspirer_maker->autofill_network == 'twitter'
+                && $this->logged_in_user->twitter_user_id == $inspirer_maker->autofill_network_id) {
+
+                //Hide inspiration
+                $inspiration_dao->hide($inspiration->uid);
+
+                //Add new action
+                $action = new Action();
+                $action->user_id = $this->logged_in_user->id;
+                $action->severity = Action::SEVERITY_NORMAL;
+                $action->object_id = $maker->id;
+                $action->object_type = get_class($maker);
+                $action->object2_id = $inspirer_maker->id;
+                $action->object2_type = get_class($inspirer_maker);
+                $action->is_admin = true;
+                $action->ip_address = $_SERVER['REMOTE_ADDR'];
+                $action->action_type = 'hide';
+
+                // Add extra metadata to inspiration
+                $inspiration->maker = $maker;
+                $inspiration->inspirer_maker = $inspirer_maker;
+                $action->metadata = json_encode($inspiration);
+
+                $action_dao = new ActionMySQLDAO();
+                $action_dao->insert($action);
+
+                //Force cache refresh
+                CacheHelper::expireCache('maker.tpl', $maker->uid, $maker->slug);
+
+                SessionCache::put('success_message', 'You hid '.htmlspecialchars($maker->name).
+                    '\'s inspiration.');
+
+            } else {
+                SessionCache::put('error_message', 'Sorry, cannot hide that inspiration.');
+            }
+        } catch (MakerDoesNotExistException $e) {
+            SessionCache::put('error_message', 'That maker does not exist.');
+        } catch (InspirationDoesNotExistException $e) {
+            SessionCache::put('error_message', 'That inspiration does not exist.');
+        }
+    }
+
+    private function deleteInspiration() {
+        $maker_dao = new MakerMySQLDAO();
+        $inspiration_dao = new InspirationMySQLDAO();
+        try {
+            $inspiration = $inspiration_dao->get($_POST['uid']);
+            $inspirer_maker = $maker_dao->getById($inspiration->inspirer_maker_id);
+            $maker = $maker_dao->get($_POST['originate_uid']);
+
+            // Is the logged in user looking at zer own maker page?
+            if (isset($maker->autofill_network_id) && isset($maker->autofill_network)
+                && $maker->autofill_network == 'twitter'
+                && $this->logged_in_user->twitter_user_id == $maker->autofill_network_id) {
+
+                //Delete inspiration
+                $inspiration_dao->delete($inspiration);
+
+                //Add new action
+                $action = new Action();
+                $action->user_id = $this->logged_in_user->id;
+                $action->severity = Action::SEVERITY_MAJOR;
+                $action->object_id = $inspirer_maker->id;
+                $action->object_type = get_class($inspirer_maker);
+                $action->object2_id = $maker->id;
+                $action->object2_type = get_class($maker);
+                $action->is_admin = true;
+                $action->ip_address = $_SERVER['REMOTE_ADDR'];
+                $action->action_type = 'delete';
+
+                // Add extra metadata to inspiration
+                $inspiration->maker = $maker;
+                $inspiration->inspirer_maker = $inspirer_maker;
+                $action->metadata = json_encode($inspiration);
+
+                $action_dao = new ActionMySQLDAO();
+                $action_dao->insert($action);
+
+                //Force cache refresh
+                CacheHelper::expireCache('maker.tpl', $maker->uid, $maker->slug);
+
+                SessionCache::put('success_message', 'You archived '.htmlspecialchars($inspirer_maker->name).
+                    '\'s inspiration.');
+
+            } else {
+                SessionCache::put('error_message', 'Sorry, cannot remove that inspiration.');
+            }
+        } catch (MakerDoesNotExistException $e) {
+            SessionCache::put('error_message', ' That maker does not exist.');
+        } catch (InspirationDoesNotExistException $e) {
+            SessionCache::put('error_message', 'That inspiration does not exist.');
+        }
     }
 
     private function archiveRole() {

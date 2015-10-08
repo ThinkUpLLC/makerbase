@@ -185,7 +185,20 @@ class AdminEditController extends MakerbaseAdminController {
             $connection_dao = new ConnectionMySQLDAO();
             $connection_dao->deleteConnectionsToMaker($maker->id);
 
-            //TODO Delete made-withs (once made-withs are built)
+            //Delete maker ID from user account
+            $user_dao = new UserMySQLDAO();
+            try {
+                $user = $user_dao->getByTwitterUserId($maker->autofill_network_id);
+                if (isset($user)) {
+                    $user_dao->clearMaker($user);
+                }
+            } catch (UserDoesNotExistException $e) {
+                // User doesn't exist; do nothing
+            }
+
+            //Delete inspirations
+            $inspiration_dao = new InspirationMySQLDAO();
+            $inspiration_dao->deleteByMaker($maker);
 
             if ($has_been_deleted) {
                 SessionCache::put('success_message', 'Deleted maker');

@@ -138,7 +138,9 @@ EOD;
         $q = <<<EOD
 SELECT a.*, u.name, u.uid AS user_uid, u.twitter_username as username FROM actions a
 INNER JOIN users u ON a.user_id = u.id
-WHERE a.object_type = 'Maker' AND a.object_id = :maker_id AND is_admin = 0
+WHERE ((a.object_type = 'Maker' AND a.object_id = :maker_id)
+OR (a.object2_type = 'Maker' AND a.object2_id = :maker_id))
+AND is_admin = 0
 ORDER BY id DESC LIMIT :start, :limit;
 EOD;
         $vars = array (
@@ -159,7 +161,8 @@ EOD;
         $q = <<<EOD
 SELECT a.*, u.name, u.uid AS user_uid, u.twitter_username as username FROM actions a
 INNER JOIN users u ON a.user_id = u.id
-WHERE a.object_type = 'Maker' AND a.object_id = :maker_id AND is_admin = 1
+WHERE is_admin = 1 AND
+((a.object_type = 'Maker' AND a.object_id = :maker_id) OR (a.object2_type = 'Maker' AND a.object2_id = :maker_id))
 ORDER BY id DESC LIMIT 1;
 EOD;
         $vars = array (

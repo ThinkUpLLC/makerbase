@@ -1,0 +1,12 @@
+Hey, *|EDITOR_NAME|*  said you're an inspiration!
+
+See the details:
+
+*|MAKER_PAGE_LINK|*
+
+Makerbase emails you when your maker page changes.
+
+This email was sent to *|USER_EMAIL|*.
+
+Unsubscribe from these emails on your settings page:
+*|UNSUBSCRIBE_LINK|*

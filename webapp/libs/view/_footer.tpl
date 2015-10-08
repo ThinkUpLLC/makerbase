@@ -161,6 +161,7 @@
               $('#maker-uid').val(datum.uid);
               $('#maker-name').val(datum.name);
               $('#maker-extended-form').show();
+              $('#inspiration-extended-form').show();
       }).off('blur');
 
       //Autocomplete products
@@ -264,12 +265,12 @@
         $("form.add-form #add-action").prop('disabled', function (_, val) { return ! val; });
       });
 
-
       // Initialize popovers, alerts and searchbox
       $(function () {
         $('[data-toggle="popover"]').popover();
         $(".alert").addClass("in");
         $('#nav-typeahead').focus();
+
       });
 
       // Analytics tracking
