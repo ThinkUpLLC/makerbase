@@ -14,7 +14,7 @@
             {if isset($last_admin_activity) && sizeof($last_admin_activity) > 0}
               <li class="dropdown-header">Action History</li>
             {foreach $last_admin_activity as $action}
-              <li><p style="color: black; padding: 10px 20px;">{include file="_adminaction.tpl"}</p></li>
+              <li><p style="color: black; padding: 10px 20px;">{include file="_action.tpl" admin_bar=true}</p></li>
             {/foreach}
               <li role="separator" class="divider"></li>
             {/if}
