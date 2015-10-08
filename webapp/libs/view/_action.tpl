@@ -3,6 +3,7 @@
  *
  * $action (required)
  * $logged_in_user (optional)
+ * $admin_bar (optional)
  *}
 
 {* Actor: Who is performing the action *}
@@ -37,6 +38,13 @@
 {elseif $action->action_type eq 'create'} {* User added Maker/Project *}
     {assign var="verbed" value="added"}
     {assign var="fa_icon" value="fa-plus"}
+{elseif $action->action_type eq 'inspire'} {* Maker inspires Maker *}
+    {assign var="is_says" value=true}
+    {assign var="verbed" value="inspires"}
+    {assign var="fa_icon" value="fa-bolt"}
+{elseif $action->action_type eq 'hide'} {* Maker hid an inspiration *}
+    {assign var="verbed" value="hid"}
+    {assign var="fa_icon" value="fa-close"}
 {else} {* default *}
     {assign var="verbed" value="`$action->action_type`d"}
       {if $action->action_type eq 'update'}
@@ -114,7 +122,19 @@
     {assign var="object2_name" value=$action->metadata->after->product->name}
     {assign var="object2_type" value='p'}
 {/if}
+{if isset($action->metadata->inspirer_maker_id)}
+    {assign var="object_avatar_url" value=$action->metadata->inspirer_maker->avatar_url}
+    {assign var="object_url" value="/m/`$action->metadata->inspirer_maker->uid`/`$action->metadata->inspirer_maker->slug`"}
+    {assign var="object_name" value=$action->metadata->inspirer_maker->name}
+    {assign var="object_type" value='m'}
 
+    {assign var="object2_avatar_url" value=$action->metadata->maker->avatar_url}
+    {assign var="object2_url" value="/m/`$action->metadata->maker->uid`/`$action->metadata->maker->slug`"}
+    {assign var="object2_name" value=$action->metadata->maker->name}
+    {assign var="object2_type" value='m'}
+{/if}
+
+{if !isset($admin_bar)}
       <div class="media-left {$action->action_type}">
         <a class="fa {$fa_icon} text-muted fa-3x"></a>
       </div>
@@ -153,19 +173,10 @@
 
         <h6>{$action->time_performed|relative_datetime} ago &bull; {$actor} </h6>
       </div>
+{else}
+    {* Show the admin bar version of the action *}
 
-{* Clear vars for next loop iteration *}
-{assign var="actor" value=null}
-{assign var="verbed" value=null}
-{assign var="fa_icon" value=null}
-{assign var="is_says" value=null}
+    {$actor} {if $is_says}{else}{$verbed}{/if} <a href="{$object_url}">{$object_name|escape}</a> {if isset($action->object2_id)} {if $is_says}{$verbed}{else}on{/if} <a href="{$object2_url}">{$object2_name|escape}</a>{/if} <br /><small class="text-muted">{$action->time_performed|relative_datetime} ago</small>
 
-{assign var="object_avatar_url" value=null}
-{assign var="object_name" value=null}
-{assign var="object_url" value=null}
-{assign var="object_type" value=null}
+{/if}
 
-{assign var="object2_avatar_url" value=null}
-{assign var="object2_name" value=null}
-{assign var="object2_url" value=null}
-{assign var="object2_type" value=null}
