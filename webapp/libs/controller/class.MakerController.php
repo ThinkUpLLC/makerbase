@@ -57,12 +57,31 @@ class MakerController extends MakerbaseController {
 
                 $this->addToView('maker', $maker);
 
-                $this->addToView('placeholder', Role::getRandoPlaceholder());
+                $this->addToView('role_placeholder', Role::getRandoPlaceholder());
+                $this->addToView('inspiration_placeholder', Inspiration::getRandoPlaceholder());
 
                 if (isset($this->logged_in_user) && $this->logged_in_user->is_admin) {
                     $last_admin_activity = $action_dao->getLastAdminActivityPerformedOnMaker($maker);
                     $this->addToView('last_admin_activity', $last_admin_activity);
                 }
+
+                $is_maker_user = false;
+                if (isset($this->logged_in_user)
+                    && isset($maker->autofill_network_id)
+                    && isset($maker->autofill_network) && $maker->autofill_network == 'twitter'
+                    && $this->logged_in_user->twitter_user_id == $maker->autofill_network_id) {
+                    $is_maker_user = true;
+                }
+                $this->addToView('is_maker_user', $is_maker_user);
+
+                // Get inspirations
+                $inspiration_dao = new InspirationMySQLDAO();
+                $inspirations = $inspiration_dao->getInspirers($maker);
+                $this->addToView('inspirations', $inspirations);
+
+                // Get inspired makers
+                $inspired_makers = $inspiration_dao->getInspiredMakers($maker);
+                $this->addToView('inspired_makers', $inspired_makers);
             } catch (MakerDoesNotExistException $e) {
                 $this->redirect('/404');
             }
