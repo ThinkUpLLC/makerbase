@@ -47,7 +47,14 @@ $ISOSCELES_CFG['sponsors'] = array(
 );
 
 // Mandrill
-$ISOSCELES_CFG['mandrill_api_key']    = 'g5zBXny4VBAp0s4TCVB27Q';
+
+//Use test key that doesn't actually send email on stage and dev
+if ( $_SERVER['SERVER_NAME'] == 'makerbase.dev' || $_SERVER['SERVER_NAME'] == 'stage.makerba.se' ) {
+    $ISOSCELES_CFG['mandrill_api_key']    = 'hw_9lwqlFJ753LjJUcI4FA';
+} else {
+//Production key
+    $ISOSCELES_CFG['mandrill_api_key']    = 'g5zBXny4VBAp0s4TCVB27Q';
+}
 
 //Featured makers/projects/users
 if (file_exists('featured.inc.php')) {
