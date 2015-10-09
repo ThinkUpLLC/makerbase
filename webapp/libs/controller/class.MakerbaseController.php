@@ -86,4 +86,18 @@ class MakerbaseController extends Controller {
             }
         }
     }
+    /**
+     * Generates web page markup
+     *
+     * @return str view markup
+     */
+    protected function generateView() {
+        if ( SessionCache::isKeySet('last_page_profiled') ) {
+            $last_page_profiled = SessionCache::get('last_page_profiled');
+            SessionCache::unsetKey('last_page_profiled');
+            return parent::generateView() . $last_page_profiled;
+        } else {
+            return parent::generateView();
+        }
+    }
 }
