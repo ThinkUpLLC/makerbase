@@ -87,6 +87,7 @@
 }
 
 .popover {
+	min-width: 200px;
 }
 
 .style-bubblegum {
@@ -288,7 +289,9 @@ sepia
 // APP-WIDE ************************************
 
 h2,
-h2 a {
+h2 a,
+h3,
+h3 a {
 	color: @gray;
 	font-weight: 200;
 }
@@ -717,17 +720,19 @@ form.form-inline {
 	}
 }
 
-#makers,
-#projects {
-	#add-role {
-	}
-	#add-role-form {
-	}
-	.collapsing {
-	}
-	#add-role-cancel {
-		display: none;
-	}
+
+#add-role,
+#add-inspiration {
+}
+#add-role-form,
+#add-inspiration-form {
+}
+.collapsing {
+
+}
+#add-role-cancel,
+#add-inspiration-cancel {
+	display: none;
 }
 
 #usedby {
@@ -769,7 +774,9 @@ form.form-inline {
 
 }
 
-#collaborators {
+#collaborators,
+#inspirations {
+	margin-top: 1em;
 	h3 {
 		margin: .2em 0;
 		font-size: 1.4em;
@@ -788,7 +795,40 @@ form.form-inline {
 			}
 		}
 	}
+	.inspiree {
+		background-color: #fff;
+		min-height: 75px;
+		padding-top: 12px;
+		&.inspiree-add {
+			background-color: @color-bgslate;
+			border: 1px solid @color-lightslate;
+			h3 {
+			}
+			
+		}
+	}
 }
+
+#maker-tabs {
+	margin-top: 1em;
+	ul {
+		padding: 0;
+	}
+	li {
+
+		a {
+			color: @color-seabreeze-dark;
+			background-color: transparent;
+		}
+		&.active a,
+		&.active a:focus,
+		&.active a:hover, {
+			background-color: #fff;
+			color: @color-seabreeze-dark;
+		}
+	}
+}
+
 
 // USER PAGE ************************************
 

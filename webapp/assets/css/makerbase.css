@@ -2428,7 +2428,7 @@ select[multiple].input-lg {
 .btn:hover,
 .btn:focus,
 .btn.focus {
-  color: #333333;
+  color: #198a9c;
   text-decoration: none;
 }
 .btn:active,
@@ -2450,25 +2450,25 @@ fieldset[disabled] a.btn {
   pointer-events: none;
 }
 .btn-default {
-  color: #333333;
+  color: #198a9c;
   background-color: #ffffff;
-  border-color: #cccccc;
+  border-color: #c9dae1;
 }
 .btn-default:focus,
 .btn-default.focus {
-  color: #333333;
+  color: #198a9c;
   background-color: #e6e6e6;
   border-color: transparent;
 }
 .btn-default:hover {
-  color: #333333;
-  background-color: #cccccc;
-  border-color: #cccccc;
+  color: #198a9c;
+  background-color: #c9dae1;
+  border-color: #c9dae1;
 }
 .btn-default:active,
 .btn-default.active,
 .open > .dropdown-toggle.btn-default {
-  color: #333333;
+  color: #198a9c;
   background-color: #c9dae1;
   border-color: transparent;
 }
@@ -2481,7 +2481,7 @@ fieldset[disabled] a.btn {
 .btn-default:active.focus,
 .btn-default.active.focus,
 .open > .dropdown-toggle.btn-default.focus {
-  color: #333333;
+  color: #198a9c;
   background-color: #c9dae1;
   border-color: transparent;
 }
@@ -2509,11 +2509,11 @@ fieldset[disabled] .btn-default:active,
 .btn-default[disabled].active,
 fieldset[disabled] .btn-default.active {
   background-color: #ffffff;
-  border-color: #cccccc;
+  border-color: #c9dae1;
 }
 .btn-default .badge {
   color: #ffffff;
-  background-color: #333333;
+  background-color: #198a9c;
 }
 .btn-primary {
   color: #ffffff;
@@ -5423,6 +5423,9 @@ button.close {
 .active {
   font-weight: 600;
 }
+.popover {
+  min-width: 200px;
+}
 .style-bubblegum {
   background-color: #f576b5;
   border-radius: 0 0 0 20px;
@@ -5616,7 +5619,9 @@ seabreeze
 sepia
 */
 h2,
-h2 a {
+h2 a,
+h3,
+h3 a {
   color: #808080;
   font-weight: 200;
 }
@@ -6027,8 +6032,8 @@ form.form-inline {
     font-size: 1.5em;
   }
 }
-#makers #add-role-cancel,
-#projects #add-role-cancel {
+#add-role-cancel,
+#add-inspiration-cancel {
   display: none;
 }
 #usedby {
@@ -6065,21 +6070,56 @@ form.form-inline {
 #use-these #use-these-actions .use-these-actions-buttons .btn {
   padding: 6px 8px;
 }
-#collaborators h3 {
+#collaborators,
+#inspirations {
+  margin-top: 1em;
+}
+#collaborators h3,
+#inspirations h3 {
   margin: .2em 0;
   font-size: 1.4em;
 }
-#collaborators h3 a {
+#collaborators h3 a,
+#inspirations h3 a {
   color: #000;
 }
-#collaborators .media-body a {
+#collaborators .media-body a,
+#inspirations .media-body a {
   padding-right: 10px;
   display: inline-block;
 }
-#collaborators .media-body a img {
+#collaborators .media-body a img,
+#inspirations .media-body a img {
   width: 12px;
   height: 12px;
   margin-top: -3px;
+}
+#collaborators .inspiree,
+#inspirations .inspiree {
+  background-color: #fff;
+  min-height: 75px;
+  padding-top: 12px;
+}
+#collaborators .inspiree.inspiree-add,
+#inspirations .inspiree.inspiree-add {
+  background-color: #e2eaee;
+  border: 1px solid #c9dae1;
+}
+#maker-tabs {
+  margin-top: 1em;
+}
+#maker-tabs ul {
+  padding: 0;
+}
+#maker-tabs li a {
+  color: #198a9c;
+  background-color: transparent;
+}
+#maker-tabs li.active a,
+#maker-tabs li.active a:focus,
+#maker-tabs li.active a:hover {
+  background-color: #fff;
+  color: #198a9c;
 }
 #user-settings {
   margin-top: 1em;
