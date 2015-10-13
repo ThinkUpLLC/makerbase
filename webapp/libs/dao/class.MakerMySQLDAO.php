@@ -172,25 +172,36 @@ EOD;
 
     public function getTrendingMakers($in_last_x_days = 3, $limit = 4, $projects_per_maker = 4) {
         $q = <<<EOD
-SELECT m.uid AS maker_uid, m.slug AS maker_slug, m.avatar_url AS maker_avatar_url, m.name AS maker_name,
-p.uid AS product_uid, p.slug AS product_slug, p.avatar_url AS product_avatar_url, p.name AS product_name,
-count(*) as total_edits FROM action_objects ao
+CREATE OR REPLACE VIEW makers_trending AS
+SELECT ao.object_id, ao.object_type, COUNT( * ) AS total_edits
+FROM action_objects ao
 INNER JOIN actions a ON a.id = ao.action_id
 INNER JOIN makers m ON ao.object_id = m.id
-LEFT JOIN roles r ON r.maker_id = m.id
-LEFT JOIN products p ON r.product_id = p.id
-WHERE DATE(a.time_performed) > DATE_SUB(NOW(), INTERVAL $in_last_x_days DAY)
-AND ao.object_type = 'Maker' AND m.is_archived = 0
+AND ao.object_type =  'Maker'
+WHERE DATE( a.time_performed ) > DATE_SUB( NOW( ) , INTERVAL $in_last_x_days DAY )
+AND m.is_archived = 0
 GROUP BY ao.object_id, ao.object_type
 ORDER BY total_edits DESC
-LIMIT :limit
+LIMIT :limit;
 EOD;
-        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+
         $vars = array (
-            ':limit' => ($limit * $projects_per_maker)
+            ':limit' => $limit,
         );
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+
+        $q = <<<EOD
+SELECT m.uid AS maker_uid, m.slug AS maker_slug, m.avatar_url AS maker_avatar_url, m.name AS maker_name,
+p.uid AS product_uid, p.slug AS product_slug, p.avatar_url AS product_avatar_url, p.name AS product_name
+FROM makers m
+LEFT JOIN roles r ON r.maker_id = m.id
+LEFT JOIN products p ON r.product_id = p.id
+INNER JOIN makers_trending mt ON mt.object_id = m.id
+EOD;
+
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
         $ps = $this->execute($q, $vars);
         $rows = $this->getDataRowsAsArrays($ps);
 
