@@ -293,7 +293,7 @@ class AddController extends MakerbaseAuthController {
                     ' inspires you.');
 
             } else {
-                SessionCache::put('error_message', 'Sorry, cannot add that inspiration.');
+                SessionCache::put('error_message', 'Uh oh! Couldn\'t add that inspiration, sorry.');
             }
         } catch (MakerDoesNotExistException $e) {
             SessionCache::put('error_message', 'That maker does not exist.');
