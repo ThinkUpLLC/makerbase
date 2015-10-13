@@ -5,8 +5,8 @@
 abstract class MakerbaseAdminController extends AuthController {
 
     protected function preAuthControl() {
-        if (Session::isLoggedIn()) {
-            $logged_in_user = Session::getLoggedInUser();
+        if (MakerbaseSession::isLoggedIn()) {
+            $logged_in_user = MakerbaseSession::getLoggedInUser();
             $user_dao = new UserMySQLDAO();
             $user = $user_dao->get($logged_in_user);
 

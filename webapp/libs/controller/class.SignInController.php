@@ -82,7 +82,7 @@ class SignInController extends MakerbaseController {
                         $user->id = $new_user->id;
                         $user->uid = $new_user->uid;
                     }
-                    Session::completeLogin($user->uid);
+                    MakerbaseSession::completeLogin($user->uid);
                     CacheHelper::expireLandingAndUserActivityCache($user->uid);
                     SessionCache::put('success_message', 'You have signed in.');
 
@@ -102,7 +102,7 @@ class SignInController extends MakerbaseController {
             }
         } elseif (isset($_GET['redirect'])) {
             $this->setViewTemplate('signin.tpl');
-            if (Session::isLoggedIn()) {
+            if (MakerbaseSession::isLoggedIn()) {
                 if (!$this->redirect($_GET['redirect'])) {
                     $this->generateView(); //for testing
                 }

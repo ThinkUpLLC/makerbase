@@ -10,8 +10,8 @@ class MakerbaseController extends Controller {
         $cfg = Config::getInstance();
         $this->addToView('thinkup_uid', $cfg->getValue('thinkup_uid'));
         $this->addToView('image_proxy_sig', $cfg->getValue('image_proxy_sig'));
-        if (Session::isLoggedIn()) {
-            $logged_in_user = Session::getLoggedInUser();
+        if (MakerbaseSession::isLoggedIn()) {
+            $logged_in_user = MakerbaseSession::getLoggedInUser();
             $user_dao = new UserMySQLDAO();
             $user = $user_dao->get($logged_in_user);
 
@@ -43,8 +43,8 @@ class MakerbaseController extends Controller {
         foreach ($keys as $key) {
             array_push($view_cache_key, $_GET[$key]);
         }
-        if (Session::isLoggedIn()) {
-            array_push($view_cache_key, Session::getLoggedInUser());
+        if (MakerbaseSession::isLoggedIn()) {
+            array_push($view_cache_key, MakerbaseSession::getLoggedInUser());
         }
         return '.ht'.$this->view_template.self::KEY_SEPARATOR.(implode($view_cache_key, self::KEY_SEPARATOR));
     }

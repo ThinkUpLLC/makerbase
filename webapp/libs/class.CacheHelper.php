@@ -29,8 +29,8 @@ class CacheHelper {
         $view_cache_key = array();
         array_push($view_cache_key, $uid);
         array_push($view_cache_key, strtolower($slug));
-        if ($include_logged_in_user && Session::isLoggedIn()) {
-            array_push($view_cache_key, Session::getLoggedInUser());
+        if ($include_logged_in_user && MakerbaseSession::isLoggedIn()) {
+            array_push($view_cache_key, MakerbaseSession::getLoggedInUser());
         }
         return '.ht'.$template.self::KEY_SEPARATOR.(implode($view_cache_key, self::KEY_SEPARATOR));
     }

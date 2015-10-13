@@ -55,8 +55,8 @@ abstract class AttendEventAuthController extends MakerbaseAuthController {
 
     protected static function getCacheKeyStringForReload($template, $include_logged_in_user = true) {
         $view_cache_key = array();
-        if ($include_logged_in_user && Session::isLoggedIn()) {
-            array_push($view_cache_key, Session::getLoggedInUser());
+        if ($include_logged_in_user && MakerbaseSession::isLoggedIn()) {
+            array_push($view_cache_key, MakerbaseSession::getLoggedInUser());
         }
         return '.ht'.$template.self::KEY_SEPARATOR.(implode($view_cache_key, self::KEY_SEPARATOR));
     }

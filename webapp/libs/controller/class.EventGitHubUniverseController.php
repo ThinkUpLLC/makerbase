@@ -20,7 +20,7 @@ class EventGitHubUniverseController extends MakerbaseController {
             $this->addToView('speakers_col1', $speakers_col1);
             $this->addToView('speakers_col2', $speakers_col2);
 
-            if (Session::isLoggedIn() && $maker_dao->isAttendingEvent('githubuni', $this->logged_in_user) ) {
+            if (MakerbaseSession::isLoggedIn() && $maker_dao->isAttendingEvent('githubuni', $this->logged_in_user) ) {
                 // GitHub Universe attendees
                 $makers = $maker_dao->getEventMakers('githubuni', $this->projects_per_maker);
 

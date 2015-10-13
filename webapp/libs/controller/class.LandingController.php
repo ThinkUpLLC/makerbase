@@ -5,7 +5,7 @@ class LandingController extends MakerbaseController {
     public function control() {
         //Begin terrible, terrible hack to make signing into makerbase.dev when offline possible
         if (isset($_GET['fl']) && $_SERVER['SERVER_NAME'] == 'makerbase.dev') {
-            Session::completeLogin($_GET['fl']);
+            MakerbaseSession::completeLogin($_GET['fl']);
         }
         //End terrible, terrible hack
 
@@ -13,7 +13,7 @@ class LandingController extends MakerbaseController {
         $this->setViewTemplate('landing.tpl');
 
         if ($this->shouldRefreshCache() ) {
-            if (Session::isLoggedIn()) {
+            if (MakerbaseSession::isLoggedIn()) {
                 $page_number = (isset($_GET['p']) && is_numeric($_GET['p']))?$_GET['p']:1;
                 $limit = 10;
                 $action_dao = new ActionMySQLDAO();

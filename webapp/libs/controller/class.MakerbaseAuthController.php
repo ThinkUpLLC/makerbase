@@ -7,7 +7,7 @@ class MakerbaseAuthController extends AuthController {
     var $logged_in_user;
 
     public function authControl() {
-        $logged_in_user = Session::getLoggedInUser();
+        $logged_in_user = MakerbaseSession::getLoggedInUser();
         $user_dao = new UserMySQLDAO();
         $user = $user_dao->get($logged_in_user);
 
@@ -47,8 +47,8 @@ class MakerbaseAuthController extends AuthController {
         foreach ($keys as $key) {
             array_push($view_cache_key, $_GET[$key]);
         }
-        if (Session::isLoggedIn()) {
-            array_push($view_cache_key, Session::getLoggedInUser());
+        if (MakerbaseSession::isLoggedIn()) {
+            array_push($view_cache_key, MakerbaseSession::getLoggedInUser());
         }
         return '.ht'.$this->view_template.self::KEY_SEPARATOR.(implode($view_cache_key, self::KEY_SEPARATOR));
     }

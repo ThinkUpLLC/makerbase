@@ -20,7 +20,7 @@ class EventXOXOController extends MakerbaseController {
             $this->addToView('speakers_col1', $speakers_col1);
             $this->addToView('speakers_col2', $speakers_col2);
 
-            if (Session::isLoggedIn() && $maker_dao->isAttendingEvent('xoxo2015', $this->logged_in_user) ) {
+            if (MakerbaseSession::isLoggedIn() && $maker_dao->isAttendingEvent('xoxo2015', $this->logged_in_user) ) {
                 // XOXO 2015 attendees
                 $makers = $maker_dao->getEventMakers('xoxo2015', $this->projects_per_maker);
 
