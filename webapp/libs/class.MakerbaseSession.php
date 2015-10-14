@@ -18,7 +18,7 @@ class MakerbaseSession extends Session {
                 $user_dao = new UserMySQLDAO();
                 $user = $user_dao->get($user_uid);
                 if ($user) {
-                    self::completeLogin($$user_uid);
+                    self::completeLogin($user_uid);
                     return true;
                 }
             }
