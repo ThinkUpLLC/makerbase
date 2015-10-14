@@ -159,7 +159,7 @@ $email_capture_state either 'need email', 'confirmation_pending' or 'confirmatio
 
     {** LOGGED IN AS ANOTHER USER **}
 
-    {include file="_actions.tpl" object=$user object_type='user'}
+    {include file="_actions.tpl"}
 
   {/if}
 
@@ -167,7 +167,7 @@ $email_capture_state either 'need email', 'confirmation_pending' or 'confirmatio
 
     {** NOT LOGGED IN **}
 
-    {include file="_actions.tpl" object=$user object_type='user'}
+    {include file="_actions.tpl"}
 
 {/if}
 

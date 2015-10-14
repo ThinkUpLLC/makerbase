@@ -109,30 +109,30 @@
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
 
     <ul class="btn-group btn-group-justified" role="group tablist" id="maker-tab-set">
-      <li role="presentation" class="btn-group active">
-        <a href="#projects-tab" class="btn btn-default" aria-controls="projects-tab" role="tab" data-toggle="tab">projects</a>
+      <li role="presentation" class="btn-group{if $active_tab eq "projects"} active{/if}">
+        <a href="/m/{$maker->uid}/{$maker->slug}/projects" class="btn btn-default" role="tab">Projects</a>
       </li>
-      {if sizeof($collaborators) > 0}
-      <li role="presentation" class="btn-group ">
-        <a href="#collaborators" class="btn btn-default" aria-controls="collaborators" role="tab" data-toggle="tab">makerbaes</a>
+      <li role="presentation" class="btn-group{if $active_tab eq "collaborators"} active{/if}">
+        <a href="/m/{$maker->uid}/{$maker->slug}/collaborators" class="btn btn-default" role="tab">Collaborators</a>
       </li>
-      {/if}
-      <li role="presentation" class="btn-group ">
-        <a href="#inspirations" class="btn btn-default" aria-controls="inspirations" role="tab" data-toggle="tab">inspiration</a>
+      <li role="presentation" class="btn-group{if $active_tab eq "inspirations"} active{/if}">
+        <a href="/m/{$maker->uid}/{$maker->slug}/inspirations" class="btn btn-default" role="tab">Inspirations</a>
       </li>
     </ul>
-
 
   </div>
 </div>
 
+{** PROJECTS **}
 
+{if isset($roles)}
 <div class="tab-content">
-  <div role="tabpanel" class="tab-pane fade in active" id="projects-tab">
+  <div role="tabpanel" class="tab-pane in active" id="projects-tab">
 
     <div class="row" id="roles">
       <div class="col-xs-12 col-sm-10 col-sm-offset-1">
 
+        <h3>{$maker->name|escape} made:</h3>
         <ul class="list-unstyled" id="role-list">
         {foreach $roles as $role}
           <li class="">
@@ -218,16 +218,21 @@
       </div>
     </div>
 
-    {include file="_actions.tpl" object=$maker object_type='maker'}
+    {include file="_actions.tpl"}
 
   </div>
+{/if}
+{* /PROJECTS *}
 
-{if sizeof($collaborators) > 0}
-  <div role="tabpanel" class="tab-pane fade" id="collaborators">
+
+{* COLLABORATORS *}
+{if isset($collaborators) && sizeof($collaborators) > 0}
+  <div role="tabpanel" class="tab-pane" id="collaborators">
 
     <div class="row" id="">
       <div class="col-xs-12 col-sm-10 col-sm-offset-1">
 
+        <h3>{$maker->name|escape} collaborated with:</h3>
         <ul class="list-group" id="collaborator-list">
           {foreach $collaborators as $collaborator}
           <li class="list-group-item">
@@ -236,7 +241,7 @@
             </div>
 
             <div class="media-body">
-              <h3>{$collaborator.total_collaborations} projects with <strong><a href="/m/{$collaborator.uid}/{$collaborator.slug}">{$collaborator.name|escape}</a></strong></h3>
+              <h3><strong><a href="/m/{$collaborator.uid}/{$collaborator.slug}">{$collaborator.name|escape}</a></strong> on {$collaborator.total_collaborations} projects</h3>
 
               {foreach $collaborator.projects as $project name="collaborated_projects"}
                 <a href="/p/{$project->uid}/{$project->slug}">
@@ -251,23 +256,25 @@
         </ul>
       </div>
     </div>
-
   </div>
 {/if}
+{* /COLLABORATORS *}
 
-  <div role="tabpanel" class="tab-pane fade" id="inspirations">
 
-    {* INSPIRATIONS *}
+{* INSPIRATIONS *}
+
+{if isset($inspirations) }
+  <div role="tabpanel" class="tab-pane" id="inspirations">
+
 
     <div class="row" id="">
       <div class="col-xs-12 col-sm-10 col-sm-offset-1">
 
         {if sizeof($inspirations) > 0}
-          <h3><a href="#inspirations">{$maker->name|escape}'s <strong>Inspirations</strong></a></h3>
-        {/if}
+          <h3>{$maker->name|escape}'s inspirations include:</h3>
+
         <ul class="list-group" id="inspiration-list">
 
-        {if sizeof($inspirations) > 0}
           {foreach $inspirations as $inspiration}
           <li class="list-group-item">
 
@@ -429,13 +436,12 @@
               </div>
             </div>
 
-            {/if}
 
       </div>
     </div>
-
-
-    {* /INSPIRATIONS *}
+{/if}
+{/if}
+{* /INSPIRATIONS *}
 
   </div>
 </div>

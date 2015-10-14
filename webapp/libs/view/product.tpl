@@ -268,6 +268,6 @@
 </div>
 {/if}
 
-  {include file="_actions.tpl" object=$product object_type='project'}
+  {include file="_actions.tpl"}
 
 {include file="_footer.tpl"}

@@ -2,8 +2,8 @@
 Display recent activity on a maker, project, or user page.
 
 $actions
-$object_type 'project' or 'maker' or 'user'
-$object either the Product or Maker or User
+$friends_activity (optional) Renders friends/everyone activity tabs with paging
+$active_tab (optional) Adds an active tab to paging links if set
 *}
 
 
@@ -62,7 +62,7 @@ $object either the Product or Maker or User
     {if isset($user)}
       {assign var='paging_path' value="/u/"|cat:$user->uid}
     {elseif isset($maker)}
-      {assign var='paging_path' value="/m/"|cat:$maker->uid|cat:"/"|cat:$maker->slug}
+      {assign var='paging_path' value="/m/"|cat:$maker->uid|cat:"/"|cat:$maker->slug|cat:"/"|cat:$active_tab}
     {elseif isset($product)}
       {assign var='paging_path' value="/p/"|cat:$product->uid|cat:"/"|cat:$product->slug}
     {else}

@@ -24,7 +24,7 @@ $router = new Router('PageNotFoundController', 'InternalServerErrorController');
 //Router::$routes = null;
 $router->addRoute('index', 'LandingController');
 $router->addRoute('activity', 'LandingController', array('p', 'stream'));
-$router->addRoute('m', 'MakerController', array('uid', 'slug', 'p'));
+$router->addRoute('m', 'MakerController', array('uid', 'slug', 't', 'p'));
 $router->addRoute('p', 'ProductController', array('uid', 'slug', 'p'));
 $router->addRoute('u', 'UserController', array('uid', 'p'));
 $router->addRoute('signin', 'SignInController');

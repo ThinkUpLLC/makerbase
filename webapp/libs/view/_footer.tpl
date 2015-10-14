@@ -270,19 +270,6 @@
         $(".alert").addClass("in");
         $('#nav-typeahead').focus();
 
-
-        // Javascript to enable link to tab
-        var url = document.location.toString();
-        if (url.match('#')) {
-            $('#maker-tab-set a[href=#'+url.split('#')[1]+']').tab('show') ;
-        } 
-
-        // Change hash for page-reload
-        $('#maker-tab-set a').on('shown.bs.tab', function (e) {
-            window.location.hash = e.target.hash;
-        })
-
-
       });
 
       // Analytics tracking
