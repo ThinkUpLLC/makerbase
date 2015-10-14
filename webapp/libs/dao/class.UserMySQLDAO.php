@@ -101,6 +101,22 @@ EOD;
         return $this->getDataRowsAsObjects($ps, 'User');
     }
 
+    public function getSignupsByWeek() {
+        //Don't get signups before launch week
+        $q = <<<EOD
+SELECT COUNT( * ) AS user_signups_per_week, WEEK( creation_time ) AS week_number
+FROM  users
+WHERE DATE( creation_time ) >  '2015-08-01'
+GROUP BY WEEK( creation_time )
+ORDER BY week_number ASC
+EOD;
+
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q);
+        return $this->getDataRowsAsArrays($ps);
+    }
+
     public function updateLastLogin(User $user) {
         $q = "UPDATE users SET last_login_time = CURRENT_TIMESTAMP WHERE twitter_user_id = :twitter_user_id";
         $vars = array ( ':twitter_user_id' => $user->twitter_user_id);

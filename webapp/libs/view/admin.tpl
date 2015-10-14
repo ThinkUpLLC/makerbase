@@ -20,6 +20,7 @@
       <li role="presentation"{if isset($sort_view)}{if $sort_view eq 'all-actions'}class="active"{/if}{/if}><a href="/s3cr3t/all-actions">All Actions</a></li>
       <li role="presentation"{if isset($sort_view)}{if $sort_view eq 'actions'}class="active"{/if}{/if}><a href="/s3cr3t/actions">Admin Actions</a></li>
       <li role="presentation"{if isset($sort_view)}{if $sort_view eq 'top-users'}class="active"{/if}{/if}><a href="/s3cr3t/top-users">Active Users</a></li>
+      <li role="presentation"{if isset($sort_view)}{if $sort_view eq 'stats'}class="active"{/if}{/if}><a href="/s3cr3t/stats">Stats</a></li>
     </ul>
 
 {if isset($actions) && sizeof($actions) > 0}
@@ -64,6 +65,22 @@
       </ul>
       {/if}
 
+{/if}
+
+{if isset($weekly_signups)}
+<h2>Signups per week</h2>
+<ul class="list-group">
+  {foreach $weekly_signups as $weekly_signup}
+    <li class="list-group-item col-xs-12">{if $weekly_signup@last}This week so far{else}{if $weekly_signup@first}Launch week{else}Week {$weekly_signup.week_number}{/if}{/if}: {$weekly_signup.user_signups_per_week|number_format} signups
+
+    {if isset($last_weekly_signup)}
+      {capture name="percentage_diff" assign="percentage_diff"}{(($weekly_signup.user_signups_per_week-$last_weekly_signup)*100)/$weekly_signup.user_signups_per_week}{/capture}
+
+    {if $percentage_diff > 0}<span style="color:green">+{else}<span style="color:red">{/if}{$percentage_diff|number_format}%</span>{/if}</li>
+
+    {capture name="last_weekly_signup" assign="last_weekly_signup"}{$weekly_signup.user_signups_per_week}{/capture}
+  {/foreach}
+</ul>
 {/if}
 
 

@@ -32,6 +32,12 @@ class AdminDashboardController extends MakerbaseAdminController {
             $this->addToView('top_users', $top_users);
         }
 
+        if ($_GET['v'] == 'stats') {
+            $user_dao = new UserMySQLDAO();
+            $signups_by_week = $user_dao->getSignupsByWeek();
+            $this->addToView('weekly_signups', $signups_by_week);
+        }
+
         $this->addToView('sort_view',  $_GET['v']);
 
         $user_dao = new UserMySQLDAO();
