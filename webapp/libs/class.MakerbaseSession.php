@@ -41,7 +41,15 @@ class MakerbaseSession extends Session {
         if ($set_long_term) {
             $cookie = $cookie_dao->generateForUser($user_uid);
             if (!headers_sent()) {
-                setcookie(self::COOKIE_NAME, $cookie, time()+(60*60*24*365*10), '/', self::getCookieDomain());
+                $is_cookie_set = setcookie(self::COOKIE_NAME, $cookie, time()+(60*60*24*365*10), '/',
+                    self::getCookieDomain());
+               //Debugging
+                // $profiler = Profiler::getInstance();
+                // Profiler::setDAOMethod(__METHOD__);
+                // $message = ($is_cookie_set)?"Cookie set for domain ":"Cookie not set for domain ";
+                // $message .= "  ".self::getCookieDomain();
+                // $profiler->add(0, $message);
+
             }
         }
      }
@@ -63,10 +71,10 @@ class MakerbaseSession extends Session {
      * @return str domain to use
      */
     public static function getCookieDomain() {
-        if (empty($_SERVER['HTTP_HOST'])) {
+        if (empty($_SERVER['SERVER_NAME'])) {
             return false;
         }
-        $parts = explode('.', $_SERVER['HTTP_HOST']);
+        $parts = explode('.', $_SERVER['SERVER_NAME']);
         if (count($parts) == 1) {
             return $parts[0];
         }
