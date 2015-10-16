@@ -26,6 +26,7 @@ class SignInController extends MakerbaseController {
                 $api_accessor = new TwitterAPIAccessor();
                 $authed_twitter_user = $api_accessor->verifyCredentials($twitter_oauth);
 
+                $is_new_user = false;
                 if ( isset($authed_twitter_user) && isset($authed_twitter_user['user_name'])
                     && isset($authed_twitter_user['user_id'])) {
 
@@ -81,6 +82,7 @@ class SignInController extends MakerbaseController {
                         $new_user = $user_dao->insert($user);
                         $user->id = $new_user->id;
                         $user->uid = $new_user->uid;
+                        $is_new_user = true;
                     }
                     MakerbaseSession::completeLogin($user->uid);
                     CacheHelper::expireLandingAndUserActivityCache($user->uid);
@@ -88,11 +90,12 @@ class SignInController extends MakerbaseController {
 
                     //Redirect user if redir is set
                     if (isset($_GET['redirect'])) {
-                        if (!$this->redirect($_GET['redirect'])) {
+                        if (!$this->redirect($_GET['redirect'].(($is_new_user)?'?welcome':''))) {
                             $this->generateView(); //for testing
                         }
                     } else {
-                        $this->redirect(Config::getInstance()->getValue('site_root_path'));
+                        $this->redirect(Config::getInstance()->getValue('site_root_path').
+                            (($is_new_user)?'?welcome':''));
                     }
                 }
             } else {
