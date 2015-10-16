@@ -189,6 +189,7 @@ FROM products p
 LEFT JOIN roles r ON r.product_id = p.id
 LEFT JOIN makers m ON r.maker_id = m.id
 INNER JOIN products_trending pt ON pt.object_id = p.id
+ORDER BY p.uid
 EOD;
 
         if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
