@@ -212,6 +212,13 @@ class EditController extends MakerbaseAuthController {
                 $action->metadata = json_encode($role);
                 $action_dao = new ActionMySQLDAO();
                 $action_dao->insert($action);
+
+                // Send email notification
+                $email_notifier = new EmailNotifier($this->logged_in_user);
+                if ($email_notifier->shouldSendMakerChangeEmailNotification($maker)) {
+                    $email_notifier->sendMakerChangeEmailNotification();
+                }
+
             }
         }
     }
