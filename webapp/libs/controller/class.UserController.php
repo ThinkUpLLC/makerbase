@@ -82,19 +82,21 @@ class UserController extends MakerbaseController {
                 if (isset($_POST['maker_change_email'])) {
                     $has_changed_sub = $user_dao->subscribeToMakerChangeEmail($user);
                     $user->is_subscribed_maker_change_email = true;
+                    $is_subscribed_maker_change_email_message = "Okay! We'll email you if anybody updates your stuff.";
                 } else {
                     $has_changed_sub = $user_dao->unsubscribeFromMakerChangeEmail($user);
                     $user->is_subscribed_maker_change_email = false;
+                    $is_subscribed_maker_change_email_message = "Got it. We won't email you about changes to your stuff.";
                 }
                 if ($has_changed_sub) {
-                    SessionCache::put('success_message', "Great! You're all set.");
+                    SessionCache::put('success_message', $is_subscribed_maker_change_email_message);
                 }
             } else {
                 if (isset($_GET['verify'])) {
                     if ($_GET['verify'] == $user->email_verification_code) {
                         // Verify email and null code
                         $user = $user_dao->verifyEmail($user);
-                        SessionCache::put('success_message', "Great! You're all set.");
+                        SessionCache::put('success_message', "Great! Your email is all set.");
                         $this->setUserMessages();
                     } else {
                         // Set an error message; verification failed
