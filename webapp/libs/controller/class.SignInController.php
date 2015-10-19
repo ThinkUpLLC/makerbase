@@ -86,11 +86,26 @@ class SignInController extends MakerbaseController {
                     }
                     MakerbaseSession::completeLogin($user->uid);
                     CacheHelper::expireLandingAndUserActivityCache($user->uid);
-                    SessionCache::put('success_message', 'You have signed in.');
+                    if ($is_new_user) {
+                        SessionCache::put('success_message', 'Welcome! You have signed in.');
+                    } else {
+                        SessionCache::put('success_message', 'You have signed in.');
+                    }
 
                     //Redirect user if redir is set
                     if (isset($_GET['redirect'])) {
-                        if (!$this->redirect($_GET['redirect'].(($is_new_user)?'?welcome':''))) {
+                        //Set up welcome parameter to track new signups in Google Analytics
+                        $has_a_q = (strpos($_GET['redirect'], '?') !== false);
+                        $append_to_redirect = '';
+                        if ($is_new_user) {
+                            if ($has_a_q) {
+                                $append_to_redirect .= urlencode('&');
+                            } else {
+                                $append_to_redirect .= '?';
+                            }
+                            $append_to_redirect .= 'welcome';
+                        }
+                        if (!$this->redirect($_GET['redirect'].$append_to_redirect)) {
                             $this->generateView(); //for testing
                         }
                     } else {
