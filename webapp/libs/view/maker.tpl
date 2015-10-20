@@ -112,9 +112,11 @@
       <li role="presentation" class="btn-group{if $active_tab eq "projects"} active{/if}">
         <a href="/m/{$maker->uid}/{$maker->slug}/projects" class="btn btn-default" role="tab">Projects</a>
       </li>
+      {if isset($collaborators) && sizeof($collaborators) > 0}
       <li role="presentation" class="btn-group{if $active_tab eq "collaborators"} active{/if}">
         <a href="/m/{$maker->uid}/{$maker->slug}/collaborators" class="btn btn-default" role="tab">Collaborators</a>
       </li>
+      {/if}
       <li role="presentation" class="btn-group{if $active_tab eq "inspirations"} active{/if}">
         <a href="/m/{$maker->uid}/{$maker->slug}/inspirations" class="btn btn-default" role="tab">Inspirations</a>
       </li>
@@ -172,7 +174,7 @@
 
                 <form method="post" action="/add/role/" class="form-horizontal col-xs-12 collapse add-form" id="add-role-form">
 
-                <h2>What {if $roles}else {/if}did {$maker->name|escape} make?</h2>
+                <h3>What {if $roles}else {/if}did {$maker->name|escape} make?</h3>
                   <input type="hidden" name="maker_uid" value="{$maker->uid}">
                   <input type="hidden" name="originate_slug" value="{$maker->slug}">
                   <input type="hidden" name="originate_uid" value="{$maker->uid}">
@@ -266,7 +268,6 @@
 {if isset($inspirations) }
   <div role="tabpanel" class="tab-pane" id="inspirations">
 
-
     <div class="row" id="">
       <div class="col-xs-12 col-sm-10 col-sm-offset-1">
 
@@ -291,9 +292,6 @@
                   <input type="hidden" name="originate_uid" value="{$maker->uid}">
                   <input type="hidden" name="uid" value="{$inspiration->inspiration_uid}">
                   <input type="hidden" name="delete" value="1">
-              {/if}
-
-                {if $is_maker_user eq true}
                   <button type="submit" class="btn btn-sm btn-link pull-right" name="Delete">Archive</button>
                 {/if}
 
@@ -318,54 +316,71 @@
                 </div>
                 <div class="media-body">
                   <h3>Who {if $inspirations}else {/if}inspires you?</h3>
-
-
-              {if isset($logged_in_user)}
-                <button class="btn btn-info pull-right" type="submit" id="add-inspiration" data-toggle="collapse" data-target="#add-inspiration-form" onclick="$('#product-name').focus();$('#add-inspiration').toggle();$('#add-inspiration-cancel').toggle();" ><i class="fa fa-plus"></i> Add a{if $inspirations}nother{/if} inspiration</button>
-
-                <button class="btn btn-link pull-right" type="submit" id="add-inspiration-cancel" data-toggle="collapse" data-target="#add-inspiration-form" onclick="$('#add-inspiration-cancel').toggle();$('#add-inspiration').toggle();" > Cancel </button>
-
-              {else}
-
-                <a href="{$sign_in_with_twttr_link}" class="btn btn-info pull-right" id="add-inspiration"><i class="fa fa-plus"></i> Add a{if $inspirations}nother{/if} inspiration</a>
-
-              {/if}
-
-                  <div id="role-description-ghost">
-                    <form method="post" action="/add/inspiration/" class="form-horizontal add-form collapse" id="add-inspiration-form">
-                      <input type="hidden" name="originate_slug" value="{$maker->slug}">
-                      <input type="hidden" name="originate_uid" value="{$maker->uid}">
-                      <input type="hidden" name="inspired_maker_uid" value="{$maker->uid}">
-                      <input type="hidden" name="maker_uid" id="maker-uid">
-
-                      <div class="form-group col-xs-12">
-                        <label for="product_name" class="col-sm-1 control-label hidden-xs">Name</label>
-                        <div class="col-xs-12 col-sm-10" id="remote-search-makers">
-                          <input type="text" class="typeahead form-control input-sm" placeholder="Maker's name" name="maker_name" id="maker-name" autocomplete="off">
-                        </div>
-                      </div>
-
-                      <div id="inspiration-extended-form">
-                        <div class="form-group col-xs-12">
-                          <label for="description" class="col-sm-1 control-label hidden-xs">How</label>
-                          <div class="col-xs-12 col-sm-10">
-                            <input type="text" class="form-control input-sm" autocomplete="off" id="inspiration-description" name="inspiration_description" placeholder="{$inspiration_placeholder}">
-                          </div>
-                        </div>
-
-                        <div class="form-group col-xs-12">
-                          <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                            <button class="btn btn-primary" type="submit" id="add-action">Inspiring!</button>
-                          </div>
-                        </div>
-                    </form>
-                  </div>
+                    <div id="role-description-ghost">
+                      <p>Makerbase is edited by our community, and might be incomplete&mdash;you can help fill it in!</p>
+                   </div>
                 </div>
             </div>
           </li>
           {/if}
 
         </ul>
+
+
+        {if isset($logged_in_user)}
+          {if $is_maker_user eq true}
+
+            <button class="btn btn-info pull-right" type="submit" id="add-inspiration" data-toggle="collapse" data-target="#add-inspiration-form" onclick="$('#product-name').focus();$('#add-inspiration').toggle();$('#add-inspiration-cancel').toggle();" ><i class="fa fa-plus"></i> Add an{if $inspirations}other{/if} inspiration</button>
+
+            <button class="btn btn-link pull-right" type="submit" id="add-inspiration-cancel" data-toggle="collapse" data-target="#add-inspiration-form" onclick="$('#add-inspiration-cancel').toggle();$('#add-inspiration').toggle();" > Cancel </button>
+
+          {else}
+
+            <button class="btn btn-info pull-right" type="submit" id="add-inspiration" data-toggle="collapse" data-target="#add-inspiration-form" onclick="$('#add-inspiration').toggle();$('#add-inspiration-cancel').toggle();" ><i class="fa fa-plus"></i> Does {$maker->name|escape} inspire you?</button>
+
+            <button class="btn btn-link pull-right" type="submit" id="add-inspiration-cancel" data-toggle="collapse" data-target="#add-inspiration-form" onclick="$('#add-inspiration-cancel').toggle();$('#add-inspiration').toggle();" > Cancel </button>
+
+          {/if}
+
+        {/if}
+
+            <div id="role-description-ghost">
+              <form method="post" action="/add/inspiration/" class="form-horizontal col-xs-12  add-form collapse" id="add-inspiration-form">
+
+                <h3>Show your inspiration appreciation!</h3>
+                <input type="hidden" name="originate_slug" value="{$maker->slug}">
+                <input type="hidden" name="originate_uid" value="{$maker->uid}">
+                <input type="hidden" name="inspired_maker_uid" value="{$maker->uid}">
+                <input type="hidden" name="maker_uid" id="{$maker->uid}">
+
+                {if $is_maker_user eq true}
+                <div class="form-group col-xs-12">
+                  <label for="product_name" class="col-sm-1 control-label hidden-xs">Name</label>
+                  <div class="col-xs-12 col-sm-10" id="remote-search-makers">
+                    <input type="text" class="typeahead form-control input-sm" placeholder="Maker's name" name="maker_name" id="maker-name" autocomplete="off">
+                  </div>
+                </div>
+                {else}
+
+                <input type="hidden" name="maker_name" id="maker-name" autocomplete="off" value="{$maker->name}">
+
+                {/if}
+
+                <div id="inspiration-extended-form">
+                  <div class="form-group col-xs-12">
+                    <label for="description" class="col-sm-1 control-label hidden-xs">How</label>
+                    <div class="col-xs-12 col-sm-10">
+                      <input type="text" class="form-control input-sm" autocomplete="off" id="inspiration-description" name="inspiration_description" placeholder="{$inspiration_placeholder}">
+                    </div>
+                  </div>
+
+                  <div class="form-group col-xs-12">
+                    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                      <button class="btn btn-primary" type="submit" id="add-action">Inspiring!</button>
+                    </div>
+                  </div>
+              </form>
+            </div>
 
       </div>
     </div>
@@ -392,7 +407,11 @@
               <div class="col-xs-3 col-sm-2 col-md-1 inspiree">
                 <div class="">
                   <a tabindex="0" role="button"
-                   data-toggle="popover" data-placement="bottom" data-trigger="focus" data-html="true" data-content="{$smarty.capture.hideform} {$inspired_maker->name} description of inspiration" data-title="<a href='/m/{$inspired_maker->uid}/{$inspired_maker->slug}'>{$inspired_maker->name}</a>">
+                   data-toggle="popover" data-placement="bottom" data-trigger="focus" data-html="true" data-content="{$smarty.capture.hideform} {$inspired_maker->name|escape}"
+
+{* ideally we would have inspired_maker->description here *}
+
+                    data-title="<a href='/m/{$inspired_maker->uid}/{$inspired_maker->slug}'>{$inspired_maker->name|escape}</a>">
                     <img  src="{insert name='user_image' image_url=$inspired_maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" width="50">
                   </a>
                 </div>
@@ -401,45 +420,10 @@
             {/foreach}
           {/if}
 
-            {if $is_maker_user neq true && isset($logged_in_user->maker)}
-            <div class="col-xs-9 col-sm-4 inspiree inspiree-add">
-              <div class="">
-                <a tabindex="0" role="button" id="add-inspiration" data-toggle="collapse" data-target="#add-inspiration-form" onclick="$('#add-inspiration-form').toggle();">
-                  <h3><i class="fa fa-plus"></i> Does {$maker->name|escape} inspire you?</h3>
-                </a>
-              </div>
-            </div>
 
-
-            <div class="col-xs-12">
-              <div class="">
-                  <form method="post" action="/add/inspiration/" class="form-horizontal add-form collapse" id="add-inspiration-form">
-                    <input type="hidden" name="originate_slug" value="{$maker->slug}">
-                    <input type="hidden" name="originate_uid" value="{$maker->uid}">
-                    <input type="hidden" name="inspired_maker_uid" value="{$logged_in_user->maker->uid}">
-                    <input type="hidden" name="maker_uid" id="maker-uid" value="{$maker->uid}">
-                    <input type="hidden" class="typeahead form-control input-sm" placeholder="Maker's name" name="maker_name" id="maker-name" autocomplete="off" value="{$maker->name}">
-
-                    <div id="inspiration-extended-form">
-                      <div class="form-group col-xs-12">
-                        <label for="description" class="col-sm-1 control-label hidden-xs">How</label>
-                        <div class="col-xs-12 col-sm-10">
-                          <input type="text" class="form-control input-sm" autocomplete="off" id="inspiration-description" name="inspiration_description" placeholder="{$inspiration_placeholder}">
-                        </div>
-                      </div>
-
-                      <div class="form-group col-xs-12">
-                        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                          <button class="btn btn-primary" type="submit" id="add-action">Inspiring!</button>
-                        </div>
-                      </div>
-                  </form>
-              </div>
-            </div>
       </div>
-    {/if}
-{/if}
     </div>
+{/if}
 {* /INSPIRATIONS *}
 
   </div>

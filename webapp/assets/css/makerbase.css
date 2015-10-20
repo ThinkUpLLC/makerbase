@@ -5420,7 +5420,7 @@ button.close {
   -o-filter: blur(3px);
   filter: blur(3px);
 }
-.active {
+li.active a {
   font-weight: 600;
 }
 .popover {
