@@ -101,4 +101,37 @@ class EmailNotifier {
             error_log(get_class($e)." - ".$e->getMessage());
         }
     }
+
+    /**
+     * Send email notification about a new inspiration.
+     * This notification counts toward a user's maker change notification balance, so if it is sent, another
+     * change won't get sent for another 24 hours.
+     * @return void
+     */
+    public function sendNewInspirationEmailNotification() {
+        if (!isset($this->logged_in_user) || !isset($this->maker_updated) || !isset($this->user_to_notify)) {
+            throw new Exception('Email notifier has not bee initialized');
+        }
+        $maker_page_link = "http://makerba.se/m/".$this->maker_updated->uid."/".$this->maker_updated->slug
+            ."/inspirations";
+        $editor_name = $this->logged_in_user->twitter_username;
+        $unsub_link = "http://makerba.se/u/".$this->user_to_notify->uid;
+        $params = array(
+            'USER_EMAIL'=>$this->user_to_notify->email,
+            'MAKER_PAGE_LINK'=>$maker_page_link,
+            'EDITOR_NAME'=>$editor_name,
+            'UNSUBSCRIBE_LINK'=>$unsub_link
+        );
+        try {
+            $email_result = Mailer::mailHTMLViaMandrillTemplate($to=$this->user_to_notify->email,
+                $subject=$editor_name." said you're an inspiration",
+                $template_name = "Makerbase inspiration notification", $template_params = $params);
+
+            //Set notified user's last_email_notification_sent value here
+            $user_dao = new UserMySQLDAO();
+            $user_dao->updateLastMakerChangeEmailNotificationSentTime($this->user_to_notify);
+        } catch (Exception $e) {
+            error_log(get_class($e)." - ".$e->getMessage());
+        }
+    }
 }

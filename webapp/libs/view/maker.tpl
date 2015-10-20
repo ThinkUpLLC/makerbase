@@ -401,8 +401,7 @@
             {/foreach}
           {/if}
 
-            {if $is_maker_user neq true}
-
+            {if $is_maker_user neq true && isset($logged_in_user->maker)}
             <div class="col-xs-9 col-sm-4 inspiree inspiree-add">
               <div class="">
                 <a tabindex="0" role="button" id="add-inspiration" data-toggle="collapse" data-target="#add-inspiration-form" onclick="$('#add-inspiration-form').toggle();">
@@ -437,12 +436,10 @@
                   </form>
               </div>
             </div>
-
-
       </div>
+    {/if}
+{/if}
     </div>
-{/if}
-{/if}
 {* /INSPIRATIONS *}
 
   </div>

@@ -287,6 +287,12 @@ class AddController extends MakerbaseAuthController {
                 $action_dao = new ActionMySQLDAO();
                 $action_dao->insert($action);
 
+                // Send email notification
+                $email_notifier = new EmailNotifier($this->logged_in_user);
+                if ($email_notifier->shouldSendMakerChangeEmailNotification($inspirer_maker)) {
+                    $email_notifier->sendNewInspirationEmailNotification();
+                }
+
                 //Force cache refresh
                 CacheHelper::expireCache('maker.tpl', $maker->uid, $maker->slug);
 
