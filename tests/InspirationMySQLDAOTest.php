@@ -37,12 +37,9 @@ class InspirationMySQLDAOTest extends MakerbaseUnitTestCase {
         $this->assertEquals($result->id, 1);
     }
 
-    /**
-     * @expectedException DuplicateInspirationException
-     */
-    public function testInsertDuplicate() {
+    public function testOverwriteExistingInspiration() {
         $builders[] = FixtureBuilder::build('inspirations', array('uid'=>'asdf', 'maker_id'=>10,
-            'inspirer_maker_id'=>13));
+            'inspirer_maker_id'=>13, 'description'=>'GOODBYE'));
 
         $maker = new Maker();
         $maker->id = 10;
@@ -58,6 +55,9 @@ class InspirationMySQLDAOTest extends MakerbaseUnitTestCase {
         $dao = new InspirationMySQLDAO();
         $result = $dao->insert($inspiration);
         $this->assertInstanceOf("Inspiration", $result);
+        $this->assertEquals($result->id, 1);
+        $inspiration = $dao->get('asdf');
+        $this->assertEquals('HELLO', $inspiration->description);
     }
 
     public function testEdit() {
