@@ -75,7 +75,7 @@ class EditController extends MakerbaseAuthController {
             } else {
                 SessionCache::put('error_message', $this->frozen_user_message);
             }
-            $this->redirect('/m/'.$_POST['originate_uid'].'/'.$_POST['originate_slug']);
+            $this->redirect('/m/'.$_POST['originate_uid'].'/'.$_POST['originate_slug'].'/inspirations');
         } elseif ($this->hasHiddenInspiration()) {
             if (!$this->logged_in_user->is_frozen) {
                 CacheHelper::expireLandingAndUserActivityCache($this->logged_in_user->uid);
@@ -83,7 +83,7 @@ class EditController extends MakerbaseAuthController {
             } else {
                 SessionCache::put('error_message', $this->frozen_user_message);
             }
-            $this->redirect('/m/'.$_POST['originate_uid'].'/'.$_POST['originate_slug']);
+            $this->redirect('/m/'.$_POST['originate_uid'].'/'.$_POST['originate_slug'].'/inspirations');
         } else {
             //print_r($_POST);
             $this->redirect(Config::getInstance()->getValue('site_root_path'));

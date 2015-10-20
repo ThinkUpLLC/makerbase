@@ -69,7 +69,7 @@ class AddController extends MakerbaseAuthController {
                 } else {
                     SessionCache::put('error_message', $this->frozen_user_message);
                 }
-                $this->redirect('/m/'.$_POST['originate_uid'].'/'.$_POST['originate_slug']);
+                $this->redirect('/m/'.$_POST['originate_uid'].'/'.$_POST['originate_slug'].'/inspirations');
             }
         } else {
             $this->redirect(Config::getInstance()->getValue('site_root_path'));
