@@ -62,6 +62,11 @@ class MakerController extends MakerbaseController {
                     $this->addToView('inspired_makers', $inspired_makers);
 
                     $this->addToView('inspiration_placeholder', Inspiration::getRandoPlaceholder());
+
+                    if (isset($this->logged_in_user->maker_id)) {
+                        $this->logged_in_user->maker = $maker_dao->getById($this->logged_in_user->maker_id);
+                        $this->addToView('logged_in_user', $this->logged_in_user);
+                    }
                 }
 
                 // Get user

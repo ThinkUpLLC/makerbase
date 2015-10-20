@@ -120,6 +120,7 @@ class AddController extends MakerbaseAuthController {
     private function hasSubmittedInspirationForm() {
         return (
             isset($_POST['maker_uid'])
+            && isset($_POST['inspired_maker_uid'])
             && isset($_POST['inspiration_description'])
             && isset($_POST['originate_uid'])
             && isset($_POST['originate_slug'])
@@ -247,7 +248,7 @@ class AddController extends MakerbaseAuthController {
         $maker_dao = new MakerMySQLDAO();
         try {
             $inspirer_maker = $maker_dao->get($_POST['maker_uid']);
-            $maker = $maker_dao->get($_POST['originate_uid']);
+            $maker = $maker_dao->get($_POST['inspired_maker_uid']);
 
             // Is the logged in user looking at zer own maker page?
             if (isset($maker->autofill_network_id) && isset($maker->autofill_network)

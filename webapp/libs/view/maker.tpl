@@ -335,6 +335,7 @@
                     <form method="post" action="/add/inspiration/" class="form-horizontal add-form collapse" id="add-inspiration-form">
                       <input type="hidden" name="originate_slug" value="{$maker->slug}">
                       <input type="hidden" name="originate_uid" value="{$maker->uid}">
+                      <input type="hidden" name="inspired_maker_uid" value="{$maker->uid}">
                       <input type="hidden" name="maker_uid" id="maker-uid">
 
                       <div class="form-group col-xs-12">
@@ -416,6 +417,7 @@
                   <form method="post" action="/add/inspiration/" class="form-horizontal add-form collapse" id="add-inspiration-form">
                     <input type="hidden" name="originate_slug" value="{$maker->slug}">
                     <input type="hidden" name="originate_uid" value="{$maker->uid}">
+                    <input type="hidden" name="inspired_maker_uid" value="{$logged_in_user->maker->uid}">
                     <input type="hidden" name="maker_uid" id="maker-uid" value="{$maker->uid}">
                     <input type="hidden" class="typeahead form-control input-sm" placeholder="Maker's name" name="maker_name" id="maker-name" autocomplete="off" value="{$maker->name}">
 
