@@ -67,6 +67,7 @@
             <li><a>Logged in {$user->last_login_time|relative_datetime} ago</a></li>
             <li><a>Joined {$user->creation_time|relative_datetime} ago</a></li>
             <li><a>Fetched friends {$user->last_loaded_friends|relative_datetime} ago</a></li>
+            <li><a>Email {if !isset($user->email)}not set{else}set, {if !$user->is_subscribed_maker_change_email}un{/if}subscribed{/if}</a></li>
             {/if}
 
           </ul>
