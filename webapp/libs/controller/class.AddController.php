@@ -294,7 +294,8 @@ class AddController extends MakerbaseAuthController {
                 }
 
                 //Force cache refresh
-                CacheHelper::expireCache('maker.tpl', $maker->uid, $maker->slug);
+                CacheHelper::expireCache('maker.tpl', $inspirer_maker->uid, $inspirer_maker->slug, 'inspirations');
+                CacheHelper::expireCache('maker.tpl', $maker->uid, $maker->slug, 'inspirations');
 
                 SessionCache::put('success_message', 'You said '.htmlspecialchars($inspirer_maker->name).
                     ' inspires you.');
