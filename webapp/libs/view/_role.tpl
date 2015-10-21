@@ -25,9 +25,9 @@
     </div>
     <div class="media-body">
 
-            <a {if isset($logged_in_user)}href="#edit-role-{$role->uid}" onclick="$('#edit-role-{$role->uid}').toggle();$('#role-description-{$role->uid}').toggle();$('#role-archive-{$role->uid}').toggle();$('#edit-role-btn-{$role->uid}').toggle();$('#edit-role-btn-cancel-{$role->uid}').toggle();return false;"{else}href="{$sign_in_with_twttr_link}"{/if} type="button" class="btn btn-link btn-xs edit-role-btn pull-right" id="edit-role-btn-{$role->uid}">edit</a>
+            <a {if isset($logged_in_user)}href="#edit-role-{$role->uid}" onclick="$('#edit-role-{$role->uid}').toggle();$('#role-description-{$role->uid}').toggle();$('#role-archive-{$role->uid}').toggle();$('#edit-role-btn-{$role->uid}').toggle();$('#edit-role-btn-cancel-{$role->uid}').toggle();return false;"{else}href="{$sign_in_with_twttr_link}"{/if} type="button" class="btn btn-link btn-xs edit-role-btn pull-right" id="edit-role-btn-{$role->uid}">Edit</a>
 
-            <button onclick="$('#role-description-{$role->uid}').toggle();$('#edit-role-{$role->uid}').toggle();$('#role-archive-{$role->uid}').toggle();$('#edit-role-btn-{$role->uid}').toggle();$('#edit-role-btn-cancel-{$role->uid}').toggle();" type="button" class="btn btn-link btn-xs pull-right edit-role-button-cancel" id="edit-role-btn-cancel-{$role->uid}">cancel</button>
+            <button onclick="$('#role-description-{$role->uid}').toggle();$('#edit-role-{$role->uid}').toggle();$('#role-archive-{$role->uid}').toggle();$('#edit-role-btn-{$role->uid}').toggle();$('#edit-role-btn-cancel-{$role->uid}').toggle();" type="button" class="btn btn-link btn-xs pull-right edit-role-button-cancel" id="edit-role-btn-cancel-{$role->uid}">Cancel</button>
 
         <h3>
             <a href="/{$object_route}/{$object_uid}/{$display_object->slug}">{$display_object->name|escape}</a>
