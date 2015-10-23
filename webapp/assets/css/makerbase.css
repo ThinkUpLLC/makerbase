@@ -6096,9 +6096,11 @@ form.form-inline {
 }
 #collaborators .inspiree,
 #inspirations .inspiree {
+  display: inline-block;
   background-color: #fff;
   min-height: 75px;
-  padding-top: 12px;
+  min-width: 75px;
+  padding: 15px;
 }
 #collaborators .inspiree.inspiree-add,
 #inspirations .inspiree.inspiree-add {
