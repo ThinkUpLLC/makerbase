@@ -295,7 +295,7 @@
                   {/if}
                 {/capture}
 
-              <div class="col-xs-3 col-sm-2 col-md-1 inspiree">
+              <div class="inspiree">
                 <div class="">
                   <a tabindex="0" role="button"
                    data-toggle="popover" data-placement="bottom" data-trigger="focus" data-html="true" data-content="{$smarty.capture.hideform} {$inspired_maker->inspiration_description|escape}"
