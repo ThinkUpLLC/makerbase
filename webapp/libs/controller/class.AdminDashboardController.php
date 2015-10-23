@@ -35,7 +35,30 @@ class AdminDashboardController extends MakerbaseAdminController {
         if ($_GET['v'] == 'stats') {
             $user_dao = new UserMySQLDAO();
             $signups_by_week = $user_dao->getSignupsByWeek();
-            $this->addToView('weekly_signups', $signups_by_week);
+
+            $weekly_signups = array();
+            $last_weekly_signup = null;
+            foreach ($signups_by_week as $weekly_signup) {
+                if (isset($last_weekly_signup)) {
+                    $percentage_diff = (($weekly_signup['user_signups_per_week']-$last_weekly_signup)*100)
+                        /($weekly_signup['user_signups_per_week']);
+                    $weekly_signup['percentage_diff'] = $percentage_diff;
+                } else {
+                    $weekly_signup['percentage_diff'] = null;
+                }
+                $last_weekly_signup = $weekly_signup['user_signups_per_week'];
+                $weekly_signups[] = $weekly_signup;
+            }
+            // Figure out average percentage difference over last 6 weeks
+            $last_six_weeks = array_slice($weekly_signups, count($weekly_signups)-6, 6);
+            $percentage_diff_sum = 0;
+            foreach ($last_six_weeks as $week) {
+                $percentage_diff_sum += $week['percentage_diff'];
+            }
+            $last_six_weeks_average = round($percentage_diff_sum / 6);
+
+            $this->addToView('weekly_signups', $weekly_signups);
+            $this->addToView('last_six_weeks_average', $last_six_weeks_average);
         }
 
         $this->addToView('sort_view',  $_GET['v']);
