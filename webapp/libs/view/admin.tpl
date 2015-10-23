@@ -11,6 +11,7 @@
     <li><h2><small><i class="fa fa-cubes"></i> Projects:</small> {$total_products|number_format}</h2></li>
     <li><h2><small><i class="fa fa-link"></i> Roles:</small> {$total_roles|number_format}</h2></li>
     <li><h2><small><i class="fa fa-edit"></i> Actions:</small> {$total_actions|number_format}</h2></li>
+    <li><h2><small><i class="fa fa-bolt"></i> Inspirations:</small> {$total_inspirations|number_format}</h2></li>
   </ul>
 </div>
 
@@ -69,7 +70,7 @@
 
 {if isset($weekly_signups)}
 <h2>Signups per week</h2>
-  {if isset($last_six_weeks_average)}{if $last_six_weeks_average > 0}<p style="color:green">+{else}<p style="color:red">{/if}{$last_six_weeks_average}% week-over-week last six weeks</p>{/if}
+  {if isset($last_six_weeks_average)}{if $last_six_weeks_average > 0}<p style="color:green">+{else}<p style="color:red">{/if}{$last_six_weeks_average|number_format}% week-over-week last six weeks</p>{/if}
 
 <ul class="list-group">
   {foreach $weekly_signups as $weekly_signup}

@@ -133,4 +133,14 @@ EOD;
         $ps = $this->execute($q, $vars);
         return $this->getDataRowsAsObjects($ps, "Maker");
     }
+
+    public function getTotal() {
+        $q = <<<EOD
+SELECT count(*) AS total FROM inspirations;
+EOD;
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $ps = $this->execute($q);
+        $result = $this->getDataRowAsArray($ps);
+        return $result['total'];
+    }
 }

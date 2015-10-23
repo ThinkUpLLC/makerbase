@@ -87,6 +87,10 @@ class AdminDashboardController extends MakerbaseAdminController {
         $total_actions = $action_dao->getTotal();
         $this->addToView('total_actions', $total_actions);
 
+        $inspiration_dao = new InspirationMySQLDAO();
+        $total_inspirations = $inspiration_dao->getTotal();
+        $this->addToView('total_inspirations', $total_inspirations);
+
         return $this->generateView();
     }
 }
