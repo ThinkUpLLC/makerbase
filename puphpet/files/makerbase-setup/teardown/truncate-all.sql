@@ -3,6 +3,7 @@ TRUNCATE TABLE action_objects;
 TRUNCATE TABLE connections;
 TRUNCATE TABLE event_makers;
 TRUNCATE TABLE event_permissions;
+TRUNCATE TABLE inspirations;
 TRUNCATE TABLE made_withs;
 TRUNCATE TABLE makers;
 TRUNCATE TABLE network_friends;
