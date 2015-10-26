@@ -26,11 +26,11 @@ class FollowController extends MakerbaseAuthController {
                         $result['result'] = "Already following";
                     }
 
-                    if ($maker->autofill_network == 'twitter' && isset($maker->autofill_network_user_id)) {
+                    if ($maker->autofill_network == 'twitter' && isset($maker->autofill_network_id)) {
                         $user_dao = new UserMySQLDAO();
-                        $user = $user_dao->getByTwitterId($maker->network_user_id);
+                        $user = $user_dao->getByTwitterUserId($maker->autofill_network_id);
                         if ($connection_dao->insert($this->logged_in_user, $user)) {
-                            CacheHelper::expireCache('user.tpl', $user->uid, $user->slug);
+                            CacheHelper::expireCache('user.tpl', $user->uid, null);
                         }
                     }
                 } catch (MakerDoesNotExistException $e) {
