@@ -18,6 +18,10 @@ class FollowController extends MakerbaseAuthController {
                     $connection_dao = new ConnectionMySQLDAO();
                     if ($connection_dao->insert($this->logged_in_user, $maker) ) {
                         $result['result'] = "Success";
+                        CacheHelper::expireCache('maker.tpl', $maker->uid, $maker->slug);
+                        CacheHelper::expireCache('maker.tpl', $maker->uid, $maker->slug, 'projects');
+                        CacheHelper::expireCache('maker.tpl', $maker->uid, $maker->slug, 'collaborators');
+                        CacheHelper::expireCache('maker.tpl', $maker->uid, $maker->slug, 'inspirations');
                     } else {
                         $result['result'] = "Already following";
                     }
@@ -25,7 +29,9 @@ class FollowController extends MakerbaseAuthController {
                     if ($maker->autofill_network == 'twitter' && isset($maker->autofill_network_user_id)) {
                         $user_dao = new UserMySQLDAO();
                         $user = $user_dao->getByTwitterId($maker->network_user_id);
-                        $connection_dao->insert($this->logged_in_user, $user);
+                        if ($connection_dao->insert($this->logged_in_user, $user)) {
+                            CacheHelper::expireCache('user.tpl', $user->uid, $user->slug);
+                        }
                     }
                 } catch (MakerDoesNotExistException $e) {
                     $result['error'] = $e->getMessage();
@@ -41,6 +47,7 @@ class FollowController extends MakerbaseAuthController {
                     $connection_dao = new ConnectionMySQLDAO();
                     if ($connection_dao->insert($this->logged_in_user, $product)) {
                         $result['result'] = "Success";
+                        CacheHelper::expireCache('product.tpl', $product->uid, $product->slug);
                     } else {
                         $result['result'] = "Already following";
                     }
@@ -56,6 +63,7 @@ class FollowController extends MakerbaseAuthController {
                     $connection_dao = new ConnectionMySQLDAO();
                     if ($connection_dao->insert($this->logged_in_user, $user)) {
                         $result['result'] = "Success";
+                        CacheHelper::expireCache('user.tpl', $user->uid, $user->slug);
                     } else {
                         $result['result'] = "Already following";
                     }
