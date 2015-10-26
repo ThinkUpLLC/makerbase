@@ -45,6 +45,14 @@ class UserController extends MakerbaseController {
                     $last_admin_activity = $action_dao->getLastAdminActivityPerformedOnUser($user);
                     $this->addToView('last_admin_activity', $last_admin_activity);
                 }
+
+                if (isset($this->logged_in_user)) {
+                    $connection_dao = new ConnectionMySQLDAO();
+                    $this->logged_in_user->is_following_user =
+                        $connection_dao->isFollowingUser($this->logged_in_user, $user);
+                    $this->addToView('logged_in_user', $this->logged_in_user);
+                }
+
             } catch (UserDoesNotExistException $e) {
                 $this->redirect('/404');
             }

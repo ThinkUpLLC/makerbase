@@ -104,6 +104,13 @@ class MakerController extends MakerbaseController {
                 }
                 $this->addToView('is_maker_user', $is_maker_user);
 
+                if (isset($this->logged_in_user)) {
+                    $connection_dao = new ConnectionMySQLDAO();
+                    $this->logged_in_user->is_following_maker =
+                        $connection_dao->isFollowingMaker($this->logged_in_user, $maker);
+                    $this->addToView('logged_in_user', $this->logged_in_user);
+                }
+
             } catch (MakerDoesNotExistException $e) {
                 $this->redirect('/404');
             }

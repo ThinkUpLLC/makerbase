@@ -273,6 +273,53 @@
 
       });
 
+//Follow button
+$(function() {
+  $(".btn-follow").click(function() {
+    var uid = $(this).attr("uid");
+    var type = $(this).attr("type");
+    $.ajax({
+     type: "GET",
+     url: "/follow/"+type+"/"+uid,
+     success: function(html){
+        // debug
+        // console.log("/follow/"+type+"/"+uid);
+        // console.log(html);
+        $("#follow"+uid).hide();
+        $("#unfollow"+uid).show();
+      }
+    });
+    return false;
+  });
+});
+
+//Unfollow button
+$(".btn-unfollow").mouseover(function() {
+  $(".btn-unfollow").html("Unfollow");
+});
+$(".btn-unfollow").mouseout(function() {
+  $(".btn-unfollow").html("Following");
+});
+
+$(function() {
+  $(".btn-unfollow").click(function() {
+    var uid = $(this).attr("uid");
+    var type = $(this).attr("type");
+     $.ajax({
+       type: "GET",
+       url: "/unfollow/"+type+"/"+uid,
+       success: function(html){
+        // debug
+        // console.log("/unfollow/"+type+"/"+uid);
+        // console.log(html);
+        $("#unfollow"+uid).hide();
+        $("#follow"+uid).show();
+       }
+     });
+    return false;
+  });
+});
+
       // Analytics tracking
 
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

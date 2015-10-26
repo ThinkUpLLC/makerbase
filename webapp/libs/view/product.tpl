@@ -22,6 +22,12 @@
         <h1 {if $product->is_archived}class="archived"{/if}>We made <strong>{$product->name|escape}</strong></h1>
         <h3>{$product->description|escape|atnames:'/search/?q='}</h3>
         <h5><a href="{if $product->uid eq 'm348b6'}https://slack.com/?cvosrc=general%20promotion.makerbase.slack%20page&amp;utm_source=makerbase&amp;utm_medium=general%20promotion&amp;utm_campaign=slack%20page{else}{$product->url}{/if}" class="text-muted"  rel="nofollow">{$product->url}</a></h5>
+
+        {if isset($logged_in_user) && !$product->is_archived}
+          <div id="unfollow{$product->uid}" {if $logged_in_user->is_following_product eq false}style="display:none"{/if}><a class="btn btn-md btn-default btn-info btn-unfollow" uid="{$product->uid}" type="project" style="padding: 6px 12px;">Following</a></div>
+          <div id="follow{$product->uid}" {if $logged_in_user->is_following_product eq true}style="display:none"{/if}><a class="btn btn-md btn-default btn-follow" uid="{$product->uid}" type="project" style="padding: 6px 12px;{if $logged_in_user->is_following_product eq true}display:none{/if}">Follow</a></div>
+
+        {/if}
       </div>
     </div>
 

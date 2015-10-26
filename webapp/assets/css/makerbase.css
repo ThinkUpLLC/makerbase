@@ -6586,3 +6586,8 @@ body.landing .jumbotron li.completed:before {
   font-size: 1.5em;
   color: #000;
 }
+.btn-unfollow:hover {
+  background-color: #f13d96;
+  color: white!important;
+  border-color: #f13d96!important;
+}

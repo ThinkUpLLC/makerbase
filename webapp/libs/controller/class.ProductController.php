@@ -78,6 +78,13 @@ class ProductController extends MakerbaseController {
                     $last_admin_activity = $action_dao->getLastAdminActivityPerformedOnProduct($product);
                     $this->addToView('last_admin_activity', $last_admin_activity);
                 }
+
+                if (isset($this->logged_in_user)) {
+                    $connection_dao = new ConnectionMySQLDAO();
+                    $this->logged_in_user->is_following_product =
+                        $connection_dao->isFollowingProduct($this->logged_in_user, $product);
+                    $this->addToView('logged_in_user', $this->logged_in_user);
+                }
             } catch (ProductDoesNotExistException $e) {
                 $this->redirect('/404');
             }
