@@ -62,6 +62,7 @@ $email_capture_state either 'need email', 'confirmation_pending' or 'confirmatio
               {include file="_reportpage.tpl"  object=$user object_type='user'}
             {/if}
           {else}
+              <a class="btn btn-md btn-default" style="padding: 6px 12px;" href="{$sign_in_with_twttr_link}">Follow</a>
               {include file="_twitterprofile.tpl"  twitter_user_id=$user->twitter_user_id}
               {include file="_reportpage.tpl"  object=$user object_type='user'}
           {/if}

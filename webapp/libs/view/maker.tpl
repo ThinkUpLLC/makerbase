@@ -28,11 +28,13 @@
           {else}
             <p class="text-muted">Our community added {$maker->name|escape} to Makerbase.</p>
           {/if}
-          {if isset($logged_in_user) && !$maker->is_archived && !$is_maker_user eq true}
-
-          <div id="unfollow{$maker->uid}" {if $logged_in_user->is_following_maker eq false}style="display:none"{/if}><a class="btn btn-md btn-default btn-info btn-unfollow" uid="{$maker->uid}" type="maker" style="padding: 6px 12px;">Following</a></div>
-          <div id="follow{$maker->uid}" {if $logged_in_user->is_following_maker eq true}style="display:none"{/if}><a class="btn btn-md btn-default btn-follow" uid="{$maker->uid}" type="maker" style="padding: 6px 12px;{if $logged_in_user->is_following_maker eq true}display:none{/if}">Follow</a></div>
-
+          {if isset($logged_in_user)}
+            {if !$maker->is_archived && !$is_maker_user eq true}
+             <div id="unfollow{$maker->uid}" {if $logged_in_user->is_following_maker eq false}style="display:none"{/if}><a class="btn btn-md btn-default btn-info btn-unfollow" uid="{$maker->uid}" type="maker" style="padding: 6px 12px;">Following</a></div>
+             <div id="follow{$maker->uid}" {if $logged_in_user->is_following_maker eq true}style="display:none"{/if}><a class="btn btn-md btn-default btn-follow" uid="{$maker->uid}" type="maker" style="padding: 6px 12px;{if $logged_in_user->is_following_maker eq true}display:none{/if}">Follow</a></div>
+            {/if}
+          {else}
+            <a class="btn btn-md btn-default" style="padding: 6px 12px;" href="{$sign_in_with_twttr_link}">Follow</a>
           {/if}
         </div>
       </div>
