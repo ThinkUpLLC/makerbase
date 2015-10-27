@@ -55,8 +55,8 @@ $email_capture_state either 'need email', 'confirmation_pending' or 'confirmatio
           {if isset($logged_in_user)}
             {if $logged_in_user->twitter_user_id neq $user->twitter_user_id}
 
-              <div id="unfollow{$user->uid}" {if $logged_in_user->is_following_user eq false}style="display:none"{/if}><a class="btn btn-md btn-default btn-info btn-unfollow" uid="{$user->uid}" type="user" style="padding: 6px 12px;">Following</a></div>
-              <div id="follow{$user->uid}" {if $logged_in_user->is_following_user eq true}style="display:none"{/if}><a class="btn btn-md btn-default btn-follow" uid="{$user->uid}" type="user" style="padding: 6px 12px;{if $logged_in_user->is_following_user eq true}display:none{/if}">Follow</a></div>
+              <div id="unfollow{$user->uid}" {if $logged_in_user->is_following_user eq false}style="display:none"{/if}><a class="btn btn-md btn-default btn-info btn-unfollow" uid="{$user->uid}" type="user"  data-loading-text="<i class='fa fa-spinner fa-spin'></i> Unfollowing" style="padding: 6px 12px;">Following</a></div>
+              <div id="follow{$user->uid}" {if $logged_in_user->is_following_user eq true}style="display:none"{/if}><a class="btn btn-md btn-default btn-follow" uid="{$user->uid}" type="user"  data-loading-text="<i class='fa fa-spinner fa-spin'></i> Following" style="padding: 6px 12px;">Follow</a></div>
 
               {include file="_twitterprofile.tpl"  twitter_user_id=$user->twitter_user_id}
               {include file="_reportpage.tpl"  object=$user object_type='user'}

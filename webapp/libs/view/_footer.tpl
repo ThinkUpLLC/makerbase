@@ -276,6 +276,7 @@
 //Follow button
 $(function() {
   $(".btn-follow").click(function() {
+    $(this).button('loading');
     var uid = $(this).attr("uid");
     var type = $(this).attr("type");
     $.ajax({
@@ -285,10 +286,11 @@ $(function() {
         // debug
         // console.log("/follow/"+type+"/"+uid);
         // console.log(html);
-        $("#follow"+uid).hide();
-        $("#unfollow"+uid).show();
       }
     });
+    $(this).button('reset');
+    $("#follow"+uid).hide();
+    $("#unfollow"+uid).show();
     return false;
   });
 });
@@ -303,6 +305,7 @@ $(".btn-unfollow").mouseout(function() {
 
 $(function() {
   $(".btn-unfollow").click(function() {
+    $(this).button('loading');
     var uid = $(this).attr("uid");
     var type = $(this).attr("type");
      $.ajax({
@@ -312,10 +315,11 @@ $(function() {
         // debug
         // console.log("/unfollow/"+type+"/"+uid);
         // console.log(html);
-        $("#unfollow"+uid).hide();
-        $("#follow"+uid).show();
        }
      });
+    $(this).button('reset');
+    $("#unfollow"+uid).hide();
+    $("#follow"+uid).show();
     return false;
   });
 });

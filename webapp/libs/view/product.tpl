@@ -25,8 +25,8 @@
 
         {if isset($logged_in_user)}
            {if !$product->is_archived}
-            <div id="unfollow{$product->uid}" {if $logged_in_user->is_following_product eq false}style="display:none"{/if}><a class="btn btn-md btn-default btn-info btn-unfollow" uid="{$product->uid}" type="project" style="padding: 6px 12px;">Following</a></div>
-            <div id="follow{$product->uid}" {if $logged_in_user->is_following_product eq true}style="display:none"{/if}><a class="btn btn-md btn-default btn-follow" uid="{$product->uid}" type="project" style="padding: 6px 12px;{if $logged_in_user->is_following_product eq true}display:none{/if}">Follow</a></div>
+            <div id="unfollow{$product->uid}" {if $logged_in_user->is_following_product eq false}style="display:none"{/if}><a class="btn btn-md btn-default btn-info btn-unfollow" uid="{$product->uid}" type="project" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Unfollowing"  style="padding: 6px 12px;">Following</a></div>
+            <div id="follow{$product->uid}" {if $logged_in_user->is_following_product eq true}style="display:none"{/if}><a class="btn btn-md btn-default btn-follow" uid="{$product->uid}" type="project" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Following" style="padding: 6px 12px;">Follow</a></div>
            {/if}
         {else}
            <a class="btn btn-md btn-default" style="padding: 6px 12px;" href="{$sign_in_with_twttr_link}">Follow</a>
