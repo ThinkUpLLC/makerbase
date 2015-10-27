@@ -50,7 +50,7 @@ class AdminDashboardController extends MakerbaseAdminController {
                 $weekly_signups[] = $weekly_signup;
             }
             // Figure out average percentage difference over last 6 weeks
-            $last_six_weeks = array_slice($weekly_signups, count($weekly_signups)-6, 6);
+            $last_six_weeks = array_slice($weekly_signups, count($weekly_signups)-7, 6);
             $percentage_diff_sum = 0;
             foreach ($last_six_weeks as $week) {
                 $percentage_diff_sum += $week['percentage_diff'];
