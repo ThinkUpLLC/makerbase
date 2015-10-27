@@ -59,10 +59,18 @@ class AdminDashboardController extends MakerbaseAdminController {
 
             $this->addToView('weekly_signups', $weekly_signups);
             $this->addToView('last_six_weeks_average', $last_six_weeks_average);
+
+            $signups_last_week = $last_six_weeks[5]['user_signups_per_week'];
+            $signups_per_day_last_week = round($signups_last_week/7);
+            $this->addToView('signups_per_day_last_week', $signups_per_day_last_week);
+
+            $signups_this_week = array_pop($weekly_signups);
+            $signups_this_week = $signups_this_week['user_signups_per_week'];
+            $signups_per_day_current_week = round($signups_this_week / (date('w')+1) );
+            $this->addToView('signups_per_day_current_week', $signups_per_day_current_week);
         }
 
         $this->addToView('sort_view',  $_GET['v']);
-
         $user_dao = new UserMySQLDAO();
         $total_users = $user_dao->getTotal();
         $this->addToView('total_users', $total_users);
