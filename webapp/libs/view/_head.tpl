@@ -48,8 +48,8 @@
         {else}
           {assign var="url" value="/m/{$maker->uid}/{$maker->slug}"}
         {/if}
+        {assign var="description" value="{$maker->name|escape}'s {$active_tab}"}
         {assign var="title" value="{$maker->name|escape} on Makerbase"}
-        {assign var="description" value="{$maker->name|escape} is a maker"}
         {assign var="image" value=$maker->avatar_url}
         {assign var="type" value="profile"}
       {elseif isset($product)}
