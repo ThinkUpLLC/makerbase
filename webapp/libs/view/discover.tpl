@@ -21,6 +21,87 @@ products=$trending_products
 users=$trending_users
 }
 
+{* inspirations *}
+
+<div class="row" id="landing-featured">
+
+  <div class="col-xs-12 col-sm-5 col-sm-offset-1">
+    <h3>most inspiring makers </h3>
+
+    {for $makers=1 to 4}
+    <div class="media row">
+      <div class="media-left media-top col-xs-3">
+        <a href="/m/583wg3/ginatrapani" class="avatar">
+          <img class="media-object img-responsive img-rounded" src="https://makerba.se/img.php?url=http://pbs.twimg.com/profile_images/550825678673682432/YRqb4FJE.png&t=m&s=d324372b5018ab44536ea0dc260a89d0" alt="ginatrapani">
+        </a>
+      </div>
+      <div class="col-xs-9">
+        <h4 class="media-heading"><a href="/m/583wg3/ginatrapani">Maker Name</a></h4>
+        <p class="media-body">
+
+          {for $products=1 to 3}
+            <a href="/p/1xn85d/thinkup">
+              <img src="https://makerba.se/img.php?url=http://pbs.twimg.com/profile_images/529664614863101952/yBQgCUMW.png&t=m&s=d324372b5018ab44536ea0dc260a89d0">
+              Inspiree
+            </a>
+          {/for}
+        </p>
+      </div>
+    </div>
+    {/for}
+
+  </div>
+
+  <div class="col-xs-12 col-sm-5">
+    <h3>newest inspirations</h3>
+
+    {* inspiration with text *}
+    <div class="media row">
+      <div class="media-left media-top col-xs-3">
+        <a href="/m/583wg3/ginatrapani" class="avatar">
+          <img class="media-object img-responsive img-rounded" src="https://makerba.se/img.php?url=http://pbs.twimg.com/profile_images/550825678673682432/YRqb4FJE.png&t=m&s=d324372b5018ab44536ea0dc260a89d0" alt="ginatrapani">
+        </a>
+      </div>
+      <div class="col-xs-9">
+        <h4 class="media-heading"><a href="/m/583wg3/ginatrapani">Maker Name</a></h4>
+        <p class="media-body">
+            "Inspiration text"
+            <br />
+            &mdash; <a href="/p/1xn85d/thinkup">
+              <img src="https://makerba.se/img.php?url=https://www.thinkup.com/join/assets/img/landing/crowd.png&t=p&s=d324372b5018ab44536ea0dc260a89d0">
+              Inspiree
+            </a>
+        </p>
+      </div>
+    </div>
+    {* /inspiration with text *}
+
+    {* inspiration without text*}
+    <div class="media row">
+      <div class="media-left media-top col-xs-3">
+        <a href="/m/583wg3/ginatrapani" class="avatar">
+          <img class="media-object img-responsive img-rounded" src="https://makerba.se/img.php?url=http://pbs.twimg.com/profile_images/550825678673682432/YRqb4FJE.png&t=m&s=d324372b5018ab44536ea0dc260a89d0" alt="ginatrapani">
+        </a>
+      </div>
+      <div class="col-xs-9">
+        <h4 class="media-heading"><a href="/m/583wg3/ginatrapani">Maker Name</a></h4>
+        <p class="media-body">
+            <a href="/p/1xn85d/thinkup">
+              <img src="https://makerba.se/img.php?url=https://www.thinkup.com/join/assets/img/landing/crowd.png&t=p&s=d324372b5018ab44536ea0dc260a89d0">
+              Inspiree
+            </a>
+        </p>
+      </div>
+    </div>
+    {* /inspiration without text *}
+
+  </div>
+
+</div>
+
+
+{* /inspirations *}
+
 {include file="_featured.tpl"
 maker_section_title='newest makers'
 product_section_title='newest projects'
