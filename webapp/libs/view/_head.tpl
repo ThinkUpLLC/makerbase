@@ -43,7 +43,11 @@
 
     {if isset($maker) || isset($product) || isset($user)}
       {if isset($maker)}
-        {assign var="url" value="/m/{$maker->uid}/{$maker->slug}"}
+        {if $active_tab neq 'projects'}
+          {assign var="url" value="/m/{$maker->uid}/{$maker->slug}/{$active_tab}"}
+        {else}
+          {assign var="url" value="/m/{$maker->uid}/{$maker->slug}"}
+        {/if}
         {assign var="title" value="{$maker->name|escape} on Makerbase"}
         {assign var="description" value="{$maker->name|escape} is a maker"}
         {assign var="image" value=$maker->avatar_url}
