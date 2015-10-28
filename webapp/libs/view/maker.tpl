@@ -307,7 +307,7 @@
                 <div class="">
                   <a tabindex="0" role="button"
                    data-toggle="popover" data-placement="bottom" data-trigger="focus" data-html="true" data-content="{$smarty.capture.hideform} {$inspired_maker->inspiration_description|escape}"
-                    data-title="<a href='/m/{$inspired_maker->uid}/{$inspired_maker->slug}'>{$inspired_maker->name|escape}</a>">
+                    data-title="<a href='/m/{$inspired_maker->uid}/{$inspired_maker->slug}/inspirations'>{$inspired_maker->name|escape}</a>">
                     <img  src="{insert name='user_image' image_url=$inspired_maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" width="50">
                   </a>
                 </div>
