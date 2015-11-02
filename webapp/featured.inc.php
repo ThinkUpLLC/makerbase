@@ -128,7 +128,7 @@ $featured_product_1_makers[] = array(
 // Second featured Product
 $featured_product_2_array = array(
     'name' => 'Medium',
-    'avatar_url' => 'http://pbs.twimg.com/profile_images/498896933360898049/Io6eZONw.jpeg',
+    'avatar_url' => 'https://pbs.twimg.com/profile_images/651930701390938112/evFNnEuS.png',
     'uid' => 'g8637s',
     'slug' => 'medium'
 );
