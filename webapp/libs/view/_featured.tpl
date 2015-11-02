@@ -86,7 +86,7 @@
           <h4 class="media-heading"><a href="/m/{$trending_inspiration->uid}/{$trending_inspiration->slug}">{$trending_inspiration->name|escape}</a></h4>
           <p class="media-body">
           {foreach $trending_inspiration->inspires as $inspired}
-              <a href="/m/{$inspired->uid}/{$inspired->slug}">
+              <a href="/m/{$inspired->uid}/{$inspired->slug}/inspirations">
                 <img src="{insert name='user_image' image_url=$inspired->avatar_url image_proxy_sig=$image_proxy_sig type='m'}">
                 {$inspired->name|escape}
               </a>
@@ -115,7 +115,7 @@
           <p class="media-body">
               "{$i->inspiration->description|truncate:70|escape}"
               <br />
-              &mdash; <a href="/m/{$i->inspiration->inspired_maker->uid}/{$i->inspiration->inspired_maker->slug}">
+              &mdash; <a href="/m/{$i->inspiration->inspired_maker->uid}/{$i->inspiration->inspired_maker->slug}/inspirations">
                 <img src="{insert name='user_image' image_url=$i->inspiration->inspired_maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}">
                 {$i->inspiration->inspired_maker->name|escape}
               </a>
