@@ -14,6 +14,12 @@ class ExploreController extends MakerbaseController {
 
     public function control() {
         parent::control();
+
+        // Explore is expensive to render query-wise but contains no personal information
+        // so set things up so it looks like you're not logged in every time
+        $this->logged_in_user = null;
+        $this->addToView('logged_in_user', null);
+
         $this->setViewTemplate('explore.tpl');
 
         if ($this->shouldRefreshCache() ) {
@@ -74,5 +80,18 @@ class ExploreController extends MakerbaseController {
             $this->addToView('featured_users', $featured_users);
         }
         return $this->generateView();
+    }
+
+    /**
+     * Override this method to exclude logged-in user key so that the cache is universal, logged in or out.
+     * @return str
+     */
+    public function getCacheKeyString() {
+        $view_cache_key = array();
+        $keys = array_keys($_GET);
+        foreach ($keys as $key) {
+            array_push($view_cache_key, $_GET[$key]);
+        }
+        return '.ht'.$this->view_template.self::KEY_SEPARATOR.(implode($view_cache_key, self::KEY_SEPARATOR));
     }
 }
