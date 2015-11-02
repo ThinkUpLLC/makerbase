@@ -1290,11 +1290,18 @@ body.landing .jumbotron {
 	img {
 		margin-bottom: 1em;
 	}
+	dl {
+		margin-top: 1em;
+	}
 	dt {
 		width: 33%;
+		margin-bottom: 1em;
 	}
 	dd {
-		margin-left: 35%;
+		margin-bottom: 1em;
+		@media (min-width: @screen-sm-min) {
+			margin-left: 35%;
+		}
 	}
 	.jumbotron {
 		padding: 2em;

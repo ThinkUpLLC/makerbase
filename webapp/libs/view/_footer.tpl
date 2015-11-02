@@ -41,8 +41,7 @@
             <ul class="list-unstyled">
               <li><a href="/about/terms/">Terms</a></li>
               <li><a href="/about/privacy/">Privacy</a></li>
-              <li><a href="mailto:team@makerba.se?subject=sponsorship">Become a sponsor</a></li>
-              <li><a href="mailto:team@makerba.se">Contact us</a></li>
+              <li><a href="/about/sponsor/">Become a sponsor</a></li>
             </ul>
           </div>
 
@@ -51,6 +50,7 @@
               <li><a href="/explore/"  style="color: black;"> <span>New!</span> Explore</a></li>
               <li><a href="/about/">About</a></li>
               <li><a href="https://making.makerba.se">Blog</a></li>
+              <li><a href="mailto:team@makerba.se">Contact us</a></li>
               <li><i class="fa fa-twitter hidden-xs"></i> <a href="https://twitter.com/makerbase">@makerbase</a></li>
             </ul>
           </div>
@@ -270,7 +270,6 @@
         $('[data-toggle="popover"]').popover();
         $(".alert").addClass("in");
         $('#nav-typeahead').focus();
-
       });
 
 //Follow button

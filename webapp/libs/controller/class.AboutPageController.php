@@ -2,7 +2,7 @@
 
 class AboutPageController extends MakerbaseController {
     //terms privacy about
-    var $pages = array('terms', 'privacy', 'about');
+    var $pages = array('terms', 'privacy', 'about', 'sponsor');
 
     public function control() {
         parent::control();
