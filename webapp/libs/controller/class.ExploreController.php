@@ -14,7 +14,7 @@ class ExploreController extends MakerbaseController {
 
     public function control() {
         parent::control();
-        $this->setViewTemplate('discover.tpl');
+        $this->setViewTemplate('explore.tpl');
 
         if ($this->shouldRefreshCache() ) {
             //Trending makers
