@@ -49,18 +49,18 @@ class AdminDashboardController extends MakerbaseAdminController {
                 $last_weekly_signup = $weekly_signup['user_signups_per_week'];
                 $weekly_signups[] = $weekly_signup;
             }
-            // Figure out average percentage difference over last 6 weeks
-            $last_six_weeks = array_slice($weekly_signups, count($weekly_signups)-7, 6);
+            // Figure out average percentage difference over last 10 weeks
+            $last_ten_weeks = array_slice($weekly_signups, count($weekly_signups)-11, 10);
             $percentage_diff_sum = 0;
-            foreach ($last_six_weeks as $week) {
+            foreach ($last_ten_weeks as $week) {
                 $percentage_diff_sum += $week['percentage_diff'];
             }
-            $last_six_weeks_average = round($percentage_diff_sum / 6);
+            $last_ten_weeks_average = round($percentage_diff_sum / 10);
 
             $this->addToView('weekly_signups', $weekly_signups);
-            $this->addToView('last_six_weeks_average', $last_six_weeks_average);
+            $this->addToView('last_ten_weeks_average', $last_ten_weeks_average);
 
-            $signups_last_week = $last_six_weeks[5]['user_signups_per_week'];
+            $signups_last_week = $last_ten_weeks[9]['user_signups_per_week'];
             $signups_per_day_last_week = round($signups_last_week/7);
             $this->addToView('signups_per_day_last_week', $signups_per_day_last_week);
 

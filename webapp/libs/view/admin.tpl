@@ -70,11 +70,11 @@
 
 {if isset($weekly_signups)}
 <h2>Signups per week</h2>
-  {if isset($last_six_weeks_average)}{if $last_six_weeks_average > 0}<p style="color:green">+{else}<p style="color:red">{/if}{$last_six_weeks_average|number_format}% week-over-week last six weeks</p>{/if}
+  {if isset($last_ten_weeks_average)}{if $last_ten_weeks_average > 0}<p style="color:green">+{else}<p style="color:red">{/if}{$last_ten_weeks_average|number_format}% week-over-week last ten weeks</p>{/if}
 
 <ul class="list-group">
   {foreach $weekly_signups as $weekly_signup}
-    <li class="list-group-item col-xs-12">{if $weekly_signup@last}This week so far{else}{if $weekly_signup@first}Launch week{else}Week {$weekly_signup.week_number}{/if}{/if}: {$weekly_signup.user_signups_per_week|number_format} signups
+    <li class="list-group-item col-xs-12">{if $weekly_signup@last}This week so far{else}{if $weekly_signup@first}Launch week{else}Week {$weekly_signup.week_number -30}{/if}{/if}: {$weekly_signup.user_signups_per_week|number_format} signups
 
     {if !$weekly_signup@last}
       {if isset($weekly_signup.percentage_diff)}{if $weekly_signup.percentage_diff > 0}<span style="color:green">+{else}<span style="color:red">{/if}{$weekly_signup.percentage_diff|number_format}%</span>{/if}</li>
