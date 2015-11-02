@@ -33,6 +33,15 @@ class ExploreController extends MakerbaseController {
             $trending_users = $user_dao->getTrendingUsers($this->trending_number_days, $this->total_list_items);
             $this->addToView('trending_users', $trending_users);
 
+            //Trending inspirations
+            $inspiration_dao = new InspirationMySQLDAO();
+            $trending_inspirations = $inspiration_dao->getTrendingInspirations();
+            $this->addToView('trending_inspirations', $trending_inspirations);
+
+            //New inspirations
+            $newest_inspirations = $inspiration_dao->getNewestInspirations();
+            $this->addToView('newest_inspirations', $newest_inspirations);
+
             //New makers
             $newest_makers = $maker_dao->getNewestMakers($this->total_list_items);
             $this->addToView('newest_makers', $newest_makers);

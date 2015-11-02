@@ -13,20 +13,24 @@
 </div>
 
 {include file="_featured.tpl"
-maker_section_title='trending makers'
-product_section_title='trending projects'
-users_section_title='trending contributors'
+maker_section_title='Trending Makers'
+product_section_title='Trending Projects'
+users_section_title='Trending Contributors'
 makers=$trending_makers
 products=$trending_products
+trending_inspirations=$trending_inspirations
+newest_inspirations=$newest_inspirations
 users=$trending_users
 }
 
 {include file="_featured.tpl"
-maker_section_title='newest makers'
-product_section_title='newest projects'
-users_section_title='newest contributors'
+maker_section_title='Newest Makers'
+product_section_title='Newest Projects'
+users_section_title='Newest Contributors'
 makers=$newest_makers
 products=$newest_products
+trending_inspirations=null
+newest_inspirations=null
 users=$newest_users
 }
 
@@ -34,7 +38,7 @@ users=$newest_users
 <div class="row" id="promo-boxes">
 
     <div class="feature-box col-xs-12 col-sm-10 col-sm-offset-1" id="landing-sponsors" style="min-height: 75px;">
-      <h3 class="col-xs-12">brought to you by sponsors that makers <em>really love</em>.</h3>
+      <h3 class="col-xs-12">Brought to you by sponsors that makers <em>really love</em>.</h3>
       <p class="col-xs-12 col-sm-2"><small>See who's using these great services:</small></p>
 
       <ul class="list-inline col-sm-10">
@@ -62,11 +66,13 @@ users=$newest_users
 </div>
 
 {include file="_featured.tpl"
-maker_section_title='featured makers'
-product_section_title='featured projects'
-users_section_title='top contributors'
+maker_section_title='Featured Makers'
+product_section_title='Featured Projects'
+users_section_title='Top Contributors'
 makers=$featured_makers
 products=$featured_products
+trending_inspirations=null
+newest_inspirations=null
 users=$featured_users
 }
 

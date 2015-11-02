@@ -12,14 +12,14 @@ $active_tab (optional) Adds an active tab to paging links if set
 <div class="row" id="activity">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
 
-    <h3>recent activity</h3>
+    <h3>Recent Activity</h3>
 
     {if isset($friends_activity)}
 
       <!-- activity tabs -->
       <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" {if $friends_activity eq 'true'}class="active"{/if}><a href="/activity/1/friends" aria-controls="friends" role="tab" >friends</a></li>
-        <li role="presentation" {if $friends_activity neq 'true'}class="active"{/if}><a href="/activity/1/all" aria-controls="everyone" role="tab">everyone</a></li>
+        <li role="presentation" {if $friends_activity eq 'true'}class="active"{/if}><a href="/activity/1/friends" aria-controls="friends" role="tab" >Friends</a></li>
+        <li role="presentation" {if $friends_activity neq 'true'}class="active"{/if}><a href="/activity/1/all" aria-controls="everyone" role="tab">Everyone</a></li>
       </ul>
 
     {/if}

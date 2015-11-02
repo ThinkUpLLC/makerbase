@@ -46,9 +46,9 @@
 {include file="_actions.tpl"}
 
 {include file="_featured.tpl"
-maker_section_title='featured makers'
-product_section_title='featured projects'
-users_section_title='top contributors'
+maker_section_title='Featured Makers'
+product_section_title='Featured Projects'
+users_section_title='Top Contributors'
 makers=$featured_makers
 products=$featured_products
 users=$featured_users
@@ -96,9 +96,9 @@ users=$featured_users
 </div>
 
 {include file="_featured.tpl"
-maker_section_title='featured makers'
-product_section_title='featured projects'
-users_section_title='top contributors'
+maker_section_title='Featured Makers'
+product_section_title='Featured Projects'
+users_section_title='Top Contributors'
 makers=$featured_makers
 products=$featured_products
 users=$featured_users

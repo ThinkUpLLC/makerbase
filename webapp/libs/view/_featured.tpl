@@ -69,6 +69,65 @@
 
 </div>
 
+{if isset($trending_inspirations) && isset($newest_inspirations)}
+<div class="row" id="landing-featured">
+  <div class="col-xs-12 col-sm-5 col-sm-offset-1">
+      <h3>Trending Inspirations</h3>
+
+      {* inspiration with inspirees, without text *}
+      {foreach $trending_inspirations as $trending_inspiration}
+      <div class="media row">
+        <div class="media-left media-top col-xs-3">
+          <a href="/m/{$trending_inspiration->uid}/{$trending_inspiration->slug}" class="avatar">
+            <img class="media-object img-responsive img-rounded" src="{insert name='user_image' image_url=$trending_inspiration->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" alt="{$trending_inspiration->name|escape}">
+          </a>
+        </div>
+        <div class="col-xs-9">
+          <h4 class="media-heading"><a href="/m/{$trending_inspiration->uid}/{$trending_inspiration->slug}">{$trending_inspiration->name|escape}</a></h4>
+          <p class="media-body">
+          {foreach $trending_inspiration->inspires as $inspired}
+              <a href="/m/{$inspired->uid}/{$inspired->slug}">
+                <img src="{insert name='user_image' image_url=$inspired->avatar_url image_proxy_sig=$image_proxy_sig type='m'}">
+                {$inspired->name|escape}
+              </a>
+          {/foreach}
+          </p>
+        </div>
+      </div>
+      {/foreach}
+      {* /inspiration with inspirees, without text *}
+  </div>
+
+
+  <div class="col-xs-12 col-sm-5">
+    <h3>Newest Inspirations</h3>
+
+      {* inspiration with text *}
+      {foreach $newest_inspirations as $i}
+      <div class="media row">
+        <div class="media-left media-top col-xs-3">
+          <a href="/m/{$i->uid}/{$i->slug}" class="avatar">
+            <img class="media-object img-responsive img-rounded" src="{insert name='user_image' image_url=$i->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" alt="{$i->name|escape}">
+          </a>
+        </div>
+        <div class="col-xs-9">
+          <h4 class="media-heading"><a href="/m/{$i->uid}/{$i->slug}">{$i->name|escape}</a></h4>
+          <p class="media-body">
+              "{$i->inspiration->description|truncate:70|escape}"
+              <br />
+              &mdash; <a href="/m/{$i->inspiration->inspired_maker->uid}/{$i->inspiration->inspired_maker->slug}">
+                <img src="{insert name='user_image' image_url=$i->inspiration->inspired_maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}">
+                {$i->inspiration->inspired_maker->name|escape}
+              </a>
+          </p>
+        </div>
+      </div>
+      {/foreach}
+      {* /inspiration with text *}
+  </div>
+</div>
+{/if}
+
 
 <div class="row" id="landing-top-contributors">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
