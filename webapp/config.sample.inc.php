@@ -22,7 +22,7 @@ $ISOSCELES_CFG['github_personal_access_token'] = '7495a63997ae14b8b5cffd88b40ea8
 
 // Rando
 $ISOSCELES_CFG['thinkup_uid']    = '38523i';
-$ISOSCELES_CFG['admins']         = array('makerbase', 'anildash');
+$ISOSCELES_CFG['admins']         = array('makerbase', 'anildash', 'ginatrapani');
 
 //Sponsors
 $ISOSCELES_CFG['sponsors'] = array(
@@ -47,13 +47,14 @@ $ISOSCELES_CFG['sponsors'] = array(
 );
 
 // Mandrill
-
-//Use test key that doesn't actually send email on stage and dev
-if ( $_SERVER['SERVER_NAME'] == 'makerbase.dev' || $_SERVER['SERVER_NAME'] == 'stage.makerba.se' ) {
-    $ISOSCELES_CFG['mandrill_api_key']    = 'hw_9lwqlFJ753LjJUcI4FA';
-} else {
-//Production key
-    $ISOSCELES_CFG['mandrill_api_key']    = 'g5zBXny4VBAp0s4TCVB27Q';
+if (isset($_SERVER['SERVER_NAME'])) {
+    if ( $_SERVER['SERVER_NAME'] == 'makerbase.dev' || $_SERVER['SERVER_NAME'] == 'stage.makerba.se' ) {
+        //Use test key that doesn't actually send email on stage and dev
+        $ISOSCELES_CFG['mandrill_api_key']    = 'hw_9lwqlFJ753LjJUcI4FA';
+    } else {
+        //Production key
+        $ISOSCELES_CFG['mandrill_api_key']    = 'g5zBXny4VBAp0s4TCVB27Q';
+    }
 }
 
 //Featured makers/projects/users
