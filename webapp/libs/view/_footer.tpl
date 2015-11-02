@@ -13,7 +13,7 @@
           </div>
 
           <div class="col-sm-2 col-xs-4">
-            <p>sponsors:</p>
+            <p>Sponsors:</p>
             <ul class="list-unstyled footer-sponsors">
 
               <li class="">
@@ -47,7 +47,7 @@
 
           <div class="col-sm-2 col-xs-4">
             <ul class="list-unstyled">
-              <li><a href="/explore/"  style="color: black;"> <span>New!</span> Explore</a></li>
+              <li><a href="/explore/">Explore</a></li>
               <li><a href="/about/">About</a></li>
               <li><a href="https://making.makerba.se">Blog</a></li>
               <li><a href="mailto:team@makerba.se">Contact us</a></li>
