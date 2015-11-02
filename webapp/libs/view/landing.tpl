@@ -70,8 +70,8 @@ users=$featured_users
       Makerbase
     </h1></a>
     <div class="col-xs-12 col-sm-4">
-      <a class="btn btn-success btn-lg pull-right" href="/twittersignin/" id="join-button">sign in with twitter </a>
-      <h6 class="pull-right">it's free!</h6>
+      <a class="btn btn-success btn-lg pull-right" href="/twittersignin/" id="join-button">Sign in with Twitter </a>
+      <h6 class="pull-right">It's free!</h6>
     </div>
   </div>
 </div>
