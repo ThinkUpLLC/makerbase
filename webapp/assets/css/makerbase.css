@@ -6559,11 +6559,20 @@ body.landing .jumbotron li.completed:before {
 .about-page img {
   margin-bottom: 1em;
 }
+.about-page dl {
+  margin-top: 1em;
+}
 .about-page dt {
   width: 33%;
+  margin-bottom: 1em;
 }
 .about-page dd {
-  margin-left: 35%;
+  margin-bottom: 1em;
+}
+@media (min-width: 768px) {
+  .about-page dd {
+    margin-left: 35%;
+  }
 }
 .about-page .jumbotron {
   padding: 2em;
