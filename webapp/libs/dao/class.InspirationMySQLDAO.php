@@ -183,7 +183,7 @@ EOD;
 SELECT inspirers.*, m1.uid AS inspired_maker_uid, m1.slug AS inspired_maker_slug,
 m1.avatar_url AS inspired_maker_avatar_url, m1.name AS inspired_maker_name
 FROM (
-    SELECT i.maker_id, i.maker_id AS inspiration_maker_id, i.inspirer_maker_id, m.uid AS inspirer_maker_uid,
+    SELECT MAX(i.id), i.maker_id, i.maker_id AS inspiration_maker_id, i.inspirer_maker_id, m.uid AS inspirer_maker_uid,
     m.slug AS inspirer_maker_slug,
     m.avatar_url AS inspirer_maker_avatar_url, m.name AS inspirer_maker_name,
     i.description AS inspiration_description, i.creation_time AS inspiration_creation_time, i.id AS inspiration_id,
@@ -191,6 +191,7 @@ FROM (
     FROM  inspirations i
     INNER JOIN makers m ON inspirer_maker_id = m.id
     WHERE i.description !=  '' AND is_shown_on_inspirer = 1
+    GROUP BY i.inspirer_maker_id
     ORDER BY i.creation_time DESC
     LIMIT :limit
     ) AS inspirers
