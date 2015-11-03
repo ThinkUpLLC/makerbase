@@ -5933,6 +5933,17 @@ form.form-inline {
 #maker-info .flag:hover {
   color: #7d888c;
 }
+#project-info .follow-button a,
+#maker-info .follow-button a {
+  padding: .25em .5em;
+  width: 6em;
+}
+#project-info .follow-button .btn-unfollow:hover,
+#maker-info .follow-button .btn-unfollow:hover {
+  background-color: #f13d96;
+  color: white;
+  border-color: #f13d96;
+}
 #project-info #maker-info-edit-cancel,
 #maker-info #maker-info-edit-cancel,
 #project-info #project-info-edit-cancel,
@@ -6594,9 +6605,4 @@ body.landing .jumbotron li.completed:before {
 .about-page #landing-header h3 {
   font-size: 1.5em;
   color: #000;
-}
-.btn-unfollow:hover {
-  background-color: #f13d96;
-  color: white!important;
-  border-color: #f13d96!important;
 }
