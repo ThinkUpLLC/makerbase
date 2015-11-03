@@ -19,6 +19,7 @@ class ExploreController extends MakerbaseController {
         // so set things up so it looks like you're not logged in every time
         $this->logged_in_user = null;
         $this->addToView('logged_in_user', null);
+        $this->addToView('sign_in_with_twttr_link', null);
 
         $this->setViewTemplate('explore.tpl');
 
