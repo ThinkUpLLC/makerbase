@@ -1,5 +1,5 @@
 
-{include file="_head.tpl" body_class='landing' title="Explore Makerbase"}
+{include file="_head.tpl" body_class='landing' title="Explore makers and projects on Makerbase"}
 
 <div class="row">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">

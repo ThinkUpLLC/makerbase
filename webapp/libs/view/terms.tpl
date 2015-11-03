@@ -1,4 +1,4 @@
-{include file="_head.tpl"}
+{include file="_head.tpl" title="Makerbase Terms of Service"}
 
 <div class="row about-page">
       <div class="col-xs-12 col-sm-10 col-sm-offset-1">

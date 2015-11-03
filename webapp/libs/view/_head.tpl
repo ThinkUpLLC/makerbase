@@ -84,9 +84,7 @@
 
       <link rel="canonical" href="{$application_url}{$url}" />
     {else}
-      {if isset($title)}
-        {assign var="title" value="`$title` on `$app_title`"}
-      {else}
+      {if !isset($title)}
         {assign var="title" value="{$app_title}"}
       {/if}
       {if isset($url)}

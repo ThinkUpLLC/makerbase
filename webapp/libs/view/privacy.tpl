@@ -1,4 +1,4 @@
-{include file="_head.tpl"}
+{include file="_head.tpl" title="Makerbase Privacy Policy"}
 
 <div class="row about-page">
 

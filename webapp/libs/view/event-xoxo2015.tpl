@@ -1,6 +1,6 @@
 
 {include file="_head.tpl" body_class='landing-not-signed-in'
-title="XOXO Festival 2015"
+title="XOXO Festival 2015 on Makerbase"
 url="https://makerba.se/xoxo2015"
 description="Meet the makers of XOXO Festival 2015."
 }

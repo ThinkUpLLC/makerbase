@@ -1,6 +1,6 @@
 
 {include file="_head.tpl" body_class='landing-not-signed-in'
-title="GitHub Universe 2015"
+title="GitHub Universe 2015 on Makerbase"
 url="https://makerba.se/universe"
 description="Meet the makers of GitHub Universe 2015."
 }
