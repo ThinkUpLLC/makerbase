@@ -219,4 +219,16 @@ class TwitterAPIAccessor {
         }
         return $translation;
     }
+    /**
+     * Post a tweet.
+     * @param str Tweet text
+     * @param TwitterOAuth Twitter OAuth object
+     * @return arr HTTP status code, payload
+     */
+    public function postTweet($tweet_text, TwitterOAuth $toa) {
+        $url = "statuses/update";
+        $content = $toa->OAuthRequest($url, 'POST', array('status'=>$tweet_text));
+        $status = $toa->lastStatusCode();
+        return array($status, $content);
+    }
 }

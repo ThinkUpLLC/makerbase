@@ -27,6 +27,8 @@ class MakerbaseUnitTestCase extends IsoscelesBasicUnitTestCase {
         MAKERBASE_PATH.'webapp/libs/exceptions/',
         ISOSCELES_PATH.'tests/classes/',
         ));
+        Loader::addSpecialClass('TwitterOAuth', Config::getInstance()->getValue('source_root_path').
+            'webapp/extlibs/twitteroauth/twitteroauth.php');
 
         require ISOSCELES_PATH.'libs/config.inc.php';
         require 'tests/config.tests.inc.php';

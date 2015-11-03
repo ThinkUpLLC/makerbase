@@ -496,7 +496,24 @@ class AddController extends MakerbaseAuthController {
                     $user = $user_dao->getByTwitterUserId($_POST['network_id']);
                     $user_dao->setMaker($user, $maker);
                 } catch (UserDoesNotExistException $e) {
-                    //do nothing, user doesn't exist
+                    //User doesn't exist but they're on Twitter, so tweet a notification
+                    $tweet_text = "@".$maker->autofill_network_username." Hey, @".
+                        $this->logged_in_user->twitter_username.
+                        " just added you to Makerbase. Add your projects & collaborators: ".
+                        "https://makerba.se/m/".$maker->uid."/".$maker->slug;
+
+                    $cfg = Config::getInstance();
+                    $oauth_consumer_key = $cfg->getValue('twitter_oauth_notifier_consumer_key');
+                    $oauth_consumer_secret = $cfg->getValue('twitter_oauth_notifier_consumer_secret');
+                    $oauth_token = $cfg->getValue('twitter_oauth_notifier_access_token');
+                    $oauth_token_secret = $cfg->getValue('twitter_oauth_notifier_access_token_secret');
+
+                    $twitter_oauth = new TwitterOAuth($oauth_consumer_key, $oauth_consumer_secret, $oauth_token,
+                        $oauth_token_secret);
+
+                    $api_accessor = new TwitterAPIAccessor();
+                    // Tweet the tweet
+                    $results = $api_accessor->postTweet($tweet_text, $twitter_oauth);
                 }
             }
 
@@ -526,19 +543,6 @@ class AddController extends MakerbaseAuthController {
                 $user_dao->hasAddedMaker($this->logged_in_user);
             }
 
-            $tweet_link = '';
-            //Add tweet link
-            if (isset($maker->autofill_network_id) && isset($maker->autofill_network)
-                && $maker->autofill_network == 'twitter') {
-                $tweet_body = '@'.$maker->autofill_network_username
-                    .' Hey, I just added you to Makerbase.'
-                    .' Add your projects & the makers who inspire you';
-                $tweet_link = ' <a href="https://twitter.com/share?text='.urlencode($tweet_body)
-                    .'" onclick="javascript:window.open(this.href,\'\', \'menubar=no,toolbar=no,resizable=yes,'
-                    .'scrollbars=yes,height=600,width=600\');return false;">Let @'
-                    .$maker->autofill_network_username.' know</a>.';
-            }
-
             // If adding from a product page, insert a role and redirect back to product
             if (isset($_POST['add_role_to_product_uid'])) {
                 $product_dao = new ProductMySQLDAO();
@@ -561,15 +565,14 @@ class AddController extends MakerbaseAuthController {
                     }
 
                     SessionCache::put('success_message', 'You added '.htmlspecialchars($maker->name).' to '
-                        .htmlspecialchars($product->name).'.'.$tweet_link);
+                        .htmlspecialchars($product->name).'.');
                     $this->redirect('/p/'.$product->uid.'/'.$product->slug);
                 } catch (ProductDoesNotExistException $e) {
-                    SessionCache::put('success_message', 'You added '.htmlspecialchars($maker->name).'.'
-                        .$tweet_link);
+                    SessionCache::put('success_message', 'You added '.htmlspecialchars($maker->name).'.');
                     $this->redirect('/m/'.$maker->uid.'/'.$maker->slug);
                 }
             } else {
-                SessionCache::put('success_message', 'You added '.htmlspecialchars($maker->name).'.'.$tweet_link);
+                SessionCache::put('success_message', 'You added '.htmlspecialchars($maker->name).'.');
                 $this->redirect('/m/'.$maker->uid.'/'.$maker->slug);
             }
         }

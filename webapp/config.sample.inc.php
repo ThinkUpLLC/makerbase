@@ -16,6 +16,13 @@ $ISOSCELES_CFG['twitter_oauth_consumer_secret'] = '8u1501QjvKUNVCxpyp6pYnbyCNVBn
 $ISOSCELES_CFG['twitter_makerbase_oauth_access_token']    = '3093491501-Q0cTtgFrRgbn3Slvn1aM2wX0DvnFlzgiYrH5M4G';
 $ISOSCELES_CFG['twitter_makerbase_oauth_access_token_secret'] = 'A4CYpcG79wcdmJpLzoeNTZ9tzjwfYHDCSzwbVLTm1lkON';
 
+//Twitter Makerbaes notifier keys & tokens
+//Write access from @makerbaes via Makerbase Notifier app
+$ISOSCELES_CFG['twitter_oauth_notifier_consumer_key']    = 'eqlMkDl7w6pQeRmNqX7FFtlP5';
+$ISOSCELES_CFG['twitter_oauth_notifier_consumer_secret'] = '9jqTtaRppyqlcYH7ZTLAobte9KC24cehxKRpiSFSWMxbregrvY';
+$ISOSCELES_CFG['twitter_oauth_notifier_access_token']    = '3906229646-IS4NCPNlwdIyu6anDgLg4oOB6j7Oa72QuJdgmfw';
+$ISOSCELES_CFG['twitter_oauth_notifier_access_token_secret'] = 'r2hS8TSXUQnJ4fwxmJ0mM6nibXNQTV2NhsrFj3WlqLUc3';
+
 // GitHub
 $ISOSCELES_CFG['github_username'] = 'ginatrapani';
 $ISOSCELES_CFG['github_personal_access_token'] = '7495a63997ae14b8b5cffd88b40ea81fd7112a41';
