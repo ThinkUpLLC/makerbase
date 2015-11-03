@@ -508,12 +508,15 @@ class AddController extends MakerbaseAuthController {
                     $oauth_token = $cfg->getValue('twitter_oauth_notifier_access_token');
                     $oauth_token_secret = $cfg->getValue('twitter_oauth_notifier_access_token_secret');
 
-                    $twitter_oauth = new TwitterOAuth($oauth_consumer_key, $oauth_consumer_secret, $oauth_token,
-                        $oauth_token_secret);
+                    //Only attempt the tweet if these are set - and they are not set on dev
+                    if (isset($oauth_consumer_key) && isset($oauth_consumer_secret) ) {
+                        $twitter_oauth = new TwitterOAuth($oauth_consumer_key, $oauth_consumer_secret, $oauth_token,
+                            $oauth_token_secret);
 
-                    $api_accessor = new TwitterAPIAccessor();
-                    // Tweet the tweet
-                    $results = $api_accessor->postTweet($tweet_text, $twitter_oauth);
+                        $api_accessor = new TwitterAPIAccessor();
+                        // Tweet the tweet
+                        $results = $api_accessor->postTweet($tweet_text, $twitter_oauth);
+                    }
                 }
             }
 

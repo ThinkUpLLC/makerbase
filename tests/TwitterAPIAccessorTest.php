@@ -18,12 +18,14 @@ class TwitterAPIAccessorTest extends MakerbaseUnitTestCase {
         $oauth_token = $cfg->getValue('twitter_oauth_notifier_access_token');
         $oauth_token_secret = $cfg->getValue('twitter_oauth_notifier_access_token_secret');
 
-        $twitter_oauth = new TwitterOAuth($oauth_consumer_key, $oauth_consumer_secret, $oauth_token,
-            $oauth_token_secret);
+        if (isset($oauth_consumer_key) && isset($oauth_consumer_secret) ) {
+            $twitter_oauth = new TwitterOAuth($oauth_consumer_key, $oauth_consumer_secret, $oauth_token,
+                $oauth_token_secret);
 
-        $api_accessor = new TwitterAPIAccessor();
-        // This will actually post a tweet; don't do that during routine test runs
-        // $results = $api_accessor->postTweet("this is only a test", $twitter_oauth);
-        // print_r($results);
+            $api_accessor = new TwitterAPIAccessor();
+            // This will actually post a tweet; don't do that during routine test runs
+            // $results = $api_accessor->postTweet("this is a test", $twitter_oauth);
+            // print_r($results);
+        }
     }
 }
