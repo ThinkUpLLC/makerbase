@@ -6,7 +6,7 @@
 		<div class="jumbotron row" id="landing-header">
 
 			<h3 class=""><strong>Imagine if every potential customer could see the makers they admire telling the world how they use your product or service. That's Makerbase.</strong></h3>
-			<h3>Makerbase is the only place where makers can see honest, unsolicited testimnonials from their peers and the creators of projects that inspire them.</h3>
+			<h3>Makerbase is the only place where makers can see honest, unsolicited testimonials from their peers and the creators of projects that inspire them.</h3>
 
 			<a href="mailto:team@makerba.se?subject=sponsorship" class="btn btn-primary pull-right">Find out more &hellip;</a>
 
@@ -61,6 +61,8 @@
 
 
     <p>Makerbase sponsorships are a simple monthly flat-rate fee that that requires minimal lead time to set up. We'll work with you to tailor your message and presence on Makerbase to appeal to our audience, and offer generous discounts for longer commitments. Just <a href="mailto:team@makerba.se?subject=sponsorship">get in touch</a> to get started!</p>
+
+    <iframe src="https://docs.google.com/gview?url=https://makerba.se/assets/makerbase-sponsorship.pdf&embedded=true" style="width:640px; height:480px; display: block; margin: 0 auto;" frameborder="0"></iframe>
 
 	</div>
 </div>
