@@ -618,6 +618,18 @@ form.form-inline {
 			color: @gray-light;
 		}
 	}
+	.follow-button {
+		a {
+			padding: .25em .5em;
+			width: 6em;
+		}
+		.btn-unfollow:hover {
+		  background-color: #f13d96;
+		  color: white;
+		  border-color: #f13d96;
+		}
+	}
+
 	#maker-info-edit-cancel,
 	#project-info-edit-cancel {
 		color: @brand-danger;
@@ -1326,12 +1338,4 @@ body.landing .jumbotron {
 			color: #000;
 		}
 	}
-}
-
-// BUTTONS ************************************
-
-.btn-unfollow:hover {
-  background-color: #f13d96;
-  color:white!important;
-  border-color:#f13d96!important;
 }
