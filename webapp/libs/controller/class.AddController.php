@@ -488,6 +488,16 @@ class AddController extends MakerbaseAuthController {
             $maker_dao = new MakerMySQLDAO();
             $maker = $maker_dao->insert($maker);
 
+            $add_to_product = null;
+            if (isset($_POST['add_role_to_product_uid'])) {
+                $product_dao = new ProductMySQLDAO();
+                try {
+                    $add_to_product = $product_dao->get($_POST['add_role_to_product_uid']);
+                } catch (ProductDoesNotExistException $e) {
+                    //do nothing, there's no product here
+                }
+            }
+
             //If there is a Makerbase user for this Twitter-autofilled user, set users.maker_id
             if (isset($maker->autofill_network_id) && isset($maker->autofill_network)
                 && $maker->autofill_network === 'twitter') {
@@ -496,26 +506,44 @@ class AddController extends MakerbaseAuthController {
                     $user = $user_dao->getByTwitterUserId($_POST['network_id']);
                     $user_dao->setMaker($user, $maker);
                 } catch (UserDoesNotExistException $e) {
-                    //User doesn't exist but they're on Twitter, so tweet a notification
-                    $tweet_text = "@".$maker->autofill_network_username." Hey, @".
-                        $this->logged_in_user->twitter_username.
-                        " just added you to Makerbase. Add your projects & collaborators: ".
-                        "https://makerba.se/m/".$maker->uid."/".$maker->slug;
+                    //User doesn't exist but they're on Twitter
+                    //Check if we should send a tweet notification
+                    $sent_tweet_dao = new SentTweetMySQLDAO();
 
-                    $cfg = Config::getInstance();
-                    $oauth_consumer_key = $cfg->getValue('twitter_oauth_notifier_consumer_key');
-                    $oauth_consumer_secret = $cfg->getValue('twitter_oauth_notifier_consumer_secret');
-                    $oauth_token = $cfg->getValue('twitter_oauth_notifier_access_token');
-                    $oauth_token_secret = $cfg->getValue('twitter_oauth_notifier_access_token_secret');
+                    //If a tweet hasn't been sent to this person
+                    if (!$sent_tweet_dao->hasBeenSent($maker->autofill_network_id)) {
+                        //Tweet a notification
+                        if (isset($add_to_product)) {
+                            $tweet_text = "@".$maker->autofill_network_username." Hey, @".
+                                $this->logged_in_user->twitter_username.
+                                " just added you to ".substr($add_to_product->name, 0, 50).
+                                ". Now you can fill in the details: ".
+                                "https://makerba.se/m/".$maker->uid."/".$maker->slug;
+                        } else {
+                            $tweet_text = "@".$maker->autofill_network_username." Hey, @".
+                                $this->logged_in_user->twitter_username.
+                                " just listed you as a maker. Update your project list: ".
+                                "https://makerba.se/m/".$maker->uid."/".$maker->slug;
+                        }
 
-                    //Only attempt the tweet if these are set - and they are not set on dev
-                    if (isset($oauth_consumer_key) && isset($oauth_consumer_secret) ) {
-                        $twitter_oauth = new TwitterOAuth($oauth_consumer_key, $oauth_consumer_secret, $oauth_token,
-                            $oauth_token_secret);
+                        $cfg = Config::getInstance();
+                        $oauth_consumer_key = $cfg->getValue('twitter_oauth_notifier_consumer_key');
+                        $oauth_consumer_secret = $cfg->getValue('twitter_oauth_notifier_consumer_secret');
+                        $oauth_token = $cfg->getValue('twitter_oauth_notifier_access_token');
+                        $oauth_token_secret = $cfg->getValue('twitter_oauth_notifier_access_token_secret');
 
-                        $api_accessor = new TwitterAPIAccessor();
-                        // Tweet the tweet
-                        $results = $api_accessor->postTweet($tweet_text, $twitter_oauth);
+                        //Only attempt the tweet if these are set - and they are not set on dev
+                        if (isset($oauth_consumer_key) && isset($oauth_consumer_secret) ) {
+                            $twitter_oauth = new TwitterOAuth($oauth_consumer_key, $oauth_consumer_secret, $oauth_token,
+                                $oauth_token_secret);
+
+                            $api_accessor = new TwitterAPIAccessor();
+                            // Tweet the tweet
+                            $results = $api_accessor->postTweet($tweet_text, $twitter_oauth);
+                            if ($results[0] == 200) {
+                                $sent_tweet_dao->insert($maker->autofill_network_id, $maker->autofill_network_username);
+                            }
+                        }
                     }
                 }
             }
@@ -547,33 +575,25 @@ class AddController extends MakerbaseAuthController {
             }
 
             // If adding from a product page, insert a role and redirect back to product
-            if (isset($_POST['add_role_to_product_uid'])) {
-                $product_dao = new ProductMySQLDAO();
-                try {
-                    $product = $product_dao->get($_POST['add_role_to_product_uid']);
+            if (isset($add_to_product)) {
+                //Add role
+                $role = $this->insertBlankRole($maker, $add_to_product);
 
-                    //Add role
-                    $role = $this->insertBlankRole($maker, $product);
+                //Add new connection
+                $connection_dao->insert($this->logged_in_user, $add_to_product);
 
-                    //Add new connection
-                    $connection_dao->insert($this->logged_in_user, $product);
+                //Add new action for role
+                $this->insertActionForRole($maker, $add_to_product, $role);
 
-                    //Add new action for role
-                    $this->insertActionForRole($maker, $product, $role);
-
-                    //User has added a role
-                    if (!$this->logged_in_user->has_added_role) {
-                        $user_dao = new UserMySQLDAO();
-                        $user_dao->hasAddedRole($this->logged_in_user);
-                    }
-
-                    SessionCache::put('success_message', 'You added '.htmlspecialchars($maker->name).' to '
-                        .htmlspecialchars($product->name).'.');
-                    $this->redirect('/p/'.$product->uid.'/'.$product->slug);
-                } catch (ProductDoesNotExistException $e) {
-                    SessionCache::put('success_message', 'You added '.htmlspecialchars($maker->name).'.');
-                    $this->redirect('/m/'.$maker->uid.'/'.$maker->slug);
+                //User has added a role
+                if (!$this->logged_in_user->has_added_role) {
+                    $user_dao = new UserMySQLDAO();
+                    $user_dao->hasAddedRole($this->logged_in_user);
                 }
+
+                SessionCache::put('success_message', 'You added '.htmlspecialchars($maker->name).' to '
+                    .htmlspecialchars($add_to_product->name).'.');
+                $this->redirect('/p/'.$add_to_product->uid.'/'.$add_to_product->slug);
             } else {
                 SessionCache::put('success_message', 'You added '.htmlspecialchars($maker->name).'.');
                 $this->redirect('/m/'.$maker->uid.'/'.$maker->slug);

@@ -16,14 +16,20 @@ $ISOSCELES_CFG['twitter_oauth_consumer_secret'] = '8u1501QjvKUNVCxpyp6pYnbyCNVBn
 $ISOSCELES_CFG['twitter_makerbase_oauth_access_token']    = '3093491501-Q0cTtgFrRgbn3Slvn1aM2wX0DvnFlzgiYrH5M4G';
 $ISOSCELES_CFG['twitter_makerbase_oauth_access_token_secret'] = 'A4CYpcG79wcdmJpLzoeNTZ9tzjwfYHDCSzwbVLTm1lkON';
 
+// Twitter tokens for writing notification tweets
 if (isset($_SERVER['SERVER_NAME'])) {
-    if ( $_SERVER['SERVER_NAME'] !== 'makerbase.dev') {
-        //Twitter Makerbaes notifier keys & tokens
-        //Write access from @makerbaes via Makerbase Notifier app
+    if ( $_SERVER['SERVER_NAME'] == 'makerbase.dev') {
+        //@makerbaes is a private account only week can see. Use it on dev.
         $ISOSCELES_CFG['twitter_oauth_notifier_consumer_key']    = 'eqlMkDl7w6pQeRmNqX7FFtlP5';
         $ISOSCELES_CFG['twitter_oauth_notifier_consumer_secret'] = '9jqTtaRppyqlcYH7ZTLAobte9KC24cehxKRpiSFSWMxbregrvY';
         $ISOSCELES_CFG['twitter_oauth_notifier_access_token']    = '3906229646-IS4NCPNlwdIyu6anDgLg4oOB6j7Oa72QuJdgmfw';
         $ISOSCELES_CFG['twitter_oauth_notifier_access_token_secret'] = 'r2hS8TSXUQnJ4fwxmJ0mM6nibXNQTV2NhsrFj3WlqLUc3';
+    } else {
+        //@makerbase is our public company account! Use on production.
+        $ISOSCELES_CFG['twitter_oauth_notifier_consumer_key']    = '';
+        $ISOSCELES_CFG['twitter_oauth_notifier_consumer_secret'] = '';
+        $ISOSCELES_CFG['twitter_oauth_notifier_access_token']    = '';
+        $ISOSCELES_CFG['twitter_oauth_notifier_access_token_secret'] = '';
     }
 }
 
@@ -59,8 +65,8 @@ $ISOSCELES_CFG['sponsors'] = array(
 
 // Mandrill
 if (isset($_SERVER['SERVER_NAME'])) {
-    if ( $_SERVER['SERVER_NAME'] == 'makerbase.dev' || $_SERVER['SERVER_NAME'] == 'stage.makerba.se' ) {
-        //Use test key that doesn't actually send email on stage and dev
+    if ( $_SERVER['SERVER_NAME'] == 'makerbase.dev' /*|| $_SERVER['SERVER_NAME'] == 'stage.makerba.se'*/ ) {
+        //Use test key that doesn't actually send email on dev
         $ISOSCELES_CFG['mandrill_api_key']    = 'hw_9lwqlFJ753LjJUcI4FA';
     } else {
         //Production key
