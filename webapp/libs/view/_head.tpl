@@ -79,6 +79,7 @@
 
       <meta itemprop="image" content="{$image}">
       <meta property="og:image" content="{$image}" />
+      <meta property="twitter:image" content="{$image}" />
 
       <meta property="og:image:type" content="image/jpg">
 
@@ -109,11 +110,13 @@
       <meta name="twitter:description" content="{$description}" />
 
       {assign var="image" value="https://makerba.se/assets/img/makerbase-logo-horizontal.png"}
+      {assign var="image_square" value="https://makerba.se/assets/img/makerbase-logo.png"}
       <meta itemprop="image" content="{$image}">
       <meta property="og:image" content="{$image}" />
+      <meta property="twitter:image" content="{$image}" />
       <meta property="og:image:secure" content="{$image}" />
-      <meta name="twitter:image:src" content="{$image}" />
-      <meta name="twitter:image:width" content="524" />
+      <meta name="twitter:image:src" content="{$image_square}" />
+      <meta name="twitter:image:width" content="300" />
 
       <link rel="canonical" href="{$url}" />
     {/if}
