@@ -52,11 +52,13 @@
         {assign var="title" value="{$maker->name|escape} on Makerbase"}
         {assign var="image" value=$maker->avatar_url}
         {assign var="type" value="profile"}
+        {assign var="image_type" value='m'}
       {elseif isset($product)}
         {assign var="url" value="/p/{$product->uid}/{$product->slug}"}
         {assign var="title" value="{$product->name|escape} on Makerbase"}
         {assign var="description" value=$product->description}
         {assign var="image" value=$product->avatar_url}
+        {assign var="image_type" value='p'}
         {assign var="type" value="product"}
       {elseif isset($user)}
         {assign var="url" value="/u/{$user->uid}"}
@@ -64,6 +66,7 @@
         {assign var="description" value="{$user->twitter_username|escape}'s Makerbase activity"}
         {assign var="image" value=$user->avatar_url}
         {assign var="type" value="profile"}
+        {assign var="image_type" value='u'}
       {/if}
 
       <title>{$title}</title>
@@ -79,7 +82,7 @@
 
       <meta itemprop="image" content="{$image}">
       <meta property="og:image" content="{$image}" />
-      <meta property="twitter:image" content="{$image}" />
+      <meta property="twitter:image" content="{insert name='user_image' image_url=$image image_proxy_sig=$image_proxy_sig type=$image_type}" />
 
       <meta property="og:image:type" content="image/jpg">
 
