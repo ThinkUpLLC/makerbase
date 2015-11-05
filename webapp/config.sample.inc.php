@@ -26,10 +26,10 @@ if (isset($_SERVER['SERVER_NAME'])) {
         $ISOSCELES_CFG['twitter_oauth_notifier_access_token_secret'] = 'r2hS8TSXUQnJ4fwxmJ0mM6nibXNQTV2NhsrFj3WlqLUc3';
     } else {
         //@makerbase is our public company account! Use on production.
-        $ISOSCELES_CFG['twitter_oauth_notifier_consumer_key']    = '';
-        $ISOSCELES_CFG['twitter_oauth_notifier_consumer_secret'] = '';
-        $ISOSCELES_CFG['twitter_oauth_notifier_access_token']    = '';
-        $ISOSCELES_CFG['twitter_oauth_notifier_access_token_secret'] = '';
+        $ISOSCELES_CFG['twitter_oauth_notifier_consumer_key']    = 'A92kmEzkkAWowxbJxh06Yqkdv';
+        $ISOSCELES_CFG['twitter_oauth_notifier_consumer_secret'] = 'nHD9wldLzsCszt0rFyMdTYLNiR7XXuxr4a8zLlU6ANFv8KquiN';
+        $ISOSCELES_CFG['twitter_oauth_notifier_access_token']    = '3093491501-SLBROHZzp7nBqpXl1lsD3FBfX2fMI7MEemHBKXT';
+        $ISOSCELES_CFG['twitter_oauth_notifier_access_token_secret'] = 'hssinbUGGw538fIf99D6vohbgkDgBLwBXBWl7QtAC8cFd';
     }
 }
 
