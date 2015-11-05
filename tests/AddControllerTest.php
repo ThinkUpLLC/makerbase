@@ -28,6 +28,50 @@ class AddControllerTest extends MakerbaseUnitTestCase {
         $this->assertInstanceOf('AddController', $controller);
     }
 
+    public function testGetNewMakerTweetText() {
+        $maker = new Maker();
+        $maker->autofill_network_username = '123456789012345';
+        $maker->slug = 'asdf';
+        $maker->uid = 'asdf';
+
+        $user = new User();
+        $user->twitter_username = 'sometwitteruser';
+
+        $product = null;
+        $i = 0;
+        while ($i<10) {
+            $tweet = AddController::getNewMakerTweetText($maker, $user, $product);
+//             echo $tweet ."
+// ";
+            //Asserting less than 150 instead of 140 b/c URLs get shortened to 23 chars
+            $this->assertTrue(strlen($tweet) < 150);
+            $i++;
+        }
+
+        $product = new Product();
+        $product->name = "This Is a Really Long Product Name I Mean Really Really LOOOOONNNG";
+        $i = 0;
+        while ($i<10) {
+            $tweet = AddController::getNewMakerTweetText($maker, $user, $product);
+//             echo $tweet ."
+// ";
+            //Asserting less than 150 instead of 140 b/c URLs get shortened to 23 chars
+            $this->assertTrue(strlen($tweet) < 150);
+            $i++;
+        }
+
+        $product->name = "Short Project Name";
+        $i = 0;
+        while ($i<10) {
+            $tweet = AddController::getNewMakerTweetText($maker, $user, $product);
+//             echo $tweet ."
+// ";
+            //Asserting less than 150 instead of 140 b/c URLs get shortened to 23 chars
+            $this->assertTrue(strlen($tweet) < 150);
+            $i++;
+        }
+    }
+
     public function testAddNotSignedIn() {
         $builders = $this->buildData();
         $controller = new AddController(true);

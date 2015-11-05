@@ -513,18 +513,7 @@ class AddController extends MakerbaseAuthController {
                     //If a tweet hasn't been sent to this person
                     if (!$sent_tweet_dao->hasBeenSent($maker->autofill_network_id)) {
                         //Tweet a notification
-                        if (isset($add_to_product)) {
-                            $tweet_text = "@".$maker->autofill_network_username." Hey, @".
-                                $this->logged_in_user->twitter_username.
-                                " just added you to ".substr($add_to_product->name, 0, 50).
-                                ". Now you can fill in the details: ".
-                                "https://makerba.se/m/".$maker->uid."/".$maker->slug;
-                        } else {
-                            $tweet_text = "@".$maker->autofill_network_username." Hey, @".
-                                $this->logged_in_user->twitter_username.
-                                " just listed you as a maker. Update your project list: ".
-                                "https://makerba.se/m/".$maker->uid."/".$maker->slug;
-                        }
+                        $tweet_text = self::getNewMakerTweetText($maker, $this->logged_in_user, $add_to_product);
 
                         $cfg = Config::getInstance();
                         $oauth_consumer_key = $cfg->getValue('twitter_oauth_notifier_consumer_key');
@@ -733,5 +722,84 @@ class AddController extends MakerbaseAuthController {
         } else {
             return strtolower(preg_replace("/[^A-Za-z0-9]/", "", $slug));
         }
+    }
+
+    public static function getNewMakerTweetText(Maker $maker, User $user, Product $product = null) {
+        $maker_url = "https://makerba.se/m/".$maker->uid."/".$maker->slug;
+
+        if (isset($product)) {
+            //Shorten really long product names
+            if (strlen($product->name) > 50) {
+                $product_name = substr($product->name, 0, 47) . "...";
+            } else {
+                $product_name = $product->name;
+            }
+
+            $tweet_with_product_versions = array(
+                "@".$maker->autofill_network_username." Hey, @".
+                    $user->twitter_username.
+                    " just added you to ".$product_name.
+                    ". Now you can fill in the details: ",
+                "@".$maker->autofill_network_username." Hi! @".
+                    $user->twitter_username.
+                    " said you made ".$product_name.
+                    ". Add your role & coworkers: ",
+                "@".$maker->autofill_network_username." Hi there, @".
+                    $user->twitter_username.
+                    " said you made ".$product_name.
+                    ". Fill in what you did: ",
+                "@".$maker->autofill_network_username." Hey there, @".
+                    $user->twitter_username.
+                    " just added you to ".$product_name.
+                    ". What other projects have you made? ",
+                "@".$maker->autofill_network_username." Hey, @".
+                    $user->twitter_username.
+                    " said you made ".$product_name.
+                    ". Fill in your role & collaborators: ",
+                "@".$maker->autofill_network_username." Hello, @".
+                    $user->twitter_username.
+                    " added you as a maker to ".$product_name.
+                    ". Check it out: ",
+            );
+
+            $tweet_text = $tweet_with_product_versions[rand(0, count($tweet_with_product_versions)-1)];
+
+            //If this tweet is longer than 140, go with the shorter version
+            if ((strlen($tweet_text) + 23) > 140 ) {
+                $tweet_text = "@".$maker->autofill_network_username." Hey, @".
+                    $user->twitter_username.
+                    " just added you to ".$product_name.
+                    ". ";
+            }
+        } else {
+            $tweet_versions = array(
+                "@".$maker->autofill_network_username." Hey, @".
+                    $user->twitter_username.
+                    " listed you as a maker. What projects have you made? ",
+                "@".$maker->autofill_network_username." Hi there, @".
+                    $user->twitter_username.
+                    " just said you're a maker. Fill in your projects & collaborators: ",
+                "@".$maker->autofill_network_username." Hello, @".
+                    $user->twitter_username.
+                    " added you as a maker. Now you can list your projects: ",
+                "@".$maker->autofill_network_username." Hey there, @".
+                    $user->twitter_username.
+                    " just added you to Makerbase. Tell the world what you made: ",
+                "@".$maker->autofill_network_username." Hi, @".
+                    $user->twitter_username.
+                    " just added you as a maker. Check out your new page: ",
+            );
+
+            $tweet_text = $tweet_versions[rand(0, count($tweet_versions)-1)];
+
+            //If this tweet is longer than 140, go with the shorter version
+            if ((strlen($tweet_text) + 23) > 140 ) {
+                $tweet_text = "@".$maker->autofill_network_username." Hey, @".
+                    $user->twitter_username.
+                    " just listed you as a maker. Check it out:";
+            }
+        }
+        $tweet_text .= $maker_url;
+        return $tweet_text;
     }
 }
