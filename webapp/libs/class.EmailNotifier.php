@@ -81,11 +81,12 @@ class EmailNotifier {
             throw new Exception('Email notifier has not bee initialized');
         }
         $maker_page_link = "http://makerba.se/m/".$this->maker_updated->uid."/".$this->maker_updated->slug;
+        $ga_campaign_tags = "?utm_source=Makerbase&utm_medium=Email&utm_campaign=Update%20maker";
         $editor_name = $this->logged_in_user->twitter_username;
         $unsub_link = "http://makerba.se/u/".$this->user_to_notify->uid;
         $params = array(
             'USER_EMAIL'=>$this->user_to_notify->email,
-            'MAKER_PAGE_LINK'=>$maker_page_link,
+            'MAKER_PAGE_LINK'=>$maker_page_link.$ga_campaign_tags,
             'EDITOR_NAME'=>$editor_name,
             'UNSUBSCRIBE_LINK'=>$unsub_link
         );
@@ -114,11 +115,12 @@ class EmailNotifier {
         }
         $maker_page_link = "http://makerba.se/m/".$this->maker_updated->uid."/".$this->maker_updated->slug
             ."/inspirations";
+        $ga_campaign_tags = "?utm_source=Makerbase&utm_medium=Email&utm_campaign=New%20inspiration";
         $editor_name = $this->logged_in_user->twitter_username;
         $unsub_link = "http://makerba.se/u/".$this->user_to_notify->uid;
         $params = array(
             'USER_EMAIL'=>$this->user_to_notify->email,
-            'MAKER_PAGE_LINK'=>$maker_page_link,
+            'MAKER_PAGE_LINK'=>$maker_page_link.$ga_campaign_tags,
             'EDITOR_NAME'=>$editor_name,
             'UNSUBSCRIBE_LINK'=>$unsub_link
         );
