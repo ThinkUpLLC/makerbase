@@ -771,6 +771,7 @@ class AddController extends MakerbaseAuthController {
                     " just added you to ".$product_name.
                     ". ";
             }
+            $ga_content = "mwp"; //maker with product
         } else {
             $tweet_versions = array(
                 "@".$maker->autofill_network_username." Hey, @".
@@ -798,8 +799,11 @@ class AddController extends MakerbaseAuthController {
                     $user->twitter_username.
                     " just listed you as a maker. Check it out:";
             }
+            $ga_content = "mwop"; //maker without product
         }
-        $tweet_text .= $maker_url;
+        $ga_campaign_tags = "?utm_source=Twitter&utm_medium=Social&utm_campaign=New%20maker&utm_content=".$ga_content;
+
+        $tweet_text .= $maker_url.$ga_campaign_tags;
         return $tweet_text;
     }
 }

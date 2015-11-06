@@ -43,8 +43,8 @@ class AddControllerTest extends MakerbaseUnitTestCase {
             $tweet = AddController::getNewMakerTweetText($maker, $user, $product);
 //             echo $tweet ."
 // ";
-            //Asserting less than 150 instead of 140 b/c URLs get shortened to 23 chars
-            $this->assertTrue(strlen($tweet) < 150);
+            //Asserting less than 250 instead of 140 b/c URLs get shortened to 23 chars
+            $this->assertTrue(strlen($tweet) < 250);
             $i++;
         }
 
@@ -55,8 +55,8 @@ class AddControllerTest extends MakerbaseUnitTestCase {
             $tweet = AddController::getNewMakerTweetText($maker, $user, $product);
 //             echo $tweet ."
 // ";
-            //Asserting less than 150 instead of 140 b/c URLs get shortened to 23 chars
-            $this->assertTrue(strlen($tweet) < 150);
+            //Asserting less than 250 instead of 140 b/c URLs get shortened to 23 chars
+            $this->assertTrue(strlen($tweet) < 250);
             $i++;
         }
 
@@ -66,8 +66,8 @@ class AddControllerTest extends MakerbaseUnitTestCase {
             $tweet = AddController::getNewMakerTweetText($maker, $user, $product);
 //             echo $tweet ."
 // ";
-            //Asserting less than 150 instead of 140 b/c URLs get shortened to 23 chars
-            $this->assertTrue(strlen($tweet) < 150);
+            //Asserting less than 250 instead of 140 b/c URLs get shortened to 23 chars
+            $this->assertTrue(strlen($tweet) < 250);
             $i++;
         }
     }
