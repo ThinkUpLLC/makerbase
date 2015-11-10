@@ -735,61 +735,95 @@ class AddController extends MakerbaseAuthController {
                 $product_name = $product->name;
             }
 
-            $tweet_with_product_versions = array(
-                "@".$maker->autofill_network_username." Hey, @".
-                    $user->twitter_username.
-                    " just added you to ".$product_name.
-                    ". Now you can fill in the details: ",
-                "@".$maker->autofill_network_username." Hi! @".
-                    $user->twitter_username.
-                    " said you made ".$product_name.
-                    ". Add your role & coworkers: ",
-                "@".$maker->autofill_network_username." Hi there, @".
-                    $user->twitter_username.
-                    " said you made ".$product_name.
-                    ". Fill in what you did: ",
-                "@".$maker->autofill_network_username." Hey there, @".
-                    $user->twitter_username.
-                    " just added you to ".$product_name.
-                    ". What other projects have you made? ",
-                "@".$maker->autofill_network_username." Hey, @".
-                    $user->twitter_username.
-                    " said you made ".$product_name.
-                    ". Fill in your role & collaborators: ",
-                "@".$maker->autofill_network_username." Hello, @".
-                    $user->twitter_username.
-                    " added you as a maker to ".$product_name.
-                    ". Check it out: ",
-            );
+            if ($user->twitter_username !== 'makerbase') {
+                $tweet_with_product_versions = array(
+                    "@".$maker->autofill_network_username." Hey, @".
+                        $user->twitter_username.
+                        " just added you to ".$product_name.
+                        ". Now you can fill in the details: ",
+                    "@".$maker->autofill_network_username." Hi! @".
+                        $user->twitter_username.
+                        " said you made ".$product_name.
+                        ". Add your role & coworkers: ",
+                    "@".$maker->autofill_network_username." Hi there, @".
+                        $user->twitter_username.
+                        " said you made ".$product_name.
+                        ". Fill in what you did: ",
+                    "@".$maker->autofill_network_username." Hey there, @".
+                        $user->twitter_username.
+                        " just added you to ".$product_name.
+                        ". What other projects have you made? ",
+                    "@".$maker->autofill_network_username." Hey, @".
+                        $user->twitter_username.
+                        " said you made ".$product_name.
+                        ". Fill in your role & collaborators: ",
+                    "@".$maker->autofill_network_username." Hello, @".
+                        $user->twitter_username.
+                        " added you as a maker to ".$product_name.
+                        ". Check it out: ",
+                );
+            } else {
+                $tweet_with_product_versions = array(
+                    "@".$maker->autofill_network_username." Hey, we just added you to ".$product_name.
+                        ". Now you can fill in the details: ",
+                    "@".$maker->autofill_network_username." Hi! We see you made ".$product_name.
+                        ". Add your role & coworkers: ",
+                    "@".$maker->autofill_network_username." Hi there, we noticed you made ".$product_name.
+                        ". Fill in what you did: ",
+                    "@".$maker->autofill_network_username." Hey there, we just added you to ".$product_name.
+                        ". What other projects have you made? ",
+                    "@".$maker->autofill_network_username." Hello! We just added you as a maker to "
+                        .$product_name. ". Check it out: ",
+                );
+            }
 
             $tweet_text = $tweet_with_product_versions[rand(0, count($tweet_with_product_versions)-1)];
 
             //If this tweet is longer than 140, go with the shorter version
             if ((strlen($tweet_text) + 23) > 140 ) {
-                $tweet_text = "@".$maker->autofill_network_username." Hey, @".
-                    $user->twitter_username.
-                    " just added you to ".$product_name.
-                    ". ";
+                if ($user->twitter_username !== 'makerbase') {
+                    $tweet_text = "@".$maker->autofill_network_username." Hey, @".
+                        $user->twitter_username.
+                        " just added you to ".$product_name.
+                        ". ";
+                } else {
+                    $tweet_text = "@".$maker->autofill_network_username." Hey, we just added you to ".
+                        $product_name.". ";
+                }
             }
             $ga_content = "mwp"; //maker with product
         } else {
-            $tweet_versions = array(
-                "@".$maker->autofill_network_username." Hey, @".
-                    $user->twitter_username.
-                    " listed you as a maker. What projects have you made? ",
-                "@".$maker->autofill_network_username." Hi there, @".
-                    $user->twitter_username.
-                    " just said you're a maker. Fill in your projects & collaborators: ",
-                "@".$maker->autofill_network_username." Hello, @".
-                    $user->twitter_username.
-                    " added you as a maker. Now you can list your projects: ",
-                "@".$maker->autofill_network_username." Hey there, @".
-                    $user->twitter_username.
-                    " just added you to Makerbase. Tell the world what you made: ",
-                "@".$maker->autofill_network_username." Hi, @".
-                    $user->twitter_username.
-                    " just added you as a maker. Check out your new page: ",
-            );
+            if ($user->twitter_username !== 'makerbase') {
+                $tweet_versions = array(
+                    "@".$maker->autofill_network_username." Hey, @".
+                        $user->twitter_username.
+                        " listed you as a maker. What projects have you made? ",
+                    "@".$maker->autofill_network_username." Hi there, @".
+                        $user->twitter_username.
+                        " just said you're a maker. Fill in your projects & collaborators: ",
+                    "@".$maker->autofill_network_username." Hello, @".
+                        $user->twitter_username.
+                        " added you as a maker. Now you can list your projects: ",
+                    "@".$maker->autofill_network_username." Hey there, @".
+                        $user->twitter_username.
+                        " just added you to Makerbase. Tell the world what you made: ",
+                    "@".$maker->autofill_network_username." Hi, @".
+                        $user->twitter_username.
+                        " just added you as a maker. Check out your new page: ",
+                );
+            } else {
+                $tweet_versions = array(
+                    "@".$maker->autofill_network_username." Hey, we just listed you as a maker. ".
+                        "What projects have you made? ",
+                    "@".$maker->autofill_network_username." Hello, we just added you as a maker. ".
+                        "Now you can list your projects: ",
+                    "@".$maker->autofill_network_username." Hey there, we just added you to Makerbase. ".
+                        "Tell the world what you made: ",
+                    "@".$maker->autofill_network_username." Hi, we just added you as a maker. ".
+                        "Check out your new page: ",
+                );
+
+            }
 
             $tweet_text = $tweet_versions[rand(0, count($tweet_versions)-1)];
 

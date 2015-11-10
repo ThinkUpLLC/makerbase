@@ -70,6 +70,42 @@ class AddControllerTest extends MakerbaseUnitTestCase {
             $this->assertTrue(strlen($tweet) < 250);
             $i++;
         }
+
+        // Repeat tests, now from @makerbase Twitter handle
+        $i = 0;
+        $product = null;
+        $user->twitter_username = 'makerbase';
+        while ($i<10) {
+            $tweet = AddController::getNewMakerTweetText($maker, $user, $product);
+//             echo $tweet ."
+// ";
+            //Asserting less than 250 instead of 140 b/c URLs get shortened to 23 chars
+            $this->assertTrue(strlen($tweet) < 250);
+            $i++;
+        }
+
+        $product = new Product();
+        $product->name = "This Is a Really Long Product Name I Mean Really Really LOOOOONNNG";
+        $i = 0;
+        while ($i<10) {
+            $tweet = AddController::getNewMakerTweetText($maker, $user, $product);
+//             echo $tweet ."
+// ";
+            //Asserting less than 250 instead of 140 b/c URLs get shortened to 23 chars
+            $this->assertTrue(strlen($tweet) < 250);
+            $i++;
+        }
+
+        $product->name = "Short Project Name";
+        $i = 0;
+        while ($i<10) {
+            $tweet = AddController::getNewMakerTweetText($maker, $user, $product);
+//             echo $tweet ."
+// ";
+            //Asserting less than 250 instead of 140 b/c URLs get shortened to 23 chars
+            $this->assertTrue(strlen($tweet) < 250);
+            $i++;
+        }
     }
 
     public function testAddNotSignedIn() {
