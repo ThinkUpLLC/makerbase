@@ -725,7 +725,7 @@ class AddController extends MakerbaseAuthController {
     }
 
     public static function getNewMakerTweetText(Maker $maker, User $user, Product $product = null) {
-        $maker_url = "https://makerba.se/m/".$maker->uid."/".$maker->slug;
+        $maker_url = "https://makerbase.co/m/".$maker->uid."/".$maker->slug;
 
         if (isset($product)) {
             //Shorten really long product names

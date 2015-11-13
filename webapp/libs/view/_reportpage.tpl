@@ -9,7 +9,7 @@ $object either the Product or Maker or User
 {capture name="report_body" assign="report_body"}
 Hi! I'd like to report a {$object_type} on Makerbase:
 
-https://makerba.se/{if $object_type eq 'project'}p{elseif $object_type eq 'maker'}m{elseif $object_type eq 'user'}u{/if}/{$object->uid}{if isset($object->slug)}/{$object->slug}{/if}
+https://makerbase.co/{if $object_type eq 'project'}p{elseif $object_type eq 'maker'}m{elseif $object_type eq 'user'}u{/if}/{$object->uid}{if isset($object->slug)}/{$object->slug}{/if}
 
 Here's why this {$object_type} should be reviewed:
 {/capture}
@@ -20,7 +20,7 @@ Here's why this {$object_type} should be reviewed:
 {capture name="report_body_featured" assign="report_body_featured"}
 Hi! You should make {$object->name|escape} a featured {$object_type} on Makerbase.
 
-https://makerba.se/{if $object_type eq 'project'}p{elseif $object_type eq 'maker'}m{elseif $object_type eq 'user'}u{/if}/{$object->uid}{if isset($object->slug)}/{$object->slug}{/if}
+https://makerbase.co/{if $object_type eq 'project'}p{elseif $object_type eq 'maker'}m{elseif $object_type eq 'user'}u{/if}/{$object->uid}{if isset($object->slug)}/{$object->slug}{/if}
 
 
 Here's why {$object->name|escape} is awesome:
@@ -30,7 +30,7 @@ Here's why {$object->name|escape} is awesome:
 {capture name="report_body_duplicate" assign="report_body_duplicate"}
 Hi, I think this {$object->name|escape} might be a duplicate {$object_type}.
 
-https://makerba.se/{if $object_type eq 'project'}p{elseif $object_type eq 'maker'}m{elseif $object_type eq 'user'}u{/if}/{$object->uid}{if isset($object->slug)}/{$object->slug}{/if}
+https://makerbase.co/{if $object_type eq 'project'}p{elseif $object_type eq 'maker'}m{elseif $object_type eq 'user'}u{/if}/{$object->uid}{if isset($object->slug)}/{$object->slug}{/if}
 
 
 Here's the other {$object_type} that it's a copy of:
@@ -40,7 +40,7 @@ Here's the other {$object_type} that it's a copy of:
 {capture name="report_body_vandalized" assign="report_body_vandalized"}
 I think there's something wrong with the Makerbase {$object_type} page for {$object->name|escape}.
 
-https://makerba.se/{if $object_type eq 'project'}p{elseif $object_type eq 'maker'}m{elseif $object_type eq 'user'}u{/if}/{$object->uid}{if isset($object->slug)}/{$object->slug}{/if}
+https://makerbase.co/{if $object_type eq 'project'}p{elseif $object_type eq 'maker'}m{elseif $object_type eq 'user'}u{/if}/{$object->uid}{if isset($object->slug)}/{$object->slug}{/if}
 
 
 Here's what seems amiss:
@@ -50,7 +50,7 @@ Here's what seems amiss:
 {capture name="report_body_mine" assign="report_body_mine"}
 Hello, I have a personal request about the Makerbase {$object_type} "{$object->name|escape}".
 
-https://makerba.se/{if $object_type eq 'project'}p{elseif $object_type eq 'maker'}m{elseif $object_type eq 'user'}u{/if}/{$object->uid}{if isset($object->slug)}/{$object->slug}{/if}
+https://makerbase.co/{if $object_type eq 'project'}p{elseif $object_type eq 'maker'}m{elseif $object_type eq 'user'}u{/if}/{$object->uid}{if isset($object->slug)}/{$object->slug}{/if}
 
 
 Here are the details:
@@ -66,7 +66,7 @@ Thanks!
 
 {if isset($logged_in_user)}
 Reported by {$logged_in_user->name}
-https://makerba.se/u/{$logged_in_user->uid}
+https://makerbase.co/u/{$logged_in_user->uid}
 {/if}
 {/capture}
 

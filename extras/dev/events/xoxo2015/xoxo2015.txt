@@ -706,7 +706,7 @@ SCWU: And Our Name Spells Lesbian </a>
 <h3>Anil Dash</h3>
 <p>NYC: 40.739069,-73.987082</p>
 <p>
-<a href="http://makerba.se">
+<a href="http://makerbase.co">
 Makerbase </a>
 </p>
 </div>
@@ -3099,7 +3099,7 @@ Hacking Couture </a>
 <h3>Gina Trapani</h3>
 <p>Brooklyn, New York, USA</p>
 <p>
-<a href="http://makerba.se">
+<a href="http://makerbase.co">
 Makerbase </a>
 </p>
 </div>

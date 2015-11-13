@@ -10,7 +10,7 @@
   {assign var='suppress_search' value=false}
 {/if}
 
-{assign var="application_url" value="https://makerba.se"}
+{assign var="application_url" value="https://makerbase.co"}
 
 {include file="_reusablecopy.tpl"}
 
@@ -112,8 +112,8 @@
       <meta name="description" content="{$description}" />
       <meta name="twitter:description" content="{$description}" />
 
-      {assign var="image" value="https://makerba.se/assets/img/makerbase-logo-horizontal.png"}
-      {assign var="image_square" value="https://makerba.se/assets/img/makerbase-logo.png"}
+      {assign var="image" value="https://makerbase.co/assets/img/makerbase-logo-horizontal.png"}
+      {assign var="image_square" value="https://makerbase.co/assets/img/makerbase-logo.png"}
       <meta itemprop="image" content="{$image}">
       <meta property="og:image" content="{$image}" />
       <meta property="twitter:image" content="{$image}" />

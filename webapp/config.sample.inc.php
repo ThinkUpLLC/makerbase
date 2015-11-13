@@ -45,19 +45,19 @@ $ISOSCELES_CFG['admins']         = array('makerbase', 'anildash', 'ginatrapani')
 $ISOSCELES_CFG['sponsors'] = array(
     'Slack' => array(
         'name' => 'Slack',
-        'avatar_url' => 'https://makerba.se/assets/img/sponsors/logo-square-slack.png',
+        'avatar_url' => 'https://makerbase.co/assets/img/sponsors/logo-square-slack.png',
         'uid' => 'm348b6',
         'slug'=> 'slackhq'
     ),
     'MailChimp' => array(
         'name' => 'MailChimp',
-        'avatar_url' => 'https://makerba.se/assets/img/sponsors/logo-small-mailchimp.png',
+        'avatar_url' => 'https://makerbase.co/assets/img/sponsors/logo-small-mailchimp.png',
         'uid' =>'9u0s6y',
         'slug'=> 'mailchimp'
     ),
     'Hover' => array(
         'name' => 'Hover',
-        'avatar_url' =>'https://makerba.se/assets/img/sponsors/logo-small-hover.png',
+        'avatar_url' =>'https://makerbase.co/assets/img/sponsors/logo-small-hover.png',
         'uid' => '7p97ga',
         'slug'=> 'hover'
     )

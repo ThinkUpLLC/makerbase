@@ -62,7 +62,7 @@
 
     <p>Makerbase sponsorships are a simple monthly flat-rate fee that that requires minimal lead time to set up. We'll work with you to tailor your message and presence on Makerbase to appeal to our audience, and offer generous discounts for longer commitments. Just <a href="mailto:team@makerba.se?subject=sponsorship">get in touch</a> to get started!</p>
 
-    <iframe src="https://docs.google.com/gview?url=https://makerba.se/assets/makerbase-sponsorship.pdf&embedded=true" style="width:640px; height:480px; display: block; margin: 0 auto;" frameborder="0"></iframe>
+    <iframe src="https://docs.google.com/gview?url=https://makerbase.co/assets/makerbase-sponsorship.pdf&embedded=true" style="width:640px; height:480px; display: block; margin: 0 auto;" frameborder="0"></iframe>
 
 	</div>
 </div>

@@ -448,7 +448,7 @@
     participate in a class action or class-wide arbitration for any claims covered
     by these Agreement. You hereby waive any and all rights to bring any claims
     related to these Agreement and/or our <a
-    href="https://makerba.se/about/privacy/">Privacy Policy</a> as a plaintiff or
+    href="https://makerbase.co/about/privacy/">Privacy Policy</a> as a plaintiff or
     class member in any purported class or representative proceeding. You may bring
     claims only on your own behalf. </p>
 

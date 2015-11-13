@@ -141,7 +141,7 @@ class UserController extends MakerbaseController {
     }
 
     private function sendConfirmationEmail($user) {
-        $activation_link = "http://makerba.se/u/".$user->uid."?verify=".$user->email_verification_code;
+        $activation_link = "http://makerbase.co/u/".$user->uid."?verify=".$user->email_verification_code;
         $params = array('USER_EMAIL'=>$user->email, 'ACTIVATION_LINK'=>$activation_link);
         try {
             $email_result = Mailer::mailHTMLViaMandrillTemplate($to=$user->email,
