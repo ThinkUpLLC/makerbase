@@ -32,7 +32,7 @@
     <meta property="og:site_name" content="Makerbase" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@makerbase" />
-    <meta name="twitter:domain" content="makerba.se" />
+    <meta name="twitter:domain" content="makerbase.co" />
     <meta name="twitter:creator" content="@makerbase" />
 
     <link rel="shortcut icon" type="image/x-icon" href="{$site_root_path}assets/img/favicon.png">
