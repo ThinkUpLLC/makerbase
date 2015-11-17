@@ -603,6 +603,9 @@ class EditController extends MakerbaseAuthController {
             $connection_dao->insert($this->logged_in_user, $maker);
 
             if ($has_been_updated) {
+                //Refresh maker object from storage to get Twitter details
+                $maker = $maker_dao->get($maker->uid);
+
                 //Add new action
                 $action = new Action();
                 $action->user_id = $this->logged_in_user->id;
