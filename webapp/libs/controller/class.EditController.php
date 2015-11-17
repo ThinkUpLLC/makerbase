@@ -357,6 +357,11 @@ class EditController extends MakerbaseAuthController {
                 $email_notifier = new EmailNotifier($this->logged_in_user);
                 if ($email_notifier->shouldSendMakerChangeEmailNotification($maker)) {
                     $email_notifier->sendMakerChangeEmailNotification();
+                } else {
+                    $tweet_notifier = new TweetNotifier($this->logged_in_user);
+                    if ($tweet_notifier->shouldSendMakerChangeTweetNotification($maker)) {
+                        $tweet_notifier->sendMakerChangeTweetNotification($maker);
+                    }
                 }
 
             }
@@ -551,6 +556,11 @@ class EditController extends MakerbaseAuthController {
                 $email_notifier = new EmailNotifier($this->logged_in_user);
                 if ($email_notifier->shouldSendMakerChangeEmailNotification($maker)) {
                     $email_notifier->sendMakerChangeEmailNotification();
+                } else {
+                    $tweet_notifier = new TweetNotifier($this->logged_in_user);
+                    if ($tweet_notifier->shouldSendMakerChangeTweetNotification($maker)) {
+                        $tweet_notifier->sendMakerChangeTweetNotification($maker);
+                    }
                 }
             }
             CacheHelper::expireCache('maker.tpl', $maker->uid, $maker->slug);
@@ -615,6 +625,11 @@ class EditController extends MakerbaseAuthController {
                 $email_notifier = new EmailNotifier($this->logged_in_user);
                 if ($email_notifier->shouldSendMakerChangeEmailNotification($maker)) {
                     $email_notifier->sendMakerChangeEmailNotification();
+                } else {
+                    $tweet_notifier = new TweetNotifier($this->logged_in_user);
+                    if ($tweet_notifier->shouldSendMakerChangeTweetNotification($maker)) {
+                        $tweet_notifier->sendMakerChangeTweetNotification($maker);
+                    }
                 }
 
                 SessionCache::put('success_message', "Updated ".htmlspecialchars($maker->name));
@@ -781,6 +796,11 @@ class EditController extends MakerbaseAuthController {
                 $email_notifier = new EmailNotifier($this->logged_in_user);
                 if ($email_notifier->shouldSendMakerChangeEmailNotification($maker)) {
                     $email_notifier->sendMakerChangeEmailNotification();
+                } else {
+                    $tweet_notifier = new TweetNotifier($this->logged_in_user);
+                    if ($tweet_notifier->shouldSendMakerChangeTweetNotification($maker)) {
+                        $tweet_notifier->sendMakerChangeTweetNotification($maker);
+                    }
                 }
 
                 SessionCache::put('success_message', "Okay! The role was updated.");

@@ -26,8 +26,8 @@ class TweetNotifier {
             $user_dao = new UserMySQLDAO();
             try {
                 $user_to_notify = $user_dao->getByTwitterUserId($maker->autofill_network_id);
-                // Have an email address so don't notify via Twitter
-                $should_send_maker_change_tweet = ($user_to_notify->email !== null);
+                // Only send if email address is not set
+                $should_send_maker_change_tweet = ($user_to_notify->email == null);
             } catch (UserDoesNotExistException $e) {
                 // Do nothing; if user does not exist, do send them the tweet
             }
@@ -39,18 +39,19 @@ class TweetNotifier {
      * Send tweet about a maker change.
      * @return void
      */
-    public function sendMakerChangeTweetNotification() {
+    public function sendMakerChangeTweetNotification(Maker $maker) {
+        $tweet_text = $this->getMakerChangeTweetText($maker);
+        return $this->sendTweet($maker, $tweet_text);
     }
 
     /**
-     * Send a tweet public @reply notification from @makerbase about a new inspiration.
+     * Send a tweet public @ reply notification from @makerbase about a new inspiration.
      * This notification counts toward a user's tweet notification balance, so if it is sent, another one won't be sent.
      * @param  Maker $inspirer_maker
      * @param  Maker $inspired_maker
      * @return bool
      */
     public function sendNewInspirationTweetNotification(Maker $inspirer_maker, Maker $inspired_maker) {
-        //Tweet a notification
         $tweet_text = $this->getNewInspirationTweetText($inspirer_maker, $inspired_maker);
         return $this->sendTweet($inspirer_maker, $tweet_text);
     }
@@ -170,6 +171,33 @@ class TweetNotifier {
                 $inspired_maker_name. " just said you're an inspiration. ";
         }
         $ga_campaign_tags = "?utm_source=Twitter&utm_medium=Social&utm_campaign=New%20inspiration";
+
+        $tweet_text .= $maker_url.$ga_campaign_tags;
+        return $tweet_text;
+    }
+
+    public function getMakerChangeTweetText(Maker $maker) {
+        $maker_url = "https://makerbase.co/m/".$maker->uid."/".$maker->slug;
+
+        //@jill Hey, @jack just updated your info on Makerbase. [url]
+        //@jill Hi there, @jack just updated your page on Makerbase. [url]
+        $tweet_versions = array(
+            "@".$maker->autofill_network_username." Hey, @".$this->logged_in_user->twitter_username.
+                " just updated your info on Makerbase. ",
+            "@".$maker->autofill_network_username." Hi there, @".$this->logged_in_user->twitter_username.
+                " just updated your page on Makerbase. ",
+            "@".$maker->autofill_network_username." Hi! @".$this->logged_in_user->twitter_username.
+                " just updated your Makerbase page. ",
+        );
+
+        $tweet_text = $tweet_versions[rand(0, count($tweet_versions)-1)];
+
+        //If this tweet is longer than 140, go with the shorter version
+        // if ((strlen($tweet_text) + 23) > 140 ) {
+        //     $tweet_text = "@".$maker->autofill_network_username." Hey, @".
+        //         $inspired_maker_name. " just said you're an inspiration. ";
+        // }
+        $ga_campaign_tags = "?utm_source=Twitter&utm_medium=Social&utm_campaign=Update%20maker";
 
         $tweet_text .= $maker_url.$ga_campaign_tags;
         return $tweet_text;

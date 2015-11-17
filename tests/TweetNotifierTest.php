@@ -146,4 +146,26 @@ class TweetNotifierTest extends MakerbaseUnitTestCase {
             $i++;
         }
     }
+
+    public function testGetMakerChangeTweetText() {
+        $maker = new Maker();
+        $maker->autofill_network_username = '123456789012345';
+        $maker->slug = 'asdf';
+        $maker->uid = 'asdf';
+
+        $user = new User();
+        $user->twitter_username = 'sometwitteruser';
+
+        $tweet_notifier = new TweetNotifier($user);
+
+        $i = 0;
+        while ($i<10) {
+            $tweet = $tweet_notifier->getMakerChangeTweetText($maker);
+//             echo $tweet ."
+// ";
+            //Asserting less than 250 instead of 140 b/c URLs get shortened to 23 chars
+            $this->assertTrue(strlen($tweet) < 250);
+            $i++;
+        }
+    }
 }
