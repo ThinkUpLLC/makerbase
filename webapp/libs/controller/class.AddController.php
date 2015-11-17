@@ -291,6 +291,12 @@ class AddController extends MakerbaseAuthController {
                 $email_notifier = new EmailNotifier($this->logged_in_user);
                 if ($email_notifier->shouldSendMakerChangeEmailNotification($inspirer_maker)) {
                     $email_notifier->sendNewInspirationEmailNotification();
+                } else {
+                    // Send tweet notification
+                    $tweet_notifier = new TweetNotifier($this->logged_in_user);
+                    if ($tweet_notifier->shouldSendMakerChangeTweetNotification($inspirer_maker)) {
+                        $tweet_notifier->sendNewInspirationTweetNotification($inspirer_maker, $maker);
+                    }
                 }
 
                 //Force cache refresh

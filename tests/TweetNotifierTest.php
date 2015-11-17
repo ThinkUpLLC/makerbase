@@ -99,4 +99,51 @@ class TweetNotifierTest extends MakerbaseUnitTestCase {
             $i++;
         }
     }
+
+    public function testGetNewInspirationTweetText() {
+        $maker = new Maker();
+        $maker->autofill_network_username = '123456789012345';
+        $maker->slug = 'asdf';
+        $maker->uid = 'asdf';
+
+        // Inspired maker has a Twitter username set
+        $inspired_maker = new Maker();
+        $inspired_maker->autofill_network_username = 'yaddayaddablah';
+        $inspired_maker->autofill_network = 'twitter';
+        $inspired_maker->slug = 'edeb';
+        $inspired_maker->uid = 'jkli';
+
+        $user = new User();
+        $user->twitter_username = 'sometwitteruser';
+
+        $tweet_notifier = new TweetNotifier($user);
+
+        $i = 0;
+        while ($i<10) {
+            $tweet = $tweet_notifier->getNewInspirationTweetText($maker, $inspired_maker);
+//             echo $tweet ."
+// ";
+            //Asserting less than 250 instead of 140 b/c URLs get shortened to 23 chars
+            $this->assertTrue(strlen($tweet) < 250);
+            $i++;
+        }
+
+        // Inspired maker does not have a Twitter username set
+        $inspired_maker = new Maker();
+        $inspired_maker->autofill_network_username = null;
+        $inspired_maker->autofill_network = null;
+        $inspired_maker->name = 'Jill Sobule';
+        $inspired_maker->slug = 'edeb';
+        $inspired_maker->uid = 'jkli';
+
+        $i = 0;
+        while ($i<10) {
+            $tweet = $tweet_notifier->getNewInspirationTweetText($maker, $inspired_maker);
+//             echo $tweet ."
+// ";
+            //Asserting less than 250 instead of 140 b/c URLs get shortened to 23 chars
+            $this->assertTrue(strlen($tweet) < 250);
+            $i++;
+        }
+    }
 }

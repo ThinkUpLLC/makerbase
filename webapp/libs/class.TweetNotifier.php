@@ -14,15 +14,24 @@ class TweetNotifier {
     /**
      * Return whether or not a user should get a maker change tweet.
      * Returns true if:
-     * * Maker has an associated Twitter user ID
-     * * that Twitter user ID does not equal the logged in users (user isn't editing herself)
      * * the edited maker's associated user has not set his/her email address
-     * * the edited maker's associated user hasn't received a tweet notification ever
+     * * Plus all the criteria in TweetNotifier::shouldTweet
      *
      * @param  Maker  $maker Edited maker
      * @return bool
      */
     public function shouldSendMakerChangeTweetNotification(Maker $maker) {
+        $should_send_maker_change_tweet = $this->shouldTweet($maker);
+        if ($should_send_maker_change_tweet) {
+            $user_dao = new UserMySQLDAO();
+            try {
+                $user_to_notify = $user_dao->getByTwitterUserId($maker->autofill_network_id);
+                // Have an email address so don't notify via Twitter
+                $should_send_maker_change_tweet = ($user_to_notify->email !== null);
+            } catch (UserDoesNotExistException $e) {
+                // Do nothing; if user does not exist, do send them the tweet
+            }
+        }
         return $should_send_maker_change_tweet;
     }
 
@@ -36,11 +45,59 @@ class TweetNotifier {
     /**
      * Send a tweet public @reply notification from @makerbase about a new inspiration.
      * This notification counts toward a user's tweet notification balance, so if it is sent, another one won't be sent.
-     * @return void
+     * @param  Maker $inspirer_maker
+     * @param  Maker $inspired_maker
+     * @return bool
      */
-    public function sendNewInspirationTweetNotification() {
+    public function sendNewInspirationTweetNotification(Maker $inspirer_maker, Maker $inspired_maker) {
+        //Tweet a notification
+        $tweet_text = $this->getNewInspirationTweetText($inspirer_maker, $inspired_maker);
+        return $this->sendTweet($inspirer_maker, $tweet_text);
     }
 
+    /**
+     * Post a given tweet via the Twitter REST API and insert a row in the sent_tweets table.
+     * @param  Maker $maker
+     * @param  str $tweet_text
+     * @return bool
+     */
+    private function sendTweet($maker, $tweet_text) {
+        $cfg = Config::getInstance();
+        $oauth_consumer_key = $cfg->getValue('twitter_oauth_notifier_consumer_key');
+        $oauth_consumer_secret = $cfg->getValue('twitter_oauth_notifier_consumer_secret');
+        $oauth_token = $cfg->getValue('twitter_oauth_notifier_access_token');
+        $oauth_token_secret = $cfg->getValue('twitter_oauth_notifier_access_token_secret');
+
+        //Only attempt the tweet if these are set - and they are not set on dev
+        if (isset($oauth_consumer_key) && isset($oauth_consumer_secret) ) {
+            $twitter_oauth = new TwitterOAuth($oauth_consumer_key, $oauth_consumer_secret, $oauth_token,
+                $oauth_token_secret);
+
+            $api_accessor = new TwitterAPIAccessor();
+            // Tweet the tweet
+            $results = $api_accessor->postTweet($tweet_text, $twitter_oauth);
+            if ($results[0] == 200) {
+                $sent_tweet_dao = new SentTweetMySQLDAO();
+                $sent_tweet_dao->insert($maker->autofill_network_id, $maker->autofill_network_username);
+                return true;
+            } else { //API returned a non-200 code, tweet wasn't sent
+                return false;
+            }
+        } else { //No Twitter credentials set in the config
+            return false;
+        }
+    }
+
+    /**
+     * Return whether or not a user should get a tweet.
+     * Returns true if:
+     * * Maker has an associated Twitter user ID
+     * * that Twitter user ID does not equal the logged in users (user isn't editing herself)
+     * * the edited maker's associated user hasn't received a tweet notification ever
+     *
+     * @param  Maker  $maker Edited maker
+     * @return bool
+     */
     private function shouldTweet(Maker $maker) {
         if (isset($maker->autofill_network_id) && isset($maker->autofill_network)
             && $maker->autofill_network === 'twitter' /* Have Twitter info for maker */
@@ -64,34 +121,58 @@ class TweetNotifier {
         if ($this->shouldTweet($maker)) {
             //Tweet a notification
             $tweet_text = $this->getNewMakerTweetText($maker, $add_to_product);
-
-            $cfg = Config::getInstance();
-            $oauth_consumer_key = $cfg->getValue('twitter_oauth_notifier_consumer_key');
-            $oauth_consumer_secret = $cfg->getValue('twitter_oauth_notifier_consumer_secret');
-            $oauth_token = $cfg->getValue('twitter_oauth_notifier_access_token');
-            $oauth_token_secret = $cfg->getValue('twitter_oauth_notifier_access_token_secret');
-
-            //Only attempt the tweet if these are set - and they are not set on dev
-            if (isset($oauth_consumer_key) && isset($oauth_consumer_secret) ) {
-                $twitter_oauth = new TwitterOAuth($oauth_consumer_key, $oauth_consumer_secret, $oauth_token,
-                    $oauth_token_secret);
-
-                $api_accessor = new TwitterAPIAccessor();
-                // Tweet the tweet
-                $results = $api_accessor->postTweet($tweet_text, $twitter_oauth);
-                if ($results[0] == 200) {
-                    $sent_tweet_dao = new SentTweetMySQLDAO();
-                    $sent_tweet_dao->insert($maker->autofill_network_id, $maker->autofill_network_username);
-                    return true;
-                } else { //API returned a non-200 code, tweet wasn't sent
-                    return false;
-                }
-            } else { //No Twitter credentials set in the config
-                return false;
-            }
+            return $this->sendTweet($maker, $tweet_text);
         } else {
             return false; //Shouldn't send a tweet to this maker
         }
+    }
+
+    public function getNewInspirationTweetText(Maker $inspirer_maker, Maker $inspired_maker) {
+        $maker_url = "https://makerbase.co/m/".$inspired_maker->uid."/".$inspired_maker->slug."/inspirations";
+
+        if (isset($inspired_maker->autofill_network_username) && isset($inspired_maker->autofill_network)
+            && $inspired_maker->autofill_network == 'twitter' ) {
+            $inspired_maker_name = '@'.$inspired_maker->autofill_network_username;
+        } else {
+            if (strlen($inspired_maker->name) > 50) {
+                $inspired_maker_name = substr($inspired_maker->name, 0, 47) . "...";
+            } else {
+                $inspired_maker_name = $inspired_maker->name;
+            }
+        }
+
+        //@jill Hey, @jack just said you're an inspiration. [url]
+        //@jill Hey there, @jack just named you one of their inspirations. [url]
+        //@jill Hi! Jack Smith just listed you as one of their inspirations. [url]
+        //@jill Hey, @jack said you're an inspiration to them. Check it out: [url]
+        //@jill Did you know you inspire @jack? [url]
+        //@jill You inspire @jack! Check it out: [url]
+        $tweet_versions = array(
+            "@".$inspirer_maker->autofill_network_username." Hey, ".$inspired_maker_name.
+                " just said you're an inspiration. ",
+            "@".$inspirer_maker->autofill_network_username." Hey there, ".$inspired_maker_name.
+                " just named you one of their inspirations. ",
+            "@".$inspirer_maker->autofill_network_username." Hi! ".$inspired_maker_name.
+                " just listed you as one of their inspirations. ",
+            "@".$inspirer_maker->autofill_network_username." Hey, ".$inspired_maker_name.
+                " said you're an inspiration to them. Check it out: ",
+            "@".$inspirer_maker->autofill_network_username." Did you know you inspire ".$inspired_maker_name.
+                "? ",
+            "@".$inspirer_maker->autofill_network_username." You inspire ".$inspired_maker_name.
+                "! Check it out: ",
+        );
+
+        $tweet_text = $tweet_versions[rand(0, count($tweet_versions)-1)];
+
+        //If this tweet is longer than 140, go with the shorter version
+        if ((strlen($tweet_text) + 23) > 140 ) {
+            $tweet_text = "@".$maker->autofill_network_username." Hey, @".
+                $inspired_maker_name. " just said you're an inspiration. ";
+        }
+        $ga_campaign_tags = "?utm_source=Twitter&utm_medium=Social&utm_campaign=New%20inspiration";
+
+        $tweet_text .= $maker_url.$ga_campaign_tags;
+        return $tweet_text;
     }
 
     public function getNewMakerTweetText(Maker $maker, Product $product = null) {
