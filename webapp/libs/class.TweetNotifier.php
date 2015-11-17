@@ -201,7 +201,7 @@ class TweetNotifier {
             if ((strlen($tweet_text) + 23) > 140 ) {
                 $tweet_text = "@".$maker->autofill_network_username." Hey, @".
                     $this->logged_in_user->twitter_username.
-                    " just listed you as a maker. Check it out:";
+                    " just listed you as a maker. Check it out: ";
             }
             $ga_content = "mwop"; //maker without product
         }

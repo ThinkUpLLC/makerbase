@@ -111,7 +111,7 @@ class EmailNotifier {
      */
     public function sendNewInspirationEmailNotification() {
         if (!isset($this->logged_in_user) || !isset($this->maker_updated) || !isset($this->user_to_notify)) {
-            throw new Exception('Email notifier has not bee initialized');
+            throw new Exception('Email notifier has not been initialized');
         }
         $maker_page_link = "http://makerbase.co/m/".$this->maker_updated->uid."/".$this->maker_updated->slug
             ."/inspirations";
