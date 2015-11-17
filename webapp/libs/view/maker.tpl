@@ -9,7 +9,7 @@
         {if isset($maker->autofill_network_username) && $maker->autofill_network eq 'twitter'}
           {include file="_twitterprofile.tpl"  twitter_user_id=$maker->autofill_network_id}
         {/if}
-        {include file="_reportpage.tpl"  object=$maker object_type='maker'}
+        {include file="_reportpage.tpl" object=$maker object_type='maker'}
 
       </div>
       <div class="media-body">

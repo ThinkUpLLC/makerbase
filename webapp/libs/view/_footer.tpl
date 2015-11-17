@@ -255,11 +255,6 @@
           }
       });
 
-      // Handle subjects on flagging form
-      $('#flagform input[name="flag-form-option"]').change(function(){
-        $('#flagform #flag-form-action').attr("href", $(this).val())
-      });
-
       // Trigger wait-states on slow adding actions
       $( "form.add-form" ).submit(function() {
         $("form.add-form #add-action").prop('disabled', function (_, val) { return ! val; });
@@ -337,6 +332,52 @@ $(function() {
     {/literal}{/if}{literal}
 
       ga('send', 'pageview');
+
+      // Helpscout Beacon
+
+      !function(e,o,n){window.HSCW=o,window.HS=n,n.beacon=n.beacon||{};
+        var t=n.beacon;
+        t.userConfig={
+            instructions:'Flag this for the Makerbase team',
+            color: '#44c9d7',
+            icon: 'message',
+            modal: 'true',
+            attachment: false,
+            poweredBy: false,
+            translation: {
+              contactSuccessLabel: 'Thanks!',
+              contactSuccessDescription: 'We\'ll review this immediately. Thanks for making Makerbase better.'
+            },
+            topics: [
+              { val: 'featured', label: 'Makerbase should feature this!' },
+              { val: 'duplicate', label: 'I think this is a duplicate'},
+              { val: 'vandalism', label: 'This seems to have been vandalized'},
+              { val: 'mine', label: 'This is mine & I have a request'}
+            ]
+          },
+          t.readyQueue=[],
+          t.config=function(e){this.userConfig=e},
+          t.ready=function(e){this.readyQueue.push(e)},
+          o.config={docs:{enabled:!1,baseUrl:""},
+          contact:{enabled:!0,formId:"21f822d9-87e2-11e5-9e75-0a7d6919297d"}};
+        var r=e.getElementsByTagName("script")[0],
+          c=e.createElement("script");
+          c.type="text/javascript",c.async=!0,
+          c.src="https://djtflbt20bdde.cloudfront.net/",
+          r.parentNode.insertBefore(c,r)}(document,window.HSCW||{},window.HS||{});
+
+      HS.beacon.ready(function() {
+        HS.beacon.identify({
+          {/literal}{if isset($logged_in_user)}{literal}
+          username: '{/literal}{$logged_in_user->name}{literal}',
+          profile: '{/literal}https://makerbase.co/u/{$logged_in_user->uid}{literal}'
+          {/literal}{/if}{literal}
+        });
+      });
+
+      $('#flag-form').click(function() {
+        HS.beacon.open();
+      });
 
     </script>
 

@@ -5631,23 +5631,6 @@ h6 {
 .form-control {
   box-shadow: none;
 }
-#flagform {
-  background-color: rgba(0, 0, 0, 0.25);
-}
-#flagform .modal-dialog .modal-content {
-  border-radius: 20px 3px;
-}
-#flagform .modal-dialog .modal-title {
-  font-weight: 200;
-}
-#flagform .modal-dialog .modal-body {
-  font-size: 1em;
-}
-#flagform .modal-dialog .modal-footer .btn {
-  padding: 6px 12px;
-  color: #fff;
-  font-size: 1em;
-}
 .navbar .navbar-brand {
   width: 200%;
   height: auto;
