@@ -155,6 +155,7 @@ class AddController extends MakerbaseAuthController {
             $this->addToView('avatar_url', $https_avatar_url);
             $this->addToView('url', $twitter_users[0]['url']);
             $this->addToView('network_username', $twitter_users[0]['user_name']);
+            $this->addToView('description', $twitter_users[0]['description']);
             $this->addToView('slug', $twitter_users[0]['user_name']);
             $this->addToView('network', 'twitter');
             $this->addToView('network_id', $twitter_users[0]['user_id']);
