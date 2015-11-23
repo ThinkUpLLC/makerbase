@@ -27,6 +27,7 @@ $router->addRoute('activity', 'LandingController', array('p', 'stream'));
 $router->addRoute('m', 'MakerController', array('uid', 'slug', 't', 'p'));
 $router->addRoute('p', 'ProductController', array('uid', 'slug', 'p'));
 $router->addRoute('u', 'UserController', array('uid', 'p'));
+$router->addRoute('settings', 'SettingsController');
 $router->addRoute('signin', 'SignInController');
 $router->addRoute('signout', 'SignOutController');
 $router->addRoute('add', 'AddController', array('object', 'target'));

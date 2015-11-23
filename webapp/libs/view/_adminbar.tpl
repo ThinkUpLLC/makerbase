@@ -6,7 +6,7 @@
           </button>
           <ul class="dropdown-menu" role="menu" style="min-width: 200px; left: -158px;">
 
-              <li><a href="{$site_root_path}u/{$logged_in_user->uid}">Your account</a></li>
+              <li><a href="{$site_root_path}u/{$logged_in_user->uid}">Settings</a></li>
               <li><a href="{$site_root_path}signout/">Sign out</a></li>
               <li><a href="/s3cr3t"><i class="fa fa-tachometer text-primary"></i> Dashboard</a></li>
               <li role="separator" class="divider"></li>

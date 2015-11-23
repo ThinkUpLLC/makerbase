@@ -12,7 +12,7 @@
 
 <div class="row">
    <div class="col-sm-8 col-sm-offset-2 col-xs-12">
-        <a class="btn btn-success btn-lg" href="{$sign_in_with_twttr_link}">sign in with twitter</a>
+        <a class="btn btn-success btn-lg" href="{$sign_in_with_twttr_link}">Sign in with Twitter</a>
     </div>
 </div>
 
