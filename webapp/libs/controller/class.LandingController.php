@@ -53,6 +53,10 @@ class LandingController extends MakerbaseController {
                     SessionCache::put('success_message',
                         'Get notified when your pages change! <a href="/u/'.$this->logged_in_user->uid
                         .'">Add your email address now.</a>');
+                } elseif (!$this->logged_in_user->is_email_verified) {
+                    SessionCache::put('success_message',
+                        'Get notified when your pages change! <a href="/u/'.$this->logged_in_user->uid
+                        .'">Verify your email address now.</a>');
                 }
             } else { //Non-logged in landing page, just show first page of global actions
                 $page_number = 1;
