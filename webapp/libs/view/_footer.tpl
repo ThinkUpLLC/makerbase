@@ -49,7 +49,7 @@
             <ul class="list-unstyled">
               <li><a href="/explore/">Explore</a></li>
               <li><a href="/about/">About</a></li>
-              <li><a href="https://making.makerba.se">Blog</a></li>
+              <li><a href="https://making.makerbase.co">Blog</a></li>
               <li><a href="mailto:team@makerba.se">Contact us</a></li>
               <li><i class="fa fa-twitter hidden-xs"></i> <a href="https://twitter.com/makerbase">@makerbase</a></li>
             </ul>
