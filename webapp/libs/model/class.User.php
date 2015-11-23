@@ -92,6 +92,10 @@ class User {
      * @var bool Whether or not user should get friend activity email notifications.
      */
     var $is_subscribed_friend_activity_email = true;
+    /**
+     * @var bool Whether or not user should get Makerbase announcements via email.
+     */
+    var $is_subscribed_announcements_email = true;
     public function __construct($row = false) {
         if ($row) {
             $this->id = $row['id'];
@@ -118,6 +122,8 @@ class User {
             $this->last_maker_change_email_sent = $row['last_maker_change_email_sent'];
             $this->is_subscribed_friend_activity_email =
                 PDODAO::convertDBToBool($row['is_subscribed_friend_activity_email']);
+            $this->is_subscribed_announcements_email =
+                PDODAO::convertDBToBool($row['is_subscribed_announcements_email']);
         }
     }
 }

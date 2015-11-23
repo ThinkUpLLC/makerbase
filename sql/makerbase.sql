@@ -273,6 +273,7 @@ CREATE TABLE users (
   is_subscribed_maker_change_email int(1) NOT NULL DEFAULT '1' COMMENT 'Whether or not user gets maker change email notifications.',
   last_maker_change_email_sent timestamp NULL DEFAULT NULL COMMENT 'Last time an email notification of a maker change was sent.',
   is_subscribed_friend_activity_email int(1) NOT NULL DEFAULT '1' COMMENT 'Whether or not user should get friend activity email notifications.',
+  is_subscribed_announcements_email int(1) NOT NULL DEFAULT '1' COMMENT 'Whether or not user should get Makerbase announcements via email.',
   PRIMARY KEY (id),
   UNIQUE KEY uid (uid),
   UNIQUE KEY twitter_user_id (twitter_user_id),

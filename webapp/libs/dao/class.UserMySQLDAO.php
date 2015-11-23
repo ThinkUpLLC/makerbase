@@ -1,6 +1,12 @@
 <?php
 class UserMySQLDAO extends MakerbasePDODAO {
 
+    const MAKER_CHANGE_EMAIL = 1;
+
+    const ANNOUNCEMENTS_EMAIL = 2;
+
+    const FRIEND_ACTIVITY_EMAIL = 3;
+
     public function insert(User $user) {
         $user->uid = self::generateRandomString(6);
         $q = <<<EOD
@@ -142,16 +148,37 @@ EOD;
     }
 
     public function subscribeToMakerChangeEmail(User $user) {
-        return $this->updateIsSubscribedToMakerChangeEmail($user, true);
+        return $this->updateIsSubscribedToEmail($user, true, self::MAKER_CHANGE_EMAIL);
     }
 
     public function unsubscribeFromMakerChangeEmail(User $user) {
-        return $this->updateIsSubscribedToMakerChangeEmail($user, false);
+        return $this->updateIsSubscribedToEmail($user, false, self::MAKER_CHANGE_EMAIL);
     }
 
-    private function updateIsSubscribedToMakerChangeEmail(User $user, $is_subscribed) {
+    public function subscribeToAnnouncementsEmail(User $user) {
+        return $this->updateIsSubscribedToEmail($user, true, self::ANNOUNCEMENTS_EMAIL);
+    }
+
+    public function unsubscribeFromAnnouncementsEmail(User $user) {
+        return $this->updateIsSubscribedToEmail($user, false, self::ANNOUNCEMENTS_EMAIL);
+    }
+
+    private function updateIsSubscribedToEmail(User $user, $is_subscribed, $email_type) {
+        switch ($email_type) {
+            case self::MAKER_CHANGE_EMAIL:
+                $field_name = "is_subscribed_maker_change_email";
+                break;
+            case self::ANNOUNCEMENTS_EMAIL:
+                $field_name = "is_subscribed_announcements_email";
+                break;
+            case self::FRIENDS_ACTIVITY_EMAIL:
+                $field_name = "is_subscribed_friend_activity_email";
+                break;
+            default:
+                $field_name = ""; //This will throw a PDOException
+        }
         $q = <<<EOD
-UPDATE users SET is_subscribed_maker_change_email = :is_subscribed WHERE id = :id
+UPDATE users SET $field_name = :is_subscribed WHERE id = :id
 EOD;
         $vars = array (
             ':id' => $user->id,
@@ -161,9 +188,6 @@ EOD;
         //echo self::mergeSQLVars($q, $vars);
         $ps = $this->execute($q, $vars);
         $update_count = $this->getUpdateCount($ps);
-        if ($update_count == 0) {
-            throw new UserDoesNotExistException('User '.$user->twitter_user_id.' does not exist.');
-        }
         return ($update_count > 0);
     }
 

@@ -131,15 +131,21 @@ $email_capture_state either 'need email', 'confirmation_pending' or 'confirmatio
               <label>
                 <input type="checkbox" onchange="this.form.submit()"{if ($user->is_subscribed_maker_change_email eq true) } checked="true"{/if} name="maker_change_email"> Email me when someone changes my stuff
               </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" onchange="this.form.submit()"{if ($user->is_subscribed_announcements_email eq true) } checked="true"{/if} name="announcements_email"> Email me Makerbase news &amp; announcements
+              </label>
+            </div>
               {**
-               * Comment this back in when Makerbase starts sending friend activity digests
+               * Comment this in when Makerbase starts sending friend activity digests
                *
-              <br />
+            <div class="checkbox">
               <label>
                 <input type="checkbox" onchange="this.form.submit()"> Email me when my friends update their stuff
               </label>
-              **}
             </div>
+              **}
           </form>
 
           <p></p>
