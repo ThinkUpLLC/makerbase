@@ -37,6 +37,32 @@
                     <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Are you sure? This cannot be undone.');">DELETE {$maker->name|escape}</button>
                 </form>
             </li>
+            <li>
+<textarea style="margin: 10px 20px; height: 100px;">
+$featured_maker_1_array = array(
+    'name' => '{$maker->name|escape}',
+    'avatar_url' => '{$maker->avatar_url}',
+    'uid' => '{$maker->uid}',
+    'slug' => '{$maker->slug}'
+);
+
+$featured_maker_1_products = array();
+
+{if isset($roles)}
+{if count($roles) > 0}
+{foreach $roles as $role}
+$featured_maker_1_products[] = array(
+    'name' => '{$role->product->name}',
+    'uid' => '{$role->product->uid}',
+    'slug' => '{$role->product->slug}',
+    'avatar_url' => '{$role->product->avatar_url}',
+);
+{/foreach}
+{/if}
+{/if}
+
+</textarea>
+            </li>
             {/if}
 
             {if isset($product)}
@@ -54,6 +80,33 @@
                     <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Are you sure? This cannot be undone.');">DELETE {$product->name|escape}</button>
                 </form>
             </li>
+            <li>
+<textarea style="margin: 10px 20px; height: 100px;">
+$featured_product_1_array = array(
+    'name' => '{$product->name|escape}',
+    'avatar_url' => '{$product->avatar_url}',
+    'uid' => '{$product->uid}',
+    'slug' => '{$product->slug}'
+);
+
+$featured_product_1_makers = array();
+
+{if isset($roles)}
+{if count($roles) > 0}
+{foreach $roles as $role}
+$featured_product_1_products[] = array(
+    'name' => '{$role->maker->name}',
+    'uid' => '{$role->maker->uid}',
+    'slug' => '{$role->maker->slug}',
+    'avatar_url' => '{$role->maker->avatar_url}',
+);
+{/foreach}
+{/if}
+{/if}
+
+</textarea>
+            </li>
+
             {/if}
 
             {if isset($user) && $user->uid !== $logged_in_user->uid}
