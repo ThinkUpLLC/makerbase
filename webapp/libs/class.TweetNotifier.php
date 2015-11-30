@@ -131,44 +131,23 @@ class TweetNotifier {
     public function getNewInspirationTweetText(Maker $inspirer_maker, Maker $inspired_maker) {
         $maker_url = "https://makerbase.co/m/".$inspired_maker->uid."/".$inspired_maker->slug."/inspirations";
 
-        if (isset($inspired_maker->autofill_network_username) && isset($inspired_maker->autofill_network)
-            && $inspired_maker->autofill_network == 'twitter' ) {
-            $inspired_maker_name = '@'.$inspired_maker->autofill_network_username;
-        } else {
-            if (strlen($inspired_maker->name) > 50) {
-                $inspired_maker_name = substr($inspired_maker->name, 0, 47) . "...";
-            } else {
-                $inspired_maker_name = $inspired_maker->name;
-            }
-        }
-
-        //@jill Hey, @jack just said you're an inspiration. [url]
-        //@jill Hey there, @jack just named you one of their inspirations. [url]
-        //@jill Hi! Jack Smith just listed you as one of their inspirations. [url]
-        //@jill Hey, @jack said you're an inspiration to them. Check it out: [url]
-        //@jill Did you know you inspire @jack? [url]
-        //@jill You inspire @jack! Check it out: [url]
         $tweet_versions = array(
-            "@".$inspirer_maker->autofill_network_username." Hey, ".$inspired_maker_name.
-                " just said you're an inspiration. ",
-            "@".$inspirer_maker->autofill_network_username." Hey there, ".$inspired_maker_name.
-                " just named you one of their inspirations. ",
-            "@".$inspirer_maker->autofill_network_username." Hi! ".$inspired_maker_name.
-                " just listed you as one of their inspirations. ",
-            "@".$inspirer_maker->autofill_network_username." Hey, ".$inspired_maker_name.
-                " said you're an inspiration to them. Check it out: ",
-            "@".$inspirer_maker->autofill_network_username." Did you know you inspire ".$inspired_maker_name.
-                "? ",
-            "@".$inspirer_maker->autofill_network_username." You inspire ".$inspired_maker_name.
-                "! Check it out: ",
+            "@".$inspirer_maker->autofill_network_username." Hey, someone just said you're an inspiration. ",
+            "@".$inspirer_maker->autofill_network_username.
+                " Hey there, someone just named you one of their inspirations. ",
+            "@".$inspirer_maker->autofill_network_username.
+                " Hi! Someone just listed you as one of their inspirations. ",
+            "@".$inspirer_maker->autofill_network_username.
+                " Hey, someone just said you're an inspiration to them. Check it out: ",
+            "@".$inspirer_maker->autofill_network_username." Did you know you're an inspiration? Someone just said so ",
+            "@".$inspirer_maker->autofill_network_username." You inspire someone! Check it out: ",
         );
 
         $tweet_text = $tweet_versions[rand(0, count($tweet_versions)-1)];
 
         //If this tweet is longer than 140, go with the shorter version
         if ((strlen($tweet_text) + 23) > 140 ) {
-            $tweet_text = "@".$maker->autofill_network_username." Hey, @".
-                $inspired_maker_name. " just said you're an inspiration. ";
+            $tweet_text = "@".$maker->autofill_network_username." Hey, someone just said you're an inspiration. ";
         }
         $ga_campaign_tags = "?utm_source=Twitter&utm_medium=Social&utm_campaign=New%20inspiration";
 
@@ -179,24 +158,14 @@ class TweetNotifier {
     public function getMakerChangeTweetText(Maker $maker) {
         $maker_url = "https://makerbase.co/m/".$maker->uid."/".$maker->slug;
 
-        //@jill Hey, @jack just updated your info on Makerbase. [url]
-        //@jill Hi there, @jack just updated your page on Makerbase. [url]
         $tweet_versions = array(
-            "@".$maker->autofill_network_username." Hey, @".$this->logged_in_user->twitter_username.
-                " just updated your info on Makerbase. ",
-            "@".$maker->autofill_network_username." Hi there, @".$this->logged_in_user->twitter_username.
-                " just updated your page on Makerbase. ",
-            "@".$maker->autofill_network_username." Hi! @".$this->logged_in_user->twitter_username.
-                " just updated your Makerbase page. ",
+            "@".$maker->autofill_network_username." Hey, someone just updated your info on Makerbase. ",
+            "@".$maker->autofill_network_username." Hi there, someone just updated your page on Makerbase. ",
+            "@".$maker->autofill_network_username." Hi! Someone just updated your Makerbase page. ",
         );
 
         $tweet_text = $tweet_versions[rand(0, count($tweet_versions)-1)];
 
-        //If this tweet is longer than 140, go with the shorter version
-        // if ((strlen($tweet_text) + 23) > 140 ) {
-        //     $tweet_text = "@".$maker->autofill_network_username." Hey, @".
-        //         $inspired_maker_name. " just said you're an inspiration. ";
-        // }
         $ga_campaign_tags = "?utm_source=Twitter&utm_medium=Social&utm_campaign=Update%20maker";
 
         $tweet_text .= $maker_url.$ga_campaign_tags;
@@ -209,36 +178,24 @@ class TweetNotifier {
         if (isset($product)) {
             //Shorten really long product names
             if (strlen($product->name) > 50) {
-                $product_name = substr($product->name, 0, 47) . "...";
+                $product_name = substr($product->name, 0, 47) . "..";
             } else {
                 $product_name = $product->name;
             }
 
             if ($this->logged_in_user->twitter_username !== 'makerbase') {
                 $tweet_with_product_versions = array(
-                    "@".$maker->autofill_network_username." Hey, @".
-                        $this->logged_in_user->twitter_username.
-                        " just added you to ".$product_name.
+                    "@".$maker->autofill_network_username." Hey, someone just added you to ".$product_name.
                         ". Now you can fill in the details: ",
-                    "@".$maker->autofill_network_username." Hi! @".
-                        $this->logged_in_user->twitter_username.
-                        " said you made ".$product_name.
+                    "@".$maker->autofill_network_username." Hi! Someone said you made ".$product_name.
                         ". Add your role & coworkers: ",
-                    "@".$maker->autofill_network_username." Hi there, @".
-                        $this->logged_in_user->twitter_username.
-                        " said you made ".$product_name.
+                    "@".$maker->autofill_network_username." Hi there, someone said you made ".$product_name.
                         ". Fill in what you did: ",
-                    "@".$maker->autofill_network_username." Hey there, @".
-                        $this->logged_in_user->twitter_username.
-                        " just added you to ".$product_name.
+                    "@".$maker->autofill_network_username." Hey there, someone just added you to ".$product_name.
                         ". What other projects have you made? ",
-                    "@".$maker->autofill_network_username." Hey, @".
-                        $this->logged_in_user->twitter_username.
-                        " said you made ".$product_name.
+                    "@".$maker->autofill_network_username." Hey, someone said you made ".$product_name.
                         ". Fill in your role & collaborators: ",
-                    "@".$maker->autofill_network_username." Hello, @".
-                        $this->logged_in_user->twitter_username.
-                        " added you as a maker to ".$product_name.
+                    "@".$maker->autofill_network_username." Hello, someone added you as a maker to ".$product_name.
                         ". Check it out: ",
                 );
             } else {
@@ -261,10 +218,8 @@ class TweetNotifier {
             //If this tweet is longer than 140, go with the shorter version
             if ((strlen($tweet_text) + 23) > 140 ) {
                 if ($this->logged_in_user->twitter_username !== 'makerbase') {
-                    $tweet_text = "@".$maker->autofill_network_username." Hey, @".
-                        $this->logged_in_user->twitter_username.
-                        " just added you to ".$product_name.
-                        ". ";
+                    $tweet_text = "@".$maker->autofill_network_username." Hey, someone just added you to ".
+                        $product_name. ". ";
                 } else {
                     $tweet_text = "@".$maker->autofill_network_username." Hey, we just added you to ".
                         $product_name.". ";
@@ -274,21 +229,14 @@ class TweetNotifier {
         } else {
             if ($this->logged_in_user->twitter_username !== 'makerbase') {
                 $tweet_versions = array(
-                    "@".$maker->autofill_network_username." Hey, @".
-                        $this->logged_in_user->twitter_username.
-                        " listed you as a maker. What projects have you made? ",
-                    "@".$maker->autofill_network_username." Hi there, @".
-                        $this->logged_in_user->twitter_username.
-                        " just said you're a maker. Fill in your projects & collaborators: ",
-                    "@".$maker->autofill_network_username." Hello, @".
-                        $this->logged_in_user->twitter_username.
-                        " added you as a maker. Now you can list your projects: ",
-                    "@".$maker->autofill_network_username." Hey there, @".
-                        $this->logged_in_user->twitter_username.
-                        " just added you to Makerbase. Tell the world what you made: ",
-                    "@".$maker->autofill_network_username." Hi, @".
-                        $this->logged_in_user->twitter_username.
-                        " just added you as a maker. Check out your new page: ",
+                    "@".$maker->autofill_network_username.
+                        " Hey, someone listed you as a maker. What projects have you made? ",
+                    "@".$maker->autofill_network_username.
+                        " Hi there, someone just said you're a maker. Fill in your projects & collaborators: ",
+                    "@".$maker->autofill_network_username.
+                        " Hey there, someone just added you to Makerbase. Tell the world what you made: ",
+                    "@".$maker->autofill_network_username.
+                        " Hi, someone just added you as a maker. Check out your new page: ",
                 );
             } else {
                 $tweet_versions = array(
@@ -308,9 +256,8 @@ class TweetNotifier {
 
             //If this tweet is longer than 140, go with the shorter version
             if ((strlen($tweet_text) + 23) > 140 ) {
-                $tweet_text = "@".$maker->autofill_network_username." Hey, @".
-                    $this->logged_in_user->twitter_username.
-                    " just listed you as a maker. Check it out: ";
+                $tweet_text = "@".$maker->autofill_network_username.
+                    " Hey, someone just listed you as a maker. Check it out: ";
             }
             $ga_content = "mwop"; //maker without product
         }
