@@ -1,6 +1,7 @@
 TRUNCATE TABLE actions;
 TRUNCATE TABLE action_objects;
 TRUNCATE TABLE connections;
+TRUNCATE TABLE cookies;
 TRUNCATE TABLE event_makers;
 TRUNCATE TABLE event_permissions;
 TRUNCATE TABLE inspirations;
@@ -9,5 +10,6 @@ TRUNCATE TABLE makers;
 TRUNCATE TABLE network_friends;
 TRUNCATE TABLE products;
 TRUNCATE TABLE roles;
+TRUNCATE TABLE sent_tweets;
 TRUNCATE TABLE users;
 TRUNCATE TABLE waitlist;
