@@ -102,7 +102,7 @@ EOD;
     public function getWaitlistersToNotify($limit = 20) {
         $q = <<<EOD
 SELECT * FROM waitlisters_to_notify w
-WHERE is_notif_sent = 0 ORDER BY id DESC LIMIT :limit;
+WHERE is_notif_sent = 0 ORDER BY id ASC LIMIT :limit;
 EOD;
         $vars = array (
             ':limit' => $limit

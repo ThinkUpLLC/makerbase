@@ -19,7 +19,7 @@ class NotifyWaitlistersController extends MakerbaseController {
     public function control() {
         //Get a handful of waitlisters_to_notify who haven't had a notification sent
         $waitlist_dao = new WaitlistMySQLDAO();
-        $waitlisters = $waitlist_dao->getWaitlistersToNotify(10);
+        $waitlisters = $waitlist_dao->getWaitlistersToNotify(20);
 
         /**
          * For each waitlister:
@@ -52,8 +52,8 @@ class NotifyWaitlistersController extends MakerbaseController {
                     $waitlister['month_joined']);
                 $tweet_result = $api_accessor->postTweet($tweet_text, $twitter_oauth);
                 if ($tweet_result[0] == '200') {
-                    $sent_tweet_dao->insert($waitlister['twitter_user_id'], $waitlister['twitter_user_name']);
                     $waitlist_dao->setIsNotifSent($waitlister['twitter_user_id']);
+                    $sent_tweet_dao->insert($waitlister['twitter_user_id'], $waitlister['twitter_user_name']);
                 } else {
                     print_r($tweet_result);
                 }
