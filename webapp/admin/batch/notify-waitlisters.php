@@ -21,21 +21,22 @@ class NotifyWaitlistersController extends MakerbaseController {
         $waitlist_dao = new WaitlistMySQLDAO();
         $waitlisters = $waitlist_dao->getWaitlistersToNotify(3);
 
-        print_r($waitlisters);
         /**
          * For each waitlister:
          * 3a. Check if the person is a user or not. If not:
          *    3a1. send tweet
          *    3a2. insert into sent_tweets
          * 3b. set is_notif_sent = 1
+         */
         $cfg = Config::getInstance();
         $oauth_consumer_key = $cfg->getValue('twitter_oauth_notifier_consumer_key');
-        $oauth_consumer_secret = $cfg->getValue('twitter_oauth_notifier_consumer_secret');
-        $twitter_oauth_notifier_access_token = $cfg->getValue('twitter_oauth_notifier_access_token');
-        $twitter_oauth_notifier_access_token_secret = $cfg->getValue('twitter_oauth_notifier_access_token_secret');
 
-        $twitter_oauth = new TwitterOAuth($oauth_consumer_key, $oauth_consumer_secret,
-            $twitter_oauth_notifier_access_token, $twitter_oauth_notifier_access_token_secret);
+        $oauth_consumer_secret = $cfg->getValue('twitter_oauth_notifier_consumer_secret');
+        $oauth_token = $cfg->getValue('twitter_oauth_notifier_access_token');
+        $oauth_token_secret = $cfg->getValue('twitter_oauth_notifier_access_token_secret');
+
+        $twitter_oauth = new TwitterOAuth($oauth_consumer_key, $oauth_consumer_secret, $oauth_token,
+            $oauth_token_secret);
 
         $api_accessor = new TwitterAPIAccessor();
 
@@ -45,6 +46,7 @@ class NotifyWaitlistersController extends MakerbaseController {
         foreach ($waitlisters as $waitlister) {
             try {
                 $user = $user_dao->getByTwitterUserId($waitlister['twitter_user_id']);
+                //print_r($user);
                 $waitlist_dao->setIsNotifSent($waitlister['twitter_user_id']);
             } catch (UserDoesNotExistException $e) {
                 $tweet_text = "@".$waitlister['twitter_user_name']." this is a test ".$waitlister['month_joined'];
@@ -58,7 +60,6 @@ class NotifyWaitlistersController extends MakerbaseController {
                 echo $e->getMessage();
             }
         }
-                 */
 
     }
 }
