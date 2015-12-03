@@ -134,34 +134,19 @@ $featured_product_1_makers[] = array(
 
 // Second featured Product
 $featured_product_2_array = array(
-    'name' => 'Lunch',
-    'avatar_url' => 'http://www.grotecompany.com/wp-content/uploads/2009/12/sandwich-production.jpg',
-    'uid' => 'x4ndb2',
-    'slug' => 'lunch'
+    'name' => 'Backtracks',
+    'avatar_url' => 'https://pbs.twimg.com/profile_images/666496923591958528/L6dTdTjd.png',
+    'uid' => 'ro0pa5',
+    'slug' => 'backtracksco'
 );
 
 $featured_product_2_makers = array();
 $featured_product_2_makers[] = array(
-    'name' => 'Jennifer Daniel',
-    'uid' => 'dy343o',
-    'slug' => 'jenniferdaniel',
-    'avatar_url' => 'https://pbs.twimg.com/profile_images/624073899441983488/oxygRaYO.png',
+    'name' => 'Casey Kolderup',
+    'uid' => '012g40',
+    'slug' => 'ckolderup',
+    'avatar_url' => 'http://pbs.twimg.com/profile_images/507185277518249984/xTG2KhzK.jpeg',
 );
-
-$featured_product_2_makers[] = array(
-    'name' => 'Jeff Tidwell',
-    'uid' => 'f95097',
-    'slug' => 'prepop',
-    'avatar_url' => 'http://40.media.tumblr.com/841aa757d5fd0728726f8419b218692e/tumblr_mwxxd5MmMl1qzbwq1o1_400.jpg',
-);
-
-$featured_product_2_makers[] = array(
-    'name' => 'Robyn Kanner',
-    'uid' => '9n6w0u',
-    'slug' => 'robynkanner',
-    'avatar_url' => 'http://pbs.twimg.com/profile_images/625319326782877697/o-0cmVsw.jpg',
-);
-
 
 // Third featured Product
 $featured_product_3_array = array(
