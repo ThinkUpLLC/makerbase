@@ -99,6 +99,31 @@ EOD;
         return $this->getDataRowsAsArrays($ps);
     }
 
+    public function getWaitlistersToNotify($limit = 20) {
+        $q = <<<EOD
+SELECT * FROM waitlisters_to_notify w
+WHERE is_notif_sent = 0 LIMIT :limit;
+EOD;
+        $vars = array (
+            ':limit' => $limit
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $ps = $this->execute($q, $vars);
+        return $this->getDataRowsAsArrays($ps);
+    }
+
+    public function setIsNotifSent($twitter_user_id) {
+        $q = <<<EOD
+UPDATE  waitlisters_to_notify SET is_notif_sent = 1 WHERE twitter_user_id = :twitter_user_id
+EOD;
+        $vars = array (
+            ':twitter_user_id' => $twitter_user_id
+        );
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        $ps = $this->execute($q, $vars);
+        return $this->getUpdateCount($ps);
+    }
+
     public function setFollowerCount($network_id, $network, $follower_count) {
         $q = <<<EOD
 UPDATE  waitlist SET follower_count = :follower_count WHERE network_id = :network_id AND network = :network
