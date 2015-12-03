@@ -128,6 +128,30 @@ class TweetNotifier {
         }
     }
 
+    public function getWaitlistNotificationTweetText($twitter_user_name, $month_joined) {
+        $tweet_versions = array(
+            "@".$twitter_user_name." Back in ".$month_joined." you joined our waitlist. ".
+                "Now the wait is over! Sign in to add yourself & your projects: ",
+            "@".$twitter_user_name." Hi, back in ".$month_joined." you joined our waiting list. ".
+                "Wanted to let you know you're in! Add yourself & your projects: ",
+            "@".$twitter_user_name." Hi, back in ".$month_joined." you joined our waiting list. ".
+                "Heads-up: Makerbase is open to the public. Check it out: ",
+            "@".$twitter_user_name." Back in ".$month_joined." you joined our waitlist. ".
+                "Wanted to let you know Makerbase is now open to the public: "
+        );
+        $mb_url = "https://makerbase.co/?utm_source=Twitter&utm_medium=Social&utm_campaign=Waitlist";
+
+        $tweet_text = $tweet_versions[rand(0, count($tweet_versions)-1)];
+
+        //If this tweet is longer than 140, go with the shorter version
+        if ((strlen($tweet_text) + 23) > 140 ) {
+            $tweet_text = "@".$twitter_user_name." Hey, back in ".$month_joined." you joined our waitlist. ".
+                "Good news! Makerbase is live: ";
+        }
+        $tweet_text .= $mb_url;
+        return $tweet_text;
+    }
+
     public function getNewInspirationTweetText(Maker $inspirer_maker, Maker $inspired_maker) {
         $maker_url = "https://makerbase.co/m/".$inspired_maker->uid."/".$inspired_maker->slug."/inspirations";
 

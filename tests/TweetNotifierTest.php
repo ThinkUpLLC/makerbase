@@ -168,4 +168,18 @@ class TweetNotifierTest extends MakerbaseUnitTestCase {
             $i++;
         }
     }
+
+    public function testGetWaitlistNotificationTweetText() {
+        $tweet_notifier = new TweetNotifier();
+
+        $i = 0;
+        while ($i<15) {
+            $tweet = $tweet_notifier->getWaitlistNotificationTweetText('ginatrapani', 'July');
+//             echo $tweet ."
+// ";
+            //Asserting less than 250 instead of 140 b/c URLs get shortened to 23 chars
+            $this->assertTrue(strlen($tweet) < 250);
+            $i++;
+        }
+    }
 }
