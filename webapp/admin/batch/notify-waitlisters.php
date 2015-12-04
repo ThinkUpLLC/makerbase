@@ -48,22 +48,31 @@ class NotifyWaitlistersController extends MakerbaseController {
                 $user = $user_dao->getByTwitterUserId($waitlister['twitter_user_id']);
                 $waitlist_dao->setIsNotifSent($waitlister['twitter_user_id']);
             } catch (UserDoesNotExistException $e) {
-                $result = $api_accessor->getUser($waitlister['twitter_user_name'], $twitter_oauth);
+                try {
+                    $result = $api_accessor->getUser($waitlister['twitter_user_name'], $twitter_oauth);
 
-                $tweet_text = $tweet_notifier->getWaitlistNotificationTweetText($waitlister['twitter_user_name'],
-                    $waitlister['month_joined']);
-                $tweet_result = $api_accessor->postTweet($tweet_text, $twitter_oauth);
+                    $tweet_text = $tweet_notifier->getWaitlistNotificationTweetText($waitlister['twitter_user_name'],
+                        $waitlister['month_joined']);
+                    $tweet_result = $api_accessor->postTweet($tweet_text, $twitter_oauth);
 
-                if ($tweet_result[0] == '200') {
-                    $waitlist_dao->setIsNotifSent($waitlister['twitter_user_id']);
-                    $sent_tweet_dao->insert($waitlister['twitter_user_id'], $waitlister['twitter_user_name']);
-                } else {
-                    print_r($tweet_result);
+                    if ($tweet_result[0] == '200') {
+                        $waitlist_dao->setIsNotifSent($waitlister['twitter_user_id']);
+                        $sent_tweet_dao->insert($waitlister['twitter_user_id'], $waitlister['twitter_user_name']);
+                    } else {
+                        print_r($tweet_result);
+                    }
+                } catch (APIErrorException $e) { //either user doesn't exist or posting tweet failed
+                    $message = $e->getMessage();
+                    echo($waitlister['twitter_user_name']." - ".$message)."
+";
+
+                    if (strpos($message, 'the resource requested, such as a user, does not exist.') !== false) {
+                        //User doesn't exist; set them to sent
+                        $waitlist_dao->setIsNotifSent($waitlister['twitter_user_id']);
+                        echo "Set waitlister to notif_sent
+";
+                    }
                 }
-            } catch (APIErrorException $e) {
-                echo($waitlister['twitter_user_name']." - ".$e->getMessage());
-            } catch (Exception $e) {
-                echo $e->getMessage();
             }
         }
     }
