@@ -48,15 +48,20 @@ class NotifyWaitlistersController extends MakerbaseController {
                 $user = $user_dao->getByTwitterUserId($waitlister['twitter_user_id']);
                 $waitlist_dao->setIsNotifSent($waitlister['twitter_user_id']);
             } catch (UserDoesNotExistException $e) {
+                $result = $api_accessor->getUser($waitlister['twitter_user_name'], $twitter_oauth);
+
                 $tweet_text = $tweet_notifier->getWaitlistNotificationTweetText($waitlister['twitter_user_name'],
                     $waitlister['month_joined']);
                 $tweet_result = $api_accessor->postTweet($tweet_text, $twitter_oauth);
+
                 if ($tweet_result[0] == '200') {
                     $waitlist_dao->setIsNotifSent($waitlister['twitter_user_id']);
                     $sent_tweet_dao->insert($waitlister['twitter_user_id'], $waitlister['twitter_user_name']);
                 } else {
                     print_r($tweet_result);
                 }
+            } catch (APIErrorException $e) {
+                echo($waitlister['twitter_user_name']." - ".$e->getMessage());
             } catch (Exception $e) {
                 echo $e->getMessage();
             }
