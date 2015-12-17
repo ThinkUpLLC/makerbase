@@ -15,7 +15,7 @@ class SearchController extends MakerbaseController {
             $search_params = array();
             $search_type = 'm';
             if ( isset($_GET['type'])) {
-                if ($_GET['type'] == 'product') {
+                if ($_GET['type'] == 'product' || $_GET['type'] == 'project') {
                     $search_params['index'] = 'product_index';
                     $search_params['type']  = 'product_type';
                     $search_type = 'p';
