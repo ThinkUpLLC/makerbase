@@ -3,6 +3,7 @@
 <div class="row" id="maker-info">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <div class="media">
+
       <div class="media-left media-top">
         <img class="img-responsive" src="{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" alt="{$maker->name|escape}">
 
@@ -13,6 +14,7 @@
         {include file="_reportpage.tpl"  object=$maker object_type='maker'}
 
       </div>
+
       <div class="media-body">
         <div id="maker-info-profile">
           {if isset($logged_in_user)}
@@ -39,8 +41,8 @@
           {/if}
         </div>
       </div>
-    </div>
 
+    </div>
   </div>
 </div>
 

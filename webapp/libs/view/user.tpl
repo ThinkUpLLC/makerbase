@@ -13,63 +13,62 @@ $email_capture_state either 'need email', 'confirmation_pending' or 'confirmatio
 <div class="row" id="user-profile">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <div class="media">
+
       <div class="media-body">
         <div id="user-info">
 
           {if isset($logged_in_user)}
-            {if $logged_in_user->twitter_user_id neq $user->twitter_user_id}
+            {if $logged_in_user->twitter_user_id neq $user->twitter_user_id}{* viewing someone else *}
               <h1>
                 <strong>{$user->twitter_username}</strong> edits Makerbase
               </h1>
               <h5><a href="{$user->url}" class="text-muted" rel="nofollow">{$user->url}</a></h5>
-        </div>
-              {if isset($user->maker)}
-                <h3><a href="/m/{$user->maker->uid}/{$user->maker->slug}" class="btn btn-xl btn-primary">See what {$user->maker->name|escape} makes <i class="fa fa-arrow-right"></i></a></h3>
-              {else}
-                <p class="text-muted"><a href="/add/maker/?q={'@'|urlencode}{$user->twitter_username|urlencode}">Add this maker</a></p>
-              {/if}
-            {else}
+
+              <div id="unfollow{$user->uid}" class="follow-button" {if $logged_in_user->is_following_user eq false}style="display: none;"{/if} ><a class="btn btn-xs btn-default btn-unfollow" uid="{$user->uid}" type="user" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Unfollowing" onclick="$('follow{$user->uid}').toggle();">Following</a></div>
+              <div id="follow{$user->uid}" class="follow-button" {if $logged_in_user->is_following_user eq true}style="display: none;"{/if} ><a class="btn btn-xs btn-info btn-follow" uid="{$user->uid}" type="user" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Following" onclick="$('unfollow{$user->uid}').toggle();">Follow</a></div>
+
+            {else}{* viewing themselves *}
                 <h1>
                   <strong>You</strong> edit Makerbase
                 </h1>
-        </div>
-                {if isset($user->maker)}
-                  <h3><a href="/m/{$user->maker->uid}/{$user->maker->slug}" class="btn btn-xl btn-primary">See what you make <i class="fa fa-arrow-right"></i></a></h3>
-                {else}
-                  <p class="text-muted"><a href="/add/maker/?q={'@'|urlencode}{$user->twitter_username|urlencode}">Add yourself as a maker</a></p>
-                {/if}
             {/if}
-          {else}
+
+
+          {else}{* not logged in *}
               <h1>
                 <strong>{$user->twitter_username}</strong> edits Makerbase
               </h1>
               <h5><a href="{$user->url}" class="text-muted" rel="nofollow">{$user->url}</a></h5>
-        </div>
-              {if isset($user->maker)}
-                  <h3><a href="/m/{$user->maker->uid}/{$user->maker->slug}" class="btn btn-xl btn-primary">See what {$user->maker->name|escape} makes <i class="fa fa-arrow-right"></i></a></h3>
-              {else}
-                <p class="text-muted"><a href="/add/maker/?q={'@'|urlencode}{$user->twitter_username|urlencode}">Add this maker</a></p>
-              {/if}
+
+
+              <div class="follow-button"><a class="btn btn-xs btn-info" href="{$sign_in_with_twttr_link}">Follow</a></div>
+
           {/if}
+
+          {include file="_twitterprofile.tpl"  twitter_user_id=$user->twitter_user_id}
+          {include file="_reportpage.tpl"  object=$user object_type='user'}
 
           {if isset($logged_in_user)}
-            {if $logged_in_user->twitter_user_id neq $user->twitter_user_id}
-
-              <div id="unfollow{$user->uid}" {if $logged_in_user->is_following_user eq false}style="display:none"{/if}><a class="btn btn-md btn-default btn-info btn-unfollow" uid="{$user->uid}" type="user"  data-loading-text="<i class='fa fa-spinner fa-spin'></i> Unfollowing" style="padding: 6px 12px;">Following</a></div>
-              <div id="follow{$user->uid}" {if $logged_in_user->is_following_user eq true}style="display:none"{/if}><a class="btn btn-md btn-default btn-follow" uid="{$user->uid}" type="user"  data-loading-text="<i class='fa fa-spinner fa-spin'></i> Following" style="padding: 6px 12px;">Follow</a></div>
-
-              {include file="_twitterprofile.tpl"  twitter_user_id=$user->twitter_user_id}
-              {include file="_reportpage.tpl"  object=$user object_type='user'}
+            {if $logged_in_user->twitter_user_id neq $user->twitter_user_id}{* viewing someone else *}
+              {if isset($user->maker)}
+                <h3><a href="/m/{$user->maker->uid}/{$user->maker->slug}" class="btn btn-lg btn-info">See what {$user->maker->name|escape} makes <i class="fa fa-arrow-right"></i></a></h3>
+              {else}
+                <h3><a class="btn btn-lg btn-info" href="/add/maker/?q={'@'|urlencode}{$user->twitter_username|urlencode}">Add this maker</a></h3>
+              {/if}
+            {else}
+              {if isset($user->maker)}
+                <h3><a href="/m/{$user->maker->uid}/{$user->maker->slug}" class="btn btn-lg btn-info">See what you make <i class="fa fa-arrow-right"></i></a></h3>
+              {else}
+                <h3><a class="btn btn-lg btn-info" href="/add/maker/?q={'@'|urlencode}{$user->twitter_username|urlencode}">Add yourself as a maker</a></h3>
+              {/if}
             {/if}
-          {else}
-              <a class="btn btn-md btn-default" style="padding: 6px 12px;" href="{$sign_in_with_twttr_link}">Follow</a>
-              {include file="_twitterprofile.tpl"  twitter_user_id=$user->twitter_user_id}
-              {include file="_reportpage.tpl"  object=$user object_type='user'}
           {/if}
 
-      </div>
-    </div>
+        </div>
 
+      </div>
+
+    </div>
   </div>
 </div>
 
