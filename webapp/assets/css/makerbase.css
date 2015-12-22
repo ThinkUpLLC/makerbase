@@ -5935,11 +5935,6 @@ form.form-inline {
 #user-info .flag:hover {
   color: #7d888c;
 }
-#project-info .btn-lg,
-#maker-info .btn-lg,
-#user-info .btn-lg {
-  color: #fff;
-}
 #project-info .follow-button a,
 #maker-info .follow-button a,
 #user-info .follow-button a {
