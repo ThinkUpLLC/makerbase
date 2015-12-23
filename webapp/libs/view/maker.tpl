@@ -3,43 +3,46 @@
 <div class="row" id="maker-info">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <div class="media">
+
       <div class="media-left media-top">
         <img class="img-responsive" src="{insert name='user_image' image_url=$maker->avatar_url image_proxy_sig=$image_proxy_sig type='m'}" alt="{$maker->name|escape}">
 
         {if isset($maker->autofill_network_username) && $maker->autofill_network eq 'twitter'}
           {include file="_twitterprofile.tpl"  twitter_user_id=$maker->autofill_network_id}
         {/if}
+
         {include file="_reportpage.tpl"  object=$maker object_type='maker'}
 
       </div>
+
       <div class="media-body">
         <div id="maker-info-profile">
-            {if isset($logged_in_user)}
-              <button onclick="$('#maker-info-edit').toggle();$('#maker-info').toggle();" class="btn btn-default btn-link pull-right">Edit</button>
-            {else}
-              <a href="{$sign_in_with_twttr_link}" class="btn btn-default btn-link pull-right">Edit</a>
-            {/if}
+          {if isset($logged_in_user)}
+            <button onclick="$('#maker-info-edit').toggle();$('#maker-info').toggle();" class="btn btn-default btn-link pull-right">Edit</button>
+          {else}
+            <a href="{$sign_in_with_twttr_link}" class="btn btn-default btn-link pull-right">Edit</a>
+          {/if}
           <h1 {if $maker->is_archived}class="archived"{/if}>
             <strong>{$maker->name|escape}</strong> is a maker
           </h1>
           <h5><a href="{$maker->url}" class="text-muted" rel="nofollow">{$maker->url}</a></h5>
           {if isset($maker->user)}
-            <p class="text-muted"><span class="fa fa-certificate"></span> {$maker->user->twitter_username|escape} also <a class="text-muted" href="/u/{$maker->user->uid}">edits Makerbase</a></p>
+            <h5 class="text-muted"><span class="fa fa-edit"></span> {$maker->user->twitter_username|escape} also <a class="text-muted" href="/u/{$maker->user->uid}">edits Makerbase</a></h5>
           {else}
-            <p class="text-muted">Our community added {$maker->name|escape} to Makerbase.</p>
+            <h5 class="text-muted">Our community added {$maker->name|escape} to Makerbase.</h5>
           {/if}
           {if isset($logged_in_user)}
             {if !$maker->is_archived && !$is_maker_user eq true}
-             <div id="unfollow{$maker->uid}" {if $logged_in_user->is_following_maker eq false}style="display:none"{/if}><a class="btn btn-md btn-default btn-info btn-unfollow" uid="{$maker->uid}" type="maker" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Unfollowing" style="padding: 6px 12px;">Following</a></div>
-             <div id="follow{$maker->uid}" {if $logged_in_user->is_following_maker eq true}style="display:none"{/if}><a class="btn btn-md btn-default btn-follow" uid="{$maker->uid}" type="maker" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Following" style="padding: 6px 12px;">Follow</a></div>
+             <div id="unfollow{$maker->uid}" class="follow-button" {if $logged_in_user->is_following_maker eq false}style="display: none;"{/if} ><a class="btn btn-xs btn-default btn-unfollow" uid="{$maker->uid}" type="maker" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Unfollowing" onclick="$('follow{$maker->uid}').toggle();">Following</a></div>
+             <div id="follow{$maker->uid}" class="follow-button" {if $logged_in_user->is_following_maker eq true}style="display: none;"{/if} ><a class="btn btn-xs btn-info btn-follow" uid="{$maker->uid}" type="maker" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Following" onclick="$('unfollow{$maker->uid}').toggle();">Follow</a></div>
             {/if}
           {else}
-            <a class="btn btn-md btn-default" style="padding: 6px 12px;" href="{$sign_in_with_twttr_link}">Follow</a>
+            <div class="follow-button"><a class="btn btn-xs btn-info" href="{$sign_in_with_twttr_link}">Follow</a></div>
           {/if}
         </div>
       </div>
-    </div>
 
+    </div>
   </div>
 </div>
 

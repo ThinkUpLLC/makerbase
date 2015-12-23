@@ -14,23 +14,27 @@
 
       </div>
       <div class="media-body">
-        {if isset($logged_in_user)}
-          <button onclick="$('#project-info-edit').toggle();$('#project-info').toggle();" class="btn btn-default btn-link pull-right">Edit</button>
-        {else}
-          <a href="{$sign_in_with_twttr_link}" class="btn btn-default btn-link pull-right">Edit</a>
-        {/if}
-        <h1 {if $product->is_archived}class="archived"{/if}>We made <strong>{$product->name|escape}</strong></h1>
-        <h3>{$product->description|escape|atnames:'/search/?q='}</h3>
-        <h5><a href="{if $product->uid eq 'm348b6'}https://slack.com/?cvosrc=general%20promotion.makerbase.slack%20page&amp;utm_source=makerbase&amp;utm_medium=general%20promotion&amp;utm_campaign=slack%20page{else}{$product->url}{/if}" class="text-muted"  rel="nofollow">{$product->url}</a></h5>
+        <div id="project-info-profile">
+          {if isset($logged_in_user)}
+            <button onclick="$('#project-info-edit').toggle();$('#project-info').toggle();" class="btn btn-default btn-link pull-right">Edit</button>
+          {else}
+            <a href="{$sign_in_with_twttr_link}" class="btn btn-default btn-link pull-right">Edit</a>
+          {/if}
+          <h1 {if $product->is_archived}class="archived"{/if}>
+            We made <strong>{$product->name|escape}</strong>
+          </h1>
+          <h5><a href="{if $product->uid eq 'm348b6'}https://slack.com/?cvosrc=general%20promotion.makerbase.slack%20page&amp;utm_source=makerbase&amp;utm_medium=general%20promotion&amp;utm_campaign=slack%20page{else}{$product->url}{/if}" class="text-muted"  rel="nofollow">{$product->url}</a></h5>
 
-        {if isset($logged_in_user)}
-           {if !$product->is_archived}
-            <div id="unfollow{$product->uid}" {if $logged_in_user->is_following_product eq false}style="display:none"{/if}><a class="btn btn-md btn-default btn-info btn-unfollow" uid="{$product->uid}" type="project" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Unfollowing"  style="padding: 6px 12px;">Following</a></div>
-            <div id="follow{$product->uid}" {if $logged_in_user->is_following_product eq true}style="display:none"{/if}><a class="btn btn-md btn-default btn-follow" uid="{$product->uid}" type="project" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Following" style="padding: 6px 12px;">Follow</a></div>
-           {/if}
-        {else}
-           <a class="btn btn-md btn-default" style="padding: 6px 12px;" href="{$sign_in_with_twttr_link}">Follow</a>
-        {/if}
+          <h5>{$product->description|escape|atnames:'/search/?q='}</h5>
+          {if isset($logged_in_user)}
+             {if !$product->is_archived}
+              <div id="unfollow{$product->uid}" class="follow-button" {if $logged_in_user->is_following_product eq false}style="display: none;"{/if} ><a class="btn btn-xs btn-default btn-unfollow" uid="{$product->uid}" type="project" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Unfollowing" onclick="$('follow{$product->uid}').toggle();" >Following</a></div>
+              <div id="follow{$product->uid}" class="follow-button" {if $logged_in_user->is_following_product eq true}style="display: none;"{/if} ><a class="btn btn-xs btn-info btn-follow" uid="{$product->uid}" type="project" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Following" onclick="$('unfollow{$product->uid}').toggle();">Follow</a></div>
+             {/if}
+          {else}
+             <div class="follow-button"><a class="btn btn-xs btn-info" class="follow-button" href="{$sign_in_with_twttr_link}">Follow</a></div>
+          {/if}
+        </div>
       </div>
     </div>
 
