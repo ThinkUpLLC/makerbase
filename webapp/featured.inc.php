@@ -65,7 +65,7 @@ $featured_maker_3_products[] = array(
     'name' => 'Clickradio',
     'uid' => 'psj247',
     'slug' => 'clickradio',
-    'avatar_url' => 'http://64.152.16.30/images/atopc.gif',
+    'avatar_url' => 'http://i.imgur.com/iWhvVH6.png',
 );
 
 // Fourth featured Maker
