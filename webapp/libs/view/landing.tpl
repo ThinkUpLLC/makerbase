@@ -36,13 +36,6 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-    <br />
-    <a class="btn btn-info pull-right" href="/explore/"> New! Explore &nbsp;<img src="/assets/img/arrow-right-white.svg"></a>
-  </div>
-</div>
-
 {include file="_actions.tpl"}
 
 {include file="_featured.tpl"
@@ -53,6 +46,13 @@ makers=$featured_makers
 products=$featured_products
 users=$featured_users
 }
+
+<div class="row">
+  <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+    <br />
+    <a class="btn btn-info pull-right" href="/explore/"> Explore &nbsp;<img src="/assets/img/arrow-right-white.svg"></a>
+  </div>
+</div>
 
 {** END SIGNED-IN LANDING PAGE **}
 
@@ -88,12 +88,20 @@ users=$featured_users
   </div>
 </div>
 
-<div class="row">
-  <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-    <br />
-    <a class="btn btn-info pull-right" href="/explore/"> New! Explore &nbsp;<img src="/assets/img/arrow-right-white.svg"></a>
-  </div>
+<!-- begin quote -->
 </div>
+<div class="container-fluid">
+
+  <div class="row" id="testimonial-quote">
+    <h2 class="col-xs-12"><a href="/explore/">Explore Makerbase! <img src="/assets/img/arrow-right-white.svg" style="padding-left: .25em; margin-top: -.25em;"></a><br />
+    <small><i><a href="/explore/">Connect with people and projects that will inspire you.</a></i></small></h2>
+  </div>
+
+</div>
+
+<div class="container">
+
+<!-- end quote -->
 
 {include file="_featured.tpl"
 maker_section_title='Featured Makers'

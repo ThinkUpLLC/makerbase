@@ -6400,7 +6400,11 @@ body.landing-not-signed-in .pager {
   font-weight: 200;
   font-size: 1.2em;
 }
-#testimonial-quote h2 i {
+#testimonial-quote h2 a {
+  color: #fff;
+}
+#testimonial-quote h2 i,
+#testimonial-quote h2 i a {
   color: #44c9d7;
 }
 @media (min-width: 768px) {

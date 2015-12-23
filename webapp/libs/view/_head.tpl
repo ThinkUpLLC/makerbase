@@ -141,7 +141,7 @@
           <div class="col-xs-2 col-sm-1">
             <a class="navbar-brand" href="{$site_root_path}">{$app_title}</a>
           </div>
-          <div class=" col-xs-8 col-sm-10">
+          <div class=" col-xs-8 col-sm-8">
             {if $suppress_search neq true}
             <form class="navbar-form" role="search" action="/search/">
               <div class="" id="remote-search">
@@ -150,6 +150,11 @@
             </form>
             {/if}
           </div>
+          <div class="col-sm-2 hidden-xs">
+            <a class="btn btn-sm btn-info navbar-btn" href="/explore/"> Explore</a>
+          </div>
+
+
           {if isset($logged_in_user)}
             {if $logged_in_user->is_admin}
               {include file="_adminbar.tpl"}
