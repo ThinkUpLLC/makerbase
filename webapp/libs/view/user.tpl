@@ -58,7 +58,7 @@ $email_capture_state either 'need email', 'confirmation_pending' or 'confirmatio
               {else}
                 <h3><a class="btn btn-md btn-default" href="/add/maker/?q={'@'|urlencode}{$user->twitter_username|urlencode}">Add this maker</a></h3>
               {/if}
-            {else}
+            {else}{* viewing self *}
               {if isset($user->maker)}
                 <h3><a href="/m/{$user->maker->uid}/{$user->maker->slug}" class="btn btn-md btn-default">
                   <img src="{$user->avatar_url}" class="img-rounded" style="height: 2em; padding-right: .5em;" />
@@ -67,6 +67,15 @@ $email_capture_state either 'need email', 'confirmation_pending' or 'confirmatio
               {else}
                 <h3><a class="btn btn-md btn-default" href="/add/maker/?q={'@'|urlencode}{$user->twitter_username|urlencode}">Add yourself as a maker</a></h3>
               {/if}
+            {/if}
+          {else}{* not logged in *}
+            {if isset($user->maker)}
+              <h3><a href="/m/{$user->maker->uid}/{$user->maker->slug}" class="btn btn-md btn-default">
+                <img src="{$user->maker->avatar_url}" class="img-rounded" style="height: 2em; padding-right: .5em;" />
+                See what {$user->maker->name|escape} makes <i class="fa fa-arrow-right"></i>
+              </a></h3>
+            {else}
+              <h3><a class="btn btn-md btn-default" href="{$sign_in_with_twttr_link}">Add this maker</a></h3>
             {/if}
           {/if}
 
