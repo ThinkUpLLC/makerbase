@@ -7,10 +7,11 @@ vagrantfile:
         memory: '512'
         cpus: '1'
         chosen_provider: virtualbox
+        box_version: ''
         network:
             private_network: 192.168.56.101
             forwarded_port:
-                vflnp_adetkee3nxqj:
+                vflnp_dawzhxq77w2y:
                     host: '5422'
                     guest: '22'
         post_up_message: ''
@@ -22,18 +23,18 @@ vagrantfile:
             vmware:
                 numvcpus: 1
             parallels:
-                cpus: 1
+                use_linked_clone: '0'
+                check_guest_tools: '0'
+                update_guest_tools: '0'
         provision:
             puppet:
-                manifests_path: puphpet/puppet
-                manifest_file: site.pp
+                manifests_path: puphpet/puppet/manifests
                 module_path: puphpet/puppet/modules
                 options:
                     - '--verbose'
                     - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
-                    - '--parser future'
         synced_folder:
-            vflsf_jnj51fe0h3tf:
+            vflsf_nftmixki8m9f:
                 source: ./
                 target: /var/www
                 sync_type: default
@@ -65,8 +66,15 @@ vagrantfile:
         forward_agent: false
         forward_x11: false
         shell: 'bash -l'
+        insert_key: false
     vagrant:
         host: detect
+    proxy:
+        http: ''
+        https: ''
+        ftp: ''
+        no_proxy: ''
+        enabled: ''
 server:
     install: '1'
     packages:
@@ -80,9 +88,7 @@ locale:
     install: '1'
     settings:
         default_locale: ''
-        locales:
-            - 'en_GB.UTF-8 UTF-8'
-            - 'en_US.UTF-8 UTF-8'
+        locales: {  }
 firewall:
     install: '1'
     rules: {  }
@@ -95,9 +101,13 @@ nginx:
         default_vhost: 1
         proxy_buffer_size: 128k
         proxy_buffers: '4 256k'
+        proxy_connect_timeout: 600s
+        proxy_send_timeout: 600s
+        proxy_read_timeout: 600s
+        names_hash_bucket_size: 128
     upstreams: {  }
     vhosts:
-        nxv_873bqbwdzcpp:
+        nxv_6i31l53s1j1j:
             server_name: awesome.dev
             server_aliases:
                 - www.awesome.dev
@@ -118,6 +128,7 @@ nginx:
 apache:
     install: '1'
     settings:
+        version: 2.4
         user: www-data
         group: www-data
         default_vhost: true
@@ -128,7 +139,7 @@ apache:
         - proxy_fcgi
         - rewrite
     vhosts:
-        av_lgqaieqdtmz8:
+        av_xjuru1ljicfq:
             servername: makerbase.dev
             serveraliases:
                 - www.makerbase.dev
@@ -145,7 +156,7 @@ apache:
             ssl_protocol: ''
             ssl_cipher: ''
             directories:
-                avd_kpvitoec8uc7:
+                avd_is0xi278ocn0:
                     path: /var/www/webapp
                     options:
                         - Indexes
@@ -157,13 +168,13 @@ apache:
                         - 'all granted'
                     custom_fragment: ''
                     files_match:
-                        avdfm_0qotq4m283z5:
+                        avdfm_j3qj05dycbkn:
                             path: \.php$
                             sethandler: 'proxy:fcgi://127.0.0.1:9000'
                             custom_fragment: ''
                             provider: filesmatch
                     provider: directory
-        av_s3djg3jx65xi:
+        av_llw12n6ghwql:
             servername: makerbase.dev
             serveraliases:
                 - www.makerbase.dev
@@ -187,14 +198,9 @@ php:
         php:
             - cli
             - curl
-            - gd
-            - imagick
             - intl
-            - mcrypt
         pear: {  }
-        pecl:
-            - PDO_MYSQL
-            - pecl_http
+        pecl: {  }
     ini:
         display_errors: 'On'
         error_reporting: E_ALL
@@ -204,14 +210,14 @@ php:
     fpm_ini:
         error_log: /var/log/php-fpm.log
     fpm_pools:
-        phpfp_5bu5d7f0cldz:
+        phpfp_2cqtqwvqvdgm:
             ini:
                 listen: '127.0.0.1:9000'
                 security.limit_extensions: .php
                 user: www-user
                 group: www-data
                 prefix: www
-    composer: '1'
+    composer: 1
     composer_home: ''
 xdebug:
     install: '1'
@@ -247,16 +253,16 @@ drush:
 ruby:
     install: '1'
     versions:
-        rv_j9irwtnunta9:
+        rv_qoq7xx2abkvm:
             version: ''
 python:
     install: '1'
     packages: {  }
-    versions:
-        pyenv_w6hpcleqyxxm:
-            version: 2.6.9
+    versions: {  }
 nodejs:
     install: '0'
+    settings:
+        version: null
     npm_packages: {  }
 hhvm:
     install: '0'
@@ -266,30 +272,6 @@ hhvm:
     settings: {  }
     server_ini: {  }
     php_ini: {  }
-mysql:
-    install: '1'
-    settings:
-        version: '5.5'
-        root_password: '123'
-        override_options: {  }
-    adminer: '1'
-    users:
-        mysqlnu_cggra3x3beer:
-            name: makerbase
-            password: nice2bnice
-    databases:
-        mysqlnd_oasg3ek4tcyr:
-            name: makerbase_web
-            sql: /var/www/sql/makerbase.sql
-        mysqlnd_4fppg02hx8kq:
-            name: makerbase_tests
-            sql: ''
-    grants:
-        mysqlng_z219qluuplmi:
-            user: makerbase
-            table: '*.*'
-            privileges:
-                - ALL
 mariadb:
     install: '0'
     settings:
@@ -300,6 +282,30 @@ mariadb:
     users: {  }
     databases: {  }
     grants: {  }
+mysql:
+    install: '1'
+    settings:
+        version: '5.5'
+        root_password: '123'
+        override_options: {  }
+    adminer: '1'
+    users:
+        mysqlnu_0pzn91l4rlnn:
+            name: makerbase
+            password: nice2bnice
+    databases:
+        mysqlnd_34ad3pnzo3k7:
+            name: makerbase_web
+            sql: /var/www/sql/makerbase.sql
+        mysqlnd_k8q1tqfj563a:
+            name: makerbase_tests
+            sql: ''
+    grants:
+        mysqlng_64r1p319x2nn:
+            user: makerbase
+            table: '*.*'
+            privileges:
+                - ALL
 postgresql:
     install: '0'
     settings:
@@ -318,24 +324,25 @@ mongodb:
         auth: 1
         bind_ip: 127.0.0.1
         port: '27017'
+    globals:
+        version: 2.6.0
     databases: {  }
 redis:
     install: '0'
     settings:
-        conf_port: '6379'
+        port: '6379'
 sqlite:
     install: '0'
     adminer: 0
     databases: {  }
-mailcatcher:
+mailhog:
     install: '0'
     settings:
         smtp_ip: 0.0.0.0
         smtp_port: 1025
         http_ip: 0.0.0.0
-        http_port: '1080'
-        mailcatcher_path: /usr/local/rvm/wrappers/default
-        from_email_method: inline
+        http_port: '8025'
+        path: /usr/local/bin/mailhog
 beanstalkd:
     install: '0'
     settings:
@@ -359,6 +366,7 @@ elastic_search:
     settings:
         version: 1.4.1
         java_install: true
+    instances: {  }
 solr:
     install: '0'
     settings:

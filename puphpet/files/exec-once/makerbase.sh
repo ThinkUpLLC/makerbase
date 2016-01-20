@@ -14,8 +14,11 @@ cp mysql-connector-java-5.1.33/mysql-connector-java-5.1.33-bin.jar plugins/jdbc/
 
 chmod 664 plugins/jdbc/*
 
-# Restart Elasticsearch
-/etc/init.d/elasticsearch restart
+# Create elasticsearch config directory
+mkdir /usr/share/elasticsearch/config
+
+# Start Elasticsearch
+./bin/elasticsearch -d
 
 # Install PHPUnit
 apt-get -q -y install phpunit
