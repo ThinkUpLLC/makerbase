@@ -7,7 +7,7 @@
           <div class="col-sm-4 col-sm-offset-1 col-xs-4">
             <img src="/assets/img/makerbase-mark-white.svg" class="hidden-xs pull-left" width="120" style="padding-right: 20px; margin-top: -20px;"/>
             <ul class="list-unstyled">
-              <li>&copy; 2015 <a href="/p/{$thinkup_uid}/thinkup">ThinkUp</a></li>
+              <li>&copy; 2015-2016 <a href="/p/{$thinkup_uid}/thinkup">ThinkUp</a></li>
               <li>Go make something.</li>
             </ul>
           </div>

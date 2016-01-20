@@ -21,6 +21,7 @@
 
                   <select name="from_year" id="" class="form-input col-sm-2 col-xs-3 input-sm from_year">
                     <option value="">Year</option>
+                    <option value="2016" {if isset($start_Y)}{if $start_Y eq '2016'}selected="selected"{/if}{/if}>2016</option>
                     <option value="2015" {if isset($start_Y)}{if $start_Y eq '2015'}selected="selected"{/if}{/if}>2015</option>
                     <option value="2014" {if isset($start_Y)}{if $start_Y eq '2014'}selected="selected"{/if}{/if}>2014</option>
                     <option value="2013" {if isset($start_Y)}{if $start_Y eq '2013'}selected="selected"{/if}{/if}>2013</option>
@@ -91,6 +92,7 @@
 
                   <select name="to_year" id="" class="form-input col-sm-2 col-xs-3 input-sm to_year{if empty($start_Y) && empty($start_m)} collapse{/if}">
                     <option value="">Present</option>
+                    <option value="2016" {if isset($end_Y)}{if $end_Y eq '2016'}selected="selected"{/if}{/if}>2016</option>
                     <option value="2015" {if isset($end_Y)}{if $end_Y eq '2015'}selected="selected"{/if}{/if}>2015</option>
                     <option value="2014" {if isset($end_Y)}{if $end_Y eq '2014'}selected="selected"{/if}{/if}>2014</option>
                     <option value="2013" {if isset($end_Y)}{if $end_Y eq '2013'}selected="selected"{/if}{/if}>2013</option>
