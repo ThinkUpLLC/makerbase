@@ -134,6 +134,24 @@ EOD;
         return $this->getDataRowsAsArrays($ps);
     }
 
+    public function getTotalSignups($start, $end) {
+        $q = <<<EOD
+SELECT COUNT( * ) AS total_signups, :start as start, :end as end
+FROM  users
+WHERE DATE( creation_time ) >=  :start AND DATE( creation_time ) <= :end
+EOD;
+
+        $vars = array (
+            ':start' => $start,
+            ':end' => $end
+        );
+
+        if ($this->profiler_enabled) { Profiler::setDAOMethod(__METHOD__); }
+        //echo self::mergeSQLVars($q, $vars);
+        $ps = $this->execute($q, $vars);
+        return $this->getDataRowsAsArrays($ps);
+    }
+
     public function updateLastLogin(User $user) {
         $q = "UPDATE users SET last_login_time = CURRENT_TIMESTAMP WHERE twitter_user_id = :twitter_user_id";
         $vars = array ( ':twitter_user_id' => $user->twitter_user_id);

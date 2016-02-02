@@ -41,6 +41,7 @@ $router->addRoute('s3cr3t', 'AdminDashboardController', array('v', 'p'));
 $router->addRoute('adminedit', 'AdminEditController', array('object'));
 $router->addRoute('follow', 'FollowController', array('object', 'uid'));
 $router->addRoute('unfollow', 'UnfollowController', array('object', 'uid'));
+$router->addRoute('api', 'APIController', array('endpoint'));
 
 //Event landing pages
 $router->addRoute('xoxo2015', 'EventXOXOController');
