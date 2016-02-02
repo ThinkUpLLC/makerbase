@@ -32,44 +32,6 @@ class AdminDashboardController extends MakerbaseAdminController {
             $this->addToView('top_users', $top_users);
         }
 
-        if ($_GET['v'] == 'stats') {
-            $user_dao = new UserMySQLDAO();
-            $signups_by_week = $user_dao->getSignupsByWeek();
-
-            $weekly_signups = array();
-            $last_weekly_signup = null;
-            foreach ($signups_by_week as $weekly_signup) {
-                if (isset($last_weekly_signup)) {
-                    $percentage_diff = (($weekly_signup['user_signups_per_week']-$last_weekly_signup)*100)
-                        /($weekly_signup['user_signups_per_week']);
-                    $weekly_signup['percentage_diff'] = $percentage_diff;
-                } else {
-                    $weekly_signup['percentage_diff'] = null;
-                }
-                $last_weekly_signup = $weekly_signup['user_signups_per_week'];
-                $weekly_signups[] = $weekly_signup;
-            }
-            // Figure out average percentage difference over last 10 weeks
-            $last_ten_weeks = array_slice($weekly_signups, count($weekly_signups)-11, 10);
-            $percentage_diff_sum = 0;
-            foreach ($last_ten_weeks as $week) {
-                $percentage_diff_sum += $week['percentage_diff'];
-            }
-            $last_ten_weeks_average = round($percentage_diff_sum / 10);
-
-            $this->addToView('weekly_signups', $weekly_signups);
-            $this->addToView('last_ten_weeks_average', $last_ten_weeks_average);
-
-            $signups_last_week = $last_ten_weeks[9]['user_signups_per_week'];
-            $signups_per_day_last_week = round($signups_last_week/7);
-            $this->addToView('signups_per_day_last_week', $signups_per_day_last_week);
-
-            $signups_this_week = array_pop($weekly_signups);
-            $signups_this_week = $signups_this_week['user_signups_per_week'];
-            $signups_per_day_current_week = round($signups_this_week / (date('w')+1) );
-            $this->addToView('signups_per_day_current_week', $signups_per_day_current_week);
-        }
-
         $this->addToView('sort_view',  $_GET['v']);
         $user_dao = new UserMySQLDAO();
         $total_users = $user_dao->getTotal();

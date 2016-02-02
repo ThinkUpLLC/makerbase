@@ -21,7 +21,6 @@
       <li role="presentation"{if isset($sort_view)}{if $sort_view eq 'all-actions'}class="active"{/if}{/if}><a href="/s3cr3t/all-actions">All Actions</a></li>
       <li role="presentation"{if isset($sort_view)}{if $sort_view eq 'actions'}class="active"{/if}{/if}><a href="/s3cr3t/actions">Admin Actions</a></li>
       <li role="presentation"{if isset($sort_view)}{if $sort_view eq 'top-users'}class="active"{/if}{/if}><a href="/s3cr3t/top-users">Active Users</a></li>
-      <li role="presentation"{if isset($sort_view)}{if $sort_view eq 'stats'}class="active"{/if}{/if}><a href="/s3cr3t/stats">Stats</a></li>
     </ul>
 
 {if isset($actions) && sizeof($actions) > 0}
@@ -67,24 +66,6 @@
       {/if}
 
 {/if}
-
-{if isset($weekly_signups)}
-<h2>Signups per week</h2>
-  {if isset($last_ten_weeks_average)}{if $last_ten_weeks_average > 0}<p style="color:green">+{else}<p style="color:red">{/if}{$last_ten_weeks_average|number_format}% week-over-week last ten weeks</p>{/if}
-
-<ul class="list-group">
-  {foreach $weekly_signups as $weekly_signup}
-    <li class="list-group-item col-xs-12">{if $weekly_signup@last}This week so far{else}{if $weekly_signup@first}Launch week{else}Week {$weekly_signup.week_number}{/if}{/if}: {$weekly_signup.user_signups_per_week|number_format} signups
-
-    {if !$weekly_signup@last}
-      {if isset($weekly_signup.percentage_diff)}{if $weekly_signup.percentage_diff > 0}<span style="color:green">+{else}<span style="color:red">{/if}{$weekly_signup.percentage_diff|number_format}%</span>{/if}</li>
-    {else}
-      <br/>Averaging {$signups_per_day_current_week} signups per day, compared to {$signups_per_day_last_week} per day last week</li>
-    {/if}
-  {/foreach}
-</ul>
-{/if}
-
 
 </div>
 </div>
