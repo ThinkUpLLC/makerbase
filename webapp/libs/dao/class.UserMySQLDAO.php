@@ -121,7 +121,7 @@ EOD;
     public function getSignupsByWeek() {
         //Don't get signups before launch week
         $q = <<<EOD
-SELECT COUNT( * ) AS user_signups_per_week, WEEK( creation_time ) AS week_number
+SELECT COUNT( * ) AS user_signups_per_week, CONCAT(YEAR(creation_time), WEEK( creation_time )) AS week_number
 FROM  users
 WHERE DATE( creation_time ) >  '2015-08-01'
 GROUP BY WEEK( creation_time )
