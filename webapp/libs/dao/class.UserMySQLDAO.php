@@ -120,7 +120,7 @@ EOD;
 
     public function getTotalSignups($start, $end) {
         $q = <<<EOD
-SELECT COUNT( * ) AS total_signups, :start as start, :end as end
+SELECT COUNT( * ) AS value, :start as start, :end as end
 FROM  users
 WHERE DATE( creation_time ) >=  :start AND DATE( creation_time ) <= :end
 EOD;
