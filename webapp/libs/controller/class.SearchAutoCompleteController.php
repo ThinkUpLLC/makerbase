@@ -4,6 +4,7 @@ class SearchAutoCompleteController extends MakerbaseController {
 
     public function control() {
         parent::control();
+        $this->setUpJSONResponse();
         $this->disableCaching();
         $results = array();
 
