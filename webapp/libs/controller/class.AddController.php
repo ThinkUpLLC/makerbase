@@ -20,6 +20,12 @@ class AddController extends MakerbaseAuthController {
                     $this->addiOSAppsToView($_GET['q']);
                     $this->addSearchResultsToView($_GET['q'], 'product');
                     $this->addGitHubReposToView($_GET['q'], 'product');
+                    if (isset($_GET['description'])) {
+                        $this->addToView('description', $_GET['description']);
+                    }
+                    if (isset($_GET['avatar_url'])) {
+                        $this->addToView('avatar_url', $_GET['avatar_url']);
+                    }
                 } elseif ($_GET['object'] == 'maker') {
                     $this->addSearchResultsToView($_GET['q'], 'maker');
                 }

@@ -37,6 +37,9 @@ if (isset($_SERVER['SERVER_NAME'])) {
 $ISOSCELES_CFG['github_username'] = 'ginatrapani';
 $ISOSCELES_CFG['github_personal_access_token'] = '7495a63997ae14b8b5cffd88b40ea81fd7112a41';
 
+// ProductHunt
+$ISOSCELES_CFG['producthunt_token'] = 'b30c7baad41ed19b2a3208e246b8cb1f9c7db169cea7c37930bc7f82d539be91';
+
 // Rando
 $ISOSCELES_CFG['thinkup_uid']    = '38523i';
 $ISOSCELES_CFG['admins']         = array('makerbase', 'anildash', 'ginatrapani');
