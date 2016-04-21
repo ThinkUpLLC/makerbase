@@ -119,7 +119,7 @@
 </div>
 {/if}
 
-{if sizeof($madewiths) > 0}
+{if isset($madewiths) && sizeof($madewiths) > 0}
 <div class="row" id="made-with">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <ul class="list-inline list-unstyled">
@@ -250,7 +250,7 @@
   </div>
 </div>
 
-{if sizeof($uses_this_buttons) > 0}
+{if isset($uses_this_buttons) && sizeof($uses_this_buttons) > 0}
 <div class="row" id="use-these">
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <div id="use-these-actions">

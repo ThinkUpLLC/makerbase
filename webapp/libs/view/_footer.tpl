@@ -13,28 +13,6 @@
           </div>
 
           <div class="col-sm-2 col-xs-4">
-            <p>Sponsors:</p>
-            <ul class="list-unstyled footer-sponsors">
-
-              <li class="">
-                <a href="/p/7p97ga/hover">
-                    <img class="img-rounded avatar pull-left" src="/assets/img/sponsors/logo-small-hover.png" alt="Hover">
-                    Hover
-                  </a>
-              </li>
-              <li class="">
-                <a href="/p/9u0s6y/mailchimp">
-                    <img class="img-rounded avatar pull-left" src="/assets/img/sponsors/logo-small-mailchimp.png" alt="MailChimp">
-                    MailChimp
-                  </a>
-              </li>
-              <li class="">
-                <a href="/p/m348b6/slackhq">
-                    <img class="img-rounded avatar pull-left" src="/assets/img/sponsors/logo-square-slack.png" alt="Slack">
-                    Slack
-                  </a>
-              </li>
-            </ul>
           </div>
 
           <div class="col-sm-2 hidden-xs">

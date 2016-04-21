@@ -9,8 +9,5 @@ Click here to confirm:
 
 Don't worry, we won't spam you. We're only going to email you if someone updates your stuff. If you didn't sign up for Makerbase and received this email in error, you can ignore it.
 
-Sponsors
-Hover * MailChimp * Slack
-
 Sent to *|USER_EMAIL|* by ThinkUp LLC.
 220 East 23rd #601, New York, NY 10010

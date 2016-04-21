@@ -44,11 +44,15 @@ class ProductController extends MakerbaseController {
                 }
                 $this->addToView('uses_this_buttons', $uses_this_buttons);
 
+                $active_madewiths = array();
                 //Use config-specified sponsor avatars for madewiths
                 foreach ($madewiths as $madewith) {
-                    $madewith->used_product->avatar_url = $sponsors[$madewith->used_product->name]['avatar_url'];
+                    if (isset($sponsors[$madewith->used_product->name]['avatar_url'])) {
+                        $madewith->used_product->avatar_url = $sponsors[$madewith->used_product->name]['avatar_url'];
+                        $active_madewiths[] = $madewith;
+                    }
                 }
-                $this->addToView('madewiths', $madewiths);
+                $this->addToView('madewiths', $active_madewiths);
 
                 // Get used by (if sponsor)
                 if (in_array($product->uid, $sponsor_uids) ) {
