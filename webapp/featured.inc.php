@@ -154,19 +154,19 @@ $featured_product_1_array = array(
 
 $featured_product_1_makers = array();
 
-$featured_product_1_products[] = array(
+$featured_product_1_makers[] = array(
     'name' => 'Dev Flaherty',
     'uid' => 'kkyeh8',
     'slug' => 'devwastaken',
     'avatar_url' => 'https://pbs.twimg.com/profile_images/463362293716115458/F82iN6Zm.jpeg',
 );
-$featured_product_1_products[] = array(
+$featured_product_1_makers[] = array(
     'name' => 'B.J. Novak',
     'uid' => 'e93y6a',
     'slug' => 'bjnovak',
     'avatar_url' => 'https://pbs.twimg.com/profile_images/729743028932464641/SXk3vQJm.jpg',
 );
-$featured_product_1_products[] = array(
+$featured_product_1_makers[] = array(
     'name' => 'Jeb',
     'uid' => 'lv61g4',
     'slug' => 'jeb',
@@ -183,7 +183,7 @@ $featured_product_2_array = array(
 
 $featured_product_2_makers = array();
 
-$featured_product_2_products[] = array(
+$featured_product_2_makers[] = array(
     'name' => 'Jocelyn Leavitt',
     'uid' => '32xm8b',
     'slug' => 'jocelynleavitt',
@@ -225,49 +225,49 @@ $featured_product_4_array = array(
 
 $featured_product_4_makers = array();
 
-$featured_product_4_products[] = array(
+$featured_product_4_makers[] = array(
     'name' => 'Ellen Pao',
     'uid' => 'jj1254',
     'slug' => 'ekp',
     'avatar_url' => 'https://pbs.twimg.com/profile_images/727305596936970240/zN1EuLqq.jpg',
 );
-$featured_product_4_products[] = array(
+$featured_product_4_makers[] = array(
     'name' => 'Freada Klein',
     'uid' => 'my427m',
     'slug' => 'therealfreada',
     'avatar_url' => 'https://pbs.twimg.com/profile_images/120858436/freada.jpg',
 );
-$featured_product_4_products[] = array(
+$featured_product_4_makers[] = array(
     'name' => 'Tracy Chou',
     'uid' => 'foevj5',
     'slug' => 'triketora',
     'avatar_url' => 'http://pbs.twimg.com/profile_images/576147637151215617/Rxm_J6SH.jpg',
 );
-$featured_product_4_products[] = array(
+$featured_product_4_makers[] = array(
     'name' => 'Erica Joy',
     'uid' => 'olmm53',
     'slug' => 'ericajoy',
     'avatar_url' => 'http://pbs.twimg.com/profile_images/549627079013048322/OSggbN7B.jpeg',
 );
-$featured_product_4_products[] = array(
+$featured_product_4_makers[] = array(
     'name' => 'susan wu',
     'uid' => '25m0uj',
     'slug' => 'sw',
     'avatar_url' => 'https://pbs.twimg.com/profile_images/1167478537/photo_43_.JPG',
 );
-$featured_product_4_products[] = array(
+$featured_product_4_makers[] = array(
     'name' => 'Y-Vonne Hutchinson',
     'uid' => 'f6v3sw',
     'slug' => 'hutchamachutch',
     'avatar_url' => 'https://pbs.twimg.com/profile_images/1490939305/n15529_34348128_1190.jpg',
 );
-$featured_product_4_products[] = array(
+$featured_product_4_makers[] = array(
     'name' => 'laura i. gómez',
     'uid' => 'cispm6',
     'slug' => 'laura',
     'avatar_url' => 'https://pbs.twimg.com/profile_images/717204090896388099/Bqatp3RZ.jpg',
 );
-$featured_product_4_products[] = array(
+$featured_product_4_makers[] = array(
     'name' => 'bethanye',
     'uid' => '790i8f',
     'slug' => 'bethanye',
