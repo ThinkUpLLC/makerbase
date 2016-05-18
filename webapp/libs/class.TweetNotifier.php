@@ -212,13 +212,13 @@ class TweetNotifier {
                     "@".$maker->autofill_network_username." Hey, someone just added you to ".$product_name.
                         ". Now you can fill in the details: ",
                     "@".$maker->autofill_network_username." Hi! Someone said you made ".$product_name.
-                        ". Add your role & coworkers: ",
+                        ". Wanna list who helped? ",
                     "@".$maker->autofill_network_username." Hi there, someone said you made ".$product_name.
-                        ". Fill in what you did: ",
+                        ". Anybody help you? ",
                     "@".$maker->autofill_network_username." Hey there, someone just added you to ".$product_name.
                         ". What other projects have you made? ",
                     "@".$maker->autofill_network_username." Hey, someone said you made ".$product_name.
-                        ". Fill in your role & collaborators: ",
+                        ". Want to list your collaborators? ",
                     "@".$maker->autofill_network_username." Hello, someone added you as a maker to ".$product_name.
                         ". Check it out: ",
                 );
@@ -227,9 +227,9 @@ class TweetNotifier {
                     "@".$maker->autofill_network_username." Hey, we just added you to ".$product_name.
                         ". Now you can fill in the details: ",
                     "@".$maker->autofill_network_username." Hi! We see you made ".$product_name.
-                        ". Add your role & coworkers: ",
+                        ". Wanna list who helped? ",
                     "@".$maker->autofill_network_username." Hi there, we noticed you made ".$product_name.
-                        ". Fill in what you did: ",
+                        ". Anybody help you? ",
                     "@".$maker->autofill_network_username." Hey there, we just added you to ".$product_name.
                         ". What other projects have you made? ",
                     "@".$maker->autofill_network_username." Hello! We just added you as a maker to "
