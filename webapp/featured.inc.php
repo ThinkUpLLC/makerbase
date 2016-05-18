@@ -370,4 +370,4 @@ $ISOSCELES_CFG['featured_products'] = FeatureHelper::getFeaturedProducts($featur
     $featured_product_1_makers, $featured_product_2_array, $featured_product_2_makers, $featured_product_3_array,
     $featured_product_3_makers, $featured_product_4_array, $featured_product_4_makers);
 
-$ISOSCELES_CFG['featured_users'] = array('920cm0', 'ls84dq', 'f53s75', '0p99yg');
+$ISOSCELES_CFG['featured_users'] = array('94p1rp', 'ls84dq', 'f53s75', '0p99yg');
