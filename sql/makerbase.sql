@@ -258,7 +258,7 @@ CREATE TABLE users (
   twitter_user_id varchar(191) NOT NULL COMMENT 'Twitter user ID.',
   twitter_username varchar(255) NOT NULL COMMENT 'Twitter username.',
   creation_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation time.',
-  last_login_time timestamp COMMENT 'Last login time.',
+  last_login_time timestamp DEFAULT CURRENT_TIMESTAMP COMMENT 'Last login time.',
   twitter_oauth_access_token varchar(255) NOT NULL COMMENT 'Twitter OAuth token.',
   twitter_oauth_access_token_secret varchar(255) NOT NULL COMMENT 'Twitter OAuth secret.',
   maker_id int(11) DEFAULT NULL COMMENT 'Maker ID if claimed.',
