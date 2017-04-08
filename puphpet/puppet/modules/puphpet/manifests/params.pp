@@ -1,77 +1,55 @@
-class puphpet::params {
+class puphpet::params (
+  $extra_config_files = []
+) {
 
-  #########################################################
-  # PHP
-  #########################################################
-  $php_fpm_conf = $::osfamily ? {
-    'Debian' => '/etc/php5/fpm/pool.d/www.conf',
-    'Redhat' => '/etc/php-fpm.d/www.conf',
-  }
+  $puphpet_core_dir  = pick(getvar('::puphpet_core_dir'), '/opt/puphpet')
+  $puphpet_state_dir = pick(getvar('::puphpet_state_dir'), '/opt/puphpet-state')
+  $ssh_username      = pick(getvar('::ssh_username'), 'root')
+  $provisioner_type  = pick(getvar('::provisioner_type'), 'remote')
 
-  $php_cgi_package = $::osfamily ? {
-    'Debian' => 'php5-cgi',
-    'Redhat' => 'php-cgi'
-  }
+  $puphpet_manifest_dir = "${puphpet_core_dir}/puppet/modules/puphpet"
 
-  $hhvm_package_name = 'hhvm'
-  $hhvm_package_name_nightly = $::osfamily ? {
-    'Debian' => 'hhvm-nightly',
-    'Redhat' => 'hhvm'
-  }
+  $base_configs = [
+    "${puphpet_core_dir}/config.yaml",
+    "${puphpet_core_dir}/config-${provisioner_type}.yaml",
+  ]
 
-  $xhprof_package = $::osfamily ? {
-    'Debian' => $::operatingsystem ? {
-      'ubuntu' => false,
-      'debian' => 'php5-xhprof'
-    },
-    'Redhat' => 'xhprof'
-  }
+  $custom_config = ["${puphpet_core_dir}/config-custom.yaml"]
 
-  #########################################################
-  # NGINX
-  #########################################################
+  $yaml = merge_yaml($base_configs, $extra_config_files, $custom_config)
 
-  $nginx_default_conf_location = $::osfamily ? {
-    'Debian' => '/etc/nginx/conf.d/default.conf',
-    'Redhat' => '/etc/nginx/conf.d/default.conf'
-  }
-
-  $nginx_www_location = $::osfamily ? {
-    'Debian' => '/var/www',
-    'Redhat' => '/var/www'
-  }
-
-  $nginx_webroot_location = $::osfamily ? {
-    'Debian' => '/var/www/html',
-    'Redhat' => '/var/www/html'
-  }
-
-  #########################################################
-  # MARIADB
-  #########################################################
-
-  $mariadb_package_client_name = $::osfamily ? {
-    'Debian' => 'mariadb-client',
-    'Redhat' => 'MariaDB-client',
-  }
-
-  $mariadb_package_server_name = $::osfamily ? {
-    'Debian' => 'mariadb-server',
-    'Redhat' => 'MariaDB-server',
-  }
-
-  #########################################################
-  # MISC
-  #########################################################
-
-  $ssl_cert_location = $::osfamily ? {
-    'Debian' => '/etc/ssl/certs/ssl-cert-snakeoil.pem',
-    'Redhat' => '/etc/ssl/certs/ssl-cert-snakeoil'
-  }
-
-  $ssl_key_location = $::osfamily ? {
-    'Debian' => '/etc/ssl/private/ssl-cert-snakeoil.key',
-    'Redhat' => '/etc/ssl/certs/ssl-cert-snakeoil'
+  $hiera = {
+    vm             => hiera_hash('vagrantfile', {}),
+    apache         => $yaml['apache'],
+    beanstalkd     => hiera_hash('beanstalkd', {}),
+    blackfire      => hiera_hash('blackfire', {}),
+    cron           => hiera_hash('cron', {}),
+    drush          => hiera_hash('drush', {}),
+    elasticsearch  => hiera_hash('elastic_search', {}),
+    firewall       => hiera_hash('firewall', {}),
+    hhvm           => hiera_hash('hhvm', {}),
+    letsencrypt    => hiera_hash('letsencrypt', {}),
+    locales        => hiera_hash('locale', {}),
+    mailhog        => hiera_hash('mailhog', {}),
+    mariadb        => hiera_hash('mariadb', {}),
+    mongodb        => hiera_hash('mongodb', {}),
+    mysql          => hiera_hash('mysql', {}),
+    nginx          => $yaml['nginx'],
+    nodejs         => hiera_hash('nodejs', {}),
+    php            => hiera_hash('php', {}),
+    postgresql     => hiera_hash('postgresql', {}),
+    python         => hiera_hash('python', {}),
+    rabbitmq       => hiera_hash('rabbitmq', {}),
+    redis          => hiera_hash('redis', {}),
+    resolv         => hiera_hash('resolv', {}),
+    ruby           => hiera_hash('ruby', {}),
+    server         => hiera_hash('server', {}),
+    solr           => hiera_hash('solr', {}),
+    sqlite         => hiera_hash('sqlite', {}),
+    users_groups   => hiera_hash('users_groups', {}),
+    wpcli          => hiera_hash('wpcli', {}),
+    xdebug         => hiera_hash('xdebug', {}),
+    xhprof         => hiera_hash('xhprof', {}),
   }
 
 }

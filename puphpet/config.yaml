@@ -1,40 +1,48 @@
 vagrantfile:
     target: local
     vm:
-        box: puphpet/ubuntu1404-x64
-        box_url: puphpet/ubuntu1404-x64
-        hostname: local.makerbase
-        memory: '512'
-        cpus: '1'
-        chosen_provider: virtualbox
-        box_version: ''
-        network:
-            private_network: 192.168.56.101
-            forwarded_port:
-                vflnp_dawzhxq77w2y:
-                    host: '5422'
-                    guest: '22'
-        post_up_message: ''
         provider:
-            virtualbox:
-                modifyvm:
-                    natdnshostresolver1: 'on'
-                showgui: '0'
-            vmware:
-                numvcpus: 1
-            parallels:
-                use_linked_clone: '0'
-                check_guest_tools: '0'
-                update_guest_tools: '0'
+            local:
+                box: puphpet/ubuntu1404-x64
+                box_url: 'false'
+                box_version: '0'
+                chosen_virtualizer: virtualbox
+                virtualizers:
+                    virtualbox:
+                        modifyvm:
+                            natdnshostresolver1: false
+                        showgui: 0
+                    vmware:
+                        numvcpus: 1
+                    parallels:
+                        linked_clone: 0
+                        check_guest_tools: 0
+                        update_guest_tools: 0
+                machines:
+                    vflm_2g2yzeak5bcj:
+                        id: makerbase
+                        hostname: makerbase.puphpet
+                        network:
+                            private_network: 192.168.56.101
+                            forwarded_port:
+                                vflmnfp_os742uym9et5:
+                                    host: '5434'
+                                    guest: '22'
+                        memory: '512'
+                        cpus: '1'
         provision:
             puppet:
                 manifests_path: puphpet/puppet/manifests
-                module_path: puphpet/puppet/modules
+                module_path:
+                    - puphpet/puppet/modules
+                    - puphpet/puppet/manifests
                 options:
                     - '--verbose'
                     - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
         synced_folder:
-            vflsf_nftmixki8m9f:
+            vflsf_eyuwgrvn52id:
+                owner: www-data
+                group: www-data
                 source: ./
                 target: /var/www
                 sync_type: default
@@ -42,6 +50,9 @@ vagrantfile:
                     smb_host: ''
                     smb_username: ''
                     smb_password: ''
+                    mount_options:
+                        dir_mode: '0775'
+                        file_mode: '0664'
                 rsync:
                     args:
                         - '--verbose'
@@ -51,22 +62,21 @@ vagrantfile:
                         - .vagrant/
                         - .git/
                     auto: 'true'
-                owner: www-data
-                group: www-data
         usable_port_range:
             start: 10200
             stop: 10500
+        post_up_message: ''
     ssh:
-        host: null
-        port: null
-        private_key_path: null
+        host: 'false'
+        port: 'false'
+        private_key_path: 'false'
         username: vagrant
-        guest_port: null
-        keep_alive: true
-        forward_agent: false
-        forward_x11: false
+        guest_port: 'false'
+        keep_alive: '1'
+        forward_agent: 'false'
+        forward_x11: 'false'
         shell: 'bash -l'
-        insert_key: false
+        insert_key: 'false'
     vagrant:
         host: detect
     proxy:
@@ -74,7 +84,6 @@ vagrantfile:
         https: ''
         ftp: ''
         no_proxy: ''
-        enabled: ''
 server:
     install: '1'
     packages:
@@ -87,43 +96,121 @@ users_groups:
 locale:
     install: '1'
     settings:
-        default_locale: ''
-        locales: {  }
+        default_locale: en_US.UTF-8
+        locales:
+            - en_GB.UTF-8
+            - en_US.UTF-8
+        timezone: America/New_York
 firewall:
     install: '1'
     rules: {  }
+resolv:
+    install: '1'
+    nameservers:
+        - 8.8.8.8
+        - 8.8.4.4
+    domainname: ''
+    searchpath: {  }
 cron:
     install: '1'
     jobs: {  }
 nginx:
     install: '0'
     settings:
+        version: present
         default_vhost: 1
-        proxy_buffer_size: 128k
         proxy_buffers: '4 256k'
+        proxy_buffer_size: 128k
         proxy_connect_timeout: 600s
         proxy_send_timeout: 600s
         proxy_read_timeout: 600s
         names_hash_bucket_size: 128
     upstreams: {  }
     vhosts:
-        nxv_6i31l53s1j1j:
+        nxv_a550ob4ahlzl:
             server_name: awesome.dev
             server_aliases:
                 - www.awesome.dev
             www_root: /var/www/awesome
             listen_port: '80'
-            index_files:
-                - index.html
-                - index.htm
-                - index.php
             client_max_body_size: 1m
             ssl: '0'
-            ssl_cert: ''
-            ssl_key: ''
-            ssl_port: ''
-            ssl_protocols: ''
-            ssl_ciphers: ''
+            locations:
+                nxvl_ldxmg2hk8kyo:
+                    www_root: /var/www/awesome/web
+                    location: /
+                    autoindex: 'off'
+                    internal: 'false'
+                    index_files:
+                        - index.html
+                        - index.php
+                        - app.php
+                    try_files:
+                        - $uri
+                        - $uri/
+                        - /index.php$is_args$args
+                        - /app.php$is_args$args
+                    fastcgi: ''
+                    fastcgi_index: ''
+                    fastcgi_split_path: ''
+                    proxy: ''
+                    proxy_redirect: ''
+                nxvl_ma90i9tiz2h5:
+                    www_root: /var/www/awesome/web
+                    location: '~ ^/(app_dev|config)\.php(/|$)'
+                    autoindex: 'off'
+                    internal: 'false'
+                    try_files:
+                        - $uri
+                        - $uri/
+                        - /app_dev.php$is_args$args
+                    fastcgi: '127.0.0.1:9000'
+                    fastcgi_index: app_dev.php
+                    fastcgi_split_path: '^(.+\.php)(/.*)$'
+                    fast_cgi_params_extra:
+                        - 'SCRIPT_FILENAME $document_root$fastcgi_script_name'
+                        - 'APP_ENV dev'
+                    set:
+                        - '$path_info $fastcgi_path_info'
+                    proxy: ''
+                    proxy_redirect: ''
+                nxvl_hm4csr8nfwng:
+                    www_root: /var/www/awesome/web
+                    location: '~ ^/index\.php(/|$)'
+                    autoindex: 'off'
+                    internal: 'false'
+                    try_files:
+                        - $uri
+                        - $uri/
+                        - /index.php$is_args$args
+                    fastcgi: '127.0.0.1:9000'
+                    fastcgi_index: index.php
+                    fastcgi_split_path: '^(.+\.php)(/.*)$'
+                    fast_cgi_params_extra:
+                        - 'SCRIPT_FILENAME $document_root$fastcgi_script_name'
+                    set:
+                        - '$path_info $fastcgi_path_info'
+                    proxy: ''
+                    proxy_redirect: ''
+                nxvl_pxqtz5qymujx:
+                    www_root: /var/www/awesome/web
+                    location: '~ ^/app\.php(/|$)'
+                    autoindex: 'off'
+                    internal: 'false'
+                    try_files:
+                        - $uri
+                        - $uri/
+                        - /app.php$is_args$args
+                    fastcgi: '127.0.0.1:9000'
+                    fastcgi_index: app.php
+                    fastcgi_split_path: '^(.+\.php)(/.*)$'
+                    fast_cgi_params_extra:
+                        - 'SCRIPT_FILENAME $document_root$fastcgi_script_name'
+                        - 'APP_ENV prod'
+                    set:
+                        - '$path_info $fastcgi_path_info'
+                    proxy: ''
+                    proxy_redirect: ''
     proxies: {  }
 apache:
     install: '1'
@@ -139,14 +226,14 @@ apache:
         - proxy_fcgi
         - rewrite
     vhosts:
-        av_xjuru1ljicfq:
+        av_6f9ml354vx7r:
             servername: makerbase.dev
             serveraliases:
                 - www.makerbase.dev
             docroot: /var/www/webapp
             port: '443'
-            setenv:
-                - 'APP_ENV dev'
+            setenvif:
+                - 'Authorization "(.*)" HTTP_AUTHORIZATION=$1'
             custom_fragment: ''
             ssl: '0'
             ssl_cert: ''
@@ -156,8 +243,9 @@ apache:
             ssl_protocol: ''
             ssl_cipher: ''
             directories:
-                avd_is0xi278ocn0:
+                avd_bv1rgy2r6ux7:
                     path: /var/www/webapp
+                    directoryindex: index.php
                     options:
                         - Indexes
                         - FollowSymlinks
@@ -167,21 +255,21 @@ apache:
                     require:
                         - 'all granted'
                     custom_fragment: ''
-                    files_match:
-                        avdfm_j3qj05dycbkn:
-                            path: \.php$
-                            sethandler: 'proxy:fcgi://127.0.0.1:9000'
-                            custom_fragment: ''
-                            provider: filesmatch
                     provider: directory
-        av_llw12n6ghwql:
+            files_match:
+                avfm_w69d3q1bpwc5:
+                    path: \.php$
+                    sethandler: 'proxy:fcgi://127.0.0.1:9000'
+                    custom_fragment: ''
+                    provider: filesmatch
+        av_fwzt6hi63me6:
             servername: makerbase.dev
             serveraliases:
                 - www.makerbase.dev
             docroot: /var/www/webapp
             port: '80'
-            setenv:
-                - 'APP_ENV dev'
+            setenvif:
+                - 'Authorization "(.*)" HTTP_AUTHORIZATION=$1'
             custom_fragment: /var/www/puphpet/files/makerbase-setup/virtual-host-custom-directives.txt
             ssl: '0'
             ssl_cert: ''
@@ -190,34 +278,54 @@ apache:
             ssl_certs_dir: ''
             ssl_protocol: ''
             ssl_cipher: ''
+            directories:
+                avd_ccsefxlmd4lz:
+                    path: /var/www/webapp
+                    directoryindex: index.php
+                    options:
+                        - Indexes
+                        - FollowSymlinks
+                        - MultiViews
+                    allow_override:
+                        - All
+                    require:
+                        - 'all granted'
+                    custom_fragment: ''
+                    provider: directory
+letsencrypt:
+    install: '0'
+    settings:
+        email: ''
+    domains: {  }
 php:
     install: '1'
     settings:
-        version: '56'
+        version: '5.6'
     modules:
         php:
             - cli
-            - curl
             - intl
+            - xml
+            - curl
+            - mbstring
         pear: {  }
         pecl: {  }
     ini:
         display_errors: 'On'
-        error_reporting: E_ALL
+        error_reporting: '-1'
         session.save_path: /var/lib/php/session
-        date.timezone=UTC: UTC
         date.timezone: UTC
     fpm_ini:
         error_log: /var/log/php-fpm.log
     fpm_pools:
-        phpfp_2cqtqwvqvdgm:
+        phpfp_9argostp2xqb:
             ini:
+                prefix: www
                 listen: '127.0.0.1:9000'
                 security.limit_extensions: .php
                 user: www-user
                 group: www-data
-                prefix: www
-    composer: 1
+    composer: '0'
     composer_home: ''
 xdebug:
     install: '1'
@@ -246,15 +354,13 @@ xhprof:
     install: '0'
 wpcli:
     install: '0'
-    version: v0.17.1
+    version: v1.1.0
 drush:
     install: '0'
-    version: 6.3.0
+    version: 8.0.5
 ruby:
     install: '1'
-    versions:
-        rv_qoq7xx2abkvm:
-            version: ''
+    versions: {  }
 python:
     install: '1'
     packages: {  }
@@ -262,46 +368,47 @@ python:
 nodejs:
     install: '0'
     settings:
-        version: null
+        version: '6'
     npm_packages: {  }
-hhvm:
-    install: '0'
-    nightly: 0
-    composer: '1'
-    composer_home: ''
-    settings: {  }
-    server_ini: {  }
-    php_ini: {  }
 mariadb:
     install: '0'
     settings:
-        version: '10.0'
+        version: '10.1'
         root_password: '123'
         override_options: {  }
-    adminer: 0
-    users: {  }
-    databases: {  }
-    grants: {  }
+    users:
+        mariadbnu_qe1w7oxfunla:
+            name: dbuser
+            password: '123'
+    databases:
+        mariadbnd_ji99ynmawxts:
+            name: dbname
+            sql: ''
+    grants:
+        mariadbng_yq0rxf9nx6fy:
+            user: dbuser
+            table: '*.*'
+            privileges:
+                - ALL
 mysql:
     install: '1'
     settings:
-        version: '5.5'
+        version: '5.7'
         root_password: '123'
         override_options: {  }
-    adminer: '1'
     users:
-        mysqlnu_0pzn91l4rlnn:
+        mysqlnu_3h5tkn9yrvdh:
             name: makerbase
             password: nice2bnice
     databases:
-        mysqlnd_34ad3pnzo3k7:
+        mysqlnd_yuk7rn13ofox:
             name: makerbase_web
             sql: /var/www/sql/makerbase.sql
-        mysqlnd_k8q1tqfj563a:
+        mysqlnd_g2k02r2qjpp6:
             name: makerbase_tests
             sql: ''
     grants:
-        mysqlng_64r1p319x2nn:
+        mysqlng_b6nkuujcy3ao:
             user: makerbase
             table: '*.*'
             privileges:
@@ -311,17 +418,15 @@ postgresql:
     settings:
         global:
             encoding: UTF8
-            version: '9.3'
+            version: '9.6'
         server:
-            postgres_password: ''
+            postgres_password: '123'
     databases: {  }
     users: {  }
     grants: {  }
-    adminer: 0
 mongodb:
     install: '0'
     settings:
-        auth: 1
         bind_ip: 127.0.0.1
         port: '27017'
     globals:
@@ -333,7 +438,6 @@ redis:
         port: '6379'
 sqlite:
     install: '0'
-    adminer: 0
     databases: {  }
 mailhog:
     install: '0'
@@ -347,7 +451,7 @@ beanstalkd:
     install: '0'
     settings:
         listenaddress: 0.0.0.0
-        listenport: '13000'
+        listenport: '11300'
         maxjobsize: '65535'
         maxconnections: '1024'
         binlogdir: /var/lib/beanstalkd/binlog
@@ -364,12 +468,13 @@ rabbitmq:
 elastic_search:
     install: '1'
     settings:
-        version: 1.4.1
+        version: 2.3.1
         java_install: true
-    instances: {  }
+    instances:
+        esi_a0eg6y6b17dm:
+            name: es-01
 solr:
     install: '0'
     settings:
-        version: 4.10.2
+        version: 5.5.2
         port: '8984'
-
