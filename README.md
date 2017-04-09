@@ -4,6 +4,7 @@ A directory of people who make things
 
 ## Requirements
 
+TK Specify versions here as per puphpet.com
 * [Vagrant](https://vagrantup.com)
 * [VirtualBox](https://www.virtualbox.org/)
 * ```vagrant plugin install vagrant-bindfs```
@@ -53,12 +54,20 @@ SSH into the guest machine to run the tests.
 
 ## Tools
 
+TK This no longer exists. Replace with:
+
+The preferred way to connect to your database is using a dedicated application like Sequel Pro (OS X), HeidiSQL (Windows), and MySQL Workbench (Cross Platform).
+
+Connect using SSH tunnel, username vagrant and SSH key generated at puphpet/files/dot/ssh/id_rsa. This key is generated after your initial $ vagrant up!
+
 Adminer database admin:
 
 * http://192.168.56.101/adminer/
 * makerbase / nice2bnice
 
 MailCatcher
+
+TK Is this working?
 
 * http://192.168.56.101:1080/
 
@@ -80,6 +89,8 @@ If you ``vagrant destroy`` then ``vagrant up`` again and keep getting Authentica
 
 This Vagrant virtual machine was built with [PuPHPet](http://puphpet.com). To modify it for your own purposes, drag and drop puphpet/config.yaml onto (http://puphpet.com) and regenerate.
 
+TK Be sure to copy over the files/ folder for all the custom makerbase setup stuff.
+
 ## Elasticsearch Cheatsheet
 
 Restart node:
@@ -91,6 +102,8 @@ Get settings (like home directory):
 $ curl http://localhost:9200/_nodes?settings=true&pretty=true
 
 ## Libraries
+
+TK Check these versions
 
 JDBC plugin for Elasticsearch https://github.com/jprante/elasticsearch-river-jdbc
 
@@ -138,3 +151,5 @@ curl -XDELETE 'localhost:9200/_river/my_jdbc_river/'
 
     $ cd isosceles; git pull origin master; cd ..
     $ git add isosceles; git commit -m "Isosceles submodule updated"
+
+TK: Add link to how to reload sample data in puphpet/files/makerbase-setup/README.md
